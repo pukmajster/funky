@@ -1,0 +1,11 @@
+{
+  "name": "sourcebox-shared",
+  "version": "1.0.0",
+  "description": "An Electron application with Svelte and TypeScript",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "build:linux": "npm run build && electron-builder --linux --config"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
