@@ -1,5 +1,6 @@
 <script lang="ts">
   import classNames from 'classnames'
+  import { CheckCircle, CircleIcon, FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
   import type { Profile } from 'shared'
   import { game550 } from 'shared/games/550'
   import { libraryActiveCategory, libraryActiveSubCategories } from '../stores/library'
@@ -32,19 +33,22 @@
 
   <div class="flex">
     <div class="flex flex-col min-w-[73px] p-2">
-      <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden">
+      <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden min-w-[64px]">
         <button
           class:variant-filled={'all' == $libraryActiveCategory}
           on:click={() => setActiveCategory('all')}
-          class="btn text-sm p-4 rounded-none">all</button
+          class="categoryButton"
         >
+          <InfinityIcon />
+          All
+        </button>
 
         {#each categories as category}
           {@const catActive = category.id == $libraryActiveCategory}
           <button
             class:variant-filled={catActive}
             on:click={() => setActiveCategory(category.id)}
-            class="btn text-sm p-4 rounded-none"
+            class="categoryButton"
           >
             <img
               src={category.imageUrl}
@@ -53,13 +57,18 @@
                 'scale-125 invert': catActive
               })}
             />
+
+            {category.label}
           </button>
         {/each}
 
         <button
           class:variant-filled={'?' == $libraryActiveCategory}
           on:click={() => setActiveCategory('?')}
-          class="btn text-sm p-4 rounded-none">?</button
+          class="categoryButton"
+        >
+          <FileQuestionIcon />
+          Unknown</button
         >
       </div>
     </div>
@@ -67,13 +76,26 @@
     <div class="pt-2">
       {#each categories as category}
         <div class:hidden={$libraryActiveCategory !== category.id}>
-          <div class="flex flex-col gap-1 items-start">
+          <div class="flex flex-col items-start rounded-md overflow-hidden">
             {#each category.subCategories as subCategory}
+              {@const subCatActive = $libraryActiveSubCategories.includes(subCategory.id)}
+
               <button
-                class="w-full text-left bg-surface-800 !rounded-md px-2 py-[2px]"
-                class:subCategory_enabled={$libraryActiveSubCategories.includes(subCategory.id)}
+                class={classNames(
+                  'w-full text-left bg-surface-800 p-1 px-2 flex items-center gap-2',
+                  {
+                    '!bg-primary-500': subCatActive,
+                    'hover:bg-surface-500': !subCatActive
+                  }
+                )}
                 on:click={() => updateCategoriesSelection(subCategory.id)}
               >
+                {#if subCatActive}
+                  <CheckCircle size={14} />
+                {:else}
+                  <CircleIcon size={14} />
+                {/if}
+
                 {subCategory.label}
               </button>
             {/each}
@@ -85,7 +107,7 @@
 </div>
 
 <style>
-  .subCategory_enabled {
-    @apply bg-white text-black;
+  .categoryButton {
+    @apply flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none;
   }
 </style>

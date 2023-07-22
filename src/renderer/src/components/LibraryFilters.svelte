@@ -69,7 +69,7 @@
   }
 
   .showConflicts {
-    @apply bg-red-500;
+    @apply bg-primary-500;
   }
 
   .showingConflicts {

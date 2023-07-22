@@ -43,7 +43,7 @@
 
     const settings: DrawerSettings = {
       id: 'addon-overview',
-      width: 'w-[70%] max-w-[900px]',
+      width: 'w-[50%] max-w-[600px]',
       rounded: 'rounded-none'
     }
 

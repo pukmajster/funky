@@ -5,5 +5,5 @@
 
 <div class="flex flex-col">
   <div class="text-sm text-gray-400">{title}</div>
-  <div class="text-md">{value ?? '-'}</div>
+  <div class="text-md">{value || '-'}</div>
 </div>

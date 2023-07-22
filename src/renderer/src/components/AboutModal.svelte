@@ -16,10 +16,6 @@
     >
   </p>
 
-  <p>Developed with Electron, Svelte and Skeleton UI</p>
-
-  <p>Shoutout to Valve</p>
-
   <p>
     Visit the project at <a
       class="flex-inline items-center gap-2 text-primary-400"
@@ -30,6 +26,10 @@
       GitHub
     </a>
   </p>
+
+  <p>Developed with Electron, Svelte and Skeleton UI</p>
+
+  <p>Shoutout to Valve</p>
 
   <button on:click={close} class="btn btn-sm variant-filled">Close</button>
 </div>

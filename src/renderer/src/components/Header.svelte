@@ -35,7 +35,7 @@
       // Pass a reference to your custom component
       ref: AboutModal,
       // Add the component properties as key/value pairs
-      props: { background: 'bg-red-500' },
+      props: { background: 'bg-primary-500' },
       // Provide a template literal for the default component slot
       slot: '<p>Skeleton</p>'
     }
@@ -76,9 +76,11 @@
 >
   <svelte:fragment slot="lead">
     <div class="flex gap-2">
-      <button class="btn btn-sm variant-soft" on:click={openSettingsDrawer}>Menu</button>
+      <button class="btn btn-sm variant-filled-surface" on:click={openSettingsDrawer}
+        >Settings</button
+      >
 
-      <button class="btn btn-sm variant-soft" on:click={launchGame}>
+      <button class="btn btn-sm bg-primary-500" on:click={launchGame}>
         <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />Launch game</button
       >
     </div>
@@ -86,11 +88,11 @@
 
   <svelte:fragment slot="trail">
     <div class="flex gap-2">
-      <button class="btn btn-sm variant-soft" on:click={openAboutModal}>
+      <button class="btn btn-sm variant-filled-surface" on:click={openAboutModal}>
         <InfoIcon class="w-4 mr-2 inline" /> About</button
       >
 
-      <button class="btn btn-sm variant-soft" on:click={openHelpModal}>
+      <button class="btn btn-sm variant-filled-surface" on:click={openHelpModal}>
         <HelpCircleIcon class="w-4 mr-2 inline" />
         Help</button
       >
