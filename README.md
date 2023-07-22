@@ -12,11 +12,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Advanced mod conflict solving menu which shows you exactly which mods are conflicting with one another
 - [x] Support for different profiles, letting you quickly hop between various mod setups.
 - [x] Mod shuffle/randomization. Changes things up everytime you launch the game.
-- [ ] Welcome guide
-- [ ] Help panel
-- [ ] About panel
 - [ ] Pagination
-- [ ] Landing page
 
 ## BETA Roadmap
 - [ ] Custom-vocalizer editor
