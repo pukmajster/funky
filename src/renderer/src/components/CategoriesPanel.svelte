@@ -31,7 +31,7 @@
 <div class="w-[300px]">
   <div class="flex flex-col gap-2 [&>div]:w-full" />
 
-  <div class="flex">
+  <div class="flex flex-grow-0">
     <div class="flex flex-col min-w-[73px] p-2">
       <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden min-w-[64px]">
         <button
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <div class="pt-2">
+    <div class="pt-2 w-[73%]">
       {#each categories as category}
         <div class:hidden={$libraryActiveCategory !== category.id}>
           <div class="flex flex-col items-start rounded-md overflow-hidden">
@@ -82,7 +82,7 @@
 
               <button
                 class={classNames(
-                  'w-full text-left bg-surface-800 p-1 px-2 flex items-center gap-2',
+                  'w-full text-left bg-surface-800 p-1 px-2 flex items-center gap-2 text-ellipsis overflow-hidden ...',
                   {
                     '!bg-primary-500': subCatActive,
                     'hover:bg-surface-500': !subCatActive
@@ -90,11 +90,13 @@
                 )}
                 on:click={() => updateCategoriesSelection(subCategory.id)}
               >
-                {#if subCatActive}
-                  <CheckCircle size={14} />
-                {:else}
-                  <CircleIcon size={14} />
-                {/if}
+                <span class="min-w[24px]">
+                  {#if subCatActive}
+                    <CheckCircle size={14} />
+                  {:else}
+                    <CircleIcon size={14} />
+                  {/if}
+                </span>
 
                 {subCategory.label}
               </button>

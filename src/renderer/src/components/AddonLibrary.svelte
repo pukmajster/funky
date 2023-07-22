@@ -20,7 +20,7 @@
   }
 </script>
 
-<div class="relative h-full flex flex-col ml-3">
+<div class="relative h-full flex flex-col">
   <LibraryFilters />
 
   {#if !$showingConflictingAddons}
