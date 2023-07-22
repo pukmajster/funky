@@ -50,7 +50,7 @@
     }}
     on:drop={(e) => drop(e)}
     class:dropActive={dropzone}
-    class="transition-transform min-h-[162px] fixed left-[300px] right-0 left-0 z-10 py-2 after:h-[1px] after:left-[-2px] after:absolute after:top-[-2px] after:w-full after:bg-surface-700 after:content-[''] after:border-white mx-3 bg-surface-900/50 backdrop-blur-md border-2 border-transparent border-dotted min-h-[96px]"
+    class="transition-transform min-h-[162px] fixed left-[300px] right-0 left-0 z-10 py-2 after:h-[1px] after:left-[-2px] after:absolute after:top-[-2px] after:w-full after:bg-surface-700 after:content-[''] after:border-white mx-3 bg-surface-900/50 backdrop-blur-md border-2 border-transparent border-dotted"
   >
     <div class="">
       {#if $libraryActiveSubCategories.length == 1}
