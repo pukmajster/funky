@@ -36,7 +36,7 @@
     <img alt="" src={thumbnail} class="select-none m-10 z-20 shadow-lg rounded-md" />
   </div>
 
-  <div class="z-10 relative mx-10 my-5 space-y-5">
+  <div class="z-10 relative mx-7 my-5 space-y-5">
     <div class="space-y-1">
       <h3 class="h3">{addon?.addonInfo?.title}</h3>
 

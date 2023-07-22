@@ -1,5 +1,6 @@
 <script lang="ts">
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
+  import { AlertTriangle, Check, Dices } from 'lucide-svelte'
   import type { Addon } from 'shared'
   import { conflictGroups } from '../stores/conflicts'
   import { addonOverviewId, libraryActiveSubCategories } from '../stores/library'
@@ -49,54 +50,52 @@
 
     drawerStore.open(settings)
   }
+
+  const tagStyle =
+    'absolute items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full backdrop-blur-md w-[60%] py-1 text-[12px] left-[50%] translate-x-[-50%] hidden'
 </script>
 
 <button
   draggable={true}
   on:dragstart={dragStart}
   on:contextmenu={openOverview}
-  class="relative"
+  class="relative shadow-md"
   class:enabled={isEnabled}
   class:asShuffle
   on:click={toggleModEnable}
 >
-  <img alt="mod" class="  w-[200px] aspect-[5/3] w-full" src={thumbnail} />
+  <img alt="mod" class=" rounded-md w-[200px] aspect-[5/3] w-full" src={thumbnail} />
 
   {#if !asShuffle}
-    <div
-      class="absolute justify-center bottom-0 right-0 left-0 hidden"
-      class:addonEnabled={isEnabled}
-    >
+    <div class={tagStyle} class:addonEnabled={isEnabled}>
+      <Check class="w-4 mr-2" />
       Enabled
     </div>
 
-    <div
-      class="absolute justify-center bottom-0 right-0 left-0 hidden"
-      class:addonConflicting={isConflicting}
-    >
+    <div class={tagStyle} class:addonConflicting={isConflicting}>
+      <AlertTriangle class="w-4 mr-2" />
       Conflicting
     </div>
 
-    <div
-      class="absolute justify-center bottom-0 right-0 left-0 hidden"
-      class:addonShuffled={isShuffled}
-    >
-      Shuffled
+    <div class={tagStyle} class:addonShuffled={isShuffled}>
+      <Dices class="w-4 mr-2" />
+
+      Shuffle
     </div>
   {/if}
 </button>
 
 <style>
   .addonEnabled {
-    @apply bg-green-600 flex;
+    @apply bg-green-700/80 flex;
   }
 
   .addonShuffled {
-    @apply bg-blue-800 flex;
+    @apply bg-blue-800/80 flex;
   }
 
   .addonConflicting {
-    @apply bg-orange-600 flex;
+    @apply bg-orange-600/60 flex;
   }
 
   .asShuffle {
