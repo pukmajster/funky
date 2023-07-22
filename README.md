@@ -5,7 +5,7 @@ Sourcebox is an open-source mods manager for Source Engine games, developed with
 Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted something that gives me more functionallity, like search and a better method of solving conflicts, but the scope has since gotten much broader with lots of other great features and QoL improvements that are not possible in the in-game menu.
 
 # ALHPA Roadmap
-- [ ] Richer display of mods with thumbnails
+- [x] Richer display of mods with thumbnails
 - [x] Search and filters
 - [x] Broader mod categorization
 - [x] More detailed mod inspection
