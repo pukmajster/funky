@@ -37,12 +37,6 @@
       buildingManifest = false
     }
   }
-
-  async function launchGame() {
-    await writeAddonList()
-    //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
-    window.api.openLinkInBrowser(`steam://rungameid/550/`)
-  }
 </script>
 
 <div class="space-y-4 p-6">
@@ -65,15 +59,15 @@
   <div class="space-y-4 rounded-lg">
     <GamePicker />
 
-    <button
-      class="btn variant-filled mt-2"
-      on:click={handleRequestManifest}
-      disabled={buildingManifest}>build manifest</button
-    >
+    <div class="flex gap-2">
+      <button
+        class="btn variant-filled"
+        on:click={handleRequestManifest}
+        disabled={buildingManifest}>build manifest</button
+      >
 
-    <button class="btn variant-filled ml-2" on:click={writeAddonList}>Write addonslist</button>
-
-    <button class="btn variant-filled ml-2" on:click={launchGame}>Launch game</button>
+      <button class="btn variant-filled" on:click={writeAddonList}>Write addonslist</button>
+    </div>
 
     {#if buildingManifest}
       <p>Building manifest...</p>

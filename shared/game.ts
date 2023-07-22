@@ -3,6 +3,7 @@ export interface Game {
   label: string
   rootDirectoryName: string
   gameDirectory: string
+  gameLogo: string
 
   addons: {
     addonFoldes: string[]

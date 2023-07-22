@@ -57,11 +57,14 @@ import IconMisc from './550icons/misc.png'
 import IconSurvivors from './550icons/survivors.png'
 import IconUtils from './550icons/utils.png'
 
+import gameLogo from './550icons/icon_l4d.png'
+
 export const game550: Game = {
   appId: 550,
   label: 'Left 4 Dead 2',
   rootDirectoryName: 'Left 4 Dead 2',
   gameDirectory: 'left4dead2',
+  gameLogo: gameLogo,
   addons: {
     addonFoldes: ['/left4dead2/addons', '/left4dead2/custom', '/left4dead2/addons/workshop'],
     supportsWorkshop: true,

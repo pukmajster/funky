@@ -1,5 +1,8 @@
 <script lang="ts">
   import { AppBar, drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
+  import games from 'shared/games'
+  import { writeAddonList } from '../api/api'
+  import { userStore } from '../stores/user'
 
   function openSettingsDrawer() {
     const settings: DrawerSettings = {
@@ -10,6 +13,12 @@
 
     drawerStore.open(settings)
   }
+
+  async function launchGame() {
+    await writeAddonList()
+    //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
+    window.api.openLinkInBrowser(`steam://rungameid/550/`)
+  }
 </script>
 
 <AppBar
@@ -19,6 +28,12 @@
   slotTrail="place-content-end"
 >
   <svelte:fragment slot="lead">
-    <button class="btn variant-filled" on:click={openSettingsDrawer}>Menu</button>
+    <div class="flex gap-2">
+      <button class="btn btn-sm variant-soft" on:click={openSettingsDrawer}>Menu</button>
+
+      <button class="btn btn-sm variant-soft" on:click={launchGame}>
+        <img src={games[$userStore.activeGameId]?.gameLogo} width="24" class="mr-3" /> Launch game</button
+      >
+    </div>
   </svelte:fragment>
 </AppBar>
