@@ -15,14 +15,15 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [ ] Pagination
 
 ## BETA Roadmap
-- [ ] Custom-vocalizer editor
-- [ ] Custom shuffle groups, detached from categories
 - [ ] Extraction and inspection of VPK's contents
+- [ ] Batch selection of mods w/ various actions
+- [ ] Custom shuffle groups, detached from categories
 - [ ] Built-in custom config/autoexec editor
 - [ ] Collections
 - [ ] Local data backup
 - [ ] Online data backup (Drive?)
 - [ ] In-app unsubscribing from mods
+- [ ] Custom vocalizer editor
 
 ## Project Setup
 
