@@ -18,6 +18,11 @@ export const derivedSingleActiveSubCategory = derived(
 
 export const addonOverviewId = writable<AddonId | null>(null)
 
+export const libraryPage = writable<number>(1)
+export const libraryPageSize = writable<number>(50)
+
+export const libraryPageSizes = [20, 50, 100, 200, 500, 1000, 9999] as const
+
 type SortingType =
   | 'name_asc'
   | 'name_desc'
@@ -185,5 +190,28 @@ export const libraryAddonPoolSorted = derived(
     // }
 
     return tempStorage
+  }
+)
+
+export const libraryAddonPoolSortedPaginated = derived(
+  [libraryAddonPoolSorted, libraryPage, libraryPageSize],
+  ([$libraryAddonPoolSorted, $libraryPage, $libraryPageSize]) => {
+    const tempStorage: AddonId[] = []
+
+    const start = ($libraryPage - 1) * $libraryPageSize
+    const end = start + $libraryPageSize
+
+    for (let i = start; i < end; i++) {
+      if ($libraryAddonPoolSorted[i]) tempStorage.push($libraryAddonPoolSorted[i])
+    }
+
+    return tempStorage
+  }
+)
+
+export const libraryPageCount = derived(
+  [libraryAddonPoolSorted, libraryPageSize],
+  ([$libraryAddonPoolSorted, $libraryPageSize]) => {
+    return Math.ceil($libraryAddonPoolSorted.length / $libraryPageSize)
   }
 )

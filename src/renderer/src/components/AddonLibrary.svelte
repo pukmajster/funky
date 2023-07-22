@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Profile } from 'shared'
   import { conflictGroups, showingConflictingAddons } from '../stores/conflicts'
-  import { libraryActiveSubCategories, libraryAddonPoolSorted } from '../stores/library'
+  import { libraryActiveSubCategories, libraryAddonPoolSortedPaginated } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import AddonCard from './AddonCard.svelte'
@@ -20,12 +20,12 @@
   }
 </script>
 
-<div class="relative h-full flex flex-col">
+<div class="relative h-full flex flex-col ml-3">
   <LibraryFilters />
 
   {#if !$showingConflictingAddons}
-    <div class="library-list p-3 pb-[200px]">
-      {#each $libraryAddonPoolSorted as addon}
+    <div class="library-list p-3 pt-0 pb-[200px]">
+      {#each $libraryAddonPoolSortedPaginated as addon}
         <AddonCard addon={$currentGameManifest.addons.find((_addon) => _addon.id === addon)} />
       {/each}
     </div>
@@ -38,7 +38,7 @@
   {#if $showingConflictingAddons}
     {#each $conflictGroups as group, i}
       <div class="p-3">
-        <h3>Conflicting mods #{i + 1}</h3>
+        <h4 class="h5 mb-1">Conflicting mods #{i + 1}</h4>
         <div class="library-list">
           {#each group as addon}
             <AddonCard {addon} />

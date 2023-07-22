@@ -1,22 +1,42 @@
 <script lang="ts">
+  import { ArrowLeft, ArrowRight } from 'lucide-svelte'
   import { showingConflictingAddons, totalConflictingAddons } from '../stores/conflicts'
   import {
     libraryActiveSubCategories,
+    libraryPage,
+    libraryPageCount,
     librarySearchQueue,
     sortingType,
     typeToShow
   } from '../stores/library'
+  import { clamp } from '../utils'
 
   // Limit the active subcategories to 1
   $: {
     $libraryActiveSubCategories.length > 1 &&
       ($libraryActiveSubCategories = [$libraryActiveSubCategories.at(-1)])
   }
+
+  function prevPage() {
+    if ($libraryPage > 1) {
+      $libraryPage--
+    }
+  }
+
+  function nextPage() {
+    if ($libraryPage < $libraryPageCount) {
+      $libraryPage++
+    }
+  }
+
+  $: {
+    $libraryPage = clamp($libraryPage, 1, $libraryPageCount)
+  }
 </script>
 
-<div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pb-3">
+<div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pb-3 pr-3">
   <div>
-    <div class="flex flex-col lg:flex-row gap-2 max-w-[800px] [&>div]:w-full p-3">
+    <div class="flex flex-col lg:flex-row gap-2 max-w-[800px] [&>div]:w-full p-3 pr-0">
       <input
         class="input variant-form-material"
         type="text"
@@ -45,21 +65,35 @@
     </div>
   </div>
 
-  <div class="px-3">
-    <button
-      class:showConflicts={!$showingConflictingAddons && $totalConflictingAddons > 0}
-      class:showingConflicts={$showingConflictingAddons}
-      class="btn btn-sm"
-      on:click={() => ($showingConflictingAddons = !$showingConflictingAddons)}
-    >
-      {#if !$showingConflictingAddons && $totalConflictingAddons > 0}
-        Show {$totalConflictingAddons} conflicting mods
-      {:else if !$showingConflictingAddons && $totalConflictingAddons == 0}
-        No conflicting mods
-      {:else}
-        Hide conflicting mods
-      {/if}
-    </button>
+  <div class="flex justify-between items-center">
+    <div class="flex items-center gap-3 px-3">
+      <button on:click={prevPage} class="btn-icon btn-icon-sm variant-filled-surface">
+        <ArrowLeft class="w-6" />
+      </button>
+
+      <span class="min-w-[64px] text-center">{$libraryPage} / {$libraryPageCount}</span>
+
+      <button on:click={nextPage} class="btn-icon btn-icon-sm variant-filled-surface">
+        <ArrowRight class="w-6" />
+      </button>
+    </div>
+
+    <div class="">
+      <button
+        class:showConflicts={!$showingConflictingAddons && $totalConflictingAddons > 0}
+        class:showingConflicts={$showingConflictingAddons}
+        class="btn btn-sm"
+        on:click={() => ($showingConflictingAddons = !$showingConflictingAddons)}
+      >
+        {#if !$showingConflictingAddons && $totalConflictingAddons > 0}
+          Show {$totalConflictingAddons} conflicting mods
+        {:else if !$showingConflictingAddons && $totalConflictingAddons == 0}
+          No conflicting mods
+        {:else}
+          Hide conflicting mods
+        {/if}
+      </button>
+    </div>
   </div>
 </div>
 
