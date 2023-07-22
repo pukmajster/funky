@@ -35,7 +35,7 @@
     <div class="flex flex-col min-w-[73px] p-2">
       <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden min-w-[64px]">
         <button
-          class:variant-filled={'all' == $libraryActiveCategory}
+          class:bg-primary-500={'all' == $libraryActiveCategory}
           on:click={() => setActiveCategory('all')}
           class="categoryButton"
         >
@@ -46,24 +46,18 @@
         {#each categories as category}
           {@const catActive = category.id == $libraryActiveCategory}
           <button
-            class:variant-filled={catActive}
+            class:bg-primary-500={catActive}
             on:click={() => setActiveCategory(category.id)}
             class="categoryButton"
           >
-            <img
-              src={category.imageUrl}
-              alt={category.label}
-              class={classNames('w-6 h-6', {
-                'scale-125 invert': catActive
-              })}
-            />
+            <img src={category.imageUrl} alt={category.label} class={classNames('w-6 h-6')} />
 
             {category.label}
           </button>
         {/each}
 
         <button
-          class:variant-filled={'?' == $libraryActiveCategory}
+          class:bg-primary-500={'?' == $libraryActiveCategory}
           on:click={() => setActiveCategory('?')}
           class="categoryButton"
         >
