@@ -1,8 +1,18 @@
 <script lang="ts">
-  import { AppBar, drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
+  import {
+    AppBar,
+    drawerStore,
+    modalStore,
+    type DrawerSettings,
+    type ModalComponent,
+    type ModalSettings
+  } from '@skeletonlabs/skeleton'
+  import { HelpCircleIcon, InfoIcon } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../api/api'
   import { userStore } from '../stores/user'
+  import AboutModal from './AboutModal.svelte'
+  import HelpModal from './HelpModal.svelte'
 
   function openSettingsDrawer() {
     const settings: DrawerSettings = {
@@ -19,6 +29,43 @@
     //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
     window.api.openLinkInBrowser(`steam://rungameid/550/`)
   }
+
+  function openAboutModal() {
+    const modalComponent: ModalComponent = {
+      // Pass a reference to your custom component
+      ref: AboutModal,
+      // Add the component properties as key/value pairs
+      props: { background: 'bg-red-500' },
+      // Provide a template literal for the default component slot
+      slot: '<p>Skeleton</p>'
+    }
+
+    const modal: ModalSettings = {
+      type: 'component',
+      // Pass the component directly:
+      component: modalComponent
+    }
+
+    modalStore.trigger(modal)
+  }
+
+  function openHelpModal() {
+    const modalComponent: ModalComponent = {
+      // Pass a reference to your custom component
+      ref: HelpModal,
+      // Add the component properties as key/value pairs
+      // Provide a template literal for the default component slot
+      slot: '<p>Skeleton</p>'
+    }
+
+    const modal: ModalSettings = {
+      type: 'component',
+      // Pass the component directly:
+      component: modalComponent
+    }
+
+    modalStore.trigger(modal)
+  }
 </script>
 
 <AppBar
@@ -32,7 +79,20 @@
       <button class="btn btn-sm variant-soft" on:click={openSettingsDrawer}>Menu</button>
 
       <button class="btn btn-sm variant-soft" on:click={launchGame}>
-        <img src={games[$userStore.activeGameId]?.gameLogo} width="24" class="mr-3" /> Launch game</button
+        <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />Launch game</button
+      >
+    </div>
+  </svelte:fragment>
+
+  <svelte:fragment slot="trail">
+    <div class="flex gap-2">
+      <button class="btn btn-sm variant-soft" on:click={openAboutModal}>
+        <InfoIcon class="w-4 mr-2 inline" /> About</button
+      >
+
+      <button class="btn btn-sm variant-soft" on:click={openHelpModal}>
+        <HelpCircleIcon class="w-4 mr-2 inline" />
+        Help</button
       >
     </div>
   </svelte:fragment>
