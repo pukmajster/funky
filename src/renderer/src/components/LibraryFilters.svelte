@@ -31,6 +31,7 @@
 
   $: {
     $libraryPage = clamp($libraryPage, 1, $libraryPageCount)
+    document.querySelector('#page')?.scrollTo({ top: 0, behavior: 'smooth' })
   }
 </script>
 
