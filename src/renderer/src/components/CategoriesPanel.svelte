@@ -26,6 +26,9 @@
       $libraryActiveSubCategories = [...$libraryActiveSubCategories, subCategoryId]
     }
   }
+
+  const categoryStyles =
+    'flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none'
 </script>
 
 <div class="w-[300px]">
@@ -37,7 +40,7 @@
         <button
           class:bg-primary-500={'all' == $libraryActiveCategory}
           on:click={() => setActiveCategory('all')}
-          class="categoryButton"
+          class={categoryStyles}
         >
           <InfinityIcon />
           All
@@ -48,7 +51,7 @@
           <button
             class:bg-primary-500={catActive}
             on:click={() => setActiveCategory(category.id)}
-            class="categoryButton"
+            class={categoryStyles}
           >
             <img src={category.imageUrl} alt={category.label} class={classNames('w-6 h-6')} />
 
@@ -59,7 +62,7 @@
         <button
           class:bg-primary-500={'?' == $libraryActiveCategory}
           on:click={() => setActiveCategory('?')}
-          class="categoryButton"
+          class={categoryStyles}
         >
           <FileQuestionIcon />
           Unknown</button
@@ -105,7 +108,7 @@
 <style lang="postcss">
   @layer base {
     .categoryButton {
-      @apply flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none;
+      @apply;
     }
   }
 </style>
