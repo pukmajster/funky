@@ -106,9 +106,4 @@
 </div>
 
 <style lang="postcss">
-  @layer base {
-    .categoryButton {
-      @apply;
-    }
-  }
 </style>
