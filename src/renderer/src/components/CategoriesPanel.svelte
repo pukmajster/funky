@@ -103,7 +103,9 @@
 </div>
 
 <style lang="postcss">
-  .categoryButton {
-    @apply flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none;
+  @layer base {
+    .categoryButton {
+      @apply flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none;
+    }
   }
 </style>
