@@ -8,13 +8,13 @@ const vdf = require('node-vdf')
 import { Addon, AddonFiles, AddonInfo, Game, GameManifest, RequestGameManifestParams } from 'shared'
 import games from 'shared/games'
 
-interface BuildGameManifestParams {
-  appId: number
-  gamesDir: string
-  mode: 'fresh' | 'cached' | 'quick-update' | 'full-update'
-  onlineMetadataFetching: boolean
-  existingManifest?: GameManifest
-}
+// interface BuildGameManifestParams {
+//   appId: number
+//   gamesDir: string
+//   mode: 'fresh' | 'cached' | 'quick-update' | 'full-update'
+//   onlineMetadataFetching: boolean
+//   existingManifest?: GameManifest
+// }
 
 async function buildGameManifest(params: RequestGameManifestParams): Promise<GameManifest | void> {
   const addons: Addon[] = []

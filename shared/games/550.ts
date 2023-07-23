@@ -24,13 +24,13 @@ function genericSurvivorVguiFiles(id: string): string[] {
   return [`materials/vgui/s_panel_lobby_${id}.`, `materials/vgui/s_panel_${id}.`]
 }
 
-function genericSpecialInfectedL4D1Files(id: string): string[] {
-  return [
-    `models/v_models/weapons/v_claw_${id}_l4d1.`,
-    `models/infected/${id}_l4d1.`,
-    `models/infected/${id}_l4d1`
-  ]
-}
+// function genericSpecialInfectedL4D1Files(id: string): string[] {
+//   return [
+//     `models/v_models/weapons/v_claw_${id}_l4d1.`,
+//     `models/infected/${id}_l4d1.`,
+//     `models/infected/${id}_l4d1`
+//   ]
+// }
 
 function genericSpecialInfectedFiles(id: string): string[] {
   return [
@@ -42,29 +42,29 @@ function genericSpecialInfectedFiles(id: string): string[] {
   ]
 }
 
-function genericLoadingScreenFiles(id: string): string[] {
-  return [`materials/vgui/loadingscreen_${id}`]
-}
+// function genericLoadingScreenFiles(id: string): string[] {
+//   return [`materials/vgui/loadingscreen_${id}`]
+// }
 
 function genericNadeFiles(id: string): string[] {
   return [`models/w_models/weapons/w_eq_${id}.`, `models/v_models/v_${id}.`]
 }
 
-import IconGuns from './550icons/guns.png'
-import IconInfected from './550icons/infected.png'
-import IconMelee from './550icons/melee.png'
-import IconMisc from './550icons/misc.png'
-import IconSurvivors from './550icons/survivors.png'
-import IconUtils from './550icons/utils.png'
+// import IconGuns from './550icons/guns.png'
+// import IconInfected from './550icons/infected.png'
+// import IconMelee from './550icons/melee.png'
+// import IconMisc from './550icons/misc.png'
+// import IconSurvivors from './550icons/survivors.png'
+// import IconUtils from './550icons/utils.png'
 
-import gameLogo from './550icons/icon_l4d.png'
+// import gameLogo from './550icons/icon_l4d.png'
 
 export const game550: Game = {
   appId: 550,
   label: 'Left 4 Dead 2',
   rootDirectoryName: 'Left 4 Dead 2',
   gameDirectory: 'left4dead2',
-  gameLogo: gameLogo,
+  //gameLogo: gameLogo,
   addons: {
     addonFoldes: ['/left4dead2/addons', '/left4dead2/custom', '/left4dead2/addons/workshop'],
     supportsWorkshop: true,
@@ -72,7 +72,7 @@ export const game550: Game = {
       {
         id: 'guns',
         label: 'Guns',
-        imageUrl: IconGuns,
+        //imageUrl: IconGuns,
         subCategories: [
           {
             id: 'pistol',
@@ -257,7 +257,7 @@ export const game550: Game = {
       {
         id: 'melee',
         label: 'Melee',
-        imageUrl: IconMelee,
+        //imageUrl: IconMelee,
         subCategories: [
           {
             id: 'machete',
@@ -385,7 +385,7 @@ export const game550: Game = {
       {
         id: 'utils',
         label: 'Utils',
-        imageUrl: IconUtils,
+        //imageUrl: IconUtils,
         subCategories: [
           {
             id: 'medkit',
@@ -491,7 +491,7 @@ export const game550: Game = {
       {
         id: 'survivors',
         label: 'Survivors',
-        imageUrl: IconSurvivors,
+        //imageUrl: IconSurvivors,
         subCategories: [
           {
             id: 'gambler',
@@ -585,7 +585,7 @@ export const game550: Game = {
       {
         id: 'infected',
         label: 'Infected',
-        imageUrl: IconInfected,
+        //imageUrl: IconInfected,
         subCategories: [
           {
             id: 'common_infected',
@@ -750,7 +750,7 @@ export const game550: Game = {
       {
         id: 'misc',
         label: 'Misc',
-        imageUrl: IconMisc,
+        //imageUrl: IconMisc,
         subCategories: [
           {
             id: 'ui',
