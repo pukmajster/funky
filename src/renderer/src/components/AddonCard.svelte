@@ -85,7 +85,7 @@
   {/if}
 </button>
 
-<style>
+<style lang="postcss">
   .addonEnabled {
     @apply bg-green-700/80 flex;
   }

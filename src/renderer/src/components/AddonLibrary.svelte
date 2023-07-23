@@ -49,7 +49,7 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   .library-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(221px, 1fr));

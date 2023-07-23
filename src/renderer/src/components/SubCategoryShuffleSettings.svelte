@@ -93,7 +93,7 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   .dropActive {
     @apply border-primary-500;
   }

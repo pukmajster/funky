@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   .noConflicts {
     @apply bg-green-500;
   }
