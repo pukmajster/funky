@@ -19,6 +19,23 @@
     "build:mac": "npm run build && electron-builder --mac --config",
     "build:linux": "npm run build && electron-builder --linux --config"
   },
+  "build": {
+    "productName": "Sourcebox",
+    "appId": "sourcebox",
+    "extraResources": {
+      "from": "./renderer/src/assets",
+      "to": "assets",
+      "filter": [
+        "**/*"
+      ]
+    },
+    "nsis": {
+      "runAfterFinish": false
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^1.0.2",
