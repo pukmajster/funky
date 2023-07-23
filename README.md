@@ -2,6 +2,8 @@
 
 Sourcebox is an open-source mods manager for Source Engine games, developed with Svelte, Electron and SkeletonUI. Currently still in early development, with support only for Left 4 Dead 2.
 
+![App](/resources/app.png)
+
 Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted something that gives me more functionallity, like search and a better method of solving conflicts, but the scope has since gotten much broader with lots of other great features and QoL improvements that are not possible in the in-game menu.
 
 ## ALPHA Roadmap
