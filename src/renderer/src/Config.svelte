@@ -8,7 +8,7 @@
     steamGamesDir: '',
     games: {},
     activeGameId: 550,
-    hasFinishedFirstTimeSetup: true
+    hasFinishedFirstTimeSetup: false
   }
 
   let hasSetupUserProfile = false
@@ -24,7 +24,7 @@
     }
 
     $userStore = userConfig
-    hasSetupUserProfile = true
+    hasSetupUserProfile = $userStore.hasFinishedFirstTimeSetup
     console.log('userStore', $userStore)
 
     window.api.writeUserFile(userConfig)

@@ -10,7 +10,12 @@
   import { HelpCircleIcon, InfoIcon } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../api/api'
+  import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
+  import {
+    derivedEnabledAddonIds,
+    derviedAddonIdsInEnabledShuffles
+  } from '../stores/user-derivatives'
   import AboutModal from './AboutModal.svelte'
   import HelpModal from './HelpModal.svelte'
 
@@ -85,6 +90,17 @@
       >
     </div>
   </svelte:fragment>
+
+  <div class="flex flex-nowrap gap-2 text-sm">
+    <div class="px-2 py-1 rounded-sm bg-surface-700">
+      <span class="font-bold">{$currentGameManifest.addons.length}</span> total mods
+    </div>
+    <div class="px-2 py-1 rounded-sm bg-surface-700">
+      <span class="font-bold"
+        >{$derivedEnabledAddonIds.length + $derviedAddonIdsInEnabledShuffles.length}
+      </span> enabled / shuffled
+    </div>
+  </div>
 
   <svelte:fragment slot="trail">
     <div class="flex gap-2">

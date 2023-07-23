@@ -5,6 +5,7 @@
   import CategoriesPanel from './components/CategoriesPanel.svelte'
   import Drawers from './components/Drawers.svelte'
   import Header from './components/Header.svelte'
+  import WelcomeGuide from './components/WelcomeGuide.svelte'
   import { userStore } from './stores/user'
 
   let activeProfile = $userStore?.games[$userStore.activeGameId].profiles.find(
@@ -14,19 +15,23 @@
 
 <Config />
 
-<AppShell>
-  <svelte:fragment slot="header">
-    <Header />
-  </svelte:fragment>
+{#if ($userStore?.hasFinishedFirstTimeSetup ?? false) === false}
+  <WelcomeGuide />
+{:else}
+  <AppShell>
+    <svelte:fragment slot="header">
+      <Header />
+    </svelte:fragment>
 
-  <svelte:fragment slot="sidebarLeft">
-    <CategoriesPanel bind:profile={activeProfile} />
-  </svelte:fragment>
+    <svelte:fragment slot="sidebarLeft">
+      <CategoriesPanel bind:profile={activeProfile} />
+    </svelte:fragment>
 
-  {#if $userStore !== undefined}
-    <AddonLibrary bind:profile={activeProfile} />
-  {/if}
-</AppShell>
+    {#if $userStore !== undefined}
+      <AddonLibrary bind:profile={activeProfile} />
+    {/if}
+  </AppShell>
+{/if}
 
 <Drawers />
 <Modal />

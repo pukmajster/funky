@@ -29,7 +29,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     return
   }
 
-  const baseGameDirectory = path.join(params.steamGamesDir, game.rootDirectoryName)
+  const baseGameDirectory = path.join(params.steamGamesDir, 'common', game.rootDirectoryName)
 
   const fullAddonDirectories = game.addons.addonFoldes.map((addonFolder) =>
     path.join(baseGameDirectory, addonFolder)

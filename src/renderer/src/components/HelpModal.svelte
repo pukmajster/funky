@@ -7,7 +7,7 @@
   }
 </script>
 
-<div class="text-center bg-surface-800 p-8 rounded-lg space-y-4">
+<div class="text-center bg-surface-800 p-8 shadow-lg rounded-lg space-y-4">
   <h4 class="h4">Found a bug / requesting a feature?</h4>
 
   <p>

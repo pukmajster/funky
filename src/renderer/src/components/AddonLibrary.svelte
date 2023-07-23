@@ -52,7 +52,7 @@
 <style>
   .library-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(221px, 1fr));
     grid-auto-rows: minmax(min-content, max-content);
     align-items: stretch;
 

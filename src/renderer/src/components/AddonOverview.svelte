@@ -5,7 +5,7 @@
 
   export let addon: Addon
 
-  $: thumbnail = `file:///${$userStore.steamGamesDir}/Left 4 Dead 2/left4dead2/addons/workshop/${addon.id}.jpg`
+  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/workshop/${addon.id}.jpg`
 
   $: fileSizeMb = addon.vpkSizeInBytes / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`

@@ -5,7 +5,7 @@ const path = require('path')
 export async function writeAddonList(params: WriteAddonlistParams): Promise<boolean> {
   console.log('Writing addonlist.txt to disk...')
 
-  const dir = path.join(params.steamGamesDir, params.gameDir, '/addonlist.txt')
+  const dir = path.join(params.steamGamesDir, 'common', params.gameDir, '/addonlist.txt')
   console.log(dir)
 
   try {

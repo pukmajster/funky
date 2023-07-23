@@ -7,7 +7,7 @@
   }
 </script>
 
-<div class="text-center bg-surface-800 p-8 rounded-lg space-y-4">
+<div class="text-center bg-surface-800 p-8 shadow-lg rounded-lg space-y-4">
   <p>
     Made with ❤️ by <a
       class="text-primary-400"
@@ -29,7 +29,7 @@
 
   <p>Developed with Electron, Svelte and Skeleton UI</p>
 
-  <p>Shoutout to Valve</p>
+  <p>Shoutout to Valve and all the modders</p>
 
   <button on:click={close} class="btn btn-sm variant-filled">Close</button>
 </div>
