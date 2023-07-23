@@ -4,6 +4,7 @@
   import { userStore } from '../stores/user'
   import GamePicker from './GamePicker.svelte'
   import ProfilesManager from './ProfilesManager.svelte'
+  import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
 
   function openGamesDir() {
     window.api.openDirectory($userStore.steamGamesDir)
@@ -44,15 +45,8 @@
   <div class="space-y-4 rounded-lg">
     <label class="label">
       <span>Steam games folder</span>
-      <input
-        bind:value={$userStore.steamGamesDir}
-        class="input variant-form-material"
-        type="text"
-        placeholder="Input"
-      />
+      <SteamGamesDirectoryManager />
     </label>
-
-    <button class="btn variant-filled">search</button>
   </div>
 
   <h3 class="h3">Game</h3>
