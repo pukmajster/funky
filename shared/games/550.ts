@@ -71,12 +71,70 @@ export const game550: Game = {
     categories: [
       {
         id: 'guns',
-        label: 'guns',
+        label: 'Guns',
         imageUrl: IconGuns,
         subCategories: [
           {
+            id: 'pistol',
+            label: 'Pistol',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: [
+                ...genericGunFiles('pistol', 'pistol_b', 'pistola'), // Single pistol
+                ...genericGunFiles('dual_pistol', 'pistol_a', 'dual_pistola'), // Dual pistols
+                ...genericGunFiles('dual_pistol', 'pistol_a_dual', 'pistol_a_dual') // Dual pistols
+              ]
+            }
+          },
+          {
+            id: 'magnum',
+            label: 'Deagle',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('magnum', 'desert_eagle', 'desert_eagle')
+            }
+          },
+          {
+            id: 'smg',
+            label: 'SMG',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('smg', 'smg_uzi', 'smg')
+            }
+          },
+          {
+            id: 'smg_silenced',
+            label: 'SMG Silenced',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('smg_silenced', 'smg_a', 'silenced_smg')
+            }
+          },
+          {
+            id: 'shotgun_chrome',
+            label: 'Chrome Shotgun',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('shotgun_chrome', 'pumpshotgun_a', 'shotgun_chrome')
+            }
+          },
+          {
+            id: 'shotgun_pump',
+            label: 'Pump Shotgun',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('shotgun', 'shotgun', 'pumpshotgun')
+            }
+          },
+          {
             id: 'rifle_ak47',
-            label: 'AK47',
+            label: 'AK-47',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -102,30 +160,26 @@ export const game550: Game = {
             }
           },
           {
-            id: 'pistol',
-            label: 'Pistol',
+            id: 'auto_shotgun_spas',
+            label: 'SPAS-12',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
-              references: [
-                ...genericGunFiles('pistol', 'pistol_b', 'pistola'), // Single pistol
-                ...genericGunFiles('dual_pistol', 'pistol_a', 'dual_pistola'), // Dual pistols
-                ...genericGunFiles('dual_pistol', 'pistol_a_dual', 'pistol_a_dual') // Dual pistols
-              ]
+              references: genericGunFiles('auto_shotgun_spas', 'shotgun_spas', 'shotgun_spas')
             }
           },
           {
-            id: 'magnum',
-            label: 'Deagle',
+            id: 'auto_shotgun',
+            label: 'Auto Shotgun',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
-              references: genericGunFiles('magnum', 'desert_eagle', 'desert_eagle')
+              references: genericGunFiles('auto_shotgun', 'autoshot_m4super', 'autoshotgun')
             }
           },
           {
             id: 'sniper_military',
-            label: 'sniper_military',
+            label: 'Military Sniper',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -134,7 +188,7 @@ export const game550: Game = {
           },
           {
             id: 'hutning_rifle',
-            label: 'hutning_rifle',
+            label: 'Hunter Rifle',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -143,7 +197,7 @@ export const game550: Game = {
           },
           {
             id: 'awp',
-            label: 'awp',
+            label: 'CSS AWP',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -151,71 +205,8 @@ export const game550: Game = {
             }
           },
           {
-            id: 'shotgun_chrome',
-            label: 'shotgun_chrome',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('shotgun_chrome', 'pumpshotgun_a', 'shotgun_chrome')
-            }
-          },
-          {
-            id: 'shotgun_pump',
-            label: 'shotgun_pump',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('shotgun', 'shotgun', 'pumpshotgun')
-            }
-          },
-          {
-            id: 'sg552',
-            label: 'sg552',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('sg552', 'rifle_sg552', 'rif_sg552')
-            }
-          },
-          {
-            id: 'auto_shotgun_spas',
-            label: 'SCauto_shotgun_spasAR',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('auto_shotgun_spas', 'shotgun_spas', 'shotgun_spas')
-            }
-          },
-          {
-            id: 'smg_silenced',
-            label: 'smg_silenced',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('smg_silenced', 'smg_a', 'silenced_smg')
-            }
-          },
-          {
-            id: 'smg',
-            label: 'smg',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('smg', 'smg_uzi', 'smg')
-            }
-          },
-          {
-            id: 'mp5navy',
-            label: 'mp5navy',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('mp5navy', 'smg_mp5', 'smg_mp5')
-            }
-          },
-          {
             id: 'scout',
-            label: 'scout',
+            label: 'CSS Scout',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -223,8 +214,26 @@ export const game550: Game = {
             }
           },
           {
+            id: 'mp5navy',
+            label: 'CSS MP5',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('mp5navy', 'smg_mp5', 'smg_mp5')
+            }
+          },
+          {
+            id: 'sg552',
+            label: 'CSS Krieg / SG552',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericGunFiles('sg552', 'rifle_sg552', 'rif_sg552')
+            }
+          },
+          {
             id: 'grenade_launcher',
-            label: 'grenade_launcher',
+            label: 'Grenade Launcher',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -235,17 +244,8 @@ export const game550: Game = {
             }
           },
           {
-            id: 'auto_shotgun',
-            label: 'auto_shotgun',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericGunFiles('auto_shotgun', 'autoshot_m4super', 'autoshotgun')
-            }
-          },
-          {
             id: 'machinegun_m60',
-            label: 'machinegun_m60',
+            label: '  M60 Machine Gun',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -256,12 +256,12 @@ export const game550: Game = {
       },
       {
         id: 'melee',
-        label: 'melee',
+        label: 'Melee',
         imageUrl: IconMelee,
         subCategories: [
           {
             id: 'machete',
-            label: 'machete',
+            label: 'Machete',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -270,7 +270,7 @@ export const game550: Game = {
           },
           {
             id: 'bat',
-            label: 'bat',
+            label: 'Bat',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -279,7 +279,7 @@ export const game550: Game = {
           },
           {
             id: 'cricketbat',
-            label: 'cricketbat',
+            label: 'Cricket Bat',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -288,7 +288,7 @@ export const game550: Game = {
           },
           {
             id: 'axe',
-            label: 'axe',
+            label: 'Axe',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -297,7 +297,7 @@ export const game550: Game = {
           },
           {
             id: 'crowbar',
-            label: 'crowbar',
+            label: 'Crowbar',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -306,7 +306,7 @@ export const game550: Game = {
           },
           {
             id: 'guitar',
-            label: 'guitar',
+            label: 'Guitar',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -315,7 +315,7 @@ export const game550: Game = {
           },
           {
             id: 'shovel',
-            label: 'shovel',
+            label: 'Shovel',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -324,7 +324,7 @@ export const game550: Game = {
           },
           {
             id: 'katana',
-            label: 'katana',
+            label: 'Katana',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -333,7 +333,7 @@ export const game550: Game = {
           },
           {
             id: 'frying_pan',
-            label: 'sefsefsefrying_panfs',
+            label: 'Frying Pan',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -342,7 +342,7 @@ export const game550: Game = {
           },
           {
             id: 'golf_club',
-            label: 'golf_club',
+            label: 'Golf Club',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -351,7 +351,7 @@ export const game550: Game = {
           },
           {
             id: 'tonfa',
-            label: 'tonfa',
+            label: 'Tonfa',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -360,7 +360,7 @@ export const game550: Game = {
           },
           {
             id: 'pitchfork',
-            label: 'pitchfork',
+            label: 'Pitchfork',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -369,7 +369,7 @@ export const game550: Game = {
           },
           {
             id: 'knife',
-            label: 'knife',
+            label: 'CSS Knife',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -384,12 +384,12 @@ export const game550: Game = {
       },
       {
         id: 'utils',
-        label: 'utils',
+        label: 'Utils',
         imageUrl: IconUtils,
         subCategories: [
           {
             id: 'medkit',
-            label: 'medkit',
+            label: 'Medkit',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -403,7 +403,7 @@ export const game550: Game = {
           },
           {
             id: 'painpills',
-            label: 'painpills',
+            label: 'Pain Pills',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -412,7 +412,7 @@ export const game550: Game = {
           },
           {
             id: 'defibrillator',
-            label: 'defibrillator',
+            label: 'Defibrillator',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -421,7 +421,7 @@ export const game550: Game = {
           },
           {
             id: 'adrenaline',
-            label: 'adrenaline',
+            label: 'Adrenaline',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -434,7 +434,7 @@ export const game550: Game = {
           },
           {
             id: 'molotov',
-            label: 'molotov',
+            label: 'Molotov',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -443,7 +443,7 @@ export const game550: Game = {
           },
           {
             id: 'pipebomb',
-            label: 'pipebomb',
+            label: 'Pipebomb',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -452,7 +452,7 @@ export const game550: Game = {
           },
           {
             id: 'bile_flask',
-            label: 'bile_flask',
+            label: 'Boomer Bile',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -461,7 +461,7 @@ export const game550: Game = {
           },
           {
             id: 'incendiary_ammo',
-            label: 'incendiaryincendiary_ammo_ammopack',
+            label: 'Incendiary Ammo',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -470,7 +470,7 @@ export const game550: Game = {
           },
           {
             id: 'explosive_ammopack',
-            label: 'explosive_ammopack',
+            label: 'Explosive Ammo',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -479,7 +479,7 @@ export const game550: Game = {
           },
           {
             id: 'laser_pack',
-            label: 'laser_pack',
+            label: 'Laser Sight',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -490,12 +490,12 @@ export const game550: Game = {
       },
       {
         id: 'survivors',
-        label: 'survivors',
+        label: 'Survivors',
         imageUrl: IconSurvivors,
         subCategories: [
           {
             id: 'gambler',
-            label: 'gambler',
+            label: 'Nick',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -507,7 +507,7 @@ export const game550: Game = {
           },
           {
             id: 'mechanic',
-            label: 'mechanic',
+            label: 'Ellis',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -519,7 +519,7 @@ export const game550: Game = {
           },
           {
             id: 'coach',
-            label: 'coach',
+            label: 'Coach',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -528,7 +528,7 @@ export const game550: Game = {
           },
           {
             id: 'producer',
-            label: 'producer',
+            label: 'Rochelle',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -540,7 +540,7 @@ export const game550: Game = {
           },
           {
             id: 'teenangst',
-            label: 'teenangst',
+            label: 'Zoey',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -552,7 +552,7 @@ export const game550: Game = {
           },
           {
             id: 'manager',
-            label: 'manager',
+            label: 'Louis',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -564,7 +564,7 @@ export const game550: Game = {
           },
           {
             id: 'biker',
-            label: 'biker',
+            label: 'Francis',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -573,7 +573,7 @@ export const game550: Game = {
           },
           {
             id: 'namvet',
-            label: 'namvet',
+            label: 'Bill',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -589,81 +589,81 @@ export const game550: Game = {
         subCategories: [
           {
             id: 'common_infected',
-            label: 'common_infected',
+            label: 'Common Infected',
             matches: {
               files: [],
               references: ['infected/common/']
             }
           },
-          {
-            id: 'smoker_l4d1',
-            label: 'smoker_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedL4D1Files('smoker')
-            }
-          },
-          {
-            id: 'boomer_l4d1',
-            label: 'boomer_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedL4D1Files('smoker')
-            }
-          },
-          {
-            id: 'witch_l4d1',
-            label: 'witch_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedL4D1Files('smoker')
-            }
-          },
-          {
-            id: 'tank_l4d1',
-            label: 'tank_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: [
-                ...genericSpecialInfectedL4D1Files('tank'),
-                ...genericSpecialInfectedL4D1Files('hulk')
-              ]
-            }
-          },
-          {
-            id: 'jockey_l4d1',
-            label: 'jockey_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedL4D1Files('jockey')
-            }
-          },
-          {
-            id: 'charger_l4d1',
-            label: 'charger_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedL4D1Files('charger')
-            }
-          },
-          {
-            id: 'spitter_l4d1',
-            label: 'spitter_l4d1',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedL4D1Files('spitter')
-            }
-          },
+          // {
+          //   id: 'smoker_l4d1',
+          //   label: 'smoker_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: genericSpecialInfectedL4D1Files('smoker')
+          //   }
+          // },
+          // {
+          //   id: 'boomer_l4d1',
+          //   label: 'boomer_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: genericSpecialInfectedL4D1Files('smoker')
+          //   }
+          // },
+          // {
+          //   id: 'witch_l4d1',
+          //   label: 'witch_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: genericSpecialInfectedL4D1Files('smoker')
+          //   }
+          // },
+          // {
+          //   id: 'tank_l4d1',
+          //   label: 'tank_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: [
+          //       ...genericSpecialInfectedL4D1Files('tank'),
+          //       ...genericSpecialInfectedL4D1Files('hulk')
+          //     ]
+          //   }
+          // },
+          // {
+          //   id: 'jockey_l4d1',
+          //   label: 'jockey_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: genericSpecialInfectedL4D1Files('jockey')
+          //   }
+          // },
+          // {
+          //   id: 'charger_l4d1',
+          //   label: 'charger_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: genericSpecialInfectedL4D1Files('charger')
+          //   }
+          // },
+          // {
+          //   id: 'spitter_l4d1',
+          //   label: 'spitter_l4d1',
+          //   allowSingleAddonRandomization: true,
+          //   matches: {
+          //     files: [],
+          //     references: genericSpecialInfectedL4D1Files('spitter')
+          //   }
+          // },
           {
             id: 'smoker',
-            label: 'smoker',
+            label: 'Smoker',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -672,7 +672,7 @@ export const game550: Game = {
           },
           {
             id: 'hunter',
-            label: 'hunter',
+            label: 'Hunter',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -680,38 +680,8 @@ export const game550: Game = {
             }
           },
           {
-            id: 'boomer',
-            label: 'boomer',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedFiles('boomer')
-            }
-          },
-          {
-            id: 'witch',
-            label: 'witch',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: genericSpecialInfectedFiles('witch')
-            }
-          },
-          {
-            id: 'tank',
-            label: 'tank',
-            allowSingleAddonRandomization: true,
-            matches: {
-              files: [],
-              references: [
-                ...genericSpecialInfectedFiles('tank'),
-                ...genericSpecialInfectedFiles('hulk')
-              ]
-            }
-          },
-          {
             id: 'jockey',
-            label: 'jockey',
+            label: 'Jockey',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -720,7 +690,7 @@ export const game550: Game = {
           },
           {
             id: 'charger',
-            label: 'charger',
+            label: 'Charger',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -729,7 +699,7 @@ export const game550: Game = {
           },
           {
             id: 'spitter',
-            label: 'spitter',
+            label: 'Spitter',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -737,24 +707,54 @@ export const game550: Game = {
             }
           },
           {
+            id: 'boomer',
+            label: 'Boomer',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericSpecialInfectedFiles('boomer')
+            }
+          },
+          {
             id: 'boomette',
-            label: 'boomette',
+            label: 'Boomette',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
               references: genericSpecialInfectedFiles('boomette')
+            }
+          },
+          {
+            id: 'witch',
+            label: 'Witch',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: genericSpecialInfectedFiles('witch')
+            }
+          },
+          {
+            id: 'tank',
+            label: 'Tank',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: [
+                ...genericSpecialInfectedFiles('tank'),
+                ...genericSpecialInfectedFiles('hulk')
+              ]
             }
           }
         ]
       },
       {
         id: 'misc',
-        label: 'misc',
+        label: 'Misc',
         imageUrl: IconMisc,
         subCategories: [
           {
             id: 'ui',
-            label: 'ui',
+            label: 'UI',
             matches: {
               files: [],
               references: ['materials/vgui/hud/']
@@ -762,7 +762,7 @@ export const game550: Game = {
           },
           {
             id: 'vgui',
-            label: 'vgui',
+            label: 'VGUI',
             matches: {
               files: [],
               references: ['materials/vgui/']
@@ -770,7 +770,7 @@ export const game550: Game = {
           },
           {
             id: 'vscript',
-            label: 'vscript',
+            label: 'VScript',
             matches: {
               files: [],
               references: ['vscripts']
@@ -778,7 +778,7 @@ export const game550: Game = {
           },
           {
             id: 'color_correction',
-            label: 'color_correction',
+            label: 'Color Correction',
             matches: {
               files: [],
               references: ['/correction/']
@@ -786,7 +786,7 @@ export const game550: Game = {
           },
           {
             id: 'skybox',
-            label: 'skybox',
+            label: 'Skybox',
             matches: {
               files: [],
               references: ['materials/skybox']
@@ -794,7 +794,7 @@ export const game550: Game = {
           },
           {
             id: 'props',
-            label: 'props',
+            label: 'Props',
             matches: {
               files: [],
               references: ['materials/models/props/', 'models/props']
@@ -802,7 +802,7 @@ export const game550: Game = {
           },
           {
             id: 'particles',
-            label: 'particles',
+            label: 'Particles',
             matches: {
               files: [],
               references: ['.pcf']
@@ -810,7 +810,7 @@ export const game550: Game = {
           },
           {
             id: 'gnome',
-            label: 'gnome',
+            label: 'Gnome',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -819,7 +819,7 @@ export const game550: Game = {
           },
           {
             id: 'vehicles',
-            label: 'vehicles',
+            label: 'Vehicles',
             matches: {
               files: [],
               references: ['/props_vehicles/']
@@ -827,7 +827,7 @@ export const game550: Game = {
           },
           {
             id: 'jukebox',
-            label: 'jukebox',
+            label: 'Jukebox',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -836,7 +836,7 @@ export const game550: Game = {
           },
           {
             id: 'voice',
-            label: 'voice',
+            label: 'Voice',
             matches: {
               files: [],
               references: ['voice']
@@ -844,7 +844,7 @@ export const game550: Game = {
           },
           {
             id: 'music',
-            label: 'music',
+            label: 'Music',
             matches: {
               files: [],
               references: ['music']
@@ -852,7 +852,7 @@ export const game550: Game = {
           },
           {
             id: 'water',
-            label: 'water',
+            label: 'Water',
             matches: {
               files: [],
               references: ['/liquids/water']
@@ -860,7 +860,7 @@ export const game550: Game = {
           },
           {
             id: 'flashlight',
-            label: 'flashlight',
+            label: 'Flashlight',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -869,7 +869,7 @@ export const game550: Game = {
           },
           {
             id: 'spray',
-            label: 'spray',
+            label: 'Spray',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -878,7 +878,7 @@ export const game550: Game = {
           },
           {
             id: 'ammo_stack',
-            label: 'ammo_stack',
+            label: 'Ammo Stack',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -887,7 +887,7 @@ export const game550: Game = {
           },
           {
             id: 'medical_cabinet',
-            label: 'medical_cabinet',
+            label: 'Medical Cabinet',
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -896,7 +896,7 @@ export const game550: Game = {
           },
           {
             id: 'lil_peanut',
-            label: 'lil_peanut',
+            label: "Lil' Peanut",
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
@@ -905,7 +905,7 @@ export const game550: Game = {
           },
           {
             id: 'xdr',
-            label: 'xdr',
+            label: 'xdR Animations',
             matches: {
               files: [],
               references: ['xdreanims']
@@ -913,7 +913,7 @@ export const game550: Game = {
           },
           {
             id: 'loading_screen',
-            label: 'loading_screen',
+            label: 'Loading Screens',
             matches: {
               files: [],
               references: [`materials/vgui/loadingscreen_`]
