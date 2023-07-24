@@ -1,6 +1,10 @@
 <script lang="ts">
   import { SlideToggle, Tab, TabGroup, modalStore } from '@skeletonlabs/skeleton'
+  import { writeAddonList } from '../api/api'
+  import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
+  import GamePicker from './GamePicker.svelte'
+  import ProfilesManager from './ProfilesManager.svelte'
   import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
 
   function close() {
@@ -16,6 +20,31 @@
   }
 
   let tabSet: 'game dir' | 'dev' | 'networking' = 'game dir'
+
+  let buildingManifest = false
+
+  async function handleRequestManifest() {
+    if (buildingManifest) return
+
+    buildingManifest = true
+
+    try {
+      let req = await window.api.requestGameManifest({
+        appId: $userStore.activeGameId,
+        onlineMetadataFetching: true,
+        mode: 'full-update',
+        steamGamesDir: $userStore.steamGamesDir
+      })
+
+      if (req) {
+        $currentGameManifest = req
+      }
+    } catch (e) {
+      console.error(e)
+    } finally {
+      buildingManifest = false
+    }
+  }
 </script>
 
 <div
@@ -31,10 +60,38 @@
     <svelte:fragment slot="panel">
       <div class="space-y-2 p-4 pt-0">
         {#if tabSet === 'game dir'}
-          <h3 class="h3">Steam Games Directory</h3>
+          <h3 class="h3">General</h3>
           <SteamGamesDirectoryManager />
 
           <p>Not sure where to find your Steam Games directory?</p>
+
+          <hr />
+
+          <div class="space-y-4 rounded-lg">
+            <GamePicker />
+
+            <div class="flex gap-2">
+              <button
+                class="btn variant-filled"
+                on:click={handleRequestManifest}
+                disabled={buildingManifest}>build manifest</button
+              >
+
+              <button class="btn variant-filled" on:click={writeAddonList}>Write addonslist</button>
+            </div>
+
+            {#if buildingManifest}
+              <p>Building manifest...</p>
+            {/if}
+
+            <div class="space-y-4 pl-8">
+              <hr />
+
+              <h4 class="h4">Profile</h4>
+
+              <ProfilesManager />
+            </div>
+          </div>
         {:else if tabSet === 'dev'}
           <h3 class="h3">Developer</h3>
           <div class="space-x-2 rounded-lg">

@@ -140,54 +140,57 @@ export const libraryAddonPoolSorted = derived(
     let tempStorage: AddonId[] = $libraryAddonPool
 
     function getAddonDetails(addonId: AddonId): Addon {
-      return $currentGameManifest.addons[addonId]
+      const addon = $currentGameManifest.addons.find((addon) => addon.id == addonId)
+      return addon
     }
 
     if ($sortingType == ('name_asc' as SortingType)) {
-      tempStorage = tempStorage.sort((a: AddonId, b: AddonId) =>
-        (getAddonDetails(a)?.addonInfo?.title ?? a).localeCompare(
-          getAddonDetails(b)?.addonInfo?.title ?? b
-        )
+      tempStorage = tempStorage.sort((a: AddonId, b: AddonId) => {
+        let aTitle = getAddonDetails(a)?.addonInfo?.title ?? '-'
+        let bTitle = getAddonDetails(b)?.addonInfo?.title ?? '-'
+
+        return aTitle.localeCompare(bTitle)
+      })
+    }
+
+    if ($sortingType == ('name_desc' as SortingType)) {
+      tempStorage = tempStorage.sort((a: AddonId, b: AddonId) => {
+        let aTitle = getAddonDetails(a)?.addonInfo?.title ?? '-'
+        let bTitle = getAddonDetails(b)?.addonInfo?.title ?? '-'
+
+        return bTitle.localeCompare(aTitle)
+      })
+    }
+
+    if ($sortingType == 'time_oldest') {
+      tempStorage = tempStorage.sort(
+        (a: AddonId, b: AddonId) =>
+          Date.parse(getAddonDetails(a)?.vpkTimeLastModified.toDateString()) -
+          Date.parse(getAddonDetails(b)?.vpkTimeLastModified.toDateString())
       )
     }
 
-    if ($sortingType == 'name_desc') {
-      tempStorage = tempStorage.sort((a: AddonId, b: AddonId) =>
-        (getAddonDetails(b)?.addonInfo?.title ?? b).localeCompare(
-          getAddonDetails(a)?.addonInfo?.title ?? a
-        )
+    if ($sortingType == 'time_newest') {
+      tempStorage = tempStorage.sort(
+        (a: AddonId, b: AddonId) =>
+          Date.parse(getAddonDetails(b)?.vpkTimeLastModified.toDateString()) -
+          Date.parse(getAddonDetails(a)?.vpkTimeLastModified.toDateString())
       )
     }
 
-    // if ($sortingType == 'time_oldest') {
-    //   tempStorage = tempStorage.sort(
-    //     (a: AddonId, b: AddonId) =>
-    //       Date.parse(getAddonDetails(a)?.vpkTimeLastModified.toDateString()) -
-    //       Date.parse(getAddonDetails(b)?.vpkTimeLastModified.toDateString())
-    //   )
-    // }
+    if ($sortingType == 'size_smallest') {
+      tempStorage = tempStorage.sort(
+        (a: AddonId, b: AddonId) =>
+          (getAddonDetails(a).vpkSizeInBytes ?? 0) - (getAddonDetails(b).vpkSizeInBytes ?? 0)
+      )
+    }
 
-    // if ($sortingType == 'time_newest') {
-    //   tempStorage = tempStorage.sort(
-    //     (a: AddonId, b: AddonId) =>
-    //       Date.parse(getAddonDetails(b)?.vpkTimeLastModified.toDateString()) -
-    //       Date.parse(getAddonDetails(a)?.vpkTimeLastModified.toDateString())
-    //   )
-    // }
-
-    // if ($sortingType == 'size_smallest') {
-    //   tempStorage = tempStorage.sort(
-    //     (a: AddonId, b: AddonId) =>
-    //       getAddonDetails(a).vpkSizeInBytes - getAddonDetails(b).vpkSizeInBytes
-    //   )
-    // }
-
-    // if ($sortingType == 'size_biggest') {
-    //   tempStorage = tempStorage.sort(
-    //     (a: AddonId, b: AddonId) =>
-    //       getAddonDetails(b).vpkSizeInBytes - getAddonDetails(a).vpkSizeInBytes
-    //   )
-    // }
+    if ($sortingType == 'size_biggest') {
+      tempStorage = tempStorage.sort(
+        (a: AddonId, b: AddonId) =>
+          (getAddonDetails(b).vpkSizeInBytes ?? 0) - (getAddonDetails(a).vpkSizeInBytes ?? 0)
+      )
+    }
 
     return tempStorage
   }

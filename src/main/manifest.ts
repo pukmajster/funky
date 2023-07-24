@@ -89,6 +89,11 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         vpkAddonInfo.author = addoninfoData.addonauthor || ''
         vpkAddonInfo.tagline = addoninfoData.addontagline || ''
         vpkAddonInfo.url = addoninfoData.addonurl0 || ''
+
+        // Check if the addoninfo.txt is missing any of the required fields
+        if (!vpkAddonInfo.title) {
+          throw new Error('Missing required fields in addoninfo.txt')
+        }
       } catch (e) {
         workshopAddonIdsWithMissingAddonInfo.push(vpkId)
         console.log('failed to read vpk addoninfo.txt')
