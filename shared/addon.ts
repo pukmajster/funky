@@ -8,7 +8,7 @@ export interface Addon {
 
   files?: AddonFiles
 
-  vpkTimeLastModified?: Date
+  vpkTimeLastModified?: string
   vpkSizeInBytes?: number
   vpkHash?: string
 

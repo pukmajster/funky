@@ -165,16 +165,16 @@ export const libraryAddonPoolSorted = derived(
     if ($sortingType == 'time_oldest') {
       tempStorage = tempStorage.sort(
         (a: AddonId, b: AddonId) =>
-          Date.parse(getAddonDetails(a)?.vpkTimeLastModified.toDateString()) -
-          Date.parse(getAddonDetails(b)?.vpkTimeLastModified.toDateString())
+          Date.parse(getAddonDetails(a)?.vpkTimeLastModified) -
+          Date.parse(getAddonDetails(b)?.vpkTimeLastModified)
       )
     }
 
     if ($sortingType == 'time_newest') {
       tempStorage = tempStorage.sort(
         (a: AddonId, b: AddonId) =>
-          Date.parse(getAddonDetails(b)?.vpkTimeLastModified.toDateString()) -
-          Date.parse(getAddonDetails(a)?.vpkTimeLastModified.toDateString())
+          Date.parse(getAddonDetails(b)?.vpkTimeLastModified) -
+          Date.parse(getAddonDetails(a)?.vpkTimeLastModified)
       )
     }
 

@@ -103,7 +103,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         id: vpkId,
         addonInfo: vpkAddonInfo,
         files: vpkFiles,
-        vpkTimeLastModified: vpkStats.mtime,
+        vpkTimeLastModified: vpkStats.mtime.toISOString(),
         vpkSizeInBytes: vpkStats.size,
         vpkHash: '',
         fromWorkshop: true,
