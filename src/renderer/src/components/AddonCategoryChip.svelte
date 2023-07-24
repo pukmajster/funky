@@ -53,6 +53,6 @@
   }
 </script>
 
-<button on:click={navigateToCat} class="chip variant-filled rounded-full">
+<button on:click={navigateToCat} class="chip variant-filled-surface rounded-full">
   {subCategory.label || upperCategory.label || categoryId}
 </button>

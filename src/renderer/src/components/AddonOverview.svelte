@@ -43,7 +43,7 @@
       <h3 class="h3">{addon?.addonInfo?.title}</h3>
 
       <div class="space-y-2">
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
           {#each $currentGameManifest.addonCategories.categories[addon.id] as cat}
             <AddonCategoryChip categoryId={cat} />
           {/each}
