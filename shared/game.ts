@@ -16,6 +16,7 @@ export interface CategoryDefinition {
   id: string
   label: string
   imageUrl?: string
+  image?: string
 
   subCategories: SubCategoryDefinition[]
 }

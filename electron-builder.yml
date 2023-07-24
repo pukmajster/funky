@@ -13,7 +13,6 @@ extraResources:
   # include assets folder
   - from: assets
     to: assets
-  
 asarUnpack:
   - resources/**
 afterSign: build/notarize.js

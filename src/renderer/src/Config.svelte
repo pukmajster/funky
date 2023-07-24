@@ -7,6 +7,7 @@
   let defaultConfig: User = {
     steamGamesDir: '',
     games: {},
+    enableNetworking: true,
     activeGameId: 550,
     hasFinishedFirstTimeSetup: false
   }

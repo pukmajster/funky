@@ -1,9 +1,7 @@
 <script lang="ts">
   import {
     AppBar,
-    drawerStore,
     modalStore,
-    type DrawerSettings,
     type ModalComponent,
     type ModalSettings
   } from '@skeletonlabs/skeleton'
@@ -18,16 +16,7 @@
   } from '../stores/user-derivatives'
   import AboutModal from './AboutModal.svelte'
   import HelpModal from './HelpModal.svelte'
-
-  function openSettingsDrawer() {
-    const settings: DrawerSettings = {
-      id: 'settings',
-      width: 'w-[70%] max-w-[900px]',
-      rounded: 'rounded-none'
-    }
-
-    drawerStore.open(settings)
-  }
+  import SettingsModal from './SettingsModal.svelte'
 
   async function launchGame() {
     await writeAddonList()
@@ -71,6 +60,24 @@
 
     modalStore.trigger(modal)
   }
+
+  function openSettingsModal() {
+    const modalComponent: ModalComponent = {
+      // Pass a reference to your custom component
+      ref: SettingsModal,
+      // Add the component properties as key/value pairs
+      // Provide a template literal for the default component slot
+      slot: '<p>Skeleton</p>'
+    }
+
+    const modal: ModalSettings = {
+      type: 'component',
+      // Pass the component directly:
+      component: modalComponent
+    }
+
+    modalStore.trigger(modal)
+  }
 </script>
 
 <AppBar
@@ -81,7 +88,7 @@
 >
   <svelte:fragment slot="lead">
     <div class="flex gap-2">
-      <button class="btn btn-sm variant-filled-surface" on:click={openSettingsDrawer}
+      <button class="btn btn-sm variant-filled-surface" on:click={openSettingsModal}
         >Settings</button
       >
 
@@ -91,11 +98,11 @@
     </div>
   </svelte:fragment>
 
-  <div class="flex flex-nowrap gap-2 text-sm">
-    <div class="px-2 py-1 rounded-sm bg-surface-700">
+  <div class="flex flex-nowrap text-center lg:text-left lg:gap-2 text-sm flex-col lg:flex-row">
+    <div class="lg:px-2 lg:py-1 rounded-sm lg:bg-surface-700">
       <span class="font-bold">{$currentGameManifest?.addons.length}</span> total mods
     </div>
-    <div class="px-2 py-1 rounded-sm bg-surface-700">
+    <div class="lg:px-2 lg:py-1 rounded-sm lg:bg-surface-700">
       <span class="font-bold"
         >{$derivedEnabledAddonIds.length + $derviedAddonIdsInEnabledShuffles.length}
       </span> enabled / shuffled

@@ -53,7 +53,7 @@
             on:click={() => setActiveCategory(category.id)}
             class={categoryStyles}
           >
-            <img src={category.imageUrl} alt={category.label} class={classNames('w-6 h-6')} />
+            <img src={category.image} alt={category.label} class={classNames('w-6 h-6')} />
 
             {category.label}
           </button>

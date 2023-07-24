@@ -59,12 +59,14 @@ function genericNadeFiles(id: string): string[] {
 
 // import gameLogo from './550icons/icon_l4d.png'
 
+import assets from './assets/550'
+
 export const game550: Game = {
   appId: 550,
   label: 'Left 4 Dead 2',
   rootDirectoryName: 'Left 4 Dead 2',
   gameDirectory: 'left4dead2',
-  //gameLogo: gameLogo,
+  gameLogo: assets.game,
   addons: {
     addonFoldes: ['/left4dead2/addons', '/left4dead2/custom', '/left4dead2/addons/workshop'],
     supportsWorkshop: true,
@@ -73,6 +75,7 @@ export const game550: Game = {
         id: 'guns',
         label: 'Guns',
         //imageUrl: IconGuns,
+        image: assets.guns,
         subCategories: [
           {
             id: 'pistol',
@@ -258,6 +261,7 @@ export const game550: Game = {
         id: 'melee',
         label: 'Melee',
         //imageUrl: IconMelee,
+        image: assets.melee,
         subCategories: [
           {
             id: 'machete',
@@ -386,6 +390,7 @@ export const game550: Game = {
         id: 'utils',
         label: 'Utils',
         //imageUrl: IconUtils,
+        image: assets.utils,
         subCategories: [
           {
             id: 'medkit',
@@ -492,6 +497,7 @@ export const game550: Game = {
         id: 'survivors',
         label: 'Survivors',
         //imageUrl: IconSurvivors,
+        image: assets.survivors,
         subCategories: [
           {
             id: 'gambler',
@@ -585,6 +591,7 @@ export const game550: Game = {
       {
         id: 'infected',
         label: 'Infected',
+        image: assets.infected,
         //imageUrl: IconInfected,
         subCategories: [
           {
@@ -750,6 +757,7 @@ export const game550: Game = {
       {
         id: 'misc',
         label: 'Misc',
+        image: assets.misc,
         //imageUrl: IconMisc,
         subCategories: [
           {

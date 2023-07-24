@@ -3,6 +3,7 @@ import { type AddonId } from './addon'
 export interface User {
   steamGamesDir: string
   hasFinishedFirstTimeSetup: boolean
+  enableNetworking: boolean
   activeGameId: number
   games: UserGamePreferences
 }

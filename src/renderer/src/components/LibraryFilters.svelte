@@ -67,7 +67,7 @@
   </div>
 
   <div class="flex justify-between items-center">
-    <div class="flex items-center gap-3 px-3">
+    <div class="flex items-center bg-surface-700 rounded-full gap-3 mx-3">
       <button on:click={prevPage} class="btn-icon btn-icon-sm variant-filled-surface">
         <ArrowLeft class="w-6" />
       </button>
