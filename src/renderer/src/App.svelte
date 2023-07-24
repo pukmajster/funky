@@ -8,6 +8,10 @@
   import WelcomeGuide from './components/WelcomeGuide.svelte'
   import { userStore } from './stores/user'
 
+  import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom'
+  import { storePopup } from '@skeletonlabs/skeleton'
+  storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
+
   let activeProfile = $userStore?.games[$userStore.activeGameId].profiles.find(
     (profile) => profile.id == $userStore.games[$userStore.activeGameId].activeProfileId
   )
@@ -17,8 +21,13 @@
 
 {#if ($userStore?.hasFinishedFirstTimeSetup ?? false) === false}
   <WelcomeGuide />
+{:else if $userStore?.activeGameId === undefined}
+  <div class="flex flex-col items-center justify-center h-full">
+    <h1 class="text-3xl font-bold">No game selected</h1>
+    <p class="text-center">Please select a game from the dropdown in the header to get started.</p>
+  </div>
 {:else}
-  <AppShell>
+  <AppShell slotHeader="z-30">
     <svelte:fragment slot="header">
       <Header />
     </svelte:fragment>

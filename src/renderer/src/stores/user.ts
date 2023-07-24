@@ -140,6 +140,7 @@ function createUserStore() {
           ...user.games,
           [activeGameId]: {
             ...workingGamePreferences,
+            activeProfileId: profile.id,
             profiles: [...workingGamePreferences.profiles, profile]
           }
         }

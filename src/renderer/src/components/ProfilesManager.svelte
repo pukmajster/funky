@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton'
   import { userStore } from '../stores/user'
 
   let newProfileName = ''
@@ -41,27 +42,37 @@
   }
 </script>
 
-<select
-  class="select variant-form-material"
-  value={$userStore.games[activeGameId]?.activeProfileId}
-  on:change={(e) => userStore.setActiveProfileId(e.currentTarget.value)}
+<div
+  class="p-4 relative space-y-4 !z-50 w-64 rounded-md shadow-lg bg-surface-800"
+  data-popup="profileManagerPopup"
 >
-  {#each games[activeGameId]?.profiles ?? [] as profile}
-    <option value={profile.id}>{profile.label}</option>
-  {/each}
-</select>
+  <ListBox>
+    {#each games[activeGameId]?.profiles ?? [] as profile}
+      {@const activeGameId = $userStore.activeGameId}
+      <ListBoxItem
+        bind:group={$userStore.games[activeGameId].activeProfileId}
+        name={profile.id}
+        value={profile.id}>{profile.label}</ListBoxItem
+      >
+    {/each}
+  </ListBox>
 
-<hr />
+  <hr />
 
-<div class="flex gap-2">
-  <input
-    class="input variant-form-material"
-    type="text"
-    bind:value={newProfileName}
-    placeholder="New profile...."
-  />
+  <div class="space-y-2">
+    <h6 class="h6 font-bold">Create new profile</h6>
 
-  <button class="btn variant-filled" on:click={createNewProfile} disabled={!newProfileName.length}
-    >create profile</button
-  >
+    <input
+      class="input variant-form-material"
+      type="text"
+      bind:value={newProfileName}
+      placeholder="New profile name..."
+    />
+
+    <button
+      class="btn btn-sm variant-filled"
+      on:click={createNewProfile}
+      disabled={!newProfileName.length}>create profile</button
+    >
+  </div>
 </div>

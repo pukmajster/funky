@@ -48,7 +48,7 @@
 </script>
 
 <div
-  class=" bg-surface-800 max-w-[600px] w-full min-h-[400px] shadow-lg rounded-lg space-y-4 overflow-hidden"
+  class=" bg-surface-800 max-w-[600px] w-full min-h-[600px] shadow-lg rounded-lg space-y-4 overflow-hidden"
 >
   <TabGroup active="variant-filled-primary" hover="hover:variant-soft-primary" rounded="">
     <Tab bind:group={tabSet} name="tab1" value={'game dir'}>
@@ -60,7 +60,7 @@
     <svelte:fragment slot="panel">
       <div class="space-y-2 p-4 pt-0">
         {#if tabSet === 'game dir'}
-          <h3 class="h3">General</h3>
+          <h4 class="h4">General</h4>
           <SteamGamesDirectoryManager />
 
           <p>Not sure where to find your Steam Games directory?</p>
@@ -93,13 +93,13 @@
             </div>
           </div>
         {:else if tabSet === 'dev'}
-          <h3 class="h3">Developer</h3>
+          <h4 class="h4">Developer</h4>
           <div class="space-x-2 rounded-lg">
             <button class="btn variant-filled" on:click={openGamesDir}>open game dir</button>
             <button class="btn variant-filled" on:click={openWorkingDir}>open working dir</button>
           </div>
         {:else if tabSet === 'networking'}
-          <h3 class="h3">Networking</h3>
+          <h4 class="h4">Networking</h4>
 
           <SlideToggle
             name="onlineMetadataFetching"

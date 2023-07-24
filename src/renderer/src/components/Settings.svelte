@@ -75,10 +75,4 @@
       <ProfilesManager />
     </div>
   </div>
-
-  <h3 class="h3">Developer</h3>
-  <div class="space-x-2 rounded-lg">
-    <button class="btn variant-filled" on:click={openGamesDir}>open game dir</button>
-    <button class="btn variant-filled" on:click={openWorkingDir}>open working dir</button>
-  </div>
 </div>

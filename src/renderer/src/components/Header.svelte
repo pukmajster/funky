@@ -2,20 +2,19 @@
   import {
     AppBar,
     modalStore,
+    popup,
     type ModalComponent,
-    type ModalSettings
+    type ModalSettings,
+    type PopupSettings
   } from '@skeletonlabs/skeleton'
-  import { HelpCircleIcon, InfoIcon } from 'lucide-svelte'
+  import { HelpCircleIcon, InfoIcon, LucidePlay } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../api/api'
-  import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
-  import {
-    derivedEnabledAddonIds,
-    derviedAddonIdsInEnabledShuffles
-  } from '../stores/user-derivatives'
   import AboutModal from './AboutModal.svelte'
+  import GameManager from './GameManager.svelte'
   import HelpModal from './HelpModal.svelte'
+  import ProfilesManager from './ProfilesManager.svelte'
   import SettingsModal from './SettingsModal.svelte'
 
   async function launchGame() {
@@ -78,13 +77,25 @@
 
     modalStore.trigger(modal)
   }
+
+  const popupClick: PopupSettings = {
+    event: 'click',
+    target: 'gameManagerPopup',
+    placement: 'top'
+  }
+
+  $: currentProfileId = $userStore.games[$userStore.activeGameId].activeProfileId
+  $: currentProfileName = $userStore.games[$userStore.activeGameId].profiles.find(
+    (profile) => profile.id == currentProfileId
+  )?.label
 </script>
 
 <AppBar
   gridColumns="grid-cols-3"
-  padding="py-2 px-2"
-  slotDefault="place-self-center"
-  slotTrail="place-content-end"
+  padding=""
+  slotDefault="!p-0 place-self-center z-30"
+  slotTrail="py-2 px-2 place-content-end"
+  slotLead="py-2 px-2"
 >
   <svelte:fragment slot="lead">
     <div class="flex gap-2">
@@ -92,22 +103,46 @@
         >Settings</button
       >
 
-      <button class="btn btn-sm bg-primary-500" on:click={launchGame}>
+      <!-- <button class="btn btn-sm bg-primary-500" on:click={launchGame}>
         <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />Launch game</button
-      >
+      > -->
     </div>
   </svelte:fragment>
 
-  <div class="flex flex-nowrap text-center lg:text-left lg:gap-2 text-sm flex-col lg:flex-row">
-    <div class="lg:px-2 lg:py-1 rounded-sm lg:bg-surface-700">
-      <span class="font-bold">{$currentGameManifest?.addons.length}</span> total mods
-    </div>
-    <div class="lg:px-2 lg:py-1 rounded-sm lg:bg-surface-700">
-      <span class="font-bold"
-        >{$derivedEnabledAddonIds.length + $derviedAddonIdsInEnabledShuffles.length}
-      </span> enabled / shuffled
-    </div>
+  <!-- <div
+    class="z-50 relative btn-group variant-filled-primary [&>*+*]:border-black/50 [&>*]:!text-sm"
+  >
+    <button use:popup={popupClick} class="h-full">
+      <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />
+      {games[$userStore?.activeGameId]?.rootDirectoryName}
+    </button>
+
+    <button class="" on:click={launchGame}> <LucidePlay class="mr-2" size={16} /> Play</button>
+  </div> -->
+
+  <div class="flex items-stretch overflow-hidden rounded-full">
+    <button
+      use:popup={popupClick}
+      class="bg-primary-700/50 hover:bg-primary-700/70 flex items-center px-4 py-1 flex-1 h-full"
+    >
+      <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />
+
+      <div class="flex px-2 flex-col items-start leading-none">
+        <span class="text-sm">{games[$userStore?.activeGameId]?.rootDirectoryName}</span>
+        <span class="text-[12px]">{currentProfileName}</span>
+      </div>
+    </button>
+
+    <button
+      class="flex items-center px-4 bg-primary-500 hover:bg-primary-500/60"
+      on:click={launchGame}
+    >
+      <LucidePlay class="mr-2" size={16} /> Play</button
+    >
   </div>
+
+  <GameManager />
+  <ProfilesManager />
 
   <svelte:fragment slot="trail">
     <div class="flex gap-2">
