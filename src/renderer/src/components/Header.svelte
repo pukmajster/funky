@@ -143,7 +143,7 @@
     >
       <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />
 
-      <div class="flex pl-2 flex-col items-start leading-none">
+      <div class="flex pl-2 gap-1 flex-col justify-evenly items-start [&>*]:leading-none">
         <span class="text-sm">{games[$userStore?.activeGameId]?.rootDirectoryName}</span>
         <span class="text-[12px]">{currentProfileName}</span>
       </div>

@@ -3,7 +3,11 @@
   import { CheckCircle, CircleIcon, FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
   import type { Profile } from 'shared'
   import { game550 } from 'shared/games/550'
-  import { libraryActiveCategory, libraryActiveSubCategories } from '../stores/library'
+  import {
+    libraryActiveCategory,
+    libraryActiveSubCategories,
+    librarySearchQueue
+  } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
   import {
     derivedEnabledAddonIds,
@@ -37,11 +41,16 @@
 </script>
 
 <div class="flex flex-col justify-between h-full flex-1">
-  <div class="w-[300px]">
-    <div class="flex flex-col gap-2 [&>div]:w-full" />
+  <div class="w-[300px] p-2 space-y-2 box-border">
+    <input
+      class="input variant-form-material"
+      type="text"
+      bind:value={$librarySearchQueue}
+      placeholder="Search"
+    />
 
-    <div class="flex flex-grow-0">
-      <div class="flex flex-col min-w-[73px] p-2">
+    <div class="flex gap-2 justify-between flex-grow-0">
+      <div class="flexflex-col box-border min-w-[64px] box-border">
         <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden min-w-[64px]">
           <button
             class:bg-primary-500={'all' == $libraryActiveCategory}
@@ -76,7 +85,7 @@
         </div>
       </div>
 
-      <div class="pt-2 w-[73%]">
+      <div class="flex-1">
         {#each categories as category}
           <div class:hidden={$libraryActiveCategory !== category.id}>
             <div class="flex flex-col items-start rounded-md overflow-hidden">
@@ -111,7 +120,7 @@
     </div>
   </div>
 
-  <div class=" flex flex-col gap-2 text-left text-sm p-2">
+  <div class=" flex p-2 flex-col gap-2 text-left text-sm">
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
       <span class="font-bold">{$currentGameManifest?.addons.length}</span> total mods
     </div>
