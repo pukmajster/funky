@@ -7,9 +7,10 @@
     type ModalSettings,
     type PopupSettings
   } from '@skeletonlabs/skeleton'
-  import { HelpCircleIcon, InfoIcon, LucidePlay } from 'lucide-svelte'
+  import { HelpCircleIcon, InfoIcon, LucidePlay, RefreshCw, Settings } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../api/api'
+  import { isRequestingGameManifest, requestManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import AboutModal from './AboutModal.svelte'
   import GameManager from './GameManager.svelte'
@@ -99,9 +100,24 @@
 >
   <svelte:fragment slot="lead">
     <div class="flex gap-2">
-      <button class="btn btn-sm variant-filled-surface" on:click={openSettingsModal}
-        >Settings</button
+      <button class="btn btn-sm variant-filled-surface" on:click={openSettingsModal}>
+        <Settings size={16} class="mr-2" />
+        Settings
+      </button>
+
+      <button
+        class="btn btn-sm variant-filled-surface"
+        on:click={() => requestManifest('full-update')}
+        disabled={$isRequestingGameManifest}
       >
+        {#if $isRequestingGameManifest}
+          <RefreshCw size={16} class="animate-spin" />
+          <span class="ml-2">Refreshing...</span>
+        {:else}
+          <RefreshCw size={16} />
+          <span class="ml-2">Refresh</span>
+        {/if}
+      </button>
 
       <!-- <button class="btn btn-sm bg-primary-500" on:click={launchGame}>
         <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />Launch game</button
@@ -127,7 +143,7 @@
     >
       <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />
 
-      <div class="flex px-2 flex-col items-start leading-none">
+      <div class="flex pl-2 flex-col items-start leading-none">
         <span class="text-sm">{games[$userStore?.activeGameId]?.rootDirectoryName}</span>
         <span class="text-[12px]">{currentProfileName}</span>
       </div>

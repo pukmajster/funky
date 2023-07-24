@@ -1,10 +1,8 @@
 <script lang="ts">
   import { SlideToggle, Tab, TabGroup, modalStore } from '@skeletonlabs/skeleton'
-  import { writeAddonList } from '../api/api'
+  import { X } from 'lucide-svelte'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
-  import GamePicker from './GamePicker.svelte'
-  import ProfilesManager from './ProfilesManager.svelte'
   import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
 
   function close() {
@@ -48,7 +46,7 @@
 </script>
 
 <div
-  class=" bg-surface-800 max-w-[600px] w-full min-h-[600px] shadow-lg rounded-lg space-y-4 overflow-hidden"
+  class=" bg-surface-800 max-w-[600px] w-full min-h-[400px] shadow-lg rounded-lg space-y-4 overflow-hidden"
 >
   <TabGroup active="variant-filled-primary" hover="hover:variant-soft-primary" rounded="">
     <Tab bind:group={tabSet} name="tab1" value={'game dir'}>
@@ -60,38 +58,8 @@
     <svelte:fragment slot="panel">
       <div class="space-y-2 p-4 pt-0">
         {#if tabSet === 'game dir'}
-          <h4 class="h4">General</h4>
+          <h4 class="h4">Games Directory</h4>
           <SteamGamesDirectoryManager />
-
-          <p>Not sure where to find your Steam Games directory?</p>
-
-          <hr />
-
-          <div class="space-y-4 rounded-lg">
-            <GamePicker />
-
-            <div class="flex gap-2">
-              <button
-                class="btn variant-filled"
-                on:click={handleRequestManifest}
-                disabled={buildingManifest}>build manifest</button
-              >
-
-              <button class="btn variant-filled" on:click={writeAddonList}>Write addonslist</button>
-            </div>
-
-            {#if buildingManifest}
-              <p>Building manifest...</p>
-            {/if}
-
-            <div class="space-y-4 pl-8">
-              <hr />
-
-              <h4 class="h4">Profile</h4>
-
-              <ProfilesManager />
-            </div>
-          </div>
         {:else if tabSet === 'dev'}
           <h4 class="h4">Developer</h4>
           <div class="space-x-2 rounded-lg">
@@ -115,15 +83,20 @@
           </SlideToggle>
 
           <p>
-            A surprising amout of mod VPKs come with incorrectly syntaxed or straight up missing
+            A surprising amount of mod VPKs come with incorrectly formatted or straight up missing
             addoninfo.txt's. Without these files, Sourcebox can't read typical mod metadata, like
-            titles and descriptions. By enabling networking, Sourcebox can fetch mod metadata online
-            by contacting the Steam workshop directly.
+            titles and descriptions.
+          </p>
+
+          <p>
+            By enabling networking, Sourcebox can fetch mod metadata online by contacting the Steam
+            workshop directly. This request does not contain any personal data, only a list of mod
+            IDs with missing data.
           </p>
         {/if}
       </div>
     </svelte:fragment>
 
-    <button on:click={close} class="btn ml-auto btn-sm">Close</button>
+    <button on:click={close} class="btn btn-icon ml-auto btn-sm"> <X size={24} /></button>
   </TabGroup>
 </div>

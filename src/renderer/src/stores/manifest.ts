@@ -1,11 +1,11 @@
-import type { GameManifest } from 'shared'
+import type { GameManifest, RequestGameManifestParams } from 'shared'
 import { get, writable } from 'svelte/store'
 import { userStore } from './user'
 
 export const currentGameManifest = writable<GameManifest | null>(null)
 export const isRequestingGameManifest = writable<boolean>(false)
 
-export async function requestCachedManifest() {
+export async function requestManifest(mode: RequestGameManifestParams['mode']) {
   isRequestingGameManifest.set(true)
 
   const { steamGamesDir, activeGameId } = get(userStore)
@@ -15,8 +15,8 @@ export async function requestCachedManifest() {
   try {
     let manifest = await window.api.requestGameManifest({
       appId: activeGameId,
-      onlineMetadataFetching: true,
-      mode: 'cached',
+      onlineMetadataFetching: get(userStore).enableNetworking,
+      mode,
       steamGamesDir: steamGamesDir
     })
 

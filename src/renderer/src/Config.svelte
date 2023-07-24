@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { User } from 'shared'
   import { onMount } from 'svelte'
-  import { requestCachedManifest } from './stores/manifest'
+  import { requestManifest } from './stores/manifest'
   import { userStore } from './stores/user'
 
   let defaultConfig: User = {
@@ -39,7 +39,7 @@
 
   $: {
     if (hasSetupUserProfile) {
-      requestCachedManifest()
+      requestManifest('cached')
     }
   }
 </script>
