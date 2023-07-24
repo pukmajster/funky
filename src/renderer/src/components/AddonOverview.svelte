@@ -40,7 +40,9 @@
 
   <div class="z-10 relative mx-7 my-5 space-y-5">
     <div class="space-y-1">
-      <h3 class="h3">{addon?.addonInfo?.title}</h3>
+      {#if addon?.addonInfo.title}
+        <h3 class="h3">{addon?.addonInfo?.title}</h3>
+      {/if}
 
       <div class="space-y-2">
         <div class="flex flex-wrap gap-2">

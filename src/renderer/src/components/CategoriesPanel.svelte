@@ -13,6 +13,7 @@
     derivedEnabledAddonIds,
     derviedAddonIdsInEnabledShuffles
   } from '../stores/user-derivatives'
+  import { view } from '../stores/view'
   let categories = game550.addons.categories
 
   export let profile: Profile
@@ -40,7 +41,10 @@
     'flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none'
 </script>
 
-<div class="flex flex-col justify-between h-full flex-1">
+<div
+  class="flex flex-col justify-between h-full flex-1 transition-transform"
+  class:disable-categories={$view == 'conflicts'}
+>
   <div class="w-[300px] p-2 space-y-2 box-border">
     <input
       class="input variant-form-material"
@@ -133,4 +137,7 @@
 </div>
 
 <style lang="postcss">
+  .disable-categories {
+    @apply opacity-40 pointer-events-none -translate-x-80;
+  }
 </style>

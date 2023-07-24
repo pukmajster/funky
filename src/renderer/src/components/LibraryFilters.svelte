@@ -1,6 +1,5 @@
 <script lang="ts">
   import { ArrowLeft, ArrowRight } from 'lucide-svelte'
-  import { showingConflictingAddons, totalConflictingAddons } from '../stores/conflicts'
   import {
     libraryActiveSubCategories,
     libraryPage,
@@ -34,7 +33,7 @@
   }
 </script>
 
-<div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pb-3 pr-3">
+<div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pr-3">
   <div class="flex flex-col lg:flex-row gap-2 max-w-[800px] [&>div]:w-full p-3 pr-0">
     <!-- <input
         class="input variant-form-material"
@@ -45,13 +44,13 @@
 
     <div class="flex justify-between gap-2 items-center">
       <div class="flex items-center bg-surface-700 rounded-full gap-3">
-        <button on:click={prevPage} class="btn-icon btn-icon-sm variant-filled-surface">
+        <button on:click={prevPage} class="btn-icon -btn-icon-sm variant-filled-surface">
           <ArrowLeft class="w-6" />
         </button>
 
         <span class="min-w-[64px] text-center">{$libraryPage} / {$libraryPageCount}</span>
 
-        <button on:click={nextPage} class="btn-icon btn-icon-sm variant-filled-surface">
+        <button on:click={nextPage} class="btn-icon -btn-icon-sm variant-filled-surface">
           <ArrowRight class="w-6" />
         </button>
       </div>
@@ -74,7 +73,7 @@
           <option value="uninstalled">Uninstalled</option>
         </select>
       </div>
-
+      <!-- 
       <button
         class:showConflicts={!$showingConflictingAddons && $totalConflictingAddons > 0}
         class:showingConflicts={$showingConflictingAddons}
@@ -88,7 +87,7 @@
         {:else}
           Hide conflicting mods
         {/if}
-      </button>
+      </button> -->
     </div>
   </div>
 </div>

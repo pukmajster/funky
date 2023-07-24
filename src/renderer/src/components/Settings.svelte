@@ -6,14 +6,6 @@
   import ProfilesManager from './ProfilesManager.svelte'
   import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
 
-  function openGamesDir() {
-    window.api.openDirectory($userStore.steamGamesDir)
-  }
-
-  function openWorkingDir() {
-    window.api.openWorkingDirectory()
-  }
-
   let buildingManifest = false
 
   async function handleRequestManifest() {

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { SlideToggle, Tab, TabGroup, modalStore } from '@skeletonlabs/skeleton'
   import { X } from 'lucide-svelte'
-  import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
 
@@ -18,31 +17,6 @@
   }
 
   let tabSet: 'game dir' | 'dev' | 'networking' = 'game dir'
-
-  let buildingManifest = false
-
-  async function handleRequestManifest() {
-    if (buildingManifest) return
-
-    buildingManifest = true
-
-    try {
-      let req = await window.api.requestGameManifest({
-        appId: $userStore.activeGameId,
-        onlineMetadataFetching: true,
-        mode: 'full-update',
-        steamGamesDir: $userStore.steamGamesDir
-      })
-
-      if (req) {
-        $currentGameManifest = req
-      }
-    } catch (e) {
-      console.error(e)
-    } finally {
-      buildingManifest = false
-    }
-  }
 </script>
 
 <div
