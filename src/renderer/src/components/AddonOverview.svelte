@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { Addon } from 'shared'
+  import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
+  import AddonCategoryChip from './AddonCategoryChip.svelte'
   import AddonOverviewStat from './AddonOverviewStat.svelte'
 
   export let addon: Addon
@@ -40,9 +42,17 @@
     <div class="space-y-1">
       <h3 class="h3">{addon?.addonInfo?.title}</h3>
 
-      {#if description}
-        <p class=" text-[11px]">{description}</p>
-      {/if}
+      <div class="space-y-2">
+        <div class="flex gap-2">
+          {#each $currentGameManifest.addonCategories.categories[addon.id] as cat}
+            <AddonCategoryChip categoryId={cat} />
+          {/each}
+        </div>
+
+        {#if description}
+          <p class=" text-[11px]">{description}</p>
+        {/if}
+      </div>
     </div>
 
     <div class="inline-flex gap-2">
@@ -57,8 +67,8 @@
 
     <div class="mt-10 grid grid-cols-3 gap-8">
       <AddonOverviewStat title="Author" value={addon.addonInfo.author} />
-      <AddonOverviewStat title="Size" value={fileSizeLabel} />
       <AddonOverviewStat title="Version" value={addon.addonInfo.version} />
+      <AddonOverviewStat title="Size" value={fileSizeLabel} />
     </div>
 
     <div>
