@@ -27,8 +27,11 @@ export interface Profile {
 }
 
 export interface CategoryShuffle {
-  subCategoryId: string
+  id: string
+  subCategoryId?: string
   enabled: boolean
+  custom?: boolean
+  label?: string
   shuffledAddonIds: AddonId[]
 }
 

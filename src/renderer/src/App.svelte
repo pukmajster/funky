@@ -19,7 +19,7 @@
     (profile) => profile.id == $userStore.games[$userStore.activeGameId].activeProfileId
   )
 
-  const { activeGameId, games } = $userStore
+  const { activeGameId, games } = $userStore ?? {}
   $: {
     activeGameId && !games[activeGameId] && userStore.setupGameWithDefaultProfile(activeGameId)
   }
@@ -34,8 +34,8 @@
     <h1 class="text-3xl font-bold">No game selected</h1>
     <p class="text-center">Please select a game from the dropdown in the header to get started.</p>
   </div>
-{:else}
-  <AppShell slotHeader="z-30" slotSidebarRight="bg-surface-800">
+{:else if $userStore !== undefined}
+  <AppShell slotHeader="z-30" slotSidebarRight="">
     <svelte:fragment slot="header">
       <Header />
     </svelte:fragment>
@@ -44,9 +44,7 @@
       <CategoriesPanel bind:profile={activeProfile} />
     </svelte:fragment>
 
-    {#if $userStore !== undefined}
-      <AddonLibrary bind:profile={activeProfile} />
-    {/if}
+    <AddonLibrary bind:profile={activeProfile} />
 
     <Conflicts />
 

@@ -88,8 +88,6 @@
     placement: 'top'
   }
 
-  let mainView = 'mods'
-
   $: currentProfileId = $userStore.games[$userStore.activeGameId].activeProfileId
   $: currentProfileName = $userStore.games[$userStore.activeGameId].profiles.find(
     (profile) => profile.id == currentProfileId
@@ -180,10 +178,12 @@
       <Tab bind:group={$view} name="mods" value={'mods'}>
         <span>Mods</span>
       </Tab>
+
+      <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
+
       <Tab bind:group={$view} name="conflicts" value={'conflicts'}
         >{$totalConflictingAddons} Conflicts</Tab
       >
-      <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Custom Shuffles</Tab>
     </TabGroup>
   </div>
 </div>

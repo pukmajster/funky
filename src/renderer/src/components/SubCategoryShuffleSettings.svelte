@@ -78,6 +78,7 @@
           >
             {#each $shuffledAddonsInActiveSubCategory ?? [] as addonId}
               <AddonCard
+                mode="card"
                 asShuffle
                 addon={$currentGameManifest.addons.find((_addon) => _addon.id === addonId)}
               />

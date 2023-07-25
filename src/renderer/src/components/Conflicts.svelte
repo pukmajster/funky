@@ -11,7 +11,7 @@
         <h4 class="h5 mb-1">Conflicting mods #{i + 1}</h4>
         <div class="library-list">
           {#each group as addon}
-            <AddonCard {addon} />
+            <AddonCard mode="card" {addon} />
           {/each}
         </div>
       </div>

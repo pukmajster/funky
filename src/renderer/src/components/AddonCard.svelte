@@ -12,6 +12,7 @@
 
   export let addon: Addon
   export let asShuffle: boolean = false
+  export let mode: 'in-shuffle-list' | 'card'
 
   $: thumbnail = `file:///${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/workshop/${addon.id}.jpg`
   $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
@@ -55,35 +56,48 @@
     'absolute items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full backdrop-blur-md w-[60%] py-1 text-[12px] left-[50%] translate-x-[-50%] hidden'
 </script>
 
-<button
-  draggable={true}
-  on:dragstart={dragStart}
-  on:contextmenu={openOverview}
-  class="relative shadow-md"
-  class:enabled={isEnabled}
-  class:asShuffle
-  on:click={toggleModEnable}
->
-  <img alt="mod" class=" rounded-md w-[200px] aspect-[5/3] w-full" src={thumbnail} />
+{#if mode == 'in-shuffle-list'}
+  <div
+    draggable={true}
+    on:dragstart={dragStart}
+    on:contextmenu={openOverview}
+    class="  flex items-center gap-2"
+  >
+    <img alt="mod" class="shadow-md rounded-md w-[64px] aspect-[5/3]" src={thumbnail} />
 
-  {#if !asShuffle}
-    <div class={tagStyle} class:addonEnabled={isEnabled}>
-      <Check class="w-4 mr-2" />
-      Enabled
-    </div>
+    <span class="text-sm">{addon.addonInfo.title}</span>
+  </div>
+{:else}
+  <button
+    draggable={true}
+    on:dragstart={dragStart}
+    on:contextmenu={openOverview}
+    class="relative shadow-md"
+    class:enabled={isEnabled}
+    class:asShuffle
+    on:click={toggleModEnable}
+  >
+    <img alt="mod" class=" rounded-md w-[200px] aspect-[5/3] w-full" src={thumbnail} />
 
-    <div class={tagStyle} class:addonConflicting={isConflicting}>
-      <AlertTriangle class="w-4 mr-2" />
-      Conflicting
-    </div>
+    {#if !asShuffle}
+      <div class={tagStyle} class:addonEnabled={isEnabled}>
+        <Check class="w-4 mr-2" />
+        Enabled
+      </div>
 
-    <div class={tagStyle} class:addonShuffled={isShuffled}>
-      <Dices class="w-4 mr-2" />
+      <div class={tagStyle} class:addonConflicting={isConflicting}>
+        <AlertTriangle class="w-4 mr-2" />
+        Conflicting
+      </div>
 
-      Shuffle
-    </div>
-  {/if}
-</button>
+      <div class={tagStyle} class:addonShuffled={isShuffled}>
+        <Dices class="w-4 mr-2" />
+
+        Shuffle
+      </div>
+    {/if}
+  </button>
+{/if}
 
 <style lang="postcss">
   .addonEnabled {

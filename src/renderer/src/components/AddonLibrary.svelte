@@ -21,7 +21,10 @@
   <div>
     <div class="library-list p-3 pt-0 pb-[200px]">
       {#each $libraryAddonPoolSortedPaginated as addon}
-        <AddonCard addon={$currentGameManifest.addons.find((_addon) => _addon.id === addon)} />
+        <AddonCard
+          mode="card"
+          addon={$currentGameManifest.addons.find((_addon) => _addon.id === addon)}
+        />
       {/each}
     </div>
 

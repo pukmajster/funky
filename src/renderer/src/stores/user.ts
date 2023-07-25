@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import type { AddonId, Profile, User } from 'shared'
 import { writable } from 'svelte/store'
 
@@ -113,10 +114,103 @@ function createUserStore() {
         workingProfile.shuffles[subCategoryId] = {
           subCategoryId: subCategoryId,
           enabled: true,
-          shuffledAddonIds: []
+          shuffledAddonIds: [],
+          id: subCategoryId
         }
       } else {
         workingShuffle.enabled = !workingShuffle.enabled
+      }
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
+  function toggleShuffleState(shuffleId: string) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+
+      const workingShuffle = workingProfile.shuffles[shuffleId]
+      if (!workingShuffle) return user
+
+      workingShuffle.enabled = !workingShuffle.enabled
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
+  function toggleAddonIdInShuffle(shuffleId: string, addonId: AddonId) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+
+      console.log('profile', workingProfile)
+      console.log('shuffleId', shuffleId)
+      console.log('addonId', addonId)
+
+      const workingShuffle = workingProfile.shuffles[shuffleId]
+      if (!workingShuffle) console.log('no working shuffle')
+
+      if (!workingShuffle) return user
+
+      const addonIndex = workingShuffle.shuffledAddonIds.indexOf(addonId)
+      if (addonIndex === -1) {
+        workingShuffle.shuffledAddonIds.push(addonId)
+      } else {
+        workingShuffle.shuffledAddonIds.splice(addonIndex, 1)
+      }
+
+      console.log('workingShuffle', workingShuffle)
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
+  function addShuffle(label: string) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+      let id = nanoid()
+
+      workingProfile.shuffles[id] = {
+        id,
+        label: label,
+        enabled: true,
+        custom: true,
+        shuffledAddonIds: []
       }
 
       return {
@@ -183,7 +277,10 @@ function createUserStore() {
     toggleAddonShuffleForSubCategory,
     toggleSubCategoryShuffle,
     addProfile,
-    setupGameWithDefaultProfile
+    setupGameWithDefaultProfile,
+    toggleShuffleState,
+    toggleAddonIdInShuffle,
+    addShuffle
   }
 }
 
