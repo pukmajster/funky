@@ -15,15 +15,19 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Support for different profiles, letting you quickly hop between various mod setups.
 - [x] Mod shuffle/randomization. Changes things up everytime you launch the game.
 - [x] Pagination
+- [x] Custom shuffle groups, detached from categories
 
 ## BETA Roadmap
 - [ ] Extraction and inspection of VPK's contents
 - [ ] Batch selection of mods w/ various actions
-- [ ] Custom shuffle groups, detached from categories
+- [ ] (internal) userStore rewrite
 - [ ] Built-in custom config/autoexec editor
-- [ ] Collections
 - [ ] Local data backup
-- [ ] Online data backup (Drive?)
+- [ ] General performance improvements and UI cleanup
+
+## Ideas
+- [ ] Collections
+- [ ] Online data backup
 - [ ] In-app unsubscribing from mods
 - [ ] Custom vocalizer editor
 
