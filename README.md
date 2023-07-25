@@ -11,11 +11,10 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Search and filters
 - [x] Broader mod categorization
 - [x] More detailed mod inspection
-- [x] Advanced mod conflict solving menu which shows you exactly which mods are conflicting with one another
+- [x] Advanced mod conflict solving menu, showing you exactly which mods are conflicting
 - [x] Support for different profiles, letting you quickly hop between various mod setups.
-- [x] Mod shuffle/randomization. Changes things up everytime you launch the game.
+- [x] Mod shuffle/randomization. Change things up everytime you launch the game.
 - [x] Pagination
-- [x] Custom shuffle groups, detached from categories
 
 ## BETA Roadmap
 - [ ] Extraction and inspection of VPK's contents
