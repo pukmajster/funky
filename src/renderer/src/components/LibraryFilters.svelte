@@ -33,8 +33,8 @@
   }
 </script>
 
-<div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pr-3">
-  <div class="flex flex-col lg:flex-row gap-2 max-w-[800px] [&>div]:w-full p-3 pr-0">
+<div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pr-2">
+  <div class="flex flex-col lg:flex-row gap-2 max-w-[800px] [&>div]:w-full p-2 pr-0">
     <!-- <input
         class="input variant-form-material"
         type="text"
