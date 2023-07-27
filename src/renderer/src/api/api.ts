@@ -20,7 +20,7 @@ export async function writeAddonList(): Promise<void> {
   const gameDir = games[activeGameId]
   const profile = workingProfile
 
-  const game = games[550]
+  const game = games[activeGameId]
 
   const addonListDir = `${game.rootDirectoryName}/${game.gameDirectory}`
 

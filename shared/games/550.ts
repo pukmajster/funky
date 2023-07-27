@@ -59,16 +59,17 @@ function genericNadeFiles(id: string): string[] {
 
 // import gameLogo from './550icons/icon_l4d.png'
 
-import assets from './assets/550'
+import assets from './assets/l4dassets'
 
 export const game550: Game = {
   appId: 550,
   label: 'Left 4 Dead 2',
   rootDirectoryName: 'Left 4 Dead 2',
   gameDirectory: 'left4dead2',
-  gameLogo: assets.game,
+  gameLogo: assets.l4d2logo,
   addons: {
-    addonFoldes: ['/left4dead2/addons', '/left4dead2/custom', '/left4dead2/addons/workshop'],
+    // addonFoldes: ['/left4dead2/addons', '/left4dead2/custom', '/left4dead2/addons/workshop'],
+    addonFoldes: ['/left4dead2/addons', '/left4dead2/addons/workshop'],
     supportsWorkshop: true,
     categories: [
       {

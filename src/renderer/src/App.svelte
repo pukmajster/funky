@@ -12,16 +12,22 @@
   import { storePopup } from '@skeletonlabs/skeleton'
   import Conflicts from './components/Conflicts.svelte'
   import ShufflesManager from './components/ShufflesManager.svelte'
+  import { requestManifest } from './stores/manifest'
   import { view } from './stores/view'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
-  let activeProfile = $userStore?.games[$userStore.activeGameId].profiles.find(
-    (profile) => profile.id == $userStore.games[$userStore.activeGameId].activeProfileId
+  $: activeGameId = $userStore?.activeGameId
+
+  $: activeProfile = $userStore?.games[activeGameId]?.profiles.find(
+    (profile) => profile.id == $userStore.games[activeGameId].activeProfileId
   )
 
-  const { activeGameId, games } = $userStore ?? {}
   $: {
-    activeGameId && !games[activeGameId] && userStore.setupGameWithDefaultProfile(activeGameId)
+    activeGameId && !activeProfile && userStore.setupGameWithDefaultProfile(activeGameId)
+  }
+
+  $: {
+    activeGameId && requestManifest('cached')
   }
 </script>
 
@@ -29,6 +35,8 @@
 
 {#if ($userStore?.hasFinishedFirstTimeSetup ?? false) === false}
   <WelcomeGuide />
+{:else if !activeProfile}
+  waiting for active profile.default..
 {:else if $userStore?.activeGameId === undefined}
   <div class="flex flex-col items-center justify-center h-full">
     <h1 class="text-3xl font-bold">No game selected</h1>

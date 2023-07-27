@@ -2,6 +2,7 @@
   import classNames from 'classnames'
   import { CheckCircle, CircleIcon, FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
   import type { Profile } from 'shared'
+  import games from 'shared/games'
   import { game550 } from 'shared/games/550'
   import {
     libraryActiveCategory,
@@ -9,12 +10,16 @@
     librarySearchQueue
   } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
+  import { userStore } from '../stores/user'
   import {
     derivedEnabledAddonIds,
     derviedAddonIdsInEnabledShuffles
   } from '../stores/user-derivatives'
   import { view } from '../stores/view'
   let categories = game550.addons.categories
+
+  $: activeGameId = $userStore.activeGameId
+  $: categories = games[activeGameId].addons.categories
 
   export let profile: Profile
 

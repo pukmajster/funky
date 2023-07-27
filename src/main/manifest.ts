@@ -37,10 +37,17 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
   const manifestFileName = path.join(app.getPath('userData'), `${params.appId}_manifest.json`)
 
+  console.log(manifestFileName)
+
   try {
     const modDirs: string[] = []
-    let files = await fsp.readdir(fullAddonDirectories[2])
-    files = files.filter((file) => file.endsWith('.vpk'))
+
+    let files: string[] = []
+
+    for (const addonFolder of fullAddonDirectories) {
+      const tempFiles = await fsp.readdir(addonFolder)
+      files.push(...tempFiles.filter((file) => file.endsWith('.vpk')))
+    }
 
     const workshopAddonIdsWithMissingAddonInfo: string[] = []
 
@@ -119,7 +126,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     console.log(workshopAddonIdsWithMissingAddonInfo)
 
     // Fetch addon info from Steam API
-    if (params.onlineMetadataFetching) {
+    if (params.onlineMetadataFetching && workshopAddonIdsWithMissingAddonInfo.length > 0) {
       const fd = new FormData()
       let i = 0
       fd.append('itemcount', `${workshopAddonIdsWithMissingAddonInfo.length}`)

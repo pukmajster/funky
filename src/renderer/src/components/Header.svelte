@@ -88,8 +88,8 @@
     placement: 'top'
   }
 
-  $: currentProfileId = $userStore.games[$userStore.activeGameId].activeProfileId
-  $: currentProfileName = $userStore.games[$userStore.activeGameId].profiles.find(
+  $: currentProfileId = $userStore.games[$userStore.activeGameId]?.activeProfileId
+  $: currentProfileName = $userStore.games[$userStore.activeGameId]?.profiles.find(
     (profile) => profile.id == currentProfileId
   )?.label
 </script>

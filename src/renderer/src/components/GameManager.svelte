@@ -6,7 +6,7 @@
 
   let newProfileName = ''
 
-  const { activeGameId } = $userStore
+  $: activeGameId = $userStore.activeGameId
 
   const gameIds = Object.keys(games)
 
@@ -53,7 +53,7 @@
       <h4 class="h4">Game</h4>
       <ListBox>
         {#each gameIds as gameId}
-          {@const gameLabel = games['550'].label}
+          {@const gameLabel = games[gameId].label}
           <ListBoxItem bind:group={$userStore.activeGameId} name={gameId} value={+gameId}
             >{gameLabel}</ListBoxItem
           >

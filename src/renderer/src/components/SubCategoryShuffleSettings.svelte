@@ -25,10 +25,8 @@
   }
 
   const shuffledAddonsInActiveSubCategory = derived(
-    [userStore, libraryActiveCategory, libraryActiveSubCategories],
-    ([$userStore, $libraryActiveCategory, $libraryActiveSubCategories]) => {
-      console.log($libraryActiveCategory)
-
+    [userStore, libraryActiveSubCategories],
+    ([$userStore, $libraryActiveSubCategories]) => {
       const { activeGameId } = $userStore
       const workingSubCatId = $libraryActiveSubCategories[0]
       const workingProfileId = $userStore.games[activeGameId].activeProfileId

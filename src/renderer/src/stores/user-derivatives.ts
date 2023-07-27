@@ -45,6 +45,8 @@ export const derviedAddonIdsInEnabledShuffles = derived([userStore], ([$userStor
 
   const shuffledAddonIds: string[] = []
 
+  if (!shuffles) return []
+
   Object.keys(shuffles).forEach((subCategoryId) => {
     const shuffle = shuffles[subCategoryId]
     if (!shuffle.enabled) return
