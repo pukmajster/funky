@@ -14,7 +14,7 @@
   export let asShuffle: boolean = false
   export let mode: 'in-shuffle-list' | 'card'
 
-  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/workshop/${addon.id}.jpg`
+  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/workshop/${addon?.id}.jpg`
   $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
   $: isShuffled = $derviedAddonIdsInEnabledShuffles.includes(addon.id)
   $: isConflicting = $conflictGroups.some((group) =>

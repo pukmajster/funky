@@ -37,24 +37,37 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
   const manifestFileName = path.join(app.getPath('userData'), `${params.appId}_manifest.json`)
 
-  console.log(manifestFileName)
-
   try {
     const modDirs: string[] = []
 
     let files: string[] = []
 
     for (const addonFolder of fullAddonDirectories) {
-      const tempFiles = await fsp.readdir(addonFolder)
-      files.push(...tempFiles.filter((file) => file.endsWith('.vpk')))
+      let tempFiles = await fsp.readdir(addonFolder)
+
+      // Get rid of non .vpk files
+      tempFiles = tempFiles.filter((file) => file.endsWith('.vpk'))
+
+      // Add the full path to the file
+      tempFiles = tempFiles.map((file) => path.join(addonFolder, file))
+
+      files.push(...tempFiles)
     }
 
     const workshopAddonIdsWithMissingAddonInfo: string[] = []
 
+    console.log(files)
+
     for (const file of files) {
-      const vpkId = file.split('.')[0]
+      const vpkId = file.split('/').at(-1)?.split('.')[0]
+
+      if (!vpkId) {
+        console.log('failed to get vpkId')
+        continue
+      }
+
       const vpkFiles: AddonFiles = []
-      const vpkPath = path.join(fullAddonDirectories[2], file)
+      const vpkPath = file
       const vpkStats = await fsp.stat(vpkPath)
       const vpkAddonInfo: AddonInfo = {}
 
@@ -149,7 +162,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
         console.log(JSON.stringify(data, null, 2))
 
-        for (const publishedFile of data.response.publishedfiledetails) {
+        for (const publishedFile of data.response?.publishedfiledetails) {
           const id = publishedFile.publishedfileid.toString()
           if (workshopAddonIdsWithMissingAddonInfo.includes(id)) {
             let addonToModify = addons.find((addon) => addon.id === id)
