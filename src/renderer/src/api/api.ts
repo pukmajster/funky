@@ -3,9 +3,11 @@ import games from 'shared/games'
 import { get } from 'svelte/store'
 import { currentGameManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
+import { derviedAddonIdsInEnabledShuffles } from '../stores/user-derivatives'
 
 export async function writeAddonList(): Promise<void> {
   const workingUserStore = get(userStore)
+  const allAddonIdsInShuffles = get(derviedAddonIdsInEnabledShuffles)
   const { activeGameId } = workingUserStore
 
   const workingProfile = workingUserStore.games[workingUserStore.activeGameId]?.profiles.find(
@@ -27,7 +29,10 @@ export async function writeAddonList(): Promise<void> {
   let outputVdfString = `"AddonList"\n{\n`
 
   // Get all the fixed-enabled mods
-  const enabledMods = profile.enabledAddonIds
+  let enabledMods = profile.enabledAddonIds
+
+  // Remove any mods from enabledMods if they appear in allAddonIdsInShuffles
+  enabledMods = enabledMods.filter((mod) => !allAddonIdsInShuffles.includes(mod))
 
   // choose a randon mod from each shuffled subcategory
   let randomMods: AddonId[] = []
