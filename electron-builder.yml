@@ -1,5 +1,5 @@
-appId: com.sourcebox.pukmajster
-productName: sourcebox
+appId: com.keith.pukmajster
+productName: keith
 directories:
   buildResources: build
 files:
@@ -17,7 +17,7 @@ asarUnpack:
   - resources/**
 afterSign: build/notarize.js
 win:
-  executableName: sourcebox
+  executableName: keith
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

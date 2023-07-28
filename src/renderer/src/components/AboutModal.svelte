@@ -19,7 +19,7 @@
   <p>
     Visit the project at <a
       class="flex-inline items-center gap-2 text-primary-400"
-      href="https://github.com/pukmajster/sourcebox"
+      href="https://github.com/pukmajster/keith"
       target="_blank"
     >
       <GithubIcon class="w-4 pb-1 ml-1 inline" />

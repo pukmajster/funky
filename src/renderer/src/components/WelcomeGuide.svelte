@@ -17,10 +17,10 @@
 
   <Stepper on:complete={finishSetup}>
     <Step>
-      <svelte:fragment slot="header">Welcome to Sourcebox!</svelte:fragment>
+      <svelte:fragment slot="header">Welcome to Keith!</svelte:fragment>
 
       <p>
-        Thanks for installing Sourcebox! It's still in early development, so bugs are very like to
+        Thanks for installing Keith! It's still in early development, so bugs are very like to
         occur. <br /><br /> Once you finish the setup, you'll find a "help" button in the top right corner
         of the app, where you'll have instructions on how to send any feedback. Now let's start the setup!
       </p>
@@ -30,9 +30,9 @@
       <svelte:fragment slot="header">Steam games directory</svelte:fragment>
 
       <p>
-        Sourcebox needs the directory of all your games to build a list of installed mods. This list
-        is refreshed everytime you launch Sourcebox, but you can also manually trigger the refresh
-        from settings, if you've since installed new mods you're still not seeing in Sourcebox.
+        Keith needs the directory of all your games to build a list of installed mods. This list is
+        refreshed everytime you launch Keith, but you can also manually trigger the refresh from
+        settings, if you've since installed new mods you're still not seeing in Keith.
       </p>
 
       <p>

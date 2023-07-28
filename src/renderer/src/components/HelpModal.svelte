@@ -13,7 +13,7 @@
   <p>
     Visit the project's <a
       class="flex-inline items-center gap-2 text-primary-400"
-      href="https://github.com/pukmajster/sourcebox/issues"
+      href="https://github.com/pukmajster/keith/issues"
       target="_blank"
     >
       <GithubIcon class="w-4 pb-1 ml-1 inline" />

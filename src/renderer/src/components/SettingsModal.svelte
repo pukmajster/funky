@@ -58,12 +58,12 @@
 
           <p>
             A surprising amount of mod VPKs come with incorrectly formatted or straight up missing
-            addoninfo.txt's. Without these files, Sourcebox can't read typical mod metadata, like
-            titles and descriptions.
+            addoninfo.txt's. Without these files, Keith can't read typical mod metadata, like titles
+            and descriptions.
           </p>
 
           <p>
-            By enabling networking, Sourcebox can fetch mod metadata online by contacting the Steam
+            By enabling networking, Keith can fetch mod metadata online by contacting the Steam
             workshop directly. This request does not contain any personal data, only a list of mod
             IDs with missing data.
           </p>
