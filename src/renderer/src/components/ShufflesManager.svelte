@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, SlideToggle, Tab, TabGroup } from '@skeletonlabs/skeleton'
+  import { Accordion, AccordionItem, SlideToggle } from '@skeletonlabs/skeleton'
   import classNames from 'classnames'
   import { Dices } from 'lucide-svelte'
   import { currentGameManifest } from '../stores/manifest'
@@ -35,10 +35,10 @@
 <div class="w-[360px] p-3">
   <h3 class="h3">Shuffles</h3>
 
-  <TabGroup>
+  <!-- <TabGroup>
     <Tab bind:group={whichShufflesToShow} name="custom" value={'custom'}>Custom</Tab>
     <Tab bind:group={whichShufflesToShow} name="generated" value={'generated'}>From category</Tab>
-  </TabGroup>
+  </TabGroup> -->
 
   {#if whichShufflesToShow == 'custom'}
     <div class="my-2 flex items-center justify-between gap-2">

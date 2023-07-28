@@ -12,7 +12,7 @@
   import { storePopup } from '@skeletonlabs/skeleton'
   import Conflicts from './components/Conflicts.svelte'
   import ShufflesManager from './components/ShufflesManager.svelte'
-  import { requestManifest } from './stores/manifest'
+  import { isRequestingGameManifest, requestManifest } from './stores/manifest'
   import { view } from './stores/view'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
@@ -62,6 +62,12 @@
       {/if}
     </svelte:fragment>
   </AppShell>
+
+  {#if $isRequestingGameManifest}
+    <div class="fixed flex justify-center items-center inset-0 z-50 bg-black/80 backdrop-blur-lg">
+      <p>Building manifest... please wait</p>
+    </div>
+  {/if}
 {/if}
 
 <Drawers />

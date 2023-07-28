@@ -126,12 +126,17 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         vpkTimeLastModified: vpkStats.mtime.toISOString(),
         vpkSizeInBytes: vpkStats.size,
         vpkHash: '',
-        fromWorkshop: true,
+        fromWorkshop: false,
         workshopId: 0
       }
 
-      addonCategories.categories[vpkId] = categorizeVpk(game, vpkFiles)
+      // Check if the addon is from the workshop. And if it is, get the workshop id
+      if (vpkPath.includes('workshop')) {
+        addonData.workshopId = +vpkId
+        addonData.fromWorkshop = true
+      }
 
+      addonCategories.categories[vpkId] = categorizeVpk(game, vpkFiles)
       addons.push(addonData)
     }
 

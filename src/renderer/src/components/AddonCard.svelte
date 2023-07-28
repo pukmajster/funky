@@ -1,7 +1,9 @@
 <script lang="ts">
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
   import { AlertTriangle, Check, Dices } from 'lucide-svelte'
-  import type { Addon } from 'shared'
+  import type { Addon, Game } from 'shared'
+  import games from 'shared/games'
+  import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
   import { conflictGroups } from '../stores/conflicts'
   import { addonOverviewId, libraryActiveSubCategories } from '../stores/library'
   import { userStore } from '../stores/user'
@@ -9,12 +11,20 @@
     derivedEnabledAddonIds,
     derviedAddonIdsInEnabledShuffles
   } from '../stores/user-derivatives'
+  const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
   export let asShuffle: boolean = false
   export let mode: 'in-shuffle-list' | 'card'
 
-  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/workshop/${addon?.id}.jpg`
+  // Thumbnail based on the active game id, and if it's from the workshop
+  $: activeGameId = $userStore.activeGameId
+  $: activeGameDetails = games[activeGameId] as Game
+  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
+    activeGameDetails.rootDirectoryName
+  }/${activeGameDetails.gameDirectory}/addons${addon.fromWorkshop ? '/workshop' : ''}/${
+    addon.id
+  }.jpg`
   $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
   $: isShuffled = $derviedAddonIdsInEnabledShuffles.includes(addon.id)
   $: isConflicting = $conflictGroups.some((group) =>
@@ -63,7 +73,12 @@
     on:contextmenu={openOverview}
     class="  flex items-center gap-2"
   >
-    <img alt="mod" class="shadow-md rounded-md w-[64px] aspect-[5/3]" src={thumbnail} />
+    <img
+      alt="mod"
+      on:error={handleMissingThumbnail}
+      class="shadow-md rounded-md w-[64px] aspect-[5/3]"
+      src={thumbnail}
+    />
 
     <span class="text-sm">{addon.addonInfo.title}</span>
   </div>
@@ -77,7 +92,12 @@
     class:asShuffle
     on:click={toggleModEnable}
   >
-    <img alt="mod" class=" rounded-md w-[200px] aspect-[5/3] w-full" src={thumbnail} />
+    <img
+      alt="mod"
+      on:error={handleMissingThumbnail}
+      class=" rounded-md w-[200px] aspect-[5/3] w-full"
+      src={thumbnail}
+    />
 
     {#if !asShuffle}
       <div class={tagStyle} class:addonEnabled={isEnabled}>

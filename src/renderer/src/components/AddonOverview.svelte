@@ -1,13 +1,24 @@
 <script lang="ts">
-  import type { Addon } from 'shared'
+  import type { Addon, Game } from 'shared'
+  import games from 'shared/games'
+  import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import AddonCategoryChip from './AddonCategoryChip.svelte'
   import AddonOverviewStat from './AddonOverviewStat.svelte'
 
+  const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
+
   export let addon: Addon
 
-  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/workshop/${addon.id}.jpg`
+  // Thumbnail based on the active game id, and if it's from the workshop
+  $: activeGameId = $userStore.activeGameId
+  $: activeGameDetails = games[activeGameId] as Game
+  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
+    activeGameDetails.rootDirectoryName
+  }/${activeGameDetails.gameDirectory}/addons${addon.fromWorkshop ? '/workshop' : ''}/${
+    addon.id
+  }.jpg`
 
   $: fileSizeMb = addon.vpkSizeInBytes / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`
@@ -30,12 +41,18 @@
 <div class="mod h-full">
   <div class="flex justify-center relative w-full aspect-[16/9]">
     <img
+      on:error={handleMissingThumbnail}
       alt="blurred-bg"
       src={thumbnail}
       class="select-none absolute inset-0 blur-2xl w-full aspect-[16/9] pointer-events-none scale-y-[1.5] opacity-20"
     />
 
-    <img alt="" src={thumbnail} class="select-none m-10 z-20 shadow-lg rounded-md" />
+    <img
+      alt=""
+      src={thumbnail}
+      on:error={handleMissingThumbnail}
+      class="select-none m-10 z-20 shadow-lg rounded-md"
+    />
   </div>
 
   <div class="z-10 relative mx-7 my-5 space-y-5">
@@ -57,15 +74,20 @@
       </div>
     </div>
 
-    <div class="inline-flex gap-2">
-      <button class=" w-full btn btn-sm variant-filled-surface" on:click={openModInBrowser}
-        >Open in Browser</button
-      >
+    {#if addon.fromWorkshop}
+      <div>
+        <div class="text-sm mb-1">Workshop</div>
+        <div class="inline-flex gap-2">
+          <button class=" w-full btn btn-sm variant-filled-surface" on:click={openModInBrowser}
+            >Open in Browser</button
+          >
 
-      <button class=" w-full btn btn-sm variant-filled-surface" on:click={openModInSteam}
-        >Open in Steam</button
-      >
-    </div>
+          <button class=" w-full btn btn-sm variant-filled-surface" on:click={openModInSteam}
+            >Open in Steam</button
+          >
+        </div>
+      </div>
+    {/if}
 
     <div class="mt-10 grid grid-cols-3 gap-8">
       <AddonOverviewStat title="Author" value={addon.addonInfo.author} />
