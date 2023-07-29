@@ -29,7 +29,7 @@
 
   <p>Developed with Electron, Svelte and Skeleton UI</p>
 
-  <p>Shoutout to Valve and all the modders</p>
+  <p>Shoutout to Valve and the modding community</p>
 
   <button on:click={close} class="btn btn-sm variant-filled">Close</button>
 </div>

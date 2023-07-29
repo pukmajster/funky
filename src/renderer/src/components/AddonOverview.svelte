@@ -100,7 +100,7 @@
 
       {#if showFiles}
         {#each addon.files as file}
-          <p class="text-[10px]">{file}</p>
+          <p class="text-[10px] leading-normal">{file}</p>
         {/each}
 
         <button class="btn btn-sm variant-filled-surface mt-2" on:click={() => (showFiles = false)}>
