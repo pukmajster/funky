@@ -1,6 +1,6 @@
 # Keith
 
-Keith is an open-source mods manager for Source Engine games, developed with Svelte, Electron and SkeletonUI. Currently still in early development, with support only for Left 4 Dead 2.
+Keith is an open-source mods manager for L4D1 and L4D2, developed with Electron, Svelte and SkeletonUI. Currently still in early development.
 
 ![App](/resources/app.png)
 
@@ -39,7 +39,7 @@ While I've found Keith to be extremly useful in organizing my ever growing libar
 - The game needs to be restarted before any changes made in Keith can take effect.
 - Newly subscribed-to Workshop mods will only be downloaded after you start the game.
 
-So taking both of these points into account, if you've just subscribed to a new mod, you'll have to open up the game, wait for the game to download the mod, close the game, make any changes in Keith and then finally, run the game from within Keith in order for all changes to take effect. Quite clumbersome, but you get used to it.
+So taking both of these points into account, if you've just subscribed to a new mod, you'll have to open up the game, wait for the game to download the mod, close the game, make any changes in Keith and then finally, run the game from within Keith in order for all changes to take effect. Quite clumbersome, but it is what it is.
 
 ## Project Setup
 
