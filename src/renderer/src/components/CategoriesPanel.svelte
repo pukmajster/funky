@@ -5,16 +5,14 @@
   import games from 'shared/games'
   import { game550 } from 'shared/games/550'
   import {
+    derviedAddonIdsInEnabledShuffles,
     libraryActiveCategory,
     libraryActiveSubCategories,
     librarySearchQueue
   } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
-  import {
-    derivedEnabledAddonIds,
-    derviedAddonIdsInEnabledShuffles
-  } from '../stores/user-derivatives'
+  import { derivedEnabledAddonIds } from '../stores/user-derivatives'
   import { view } from '../stores/view'
   let categories = game550.addons.categories
 

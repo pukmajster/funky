@@ -592,7 +592,7 @@ export const game550: Game = {
       {
         id: 'infected',
         label: 'Infected',
-        image: assets.infected,
+        image: assets.infected2,
         //imageUrl: IconInfected,
         subCategories: [
           {

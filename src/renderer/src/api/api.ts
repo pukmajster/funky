@@ -1,9 +1,9 @@
 import type { AddonId, CategoryShuffle, GameManifest, Profile } from 'shared'
 import games from 'shared/games'
 import { get } from 'svelte/store'
+import { derviedAddonIdsInEnabledShuffles } from '../stores/library'
 import { currentGameManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
-import { derviedAddonIdsInEnabledShuffles } from '../stores/user-derivatives'
 
 export async function writeAddonList(): Promise<void> {
   const workingUserStore = get(userStore)

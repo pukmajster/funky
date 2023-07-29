@@ -5,12 +5,13 @@
   import games from 'shared/games'
   import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
   import { conflictGroups } from '../stores/conflicts'
-  import { addonOverviewId, libraryActiveSubCategories } from '../stores/library'
-  import { userStore } from '../stores/user'
   import {
-    derivedEnabledAddonIds,
-    derviedAddonIdsInEnabledShuffles
-  } from '../stores/user-derivatives'
+    addonOverviewId,
+    derviedAddonIdsInEnabledShuffles,
+    libraryActiveSubCategories
+  } from '../stores/library'
+  import { userStore } from '../stores/user'
+  import { derivedEnabledAddonIds } from '../stores/user-derivatives'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon

@@ -61,6 +61,31 @@ export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   return activeAddons
 })
 
+// Derive list of all addons that are in active shuffles
+export const derviedAddonIdsInEnabledShuffles = derived([userStore], ([$userStore]) => {
+  const activeGameId = $userStore?.activeGameId
+  const activeProfileId = $userStore?.games[activeGameId]?.activeProfileId
+
+  const shuffles = $userStore?.games[activeGameId]?.profiles.find(
+    (profile) => profile.id === activeProfileId
+  )?.shuffles
+
+  const shuffledAddonIds: string[] = []
+
+  if (!shuffles) return []
+
+  Object.keys(shuffles).forEach((subCategoryId) => {
+    const shuffle = shuffles[subCategoryId]
+    if (!shuffle.enabled) return
+    console.log(shuffle)
+    shuffle.shuffledAddonIds.forEach((addonId) => {
+      shuffledAddonIds.push(addonId)
+    })
+  })
+
+  return shuffledAddonIds
+})
+
 export const libraryAddonPool = derived(
   [
     currentGameManifest,
