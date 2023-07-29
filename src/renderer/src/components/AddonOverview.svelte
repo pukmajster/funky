@@ -103,11 +103,11 @@
           <p class="text-[10px]">{file}</p>
         {/each}
 
-        <button class="btn variant-filled-surface mt-2" on:click={() => (showFiles = false)}>
+        <button class="btn btn-sm variant-filled-surface mt-2" on:click={() => (showFiles = false)}>
           Hide {addon.files.length} files
         </button>
       {:else}
-        <button class="btn variant-filled-surface mt-1" on:click={() => (showFiles = true)}>
+        <button class="btn btn-sm variant-filled-surface mt-1" on:click={() => (showFiles = true)}>
           Show {addon.files.length} files
         </button>
       {/if}

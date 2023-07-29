@@ -168,12 +168,13 @@
     </div>
   </div>
 
-  <div class=" bg-surface-700/60">
+  <div class="border-t border-solid border-surface-600 bg-surface-800 shadow-xl">
     <TabGroup
-      active="border-b-2  border-solid border-primary-500"
+      active="border-b-2 !text-white   border-solid border-primary-500"
       justify="justify-center"
-      rounded=""
+      rounded="text-white/50 uppercase font-bold "
       border=""
+      hover="hover:text-white/70"
     >
       <Tab bind:group={$view} name="mods" value={'mods'}>
         <span>Mods</span>

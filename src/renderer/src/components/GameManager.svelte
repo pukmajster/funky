@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton'
+  import { ListBox, ListBoxItem, modalStore } from '@skeletonlabs/skeleton'
+  import { nanoid } from 'nanoid'
   import type { Profile } from 'shared'
   import games from 'shared/games'
   import { userStore } from '../stores/user'
@@ -43,6 +44,25 @@
 
     newProfileName = ''
   }
+
+  function promptNewProfileModal() {
+    modalStore.trigger({
+      type: 'prompt',
+      title: 'New profile',
+      body: 'Enter the name of the new profile',
+      value: '',
+      valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
+      response: (r: string) => {
+        if (r)
+          userStore.addProfile({
+            id: nanoid(),
+            label: r,
+            enabledAddonIds: [],
+            shuffles: {}
+          })
+      }
+    })
+  }
 </script>
 
 <div data-popup="gameManagerPopup">
@@ -80,18 +100,9 @@
       <div class="pb-3" />
 
       <div class="space-y-2">
-        <div class="flex items-center gap-2">
-          <input
-            class="input"
-            type="text"
-            bind:value={newProfileName}
-            placeholder="Create new profile..."
-          />
-
-          <button
-            class="btn variant-filled"
-            on:click={createNewProfile}
-            disabled={!newProfileName.length}>Create</button
+        <div class="flex justify-end gap-2">
+          <button class="btn btn-sm variant-filled" on:click={promptNewProfileModal}
+            >New Profile</button
           >
         </div>
       </div>
