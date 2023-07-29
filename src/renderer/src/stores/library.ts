@@ -123,11 +123,17 @@ export const libraryAddonPool = derived(
       const addonId = thisAddon.id
 
       const addonName = thisAddon.addonInfo?.title ?? thisAddon.id
+      const addonDescription =
+        (thisAddon.addonInfo?.description || thisAddon?.addonInfo?.tagline) ?? ''
 
       // Make sure the mod's title fits the search term
       if ($librarySearchQueue) {
-        if (!addonName) return
-        if (!addonName.toLowerCase().includes($librarySearchQueue.toLowerCase())) return
+        const doesNameInclude = addonName.toLowerCase().includes($librarySearchQueue.toLowerCase())
+        const doesDescriptionInclude = addonDescription
+          .toLowerCase()
+          .includes($librarySearchQueue.toLowerCase())
+
+        if (!doesNameInclude && !doesDescriptionInclude) return
       }
 
       const thisModCategories = $currentGameManifest.addonCategories.categories[addonId] ?? []
