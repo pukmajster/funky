@@ -170,9 +170,9 @@
 
   <div class="border-t border-solid border-surface-600 bg-surface-800 shadow-xl">
     <TabGroup
-      active="border-b-2 !text-white   border-solid border-primary-500"
+      active="border-b-2 !text-white   border-solid"
       justify="justify-center"
-      rounded="text-white/50 uppercase font-bold "
+      rounded="text-white/50 uppercase font-bold  border-primary-500"
       border=""
       hover="hover:text-white/70"
     >
