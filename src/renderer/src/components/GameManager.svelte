@@ -1,7 +1,6 @@
 <script lang="ts">
   import { ListBox, ListBoxItem, modalStore } from '@skeletonlabs/skeleton'
   import { nanoid } from 'nanoid'
-  import type { Profile } from 'shared'
   import games from 'shared/games'
   import { userStore } from '../stores/user'
 
@@ -29,21 +28,6 @@
   //       }
   //     })
   // }
-
-  function createNewProfile() {
-    if (!newProfileName) return
-
-    let newProfile: Profile = {
-      id: newProfileName.toLowerCase().replace(/\s/g, '-'),
-      label: newProfileName,
-      enabledAddonIds: [],
-      shuffles: {}
-    }
-
-    userStore.addProfile(newProfile)
-
-    newProfileName = ''
-  }
 
   function promptNewProfileModal() {
     modalStore.trigger({
