@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { Accordion, AccordionItem, SlideToggle } from '@skeletonlabs/skeleton'
+  import {
+    Accordion,
+    AccordionItem,
+    SlideToggle,
+    modalStore,
+    type ModalSettings
+  } from '@skeletonlabs/skeleton'
   import classNames from 'classnames'
   import { Dices } from 'lucide-svelte'
   import { currentGameManifest } from '../stores/manifest'
@@ -24,38 +30,72 @@
 
   let whichShufflesToShow: 'custom' | 'generated' = 'custom'
 
-  let newShuffleName = ''
+  const modal: ModalSettings = {
+    type: 'prompt',
+    title: 'Enter new shuffle name',
+    body: 'Enter the name of the new shuffle',
+    value: '',
+    valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
+    response: (r: string) => {
+      if (!r) return
+      userStore.addShuffle(r)
+    }
+  }
 
-  function handleNewShuffle() {
-    userStore.addShuffle(newShuffleName)
-    newShuffleName = ''
+  function openNewShuffleModal() {
+    modalStore.trigger(modal)
+  }
+
+  function promptShuffleDelete(shuffleId: string, label: string) {
+    modalStore.trigger({
+      type: 'confirm',
+      title: 'Delete shuffle ' + label + '?',
+      body: 'Are you sure you want to delete this shuffle?',
+      response: (r: boolean) => {
+        if (r) userStore.removeShuffleById(shuffleId)
+      }
+    })
+  }
+
+  function promptShuffleRename(shuffleId: string, currentLabel: string) {
+    modalStore.trigger({
+      type: 'prompt',
+      title: 'Rename shuffle: ' + currentLabel,
+      body: 'Enter the new name for the shuffle',
+      value: currentLabel,
+      valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
+      response: (r: string) => {
+        if (r) userStore.editShuffleNameById(shuffleId, r)
+      }
+    })
   }
 </script>
 
 <div class="w-[360px] p-3">
-  <h3 class="h3">Shuffles</h3>
+  <div class="flex justify-between mb-3">
+    <h3 class="h3">Shuffles</h3>
+
+    <button class="btn btn-sm variant-filled-surface" on:click={openNewShuffleModal}>
+      New Shuffle
+    </button>
+  </div>
 
   <!-- <TabGroup>
     <Tab bind:group={whichShufflesToShow} name="custom" value={'custom'}>Custom</Tab>
     <Tab bind:group={whichShufflesToShow} name="generated" value={'generated'}>From category</Tab>
   </TabGroup> -->
-
+  <!-- 
   {#if whichShufflesToShow == 'custom'}
     <div class="my-2 flex items-center justify-between gap-2">
-      <input bind:value={newShuffleName} class="input" placeholder="Enter new shuffle..." />
-      <button
-        disabled={!newShuffleName}
-        class="btn variant-filled-surface"
-        on:click={handleNewShuffle}
-      >
-        Add
+      <button class="btn variant-filled-surface" on:click={openNewShuffleModal}>
+        New Shuffle
       </button>
     </div>
   {:else}
     <div class="mb-2" />
-  {/if}
+  {/if} -->
 
-  <Accordion autocollapse>
+  <Accordion>
     {#each Object.keys(shuffles) as shuffleId}
       {@const shuffle = shuffles[shuffleId]}
 
@@ -86,13 +126,24 @@
               </SlideToggle>
 
               <div class="flex items-center gap-2">
-                <button class="btn btn-sm variant-filled-surface"> edit </button>
-                <button class="btn btn-sm variant-filled-surface"> delete </button>
+                <button
+                  on:click={() => promptShuffleRename(shuffle.id, shuffle.label)}
+                  class="btn btn-sm variant-filled-surface"
+                >
+                  Rename
+                </button>
+
+                <button
+                  on:click={() => promptShuffleDelete(shuffle.id, shuffle.label)}
+                  class="btn btn-sm variant-filled-surface"
+                >
+                  Delete
+                </button>
               </div>
             </div>
 
             <div
-              class="flex flex-col rounded-md bg-surface-900 p-2 gap-2"
+              class="flex flex-col rounded-md bg-surface-600 p-2 gap-2"
               on:dragenter={() => (dropzone = true)}
               on:dragleave={() => (dropzone = false)}
               on:dragover={(ev) => {

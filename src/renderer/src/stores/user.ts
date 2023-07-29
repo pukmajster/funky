@@ -267,6 +267,50 @@ function createUserStore() {
     })
   }
 
+  function removeShuffleById(shuffleId: string) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+
+      delete workingProfile.shuffles[shuffleId]
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
+  function editShuffleNameById(shuffleId: string, newName: string) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+
+      workingProfile.shuffles[shuffleId].label = newName
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
   return {
     set,
     subscribe,
@@ -276,11 +320,15 @@ function createUserStore() {
     toggleAddonEnabledState,
     toggleAddonShuffleForSubCategory,
     toggleSubCategoryShuffle,
+
     addProfile,
     setupGameWithDefaultProfile,
+
     toggleShuffleState,
     toggleAddonIdInShuffle,
-    addShuffle
+    addShuffle,
+    removeShuffleById,
+    editShuffleNameById
   }
 }
 
