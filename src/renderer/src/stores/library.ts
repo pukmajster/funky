@@ -93,6 +93,8 @@ export const derviedAddonIdsInEnabledShuffles = derived([userStore], ([$userStor
   return shuffledAddonIds
 })
 
+export const isDraggingAddon = writable(false)
+
 export const libraryAddonPool = derived(
   [
     currentGameManifest,

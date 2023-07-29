@@ -8,6 +8,7 @@
   } from '@skeletonlabs/skeleton'
   import classNames from 'classnames'
   import { Dices } from 'lucide-svelte'
+  import { isDraggingAddon } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import AddonCard from './AddonCard.svelte'
@@ -15,8 +16,6 @@
   $: shuffles = $userStore.games[$userStore.activeGameId].profiles.find(
     (profile) => profile.id == $userStore.games[$userStore.activeGameId].activeProfileId
   )?.shuffles
-
-  let dropzone = false
 
   function drop(event: DragEvent, shuffleId: string) {
     console.log(event)
@@ -71,7 +70,7 @@
   }
 </script>
 
-<div class="w-[360px] p-3">
+<div class="h-full border-l border-solid border-surface-800 w-[320px] p-3">
   <div class="flex justify-between mb-3">
     <h3 class="h3">Shuffles</h3>
 
@@ -122,7 +121,7 @@
                 checked={shuffle.enabled}
                 on:change={() => userStore.toggleShuffleState(shuffleId)}
               >
-                {shuffle.enabled ? 'Enabled' : 'Disabled'}
+                <!-- <span class="text-sm"> {shuffle.enabled ? 'Enabled' : 'Disabled'}</span> -->
               </SlideToggle>
 
               <div class="flex items-center gap-2">
@@ -144,13 +143,11 @@
 
             <div
               class="flex flex-col rounded-md bg-surface-600 p-2 gap-2"
-              on:dragenter={() => (dropzone = true)}
-              on:dragleave={() => (dropzone = false)}
               on:dragover={(ev) => {
                 ev.preventDefault()
               }}
               on:drop={(e) => drop(e, shuffle.id)}
-              class:dropActive={dropzone}
+              class:dropActive={$isDraggingAddon}
             >
               {#if shuffle.shuffledAddonIds.length == 0}
                 <div class="text-left text-sm text-gray-400">
@@ -174,6 +171,6 @@
 
 <style lang="postcss">
   .dropActive {
-    @apply border-primary-500 border border-solid;
+    @apply outline-1  outline-dashed outline-primary-500;
   }
 </style>

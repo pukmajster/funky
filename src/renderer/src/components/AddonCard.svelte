@@ -8,6 +8,7 @@
   import {
     addonOverviewId,
     derviedAddonIdsInEnabledShuffles,
+    isDraggingAddon,
     libraryActiveSubCategories
   } from '../stores/library'
   import { userStore } from '../stores/user'
@@ -47,8 +48,14 @@
   }
 
   function dragStart(event) {
+    $isDraggingAddon = true
     const data = { addonId: addon.id }
     event.dataTransfer.setData('text/plain', JSON.stringify(data))
+  }
+
+  function dragEnd(event) {
+    event.preventDefault()
+    $isDraggingAddon = false
   }
 
   function openOverview() {
@@ -71,6 +78,7 @@
   <div
     draggable={true}
     on:dragstart={dragStart}
+    on:dragend={dragEnd}
     on:contextmenu={openOverview}
     class="  flex items-center gap-2"
   >
@@ -87,6 +95,7 @@
   <button
     draggable={true}
     on:dragstart={dragStart}
+    on:dragend={dragEnd}
     on:contextmenu={openOverview}
     class="relative shadow-md"
     class:enabled={isEnabled}

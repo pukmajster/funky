@@ -2,17 +2,19 @@
   import { SlideToggle } from '@skeletonlabs/skeleton'
   import games from 'shared/games'
   import { derived } from 'svelte/store'
-  import { libraryActiveCategory, libraryActiveSubCategories } from '../stores/library'
+  import {
+    isDraggingAddon,
+    libraryActiveCategory,
+    libraryActiveSubCategories
+  } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import { derivedIsShuffleEnabledForSubCategory } from '../stores/user-derivatives'
   import AddonCard from './AddonCard.svelte'
 
-  let dropzone = false
-
   function drop(event: DragEvent) {
     console.log(event)
-
+    $isDraggingAddon = false
     const json = event.dataTransfer.getData('text/plain')
     const data = JSON.parse(json)
 
@@ -43,13 +45,11 @@
 <div class="z-10 flex-1 fixed left-[300px] bottom-0 right-0 flex items-end w-full">
   <div
     class:inactive={!$derivedIsShuffleEnabledForSubCategory}
-    on:dragenter={() => (dropzone = true)}
-    on:dragleave={() => (dropzone = false)}
     on:dragover={(ev) => {
       ev.preventDefault()
     }}
     on:drop={(e) => drop(e)}
-    class:dropActive={dropzone}
+    class:dropActive={$isDraggingAddon}
     class="transition-transform min-h-[162px] fixed left-[300px] right-0 left-0 z-10 py-2 after:h-[1px] after:left-[-2px] after:absolute after:top-[-2px] after:w-full after:bg-surface-700 after:content-[''] after:border-white mx-3 bg-surface-900/50 backdrop-blur-md border-2 border-transparent border-dotted"
   >
     <div class="">
@@ -94,7 +94,7 @@
 
 <style lang="postcss">
   .dropActive {
-    @apply border-primary-500;
+    @apply outline-1  outline-dashed outline-primary-500;
   }
 
   .inactive {
