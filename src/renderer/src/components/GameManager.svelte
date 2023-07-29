@@ -4,8 +4,6 @@
   import games from 'shared/games'
   import { userStore } from '../stores/user'
 
-  let newProfileName = ''
-
   $: activeGameId = $userStore.activeGameId
 
   const gameIds = Object.keys(games)
