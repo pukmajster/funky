@@ -30,7 +30,14 @@ type SortingType =
   | 'time_newest'
   | 'size_smallest'
   | 'size_biggest'
-type TypeOfMod = 'any' | 'enabled' | 'disabled' | 'hidden' | 'uninstalled'
+type TypeOfMod =
+  | 'any'
+  | 'enabled'
+  | 'disabled'
+  | 'shuffled'
+  | 'enabled/shuffled'
+  | 'hidden'
+  | 'uninstalled'
 
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('time_newest')
@@ -93,7 +100,8 @@ export const libraryAddonPool = derived(
     libraryActiveSubCategories,
     libraryActiveCategory,
     typeToShow,
-    libraryActiveAddons
+    libraryActiveAddons,
+    derviedAddonIdsInEnabledShuffles
   ],
   ([
     $currentGameManifest,
@@ -101,7 +109,8 @@ export const libraryAddonPool = derived(
     $libraryActiveSubCategories,
     $libraryActiveCategory,
     $typeToShow,
-    $libraryActiveAddons
+    $libraryActiveAddons,
+    $derviedAddonIdsInEnabledShuffles
   ]) => {
     const addonIds: string[] = []
     const allFilters = $libraryActiveSubCategories.filter((filter) => filter != '')
@@ -130,8 +139,22 @@ export const libraryAddonPool = derived(
         case 'enabled':
           if (!$libraryActiveAddons.includes(addonId)) return
           break
+        case 'shuffled':
+          if (!$derviedAddonIdsInEnabledShuffles.includes(addonId)) return
+          break
+        case 'enabled/shuffled':
+          if (
+            !$libraryActiveAddons.includes(addonId) &&
+            !$derviedAddonIdsInEnabledShuffles.includes(addonId)
+          )
+            return
+          break
         case 'disabled':
-          if ($libraryActiveAddons.includes(addonId)) return
+          if (
+            $libraryActiveAddons.includes(addonId) ||
+            $derviedAddonIdsInEnabledShuffles.includes(addonId)
+          )
+            return
           break
         default:
           break

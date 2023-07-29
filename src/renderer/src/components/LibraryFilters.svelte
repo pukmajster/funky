@@ -68,9 +68,11 @@
         <select class="select flex-1" bind:value={$typeToShow}>
           <option value="any">Any</option>
           <option value="enabled">Enabled</option>
+          <option value="shuffled">Shuffled</option>
+          <option value="enabled/shuffled">Enabled or shuffled</option>
           <option value="disabled">Disabled</option>
-          <option value="hidden">Hidden</option>
-          <option value="uninstalled">Uninstalled</option>
+          <!-- <option value="hidden">Hidden</option>
+          <option value="uninstalled">Uninstalled</option> -->
         </select>
       </div>
       <!-- 
