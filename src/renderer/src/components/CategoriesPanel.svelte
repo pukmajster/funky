@@ -41,7 +41,9 @@
   }
 
   const categoryStyles =
-    'flex flex-col w-16 h-16 btn text-[11px] p-2 pt-4 justify-center rounded-none'
+    'flex flex-col w-14 h-14 btn text-[11px] p-2 justify-center items-center rounded-none'
+
+  const fixedIconStyles = 'min-w-[17px] min-h-[17px]'
 </script>
 
 <div
@@ -57,14 +59,14 @@
     />
 
     <div class="flex gap-2 justify-between flex-grow-0">
-      <div class="flexflex-col box-border min-w-[64px] box-border">
-        <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden min-w-[64px]">
+      <div class="flex flex-col">
+        <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden">
           <button
             class:bg-primary-500={'all' == $libraryActiveCategory}
             on:click={() => setActiveCategory('all')}
             class={categoryStyles}
           >
-            <InfinityIcon />
+            <InfinityIcon className={fixedIconStyles} />
             All
           </button>
 
