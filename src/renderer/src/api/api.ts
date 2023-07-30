@@ -42,7 +42,7 @@ export async function writeAddonList(): Promise<void> {
 
     if (!shuffle.enabled) return
 
-    const randomIndex = Math.floor(Math.random() * shuffle.shuffledAddonIds.length) + 1
+    const randomIndex = Math.floor(Math.random() * shuffle.shuffledAddonIds.length)
     const randomMod = shuffle.shuffledAddonIds[randomIndex]
 
     // +1 so it always picks a mod, otherwise there's a chance no mod will be picked at all.
