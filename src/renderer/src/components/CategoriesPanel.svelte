@@ -1,6 +1,6 @@
 <script lang="ts">
   import classNames from 'classnames'
-  import { CheckCircle, CircleIcon, FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
+  import { FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
   import type { Profile } from 'shared'
   import games from 'shared/games'
   import { game550 } from 'shared/games/550'
@@ -50,7 +50,7 @@
   class="flex flex-col justify-between h-full flex-1 transition-transform"
   class:disable-categories={$view == 'conflicts'}
 >
-  <div class="w-[300px] p-2 space-y-2 box-border">
+  <div class="w-[250px] p-2 space-y-2 box-border">
     <input
       class="input variant-form-material"
       type="text"
@@ -60,7 +60,7 @@
 
     <div class="flex gap-2 justify-between flex-grow-0">
       <div class="flex flex-col">
-        <div class="flex flex-col rounded-md bg-surface-700 overflow-hidden">
+        <div class="flex flex-col rounded-md bg-surface-800 overflow-hidden">
           <button
             class:bg-primary-500={'all' == $libraryActiveCategory}
             on:click={() => setActiveCategory('all')}
@@ -103,24 +103,25 @@
 
                 <button
                   class={classNames(
-                    'w-full text-left bg-surface-800 p-1 px-2 flex items-center gap-2 text-ellipsis overflow-hidden ...',
+                    'w-full text-left text-[14px] bg-surface-800 p-[3px] px-2 flex items-center gap-2 text-ellipsis overflow-hidden ...',
                     {
-                      '!bg-primary-500': subCatActive,
+                      '!bg-primary-500 font-bold': subCatActive,
                       'hover:bg-surface-500': !subCatActive
                     }
                   )}
                   on:click={() => updateCategoriesSelection(subCategory.id)}
                 >
                   <span class="min-w[24px]">
-                    {#if subCatActive}
+                    <!-- {#if subCatActive}
                       <CheckCircle size={14} />
                     {:else}
                       <CircleIcon size={14} />
                     {/if}
-                  </span>
+                  </span> -->
 
-                  {subCategory.label}
-                </button>
+                    {subCategory.label}
+                  </span></button
+                >
               {/each}
             </div>
           </div>

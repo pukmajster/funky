@@ -42,7 +42,7 @@
   )
 </script>
 
-<div class="z-10 flex-1 fixed left-[300px] bottom-0 right-0 flex items-end w-full">
+<div class="z-10 flex-1 fixed left-[250px] bottom-0 right-0 flex items-end w-full">
   <div
     class:inactive={!$derivedIsShuffleEnabledForSubCategory}
     on:dragover={(ev) => {
@@ -50,7 +50,7 @@
     }}
     on:drop={(e) => drop(e)}
     class:dropActive={$isDraggingAddon}
-    class="transition-transform min-h-[162px] fixed left-[300px] right-0 left-0 z-10 py-2 after:h-[1px] after:left-[-2px] after:absolute after:top-[-2px] after:w-full after:bg-surface-700 after:content-[''] after:border-white mx-3 bg-surface-900/50 backdrop-blur-md border-2 border-transparent border-dotted"
+    class="transition-transform min-h-[162px] fixed left-[250px] right-0 z-10 py-2 after:h-[1px] after:left-[-2px] after:absolute after:top-[-2px] after:w-full after:bg-surface-700 after:content-[''] after:border-white mx-3 bg-surface-900/50 backdrop-blur-md border-2 border-transparent border-dotted"
   >
     <div class="">
       {#if $libraryActiveSubCategories.length == 1}
