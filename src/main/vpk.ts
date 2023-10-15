@@ -1,9 +1,11 @@
-const vpk2 = require('vpk2')
+import { VPK } from 'vpk'
 import { ExportVpkOptions } from 'shared'
 
 export async function extractVpk({ vpkPath, extractPath }: ExportVpkOptions) {
   try {
-    const targetVpk = new vpk2(vpkPath)
+    console.log(`Extracting ${vpkPath} to ${extractPath}`)
+
+    const targetVpk = new VPK(vpkPath)
     targetVpk.load()
     await targetVpk.extract(extractPath)
   } catch (err) {

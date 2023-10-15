@@ -74,10 +74,7 @@ export async function writeAddonList(): Promise<void> {
   })
 }
 
-export async function extractVpk(vpkPath: ExportVpkOptions['vpkPath']) {
-  // Ask user where to extract to
-  const extractPath = await window.api.openDirectoryFinder()
-
+export async function extractVpk(params: ExportVpkOptions) {
   // Extract the vpk
-  window.api.extractVpk({ vpkPath, extractPath })
+  window.api.extractVpk(params)
 }

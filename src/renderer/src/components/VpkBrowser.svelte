@@ -1,15 +1,21 @@
 <script lang="ts">
-  import { modalStore, toastStore } from '@skeletonlabs/skeleton'
+  import { SlideToggle, modalStore, toastStore } from '@skeletonlabs/skeleton'
   import { currentGameManifest } from '../stores/manifest'
   import { pathsToTree } from '../utils/vpk-browser'
   import VpkBrowserPath from './VpkBrowserPath.svelte'
   import { extractVpk } from '../api/api'
   import { userStore } from '../stores/user'
   import games from 'shared/games'
+  import classNames from 'classnames'
+  import { X } from 'lucide-svelte'
 
   let addonId = $modalStore[0].meta.addonId
   $: addonMetadata = $currentGameManifest.addons.find((addon) => addon.id === addonId)
   $: addonFilesTree = pathsToTree(addonMetadata ? addonMetadata.files : [])
+
+  function promptExtractionOptions() {
+    showExtractionOptions = true
+  }
 
   async function handleExtract() {
     const steamDir = $userStore.steamGamesDir
@@ -22,7 +28,11 @@
     alert(addonVpkPath)
 
     try {
-      await extractVpk(addonVpkPath)
+      await extractVpk({
+        vpkPath: addonVpkPath,
+        extractPath: extractToDir
+        // extractIntoFolder
+      })
       toastStore.trigger({
         background: 'variant-filled-success',
         message: 'Extracted VPK'
@@ -34,6 +44,19 @@
       })
     }
   }
+
+  async function getDirectory() {
+    try {
+      const dir = await window.api.openDirectoryFinder()
+      extractToDir = dir
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  let showExtractionOptions = true
+  let extractToDir = ''
+  let extractIntoFolder = false
 </script>
 
 {#if addonId}
@@ -49,12 +72,56 @@
         </span>
       </span>
 
-      <span>
-        <button on:click={handleExtract} class="btn btn-sm variant-filled-surface"
+      <!-- <span>
+        <button on:click={promptExtractionOptions} class="btn btn-sm variant-filled-surface"
           >Extract entire VPK</button
         >
-        <button class="btn btn-sm variant-filled-surface">Extract selected</button>
-      </span>
+       n <button class="btn btn-sm variant-filled-surface">Extract selected</button>
+      </span> -->
+    </div>
+
+    <div
+      class={classNames('hidden flex px-3 pt-2 pb-3 border-t border-surface-800 bg-surface-900', {
+        '!block': showExtractionOptions
+      })}
+    >
+      <h4 class="text-lg mb-2">Extract VPK</h4>
+
+      <div class="flex justify-between gap-10">
+        <div class="flex flex-1 items-center gap-2">
+          <input
+            class="w-full input variant-form-material"
+            id="extractToDir"
+            bind:value={extractToDir}
+          />
+          <button on:click={getDirectory} class="btn btn-sm variant-filled-surface"> Browse</button>
+        </div>
+
+        <!-- <div class="flex items-center gap-2">
+          <label for="extractIntoFolder">Extract as folder</label>
+          <SlideToggle
+            active="bg-green-500"
+            bind:checked={extractIntoFolder}
+            name="extractIntoFolder"
+          />
+        </div> -->
+
+        <div class="flex items-center">
+          <button
+            disabled={!extractToDir}
+            on:click={handleExtract}
+            class="btn btn-sm variant-filled-surface ml-auto">Extract entire VPK</button
+          >
+        </div>
+      </div>
+
+      <!-- <div class="flex justify-end">
+        <button
+          disabled={!extractToDir}
+          on:click={handleExtract}
+          class="btn btn-sm variant-filled-surface">Extract entire VPK</button
+        >
+      </div> -->
     </div>
 
     <div class="max-h-[700px] h-full overflow-y-scroll">
