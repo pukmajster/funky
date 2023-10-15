@@ -1,6 +1,6 @@
 # Keith
 
-Keith is an open-source mods manager for L4D2, developed with Electron, Svelte and SkeletonUI. Currently still in early development.
+Keith is an open-source mods manager for L4D2, developed with Electron, Svelte and SkeletonUI.
 
 ![App](/resources/app.png)
 
