@@ -28,6 +28,7 @@ Here are some ideas or features I'd still like implemented one day
 - [ ] Collections
 - [ ] In-app unsubscribing from mods
 - [ ] Custom vocalizer editor
+- [ ] Proper L4D1 Support
 
 ## Caveats
 
