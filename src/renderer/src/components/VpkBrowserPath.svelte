@@ -5,6 +5,25 @@
 
   export let treePath: PathTreeEntry
   export let selectedFromParent = false
+  export let level = 0
+
+  // Array of very soft rainbow colors friendly to dark mode
+  const colors = [
+    '#ff0000',
+    '#ff8000',
+    '#ffff00',
+    '#80ff00',
+    '#00ff00',
+    '#00ff80',
+    '#00ffff',
+    '#0080ff',
+    '#0000ff',
+    '#8000ff',
+    '#ff00ff',
+    '#ff0080'
+  ].reverse()
+
+  $: color = colors[level % colors.length]
 
   let selected = false
   let expanded = false
@@ -31,9 +50,9 @@
 </script>
 
 {#if treePath}
-  <div class={classNames('  border-l border-surface-500/80', {})}>
+  <div class={classNames(` border-l  ]`, {})} style={` border-color: ${color}C0`}>
     <button
-      class={classNames(' group flex items-center gap-2 p-2 hover:bg-surface-600 w-full', {
+      class={classNames(' group flex items-center gap-2 px-2 py-1  hover:bg-surface-600 w-full', {
         'bg-surface-500/20': !isDirectory
       })}
       on:click={handleClick}
@@ -50,7 +69,7 @@
         </button>
       </span>
 
-      <span> {treePath.name}</span>
+      <span>{isDirectory ? '/' : ''}{treePath.name}</span>
 
       {#if isDirectory}
         {#if expanded}
@@ -70,7 +89,7 @@
     {#if isDirectory && expanded}
       <div class="pl-4">
         {#each treePath.children as child}
-          <svelte:self treePath={child} selectedFromParent={isSelected} />
+          <svelte:self treePath={child} selectedFromParent={isSelected} level={level + 1} />
         {/each}
       </div>
     {/if}

@@ -81,17 +81,16 @@
     </div>
 
     <div
-      class={classNames('hidden flex px-3 pt-2 pb-3 border-t border-surface-800 bg-surface-900', {
+      class={classNames('hidden flex px-3 p-3 border-t border-surface-800 bg-surface-900', {
         '!block': showExtractionOptions
       })}
     >
-      <h4 class="text-lg mb-2">Extract VPK</h4>
-
       <div class="flex justify-between gap-10">
         <div class="flex flex-1 items-center gap-2">
           <input
             class="w-full input variant-form-material"
             id="extractToDir"
+            placeholder="Extract to..."
             bind:value={extractToDir}
           />
           <button on:click={getDirectory} class="btn btn-sm variant-filled-surface"> Browse</button>
@@ -125,7 +124,7 @@
     </div>
 
     <div class="max-h-[700px] h-full overflow-y-scroll">
-      <div class="library-list p-3 pt-0 pb-[200px]">
+      <div class="library-list pt-0 pb-[200px]">
         {#each addonFilesTree as path}
           <VpkBrowserPath treePath={path} />
         {/each}

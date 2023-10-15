@@ -120,7 +120,7 @@
 
       <div class="flex gap-2">
         <button class="btn btn-sm variant-filled-surface" on:click={openVpkBrowserModal}>
-          Extract from VPK
+          Browse VPK
         </button>
 
         {#if showFiles}
