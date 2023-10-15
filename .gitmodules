@@ -1,0 +1,3 @@
+[submodule "node-vpk"]
+	path = node-vpk
+	url = https://github.com/pukmajster/node-vpk
