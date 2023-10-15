@@ -43,7 +43,8 @@
     "lucide-svelte": "^0.260.0",
     "nanoid": "^4.0.2",
     "node-vdf": "^0.0.3",
-    "vpk": "^0.2.0"
+    "vpk": "^0.2.0",
+    "vpk2": "^0.2.0"
   },
   "devDependencies": {
     "@electron-toolkit/tsconfig": "^1.0.1",

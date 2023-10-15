@@ -1,6 +1,12 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer, shell } from 'electron'
-import { BridgeApi, RequestGameManifestParams, User, WriteAddonlistParams } from 'shared'
+import {
+  BridgeApi,
+  RequestGameManifestParams,
+  User,
+  WriteAddonlistParams,
+  ExportVpkOptions
+} from 'shared'
 
 // Custom APIs for renderer
 const api: BridgeApi = {
@@ -14,7 +20,8 @@ const api: BridgeApi = {
   openWorkingDirectory: () => ipcRenderer.invoke('profile:openWorkingDirectory'),
   openDirectory: (directory: string) => ipcRenderer.invoke('openDirectory', directory),
   getPath: () => ipcRenderer.invoke('getPath'),
-  getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file)
+  getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file),
+  extractVpk: (params: ExportVpkOptions) => ipcRenderer.invoke('vpk:extractVpk', params)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

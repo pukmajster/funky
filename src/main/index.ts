@@ -2,11 +2,12 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, dialog, ipcMain, shell } from 'electron'
 import * as path from 'path'
 import { join } from 'path'
-import { RequestGameManifestParams, User, WriteAddonlistParams } from 'shared'
+import { ExportVpkOptions, RequestGameManifestParams, User, WriteAddonlistParams } from 'shared'
 import icon from '../../resources/icon.png?asset'
 import { writeAddonList } from './addonlist'
 import { requestGameManifest } from './manifest'
 import { openDirectory, openWorkingDirectory, readUserFile, writeUserFile } from './user'
+import { extractVpk } from './vpk'
 
 ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestParams) =>
   requestGameManifest(params)
@@ -25,6 +26,8 @@ ipcMain.handle('profile:openWorkingDirectory', async (_e) => openWorkingDirector
 
 ipcMain.handle('getPath', () => app.getPath('appData'))
 ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appData'), file))
+
+ipcMain.handle('vpk:extractVpk', (_e, options: ExportVpkOptions) => extractVpk(options))
 
 let firstPassFinished = false
 let mainWindow: BrowserWindow | null = null

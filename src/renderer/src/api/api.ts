@@ -1,4 +1,4 @@
-import type { AddonId, CategoryShuffle, GameManifest, Profile } from 'shared'
+import type { AddonId, CategoryShuffle, ExportVpkOptions, GameManifest, Profile } from 'shared'
 import games from 'shared/games'
 import { get } from 'svelte/store'
 import { derviedAddonIdsInEnabledShuffles } from '../stores/library'
@@ -72,4 +72,12 @@ export async function writeAddonList(): Promise<void> {
     gameDir: addonListDir,
     data: outputVdfString
   })
+}
+
+export async function extractVpk(vpkPath: ExportVpkOptions['vpkPath']) {
+  // Ask user where to extract to
+  const extractPath = await window.api.openDirectoryFinder()
+
+  // Extract the vpk
+  window.api.extractVpk({ vpkPath, extractPath })
 }

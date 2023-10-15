@@ -8,14 +8,6 @@ function genericGunFiles(soundId: string, worldId: string, viewmodelId: string):
   ]
 }
 
-function genericMeleeFiles(soundId: string, worldId: string, viewmodelId: string): string[] {
-  return [
-    `sound/weapons/${soundId}/`,
-    `models/weapons/melee/w_${worldId}.`,
-    `models/weapons/melee/v_${viewmodelId}.`
-  ]
-}
-
 function genericSurvivorFiles(id: string): string[] {
   return [`models/survivors/survivor_${id}.`, `/survivors/${id}/`]
 }

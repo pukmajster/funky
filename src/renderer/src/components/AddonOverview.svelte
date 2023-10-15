@@ -6,6 +6,8 @@
   import { userStore } from '../stores/user'
   import AddonCategoryChip from './AddonCategoryChip.svelte'
   import AddonOverviewStat from './AddonOverviewStat.svelte'
+  import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton'
+  import VpkBrowser from './VpkBrowser.svelte'
 
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
@@ -31,6 +33,24 @@
 
   function openModInSteam() {
     window.api.openLinkInBrowser(`steam://url/CommunityFilePage/${addon.id}`)
+  }
+
+  function openVpkBrowserModal() {
+    const modalComponent: ModalComponent = {
+      ref: VpkBrowser,
+      props: { background: 'bg-primary-500' },
+      slot: '<p>Skeleton</p>'
+    }
+
+    const modal: ModalSettings = {
+      type: 'component',
+      component: modalComponent,
+      meta: {
+        addonId: addon.id
+      }
+    }
+
+    modalStore.trigger(modal)
   }
 
   const description = addon.addonInfo.description || addon.addonInfo.tagline
@@ -76,7 +96,7 @@
 
     {#if addon.fromWorkshop}
       <div>
-        <div class="text-sm mb-1">Workshop</div>
+        <div class="text-sm mb-1 text-gray-400">Workshop</div>
         <div class="inline-flex gap-2">
           <button class=" w-full btn btn-sm variant-filled-surface" on:click={openModInBrowser}
             >Open in Browser</button
@@ -96,22 +116,32 @@
     </div>
 
     <div>
-      <h5 class="text-sm text-gray-400">Files</h5>
+      <h5 class="text-sm text-gray-400 mb-1">Files</h5>
 
-      {#if showFiles}
+      <div class="flex gap-2">
+        <button class="btn btn-sm variant-filled-surface" on:click={openVpkBrowserModal}>
+          Extract from VPK
+        </button>
+
+        {#if showFiles}
+          <button class="btn btn-sm variant-filled-surface" on:click={() => (showFiles = false)}>
+            Hide {addon.files.length} files
+          </button>
+        {:else}
+          <button class="btn btn-sm variant-filled-surface" on:click={() => (showFiles = true)}>
+            Show {addon.files.length} files
+          </button>
+        {/if}
+      </div>
+    </div>
+
+    {#if showFiles}
+      <div class="p-2 bg-surface-700 max-h-[186px] overflow-y-scroll rounded-md">
         {#each addon.files as file}
           <p class="text-[10px] leading-normal">{file}</p>
         {/each}
-
-        <button class="btn btn-sm variant-filled-surface mt-2" on:click={() => (showFiles = false)}>
-          Hide {addon.files.length} files
-        </button>
-      {:else}
-        <button class="btn btn-sm variant-filled-surface mt-1" on:click={() => (showFiles = true)}>
-          Show {addon.files.length} files
-        </button>
-      {/if}
-    </div>
+      </div>
+    {/if}
   </div>
 
   <div class="pb-10" />
