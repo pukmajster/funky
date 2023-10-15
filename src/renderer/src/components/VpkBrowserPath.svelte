@@ -60,11 +60,11 @@
         {/if}
       {/if}
 
-      {#if !isDirectory}
+      <!-- {#if !isDirectory}
         <span class="invisible group-hover:visible ml-auto btn btn-sm variant-surface-filled"
           >quick export</span
         >
-      {/if}
+      {/if} -->
     </button>
 
     {#if isDirectory && expanded}
