@@ -1,4 +1,4 @@
-const VPK = require('vpk')
+const { VPK } = require('vpk')
 import { app } from 'electron'
 import * as fs from 'fs'
 const path = require('path')
