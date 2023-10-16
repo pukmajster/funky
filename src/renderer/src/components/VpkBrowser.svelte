@@ -61,7 +61,7 @@
 
 {#if addonId}
   <div
-    class="sticky top-0 bg-surface-800 max-w-[800px] w-full max-h-[700px] h-full shadow-lg overflow-hidden rounded-lg"
+    class="sticky top-0 bg-surface-800 max-w-[800px] w-full shadow-lg overflow-hidden rounded-lg"
   >
     <div class="flex items-center justify-between bg-surface-900 px-3 py-2 text-xl">
       <span class="flex flex-col">
@@ -93,7 +93,7 @@
             placeholder="Extract to..."
             bind:value={extractToDir}
           />
-          <button on:click={getDirectory} class="btn btn-sm variant-filled-surface"> Browse</button>
+          <button on:click={getDirectory} class="btn variant-filled-surface"> Browse</button>
         </div>
 
         <!-- <div class="flex items-center gap-2">
@@ -109,7 +109,7 @@
           <button
             disabled={!extractToDir}
             on:click={handleExtract}
-            class="btn btn-sm variant-filled-surface ml-auto">Extract entire VPK</button
+            class="btn variant-filled-surface ml-auto">Extract entire VPK</button
           >
         </div>
       </div>
@@ -123,8 +123,8 @@
       </div> -->
     </div>
 
-    <div class="max-h-[700px] h-full overflow-y-scroll">
-      <div class="library-list pt-0 pb-[200px]">
+    <div class="h-[600px] max-h-[600px] overflow-y-scroll">
+      <div class="library-list pt-0">
         {#each addonFilesTree as path}
           <VpkBrowserPath treePath={path} />
         {/each}
