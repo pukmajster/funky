@@ -23,14 +23,15 @@ export const libraryPageSize = writable<number>(50)
 
 export const libraryPageSizes = [20, 50, 100, 200, 500, 1000, 9999] as const
 
-type SortingType =
+export type SortingType =
   | 'name_asc'
   | 'name_desc'
   | 'time_oldest'
   | 'time_newest'
   | 'size_smallest'
   | 'size_biggest'
-type TypeOfMod =
+
+export type TypeOfMod =
   | 'any'
   | 'enabled'
   | 'disabled'
