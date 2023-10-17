@@ -7,7 +7,6 @@
   import { userStore } from '../stores/user'
   import games from 'shared/games'
   import classNames from 'classnames'
-  import { X } from 'lucide-svelte'
 
   let addonId = $modalStore[0].meta.addonId
   $: addonMetadata = $currentGameManifest.addons.find((addon) => addon.id === addonId)
@@ -25,14 +24,13 @@
       game.gameDirectory
     }/addons/${isWorkshop ? 'workshop/' : ''}${addonId}.vpk`
 
-    alert(addonVpkPath)
-
     try {
       await extractVpk({
         vpkPath: addonVpkPath,
         extractPath: extractToDir
         // extractIntoFolder
       })
+      modalStore.clear()
       toastStore.trigger({
         background: 'variant-filled-success',
         message: 'Extracted VPK'
