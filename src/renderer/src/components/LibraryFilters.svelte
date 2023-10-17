@@ -11,7 +11,6 @@
   } from '../stores/library'
   import { clamp } from '../utils'
   import { filter, ListBox, ListBoxItem, popup, type PopupSettings } from '@skeletonlabs/skeleton'
-  import classNames from 'classnames'
 
   // Limit the active subcategories to 1
   $: {
