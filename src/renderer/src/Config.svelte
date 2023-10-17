@@ -9,7 +9,8 @@
     games: {},
     enableNetworking: true,
     activeGameId: 550,
-    hasFinishedFirstTimeSetup: false
+    hasFinishedFirstTimeSetup: false,
+    steamWebApiKey: ''
   }
 
   let hasSetupUserProfile = false

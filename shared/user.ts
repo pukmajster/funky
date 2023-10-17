@@ -5,6 +5,7 @@ export interface User {
   hasFinishedFirstTimeSetup: boolean
   enableNetworking: boolean
   activeGameId: number
+  steamWebApiKey?: string
   games: UserGamePreferences
 }
 
