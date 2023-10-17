@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AppShell, Modal, Toast } from '@skeletonlabs/skeleton'
+  import { AppShell, Modal, ProgressBar, Toast } from '@skeletonlabs/skeleton'
   import Config from './Config.svelte'
   import AddonLibrary from './components/AddonLibrary.svelte'
   import CategoriesPanel from './components/CategoriesPanel.svelte'
@@ -64,8 +64,13 @@
   </AppShell>
 
   {#if $isRequestingGameManifest}
-    <div class="fixed flex justify-center items-center inset-0 z-50 bg-black/80 backdrop-blur-lg">
+    <div
+      class="fixed flex flex-col justify-center items-center inset-0 z-50 bg-black/80 backdrop-blur-lg"
+    >
       <p>Building manifest... please wait</p>
+      <div class="w-[128px] mt-2">
+        <ProgressBar value={undefined} />
+      </div>
     </div>
   {/if}
 {/if}
