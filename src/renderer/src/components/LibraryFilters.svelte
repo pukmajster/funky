@@ -7,10 +7,19 @@
     sortingType,
     typeToShow,
     type SortingType,
-    type TypeOfMod
+    type TypeOfMod,
+    librarySelectedAddonIds
   } from '../stores/library'
   import { clamp } from '../utils'
-  import { filter, ListBox, ListBoxItem, popup, type PopupSettings } from '@skeletonlabs/skeleton'
+  import {
+    ListBox,
+    ListBoxItem,
+    popup,
+    type ModalSettings,
+    type PopupSettings,
+    modalStore
+  } from '@skeletonlabs/skeleton'
+  import { userStore } from '../stores/user'
 
   // Limit the active subcategories to 1
   $: {
@@ -78,6 +87,77 @@
     target: 'filtersPopup',
     placement: 'top-start'
   }
+
+  function clearSelection() {
+    $librarySelectedAddonIds = []
+  }
+
+  // --------------------------------------------------------------
+  //
+  // Modals
+  //
+  // --------------------------------------------------------------
+
+  // Enable
+  const confirmEnableModal: ModalSettings = {
+    type: 'confirm',
+    // Data
+    title: 'Enable?',
+    body: 'Are you sure you wish to enable all selected mods?',
+    // TRUE if confirm pressed, FALSE if cancel pressed
+    response: (r: boolean) => {
+      if (r) {
+        userStore.batchEnableAddonIds($librarySelectedAddonIds)
+        clearSelection()
+      }
+    }
+  }
+
+  // Disable
+  const confirmDisableModal: ModalSettings = {
+    type: 'confirm',
+    // Data
+    title: 'Disable',
+    body: 'Are you sure you wish to disable all selected mods?',
+    // TRUE if confirm pressed, FALSE if cancel pressed
+    response: (r: boolean) => {
+      if (r) {
+        userStore.batchDisableAddonIds($librarySelectedAddonIds)
+        clearSelection()
+      }
+    }
+  }
+
+  // Unsubscribe
+  const confirmUnsubscribeModal: ModalSettings = {
+    type: 'confirm',
+    // Data
+    title: 'Unsubscribe?',
+    body: 'Are you sure you wish to unsubscribe from all selected mods?',
+    // TRUE if confirm pressed, FALSE if cancel pressed
+    response: (r: boolean) => {
+      if (r) {
+        // userStore.batchUnsubscribeAddonIds($librarySelectedAddonIds)
+        clearSelection()
+      }
+    }
+  }
+
+  const alertNoWebApiKey: ModalSettings = {
+    type: 'alert',
+    // Data
+    title: 'No Steam Web API Key provided. ',
+    body: 'Check the "Steab Web API Key" tab in settings for more information.'
+  }
+
+  function handleUnsubscribe() {
+    if (!$userStore.steamWebApiKey) {
+      modalStore.trigger(alertNoWebApiKey)
+      return
+    }
+
+    modalStore.trigger(confirmUnsubscribeModal)
+  }
 </script>
 
 <div class="sticky top-0 backdrop-blur-md bg-surface-900/80 z-20 pr-2">
@@ -108,7 +188,7 @@
 
       <div
         data-popup="filtersPopup"
-        class="rounded-lg overflow-hidden shadow-xl border-2 border-surface-700"
+        class="rounded-lg overflow-hidden shadow-xl border-2 border-surface-700 z-20"
       >
         <div class="flex flex-col lg:flex-row lg:gap-0 flex-1 bg-surface-900">
           <div>
@@ -160,6 +240,25 @@
       </button> -->
     </div>
   </div>
+
+  {#if $librarySelectedAddonIds.length > 0}
+    <div class="mx-3 py-3 flex gap-2 items-center border-t border-surface-600/50">
+      <span class="mr-4">
+        Selected mods:
+        <span class="min-w-[23px] inline-block">
+          {$librarySelectedAddonIds.length}
+        </span>
+      </span>
+
+      <div class="btn-group variant-filled-surface [&>*+*]:border-surface-700">
+        <button on:click={() => modalStore.trigger(confirmEnableModal)}>Enable</button>
+        <button on:click={() => modalStore.trigger(confirmDisableModal)}>Disable</button>
+        <button on:click={() => handleUnsubscribe()}>Unsubscribe</button>
+      </div>
+
+      <button class="btn variant-filled-surface" on:click={clearSelection}>Clear selection</button>
+    </div>
+  {/if}
 </div>
 
 <style lang="postcss">

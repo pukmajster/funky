@@ -1,6 +1,6 @@
 <script lang="ts">
   import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton'
-  import { AlertTriangle, Check, Dices } from 'lucide-svelte'
+  import { AlertTriangle, Check, CheckCircle2, Dices } from 'lucide-svelte'
   import type { Addon, Game } from 'shared'
   import games from 'shared/games'
   import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
@@ -9,7 +9,8 @@
     addonOverviewId,
     derviedAddonIdsInEnabledShuffles,
     isDraggingAddon,
-    libraryActiveSubCategories
+    libraryActiveSubCategories,
+    librarySelectedAddonIds
   } from '../stores/library'
   import { userStore } from '../stores/user'
   import { derivedEnabledAddonIds } from '../stores/user-derivatives'
@@ -32,6 +33,10 @@
   $: isConflicting = $conflictGroups.some((group) =>
     group.some((conflictingMod) => conflictingMod.id == addon.id)
   )
+
+  $: selected = $librarySelectedAddonIds.includes(addon.id)
+  $: otherModsSelectedButNotThisOne = $librarySelectedAddonIds.some((id) => id != addon.id)
+  $: userIsSelecting = $librarySelectedAddonIds.length > 0
 
   function toggleModEnable() {
     if (isShuffled) {
@@ -70,6 +75,40 @@
     drawerStore.open(settings)
   }
 
+  function handleClick(e: MouseEvent) {
+    if (!e.ctrlKey) {
+      if (!userIsSelecting) {
+        toggleModEnable()
+        return
+      }
+    }
+
+    librarySelectedAddonIds.update((addons) => {
+      if (addons.includes(addon.id)) {
+        return addons.filter((id) => id != addon.id)
+      } else {
+        return [...addons, addon.id]
+      }
+    })
+  }
+
+  // handleShiftMouseEnter
+  function handleMouseEnter(e: MouseEvent) {
+    //if (uninstalled) return
+
+    if (!e.shiftKey) return
+    if (!e.ctrlKey) return
+
+    // toggle mod selection
+    librarySelectedAddonIds.update((addons) => {
+      if (addons.includes(addon.id)) {
+        return addons.filter((id) => id != addon.id)
+      } else {
+        return [...addons, addon.id]
+      }
+    })
+  }
+
   const tagStyle =
     'absolute items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full backdrop-blur-md w-[60%] py-1 text-[12px] left-[50%] translate-x-[-50%] hidden'
 </script>
@@ -80,7 +119,7 @@
     on:dragstart={dragStart}
     on:dragend={dragEnd}
     on:contextmenu={openOverview}
-    class="  flex items-center gap-2"
+    class="flex items-center gap-2"
   >
     <img
       alt="mod"
@@ -93,14 +132,17 @@
   </div>
 {:else}
   <button
+    on:mouseenter={handleMouseEnter}
     draggable={true}
     on:dragstart={dragStart}
     on:dragend={dragEnd}
     on:contextmenu={openOverview}
-    class="relative shadow-md"
+    class:selected
+    class:unselected={otherModsSelectedButNotThisOne && !selected}
+    class="relative shadow-md transition-transform"
     class:enabled={isEnabled}
     class:asShuffle
-    on:click={toggleModEnable}
+    on:click={handleClick}
   >
     <img
       alt="mod"
@@ -108,6 +150,16 @@
       class=" rounded-md w-[200px] aspect-[5/3] w-full"
       src={thumbnail}
     />
+
+    {#if selected}
+      <div
+        class="selected-overlay absolute inset-0 bg w-full h-full right-0 justify-center items-center flex"
+      >
+        <div class="backdrop-blur-lg rounded-full">
+          <CheckCircle2 size={64} />
+        </div>
+      </div>
+    {/if}
 
     {#if !asShuffle}
       <div class={tagStyle} class:addonEnabled={isEnabled}>
@@ -130,6 +182,20 @@
 {/if}
 
 <style lang="postcss">
+  .selected {
+    outline: 1px solid #6abcffc0;
+    @apply outline-primary-500;
+    border-radius: 2px;
+    opacity: 0.9;
+
+    box-shadow: 0 0 16px 3px #ffffff23;
+  }
+
+  .unselected {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+
   .addonEnabled {
     @apply bg-green-700/80 flex;
   }

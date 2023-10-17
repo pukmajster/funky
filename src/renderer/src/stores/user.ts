@@ -41,6 +41,78 @@ function createUserStore() {
     })
   }
 
+  function batchEnableAddonIds(addonIds: AddonId[]) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+
+      workingProfile.enabledAddonIds = workingProfile.enabledAddonIds.concat(addonIds)
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
+  function batchDisableAddonIds(addonIds: AddonId[]) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+
+      workingProfile.enabledAddonIds = workingProfile.enabledAddonIds.filter(
+        (addonId) => !addonIds.includes(addonId)
+      )
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
+  function batchToggleShuffleForSubCategory(subCategoryId: string, addonIds: AddonId[]) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === workingGamePreferences.activeProfileId
+      )
+
+      if (!workingProfile) return user
+      const workingShuffle = workingProfile.shuffles[subCategoryId]
+
+      if (!workingShuffle) return user
+
+      workingShuffle.shuffledAddonIds = workingShuffle.shuffledAddonIds.concat(addonIds)
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
   function toggleAddonEnabledState(addonId: string) {
     update((user) => {
       const activeGameId = user.activeGameId
@@ -323,6 +395,10 @@ function createUserStore() {
 
     addProfile,
     setupGameWithDefaultProfile,
+
+    batchDisableAddonIds,
+    batchEnableAddonIds,
+    batchToggleShuffleForSubCategory,
 
     toggleShuffleState,
     toggleAddonIdInShuffle,
