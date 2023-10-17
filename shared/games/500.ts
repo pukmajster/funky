@@ -55,7 +55,7 @@ import assets from './assets/l4dassets'
 
 export const game500: Game = {
   appId: 500,
-  label: 'Left 4 Dead (TEST!)',
+  label: 'Left 4 Dead',
   rootDirectoryName: 'left 4 dead',
   gameDirectory: 'left4dead',
   gameLogo: assets.l4d1logo,
