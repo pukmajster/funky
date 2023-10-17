@@ -43,6 +43,8 @@ export type TypeOfMod =
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('time_newest')
 
+export const librarySelectedAddonIds = writable<AddonId[]>([])
+
 // Derive active addons from the current active profiile for the current game
 export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   const activeAddons: AddonId[] = []
@@ -53,8 +55,6 @@ export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   if (!games) return activeAddons
   if (!activeProfileId) return activeAddons
 
-  console.log('profilee')
-
   const profile: Profile = games[activeGameId]?.profiles.find(
     (profile) => profile.id === activeProfileId
   ) as Profile
@@ -63,8 +63,6 @@ export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   profile.enabledAddonIds.forEach((addonId) => {
     activeAddons.push(addonId)
   })
-
-  console.log(activeAddons)
 
   return activeAddons
 })
