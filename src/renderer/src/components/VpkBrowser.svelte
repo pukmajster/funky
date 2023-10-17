@@ -16,6 +16,10 @@
     showExtractionOptions = true
   }
 
+  const defaultExtractPath = `${$userStore.steamGamesDir}common/${
+    games[$userStore.activeGameId].rootDirectoryName
+  }/${games[$userStore.activeGameId].gameDirectory}/`
+
   async function handleExtract() {
     const steamDir = $userStore.steamGamesDir
     const game = games[$userStore.activeGameId]
@@ -53,7 +57,7 @@
   }
 
   let showExtractionOptions = true
-  let extractToDir = ''
+  let extractToDir = defaultExtractPath
   let extractIntoFolder = false
 </script>
 
