@@ -6,7 +6,9 @@
     popup,
     type ModalComponent,
     type ModalSettings,
-    type PopupSettings
+    type PopupSettings,
+    ProgressBar,
+    ProgressRadial
   } from '@skeletonlabs/skeleton'
   import { HelpCircleIcon, InfoIcon, LucidePlay, RefreshCw, Settings } from 'lucide-svelte'
   import games from 'shared/games'
@@ -20,6 +22,7 @@
   import HelpModal from './HelpModal.svelte'
   import ProfilesManager from './ProfilesManager.svelte'
   import SettingsModal from './SettingsModal.svelte'
+  import { isUnsubscribeOngoing } from '../stores/library'
 
   async function launchGame() {
     await writeAddonList()
@@ -168,23 +171,35 @@
     </div>
   </div>
 
-  <div class="border-t border-solid border-surface-600 bg-surface-800 shadow-xl">
-    <TabGroup
-      active="border-b-2 !text-white   border-solid"
-      justify="justify-center"
-      rounded="text-white/50 uppercase font-bold  border-primary-500"
-      border=""
-      hover="hover:text-white/70"
-    >
-      <Tab bind:group={$view} name="mods" value={'mods'}>
-        <span>Mods</span>
-      </Tab>
-
-      <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
-
-      <Tab bind:group={$view} name="conflicts" value={'conflicts'}
-        >{$totalConflictingAddons} Conflicts</Tab
+  <div class="grid grid-cols-3 border-t border-solid border-surface-600 bg-surface-800 shadow-xl">
+    <div />
+    <div>
+      <TabGroup
+        active="border-b-2 !text-white   border-solid"
+        justify="justify-center"
+        rounded="text-white/50 uppercase font-bold  border-primary-500"
+        border=""
+        hover="hover:text-white/70"
       >
-    </TabGroup>
+        <Tab bind:group={$view} name="mods" value={'mods'}>
+          <span>Mods</span>
+        </Tab>
+
+        <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
+
+        <Tab bind:group={$view} name="conflicts" value={'conflicts'}
+          >{$totalConflictingAddons} Conflicts</Tab
+        >
+      </TabGroup>
+    </div>
+
+    <div class="flex justify-end pr-4">
+      {#if $isUnsubscribeOngoing}
+        <span class="flex gap-2 items-center">
+          Unsubscribing...
+          <ProgressRadial width="w-[21px]" value={undefined} />
+        </span>
+      {/if}
+    </div>
   </div>
 </div>

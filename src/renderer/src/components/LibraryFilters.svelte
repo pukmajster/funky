@@ -20,6 +20,7 @@
     modalStore
   } from '@skeletonlabs/skeleton'
   import { userStore } from '../stores/user'
+  import { unsubscribeFromMods } from '../api/api'
 
   // Limit the active subcategories to 1
   $: {
@@ -135,9 +136,10 @@
     title: 'Unsubscribe?',
     body: 'Are you sure you wish to unsubscribe from all selected mods?',
     // TRUE if confirm pressed, FALSE if cancel pressed
-    response: (r: boolean) => {
+    response: async (r: boolean) => {
       if (r) {
         // userStore.batchUnsubscribeAddonIds($librarySelectedAddonIds)
+        await unsubscribeFromMods($librarySelectedAddonIds)
         clearSelection()
       }
     }

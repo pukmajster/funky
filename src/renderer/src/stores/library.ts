@@ -45,6 +45,10 @@ export const sortingType = writable<SortingType>('time_newest')
 
 export const librarySelectedAddonIds = writable<AddonId[]>([])
 
+export const isUnsubscribeOngoing = writable(false)
+export const unsubscribeQueue = writable<AddonId[]>([])
+export const unsubscribedItemsThisSession = writable<AddonId[]>([])
+
 // Derive active addons from the current active profiile for the current game
 export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   const activeAddons: AddonId[] = []

@@ -1,9 +1,16 @@
 import type { AddonId, CategoryShuffle, ExportVpkOptions, GameManifest, Profile } from 'shared'
 import games from 'shared/games'
 import { get } from 'svelte/store'
-import { derviedAddonIdsInEnabledShuffles } from '../stores/library'
+import {
+  derviedAddonIdsInEnabledShuffles,
+  isUnsubscribeOngoing,
+  unsubscribeQueue,
+  unsubscribedItemsThisSession
+} from '../stores/library'
 import { currentGameManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
+import SteamWebApi from '../steam-web-api'
+import { modalStore, toastStore } from '@skeletonlabs/skeleton'
 
 export async function writeAddonList(): Promise<void> {
   const workingUserStore = get(userStore)
@@ -77,4 +84,26 @@ export async function writeAddonList(): Promise<void> {
 export async function extractVpk(params: ExportVpkOptions) {
   // Extract the vpk
   window.api.extractVpk(params)
+}
+
+export async function unsubscribeFromMods(addonIds: AddonId[]) {
+  isUnsubscribeOngoing.set(true)
+  unsubscribeQueue.set(addonIds)
+
+  try {
+    await SteamWebApi.unsubscribeFromPublishedItems(addonIds)
+    toastStore.trigger({
+      background: 'variant-filled-success',
+      message: 'Successfully unsubscribed from all selected mods'
+    })
+    unsubscribedItemsThisSession.set([...get(unsubscribedItemsThisSession), ...addonIds])
+  } catch (error) {
+    toastStore.trigger({
+      background: 'variant-filled-error',
+      message: 'Failed to unsubscribe from all selected mods'
+    })
+  } finally {
+    isUnsubscribeOngoing.set(false)
+    unsubscribeQueue.set([])
+  }
 }

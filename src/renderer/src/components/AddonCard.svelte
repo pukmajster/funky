@@ -10,7 +10,8 @@
     derviedAddonIdsInEnabledShuffles,
     isDraggingAddon,
     libraryActiveSubCategories,
-    librarySelectedAddonIds
+    librarySelectedAddonIds,
+    unsubscribedItemsThisSession
   } from '../stores/library'
   import { userStore } from '../stores/user'
   import { derivedEnabledAddonIds } from '../stores/user-derivatives'
@@ -33,6 +34,7 @@
   $: isConflicting = $conflictGroups.some((group) =>
     group.some((conflictingMod) => conflictingMod.id == addon.id)
   )
+  $: wasUnsubscribed = $unsubscribedItemsThisSession.includes(addon.id)
 
   $: selected = $librarySelectedAddonIds.includes(addon.id)
   $: otherModsSelectedButNotThisOne = $librarySelectedAddonIds.some((id) => id != addon.id)
@@ -120,6 +122,7 @@
     on:dragend={dragEnd}
     on:contextmenu={openOverview}
     class="flex items-center gap-2"
+    class:unsubscribed={wasUnsubscribed}
   >
     <img
       alt="mod"
@@ -142,6 +145,7 @@
     class="relative shadow-md transition-transform"
     class:enabled={isEnabled}
     class:asShuffle
+    class:unsubscribed={wasUnsubscribed}
     on:click={handleClick}
   >
     <img
@@ -189,6 +193,10 @@
     opacity: 0.9;
 
     box-shadow: 0 0 16px 3px #ffffff23;
+  }
+
+  .unsubscribed {
+    filter: grayscale(100%);
   }
 
   .unselected {
