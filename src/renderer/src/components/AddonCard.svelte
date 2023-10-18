@@ -197,6 +197,8 @@
 
   .unsubscribed {
     filter: grayscale(100%);
+    opacity: 0.5;
+    transform: scale(0.8);
   }
 
   .unselected {
