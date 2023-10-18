@@ -1,19 +1,19 @@
 <script lang="ts">
   import {
+    ProgressRadial,
     Tab,
     TabGroup,
     modalStore,
     popup,
     type ModalComponent,
     type ModalSettings,
-    type PopupSettings,
-    ProgressBar,
-    ProgressRadial
+    type PopupSettings
   } from '@skeletonlabs/skeleton'
   import { HelpCircleIcon, InfoIcon, LucidePlay, RefreshCw, Settings } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../api/api'
   import { totalConflictingAddons } from '../stores/conflicts'
+  import { isUnsubscribeOngoing } from '../stores/library'
   import { isRequestingGameManifest, requestManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import { view } from '../stores/view'
@@ -22,7 +22,6 @@
   import HelpModal from './HelpModal.svelte'
   import ProfilesManager from './ProfilesManager.svelte'
   import SettingsModal from './SettingsModal.svelte'
-  import { isUnsubscribeOngoing } from '../stores/library'
 
   async function launchGame() {
     await writeAddonList()

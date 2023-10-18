@@ -1,20 +1,16 @@
 <script lang="ts">
-  import { SlideToggle, modalStore, toastStore } from '@skeletonlabs/skeleton'
+  import { modalStore, toastStore } from '@skeletonlabs/skeleton'
+  import classNames from 'classnames'
+  import games from 'shared/games'
+  import { extractVpk } from '../api/api'
   import { currentGameManifest } from '../stores/manifest'
+  import { userStore } from '../stores/user'
   import { pathsToTree } from '../utils/vpk-browser'
   import VpkBrowserPath from './VpkBrowserPath.svelte'
-  import { extractVpk } from '../api/api'
-  import { userStore } from '../stores/user'
-  import games from 'shared/games'
-  import classNames from 'classnames'
 
   let addonId = $modalStore[0].meta.addonId
   $: addonMetadata = $currentGameManifest.addons.find((addon) => addon.id === addonId)
   $: addonFilesTree = pathsToTree(addonMetadata ? addonMetadata.files : [])
-
-  function promptExtractionOptions() {
-    showExtractionOptions = true
-  }
 
   const defaultExtractPath = `${$userStore.steamGamesDir}common/${
     games[$userStore.activeGameId].rootDirectoryName
@@ -58,7 +54,6 @@
 
   let showExtractionOptions = true
   let extractToDir = defaultExtractPath
-  let extractIntoFolder = false
 </script>
 
 {#if addonId}
