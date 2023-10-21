@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SlideToggle, modalStore, toastStore } from '@skeletonlabs/skeleton'
+  import { modalStore, toastStore } from '@skeletonlabs/skeleton'
   import { currentGameManifest } from '../stores/manifest'
   import { pathsToTree } from '../utils/vpk-browser'
   import VpkBrowserPath from './VpkBrowserPath.svelte'
@@ -11,10 +11,6 @@
   let addonId = $modalStore[0].meta.addonId
   $: addonMetadata = $currentGameManifest.addons.find((addon) => addon.id === addonId)
   $: addonFilesTree = pathsToTree(addonMetadata ? addonMetadata.files : [])
-
-  function promptExtractionOptions() {
-    showExtractionOptions = true
-  }
 
   const defaultExtractPath = `${$userStore.steamGamesDir}common/${
     games[$userStore.activeGameId].rootDirectoryName
@@ -32,7 +28,6 @@
       await extractVpk({
         vpkPath: addonVpkPath,
         extractPath: extractToDir
-        // extractIntoFolder
       })
       modalStore.clear()
       toastStore.trigger({
@@ -58,7 +53,6 @@
 
   let showExtractionOptions = true
   let extractToDir = defaultExtractPath
-  let extractIntoFolder = false
 </script>
 
 {#if addonId}
@@ -73,13 +67,6 @@
           {addonMetadata.addonInfo.title}
         </span>
       </span>
-
-      <!-- <span>
-        <button on:click={promptExtractionOptions} class="btn btn-sm variant-filled-surface"
-          >Extract entire VPK</button
-        >
-       n <button class="btn btn-sm variant-filled-surface">Extract selected</button>
-      </span> -->
     </div>
 
     <div

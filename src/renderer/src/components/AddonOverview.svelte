@@ -19,7 +19,7 @@
   $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
     activeGameDetails.rootDirectoryName
   }/${activeGameDetails.gameDirectory}/addons${addon.fromWorkshop ? '/workshop' : ''}/${
-    addon.id
+    addon.vpkId
   }.jpg`
 
   $: fileSizeMb = addon.vpkSizeInBytes / (1024 * 1024)

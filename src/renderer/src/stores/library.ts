@@ -49,6 +49,10 @@ export const isUnsubscribeOngoing = writable(false)
 export const unsubscribeQueue = writable<AddonId[]>([])
 export const unsubscribedItemsThisSession = writable<AddonId[]>([])
 
+export const installedAddons = derived([currentGameManifest], ([$currentGameManifest]) => {
+  return $currentGameManifest?.installedAddons ?? []
+})
+
 // Derive active addons from the current active profiile for the current game
 export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   const activeAddons: AddonId[] = []
@@ -106,7 +110,8 @@ export const libraryAddonPool = derived(
     libraryActiveCategory,
     typeToShow,
     libraryActiveAddons,
-    derviedAddonIdsInEnabledShuffles
+    derviedAddonIdsInEnabledShuffles,
+    installedAddons
   ],
   ([
     $currentGameManifest,
@@ -115,7 +120,8 @@ export const libraryAddonPool = derived(
     $libraryActiveCategory,
     $typeToShow,
     $libraryActiveAddons,
-    $derviedAddonIdsInEnabledShuffles
+    $derviedAddonIdsInEnabledShuffles,
+    $installedAddons
   ]) => {
     const addonIds: string[] = []
     const allFilters = $libraryActiveSubCategories.filter((filter) => filter != '')
@@ -143,6 +149,11 @@ export const libraryAddonPool = derived(
 
       const thisModCategories = $currentGameManifest.addonCategories.categories[addonId] ?? []
 
+      // Filter out uninstalled mods if the filter isn't enabled
+      if ($typeToShow !== 'uninstalled') {
+        if (!$installedAddons.includes(addonId)) return
+      }
+
       // Check for mod type
       switch ($typeToShow) {
         case 'any':
@@ -166,6 +177,9 @@ export const libraryAddonPool = derived(
             $derviedAddonIdsInEnabledShuffles.includes(addonId)
           )
             return
+          break
+        case 'uninstalled':
+          if ($installedAddons.includes(addonId)) return
           break
         default:
           break

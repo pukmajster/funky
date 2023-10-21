@@ -7,7 +7,6 @@
     type ModalComponent,
     type ModalSettings,
     type PopupSettings,
-    ProgressBar,
     ProgressRadial
   } from '@skeletonlabs/skeleton'
   import { HelpCircleIcon, InfoIcon, LucidePlay, RefreshCw, Settings } from 'lucide-svelte'

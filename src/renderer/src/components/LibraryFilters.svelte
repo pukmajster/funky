@@ -62,11 +62,17 @@
       enabled: 'Enabled',
       shuffled: 'Shuffled',
       'enabled/shuffled': 'Enabled or shuffled',
-      disabled: 'Disabled'
+      disabled: 'Disabled',
+      uninstalled: 'Uninstalled'
     }[value]
   }
 
-  const sortingTypeMap = [
+  type LabeledFilters<T extends string> = {
+    value: T
+    label: string
+  }[]
+
+  const sortingTypeMap: LabeledFilters<SortingType> = [
     { label: 'Name (Ascending)', value: 'name_asc' },
     { label: 'Name (Descending)', value: 'name_desc' },
     { label: 'Time Modified (Latest)', value: 'time_newest' },
@@ -75,12 +81,13 @@
     { label: 'Size (Smallest)', value: 'size_smallest' }
   ]
 
-  const typeToShowMap = [
+  const typeToShowMap: LabeledFilters<TypeOfMod> = [
     { label: 'Any', value: 'any' },
     { label: 'Enabled', value: 'enabled' },
     { label: 'Shuffled', value: 'shuffled' },
     { label: 'Enabled or shuffled', value: 'enabled/shuffled' },
-    { label: 'Disabled', value: 'disabled' }
+    { label: 'Disabled', value: 'disabled' },
+    { label: 'Uninstalled', value: 'uninstalled' }
   ]
 
   const popupClick: PopupSettings = {

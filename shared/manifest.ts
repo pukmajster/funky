@@ -8,6 +8,7 @@ export interface GameManifest {
   }
   appId: number
   addons: Addon[]
+  installedAddons: AddonId[]
   addonCategories: {
     version: number
     categories: Record<AddonId, string[]>

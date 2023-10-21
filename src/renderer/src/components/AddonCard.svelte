@@ -8,6 +8,7 @@
   import {
     addonOverviewId,
     derviedAddonIdsInEnabledShuffles,
+    installedAddons,
     isDraggingAddon,
     libraryActiveSubCategories,
     librarySelectedAddonIds,
@@ -27,7 +28,7 @@
   $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
     activeGameDetails.rootDirectoryName
   }/${activeGameDetails.gameDirectory}/addons${addon.fromWorkshop ? '/workshop' : ''}/${
-    addon.id
+    addon.vpkId
   }.jpg`
   $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
   $: isShuffled = $derviedAddonIdsInEnabledShuffles.includes(addon.id)
@@ -35,6 +36,7 @@
     group.some((conflictingMod) => conflictingMod.id == addon.id)
   )
   $: wasUnsubscribed = $unsubscribedItemsThisSession.includes(addon.id)
+  $: isInstalled = $installedAddons.includes(addon.id)
 
   $: selected = $librarySelectedAddonIds.includes(addon.id)
   $: otherModsSelectedButNotThisOne = $librarySelectedAddonIds.some((id) => id != addon.id)
@@ -176,9 +178,13 @@
         Conflicting
       </div>
 
+      <div class={tagStyle} class:addonUninstalled={!isInstalled}>
+        <AlertTriangle class="w-4 mr-2" />
+        Uninstalled
+      </div>
+
       <div class={tagStyle} class:addonShuffled={isShuffled}>
         <Dices class="w-4 mr-2" />
-
         Shuffle
       </div>
     {/if}
@@ -220,5 +226,9 @@
 
   .asShuffle {
     @apply min-w-[120px] max-w-[120px]  aspect-[16/9];
+  }
+
+  .addonUninstalled {
+    @apply bg-red-600/60 flex;
   }
 </style>
