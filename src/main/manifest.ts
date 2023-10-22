@@ -240,8 +240,8 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     const manifest: GameManifest = {
       manifestMetadata: {
         version: 1,
-        createdAt: cachedManifest?.manifestMetadata.createdAt ?? new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        createdAt: cachedManifest?.manifestMetadata.createdAt ?? new Date().toString(),
+        updatedAt: new Date().toString()
       },
       appId: params.appId,
       addons: mergedAddons,
