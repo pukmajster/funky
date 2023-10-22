@@ -43,7 +43,6 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     path.join(baseGameDirectory, addonFolder)
   )
 
-  const manifestFileName = path.join(app.getPath('userData'), `${params.appId}_manifest.json`)
   const installedAddons: AddonId[] = []
 
   try {
@@ -65,6 +64,15 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     const workshopAddonIdsWithMissingAddonInfo: string[] = []
 
     for (const file of files) {
+      // Check if the addon is already present in the manifest
+      const cachedAddon = cachedManifest?.addons.find((addon) => addon.vpkId === file)
+      if (cachedAddon && params.mode != 'full-update') {
+        // Addon is already present in the cached manifest
+        // Only thing we need to do then is mark it as installed, the rest of the data is already there
+        installedAddons.push(cachedAddon.id)
+        continue
+      }
+
       const bIsWorkshopVpk = file.includes('workshop')
       const fileName = file.split('/').at(-1)?.split('.')[0]
       const vpkId = fileName
@@ -272,7 +280,7 @@ export async function requestGameManifest(
     }
   }
 
-  if (params.mode === 'full-update') {
+  if (params.mode === 'full-update' || params.mode === 'quick-refresh') {
     let manifest = await buildGameManifest(params)
     return manifest ?? undefined
   }
