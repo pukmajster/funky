@@ -102,9 +102,9 @@
   ]
 
   const addonSourceMap: LabeledFilters<AddonSource> = [
+    { label: 'All', value: 'all' },
     { label: 'Workshop', value: 'workshop' },
-    { label: 'Local', value: 'local' },
-    { label: 'All', value: 'all' }
+    { label: 'Local', value: 'local' }
   ]
 
   const popupClick: PopupSettings = {
