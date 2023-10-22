@@ -384,7 +384,7 @@ export async function manifestMarkUninstalledAddons({
       (addonId) => !addonIds.includes(addonId)
     )
 
-    writeManifest({
+    await writeManifest({
       appId: appId,
       manifest
     })
