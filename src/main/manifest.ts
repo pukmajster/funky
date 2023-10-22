@@ -194,7 +194,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         for (const publishedFile of data.response?.publishedfiledetails) {
           const id = publishedFile.publishedfileid.toString()
           if (workshopAddonIdsWithMissingAddonInfo.includes(id)) {
-            let addonToModify = addons.find((addon) => addon.id === id)
+            let addonToModify = addons.find((addon) => addon?.workshopId === +id)
             if (!addonToModify) continue
             addonToModify.addonInfo = {
               title: publishedFile.title,

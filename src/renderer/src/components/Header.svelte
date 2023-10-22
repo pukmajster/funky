@@ -107,6 +107,7 @@
       <button
         class="btn btn-sm variant-filled-surface"
         on:click={() => requestManifest('quick-refresh')}
+        on:contextmenu={() => requestManifest('full-update')}
         disabled={$isRequestingGameManifest}
       >
         {#if $isRequestingGameManifest}
