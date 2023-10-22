@@ -75,11 +75,10 @@
             class:grayscale={!$derivedIsShuffleEnabledForSubCategory}
           >
             {#each $shuffledAddonsInActiveSubCategory ?? [] as addonId}
-              <AddonCard
-                mode="card"
-                asShuffle
-                addon={$currentGameManifest.addons.find((_addon) => _addon.id === addonId)}
-              />
+              {@const addonData = $currentGameManifest.addons.find((addon) => addon.id == addonId)}
+              {#if addonData}
+                <AddonCard mode="card" asShuffle addon={addonData} />
+              {/if}
             {/each}
 
             {#if $shuffledAddonsInActiveSubCategory.length == 0}

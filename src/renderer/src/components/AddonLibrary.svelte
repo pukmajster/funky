@@ -12,6 +12,7 @@
 
   $: {
     console.log('userStore', $userStore)
+    console.log('libraryAddonPoolSortedPaginated', $libraryAddonPoolSortedPaginated)
   }
 </script>
 
@@ -21,10 +22,10 @@
   <div>
     <div class="library-list p-3 pt-0 pb-[200px]">
       {#each $libraryAddonPoolSortedPaginated as addon}
-        <AddonCard
-          mode="card"
-          addon={$currentGameManifest.addons.find((_addon) => _addon.id === addon)}
-        />
+        {@const addonData = $currentGameManifest.addons.find((_addon) => _addon.id === addon)}
+        {#if addonData}
+          <AddonCard addon={addonData} mode="card" />
+        {/if}
       {/each}
     </div>
 
