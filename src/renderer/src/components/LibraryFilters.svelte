@@ -8,7 +8,9 @@
     typeToShow,
     type SortingType,
     type TypeOfMod,
-    librarySelectedAddonIds
+    librarySelectedAddonIds,
+    type AddonSource,
+    addonSource
   } from '../stores/library'
   import { clamp } from '../utils'
   import {
@@ -22,7 +24,6 @@
   import { userStore } from '../stores/user'
   import { uninstallMods, unsubscribeFromMods } from '../api/api'
   import { currentGameManifest } from '../stores/manifest'
-  import type { AddonId } from 'shared'
 
   // Limit the active subcategories to 1
   $: {
@@ -69,6 +70,14 @@
     }[value]
   }
 
+  function getAddonSourceLabel(value: AddonSource) {
+    return {
+      local: 'Local',
+      workshop: 'Workshop',
+      all: 'All'
+    }[value]
+  }
+
   type LabeledFilters<T extends string> = {
     value: T
     label: string
@@ -90,6 +99,12 @@
     { label: 'Enabled or shuffled', value: 'enabled/shuffled' },
     { label: 'Disabled', value: 'disabled' },
     { label: 'Uninstalled', value: 'uninstalled' }
+  ]
+
+  const addonSourceMap: LabeledFilters<AddonSource> = [
+    { label: 'Workshop', value: 'workshop' },
+    { label: 'Local', value: 'local' },
+    { label: 'All', value: 'all' }
   ]
 
   const popupClick: PopupSettings = {
@@ -148,24 +163,25 @@
     response: async (r: boolean) => {
       if (r) {
         // userStore.batchUnsubscribeAddonIds($librarySelectedAddonIds)
-
-        const workshopIds: AddonId[] = []
-        const localIds: AddonId[] = []
+        const toUnsubscribeFrom: string[] = []
+        const toUninstall: string[] = []
 
         for (const addonId of $librarySelectedAddonIds) {
-          const addon = $currentGameManifest.addons[addonId]
-          if (addon.fromWorkshop) {
-            workshopIds.push(addon.vpkId)
+          const addon = $currentGameManifest.addons.find((a) => a.id == addonId)
+          if (addon?.fromWorkshop ?? false) {
+            toUnsubscribeFrom.push(addon.vpkId)
+            toUninstall.push(addon.id)
           } else {
-            localIds.push(addon.vpkId)
+            toUninstall.push(addon.id)
           }
         }
 
         // First unsubscribe from workshop mods
-        await unsubscribeFromMods(workshopIds)
+        await unsubscribeFromMods(toUnsubscribeFrom)
 
         // Then uninstall both local and workshop mods
-        await uninstallMods(localIds.concat(workshopIds))
+        console.log('modsToUninstall', toUninstall)
+        await uninstallMods(toUninstall)
 
         // Clear selection!
         clearSelection()
@@ -213,7 +229,10 @@
       </div>
 
       <button use:popup={popupClick} class="btn variant-filled-surface text-left text-sm">
-        <span>{getSortingLabel($sortingType)}, {getTypeToShowLabel($typeToShow)} </span>
+        <span
+          >{getSortingLabel($sortingType)}, {getTypeToShowLabel($typeToShow)}
+          {$addonSource != 'all' ? ` (${getAddonSourceLabel($addonSource)} only)` : ''}</span
+        >
       </button>
 
       <div
@@ -246,6 +265,21 @@
                   name={_tts.value}
                   value={_tts.value}
                   >{_tts.label}
+                </ListBoxItem>
+              {/each}
+            </ListBox>
+          </div>
+
+          <div>
+            <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">SOURCE</h3>
+            <ListBox class="p-5">
+              {#each addonSourceMap as _as}
+                <ListBoxItem
+                  bind:group={$addonSource}
+                  active="bg-blue-600"
+                  name={_as.value}
+                  value={_as.value}
+                  >{_as.label}
                 </ListBoxItem>
               {/each}
             </ListBox>

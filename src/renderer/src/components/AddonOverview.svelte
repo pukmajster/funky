@@ -13,6 +13,8 @@
 
   export let addon: Addon
 
+  console.log('addon', addon)
+
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = $userStore.activeGameId
   $: activeGameDetails = games[activeGameId] as Game
@@ -27,12 +29,12 @@
 
   function openModInBrowser() {
     window.api.openLinkInBrowser(
-      `https://steamcommunity.com/sharedfiles/filedetails/?id=${addon.id}`
+      `https://steamcommunity.com/sharedfiles/filedetails/?id=${addon.vpkId}`
     )
   }
 
   function openModInSteam() {
-    window.api.openLinkInBrowser(`steam://url/CommunityFilePage/${addon.id}`)
+    window.api.openLinkInBrowser(`steam://url/CommunityFilePage/${addon.vpkId}`)
   }
 
   function openVpkBrowserModal() {

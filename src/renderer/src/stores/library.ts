@@ -40,8 +40,11 @@ export type TypeOfMod =
   | 'hidden'
   | 'uninstalled'
 
+export type AddonSource = 'workshop' | 'local' | 'all'
+
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('time_newest')
+export const addonSource = writable<AddonSource>('all')
 
 export const librarySelectedAddonIds = writable<AddonId[]>([])
 
@@ -111,7 +114,8 @@ export const libraryAddonPool = derived(
     typeToShow,
     libraryActiveAddons,
     derviedAddonIdsInEnabledShuffles,
-    installedAddons
+    installedAddons,
+    addonSource
   ],
   ([
     $currentGameManifest,
@@ -121,7 +125,8 @@ export const libraryAddonPool = derived(
     $typeToShow,
     $libraryActiveAddons,
     $derviedAddonIdsInEnabledShuffles,
-    $installedAddons
+    $installedAddons,
+    $addonSource
   ]) => {
     const addonIds: string[] = []
     const allFilters = $libraryActiveSubCategories.filter((filter) => filter != '')
@@ -152,6 +157,17 @@ export const libraryAddonPool = derived(
       // Filter out uninstalled mods if the filter isn't enabled
       if ($typeToShow !== 'uninstalled') {
         if (!$installedAddons.includes(addonId)) return
+      }
+
+      switch ($addonSource) {
+        case 'workshop':
+          if (!thisAddon.fromWorkshop) return
+          break
+        case 'local':
+          if (thisAddon.fromWorkshop) return
+          break
+        default:
+          break
       }
 
       // Check for mod type
