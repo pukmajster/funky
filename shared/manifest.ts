@@ -21,3 +21,9 @@ export interface RequestGameManifestParams {
   mode: 'cached' | 'quick-refresh' | 'full-update'
   onlineMetadataFetching: boolean
 }
+
+export interface UninstallAddonsParams {
+  steamGamesDir: string
+  appId: number
+  addonIds: AddonId[]
+}

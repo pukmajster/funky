@@ -1,5 +1,6 @@
+import type { AddonId } from './addon'
 import type { WriteAddonlistParams } from './addonlist'
-import type { GameManifest, RequestGameManifestParams } from './manifest'
+import type { GameManifest, RequestGameManifestParams, UninstallAddonsParams } from './manifest'
 import type { User } from './user'
 import type { ExportVpkOptions } from './vpk'
 
@@ -15,4 +16,5 @@ export interface BridgeApi {
   getPathJoin: (file: string) => Promise<string>
   writeAddonList: (params: WriteAddonlistParams) => Promise<void>
   extractVpk: (options: ExportVpkOptions) => Promise<void>
+  uninstallAddons: (params: UninstallAddonsParams) => Promise<AddonId[]>
 }

@@ -7,7 +7,7 @@ import {
   unsubscribeQueue,
   unsubscribedItemsThisSession
 } from '../stores/library'
-import { currentGameManifest } from '../stores/manifest'
+import { currentGameManifest, requestManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
 import SteamWebApi from '../steam-web-api'
 import { modalStore, toastStore } from '@skeletonlabs/skeleton'
@@ -105,5 +105,35 @@ export async function unsubscribeFromMods(addonIds: AddonId[]) {
   } finally {
     isUnsubscribeOngoing.set(false)
     unsubscribeQueue.set([])
+  }
+}
+
+export async function uninstallMods(addonIds: AddonId[]) {
+  const { activeGameId } = get(userStore)
+  const game = games[activeGameId]
+  const length = addonIds.length
+
+  try {
+    await window.api.uninstallAddons({
+      steamGamesDir: get(userStore).steamGamesDir,
+      addonIds: addonIds,
+      appId: game.appId
+    })
+
+    toastStore.trigger({
+      background: 'variant-filled-success',
+      message: `Successfully uninstalled ${length} mod/s`
+    })
+
+    try {
+      requestManifest('cached')
+    } catch (error) {
+      console.error(error)
+    }
+  } catch {
+    toastStore.trigger({
+      background: 'variant-filled-error',
+      message: `Failed to uninstall ${length} mod/s`
+    })
   }
 }

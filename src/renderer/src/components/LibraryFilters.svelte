@@ -20,7 +20,9 @@
     modalStore
   } from '@skeletonlabs/skeleton'
   import { userStore } from '../stores/user'
-  import { unsubscribeFromMods } from '../api/api'
+  import { uninstallMods, unsubscribeFromMods } from '../api/api'
+  import { currentGameManifest } from '../stores/manifest'
+  import type { AddonId } from 'shared'
 
   // Limit the active subcategories to 1
   $: {
@@ -141,12 +143,31 @@
     type: 'confirm',
     // Data
     title: 'Unsubscribe?',
-    body: 'Are you sure you wish to unsubscribe from all selected mods?',
+    body: 'Are you sure you wish to unsubscribe and/or uninstall from all selected mods?',
     // TRUE if confirm pressed, FALSE if cancel pressed
     response: async (r: boolean) => {
       if (r) {
         // userStore.batchUnsubscribeAddonIds($librarySelectedAddonIds)
-        await unsubscribeFromMods($librarySelectedAddonIds)
+
+        const workshopIds: AddonId[] = []
+        const localIds: AddonId[] = []
+
+        for (const addonId of $librarySelectedAddonIds) {
+          const addon = $currentGameManifest.addons[addonId]
+          if (addon.fromWorkshop) {
+            workshopIds.push(addon.vpkId)
+          } else {
+            localIds.push(addon.vpkId)
+          }
+        }
+
+        // First unsubscribe from workshop mods
+        await unsubscribeFromMods(workshopIds)
+
+        // Then uninstall both local and workshop mods
+        await uninstallMods(localIds.concat(workshopIds))
+
+        // Clear selection!
         clearSelection()
       }
     }
@@ -262,7 +283,7 @@
       <div class="btn-group variant-filled-surface [&>*+*]:border-surface-700">
         <button on:click={() => modalStore.trigger(confirmEnableModal)}>Enable</button>
         <button on:click={() => modalStore.trigger(confirmDisableModal)}>Disable</button>
-        <button on:click={() => handleUnsubscribe()}>Unsubscribe</button>
+        <button on:click={() => handleUnsubscribe()}>Unsubscribe / Uninstall</button>
       </div>
 
       <button class="btn variant-filled-surface" on:click={clearSelection}>Clear selection</button>

@@ -241,7 +241,10 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
       addonCategories: mergedCategories
     }
 
-    await fs.promises.writeFile(manifestFileName, JSON.stringify(manifest, null, 2))
+    writeManifest({
+      appId: params.appId,
+      manifest
+    })
 
     return manifest
   } catch (err) {
@@ -277,8 +280,12 @@ export async function requestGameManifest(
   return undefined
 }
 
+interface RequestCachedGameManifestParams {
+  appId: number
+}
+
 async function getCachedManifest(
-  params: RequestGameManifestParams
+  params: RequestCachedGameManifestParams
 ): Promise<GameManifest | undefined> {
   const manifestFileName = path.join(app.getPath('userData'), `${params.appId}_manifest.json`)
 
@@ -290,6 +297,27 @@ async function getCachedManifest(
     throw new Error('error reading cached manifest')
   }
 }
+
+// -----------------------------------------------
+//
+// Write manifest
+//
+// -----------------------------------------------
+interface WriteManifestParams {
+  appId: number
+  manifest: GameManifest
+}
+
+async function writeManifest({ appId, manifest }: WriteManifestParams) {
+  const manifestFileName = path.join(app.getPath('userData'), `${appId}_manifest.json`)
+  await fs.promises.writeFile(manifestFileName, JSON.stringify(manifest, null, 2))
+}
+
+// -----------------------------------------------
+//
+// Categorize VPK
+//
+// -----------------------------------------------
 
 // Categorize a VPK file based on its contents and return the categories it belongs as defined in the Game to as an array
 function categorizeVpk(game: Game, vpkFiles: AddonFiles): string[] {
@@ -320,7 +348,47 @@ function categorizeVpk(game: Game, vpkFiles: AddonFiles): string[] {
 }
 
 // -----------------------------------------------
+//
+// Mark addons as uninstalled in manifest
+//
+// -----------------------------------------------
+
+interface ManifestMarkUninstalledAddonsParams {
+  addonIds: AddonId[]
+  appId: number
+}
+
+export async function manifestMarkUninstalledAddons({
+  addonIds,
+  appId
+}: ManifestMarkUninstalledAddonsParams) {
+  try {
+    const manifest = await getCachedManifest({
+      appId: appId
+    })
+
+    if (!manifest) {
+      throw new Error('Manifest not found')
+    }
+
+    // Remove the addons from installedAddons
+    manifest.installedAddons = manifest.installedAddons.filter(
+      (addonId) => !addonIds.includes(addonId)
+    )
+
+    writeManifest({
+      appId: appId,
+      manifest
+    })
+  } catch (err) {
+    console.log('error marking addons as uninstalled in manifest')
+  }
+}
+
+// -----------------------------------------------
+//
 // Online addon data fetching
+//
 // -----------------------------------------------
 
 export interface IPublishedFileDetails {
