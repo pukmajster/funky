@@ -4,6 +4,7 @@ import games from 'shared/games'
 import path from 'path'
 import * as fs from 'fs'
 import { manifestMarkUninstalledAddons } from './manifest'
+import { log } from 'console'
 
 export async function extractVpk({ vpkPath, extractPath }: ExportVpkOptions) {
   try {
@@ -26,7 +27,16 @@ export async function uninstallAddons({ steamGamesDir, addonIds, appId }: Uninst
   const succesfullyDeletedAddons: AddonId[] = []
 
   function makeDirForAddon(addonId: AddonId) {
-    return path.join(steamGamesDir, game.rootDirectoryName, game.gameDirectory, 'addons', addonId)
+    const dir = path.join(
+      steamGamesDir,
+      'common',
+      game.rootDirectoryName,
+      game.gameDirectory,
+      'addons',
+      `${addonId}.vpk`
+    )
+    console.log(dir)
+    return dir
   }
 
   for (const addonId of addonIds) {
@@ -35,6 +45,7 @@ export async function uninstallAddons({ steamGamesDir, addonIds, appId }: Uninst
     // Validate we're deleting a .vpk from the steamapps directory
     if (!(addonDir.includes('steamapps/common') && addonDir.endsWith('.vpk'))) {
       console.error('only deleting vpk files from steamapps/common is allowed')
+      return
     }
 
     // Delete the addon

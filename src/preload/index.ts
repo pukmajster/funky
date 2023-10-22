@@ -5,7 +5,8 @@ import {
   RequestGameManifestParams,
   User,
   WriteAddonlistParams,
-  ExportVpkOptions
+  ExportVpkOptions,
+  UninstallAddonsParams
 } from 'shared'
 
 // Custom APIs for renderer
@@ -21,7 +22,8 @@ const api: BridgeApi = {
   openDirectory: (directory: string) => ipcRenderer.invoke('openDirectory', directory),
   getPath: () => ipcRenderer.invoke('getPath'),
   getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file),
-  extractVpk: (params: ExportVpkOptions) => ipcRenderer.invoke('vpk:extractVpk', params)
+  extractVpk: (params: ExportVpkOptions) => ipcRenderer.invoke('vpk:extractVpk', params),
+  uninstallAddons: (params: UninstallAddonsParams) => ipcRenderer.invoke('vpk:uninstall', params)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
