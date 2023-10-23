@@ -20,21 +20,21 @@
   $: activeGameDetails = games[activeGameId] as Game
   $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
     activeGameDetails.rootDirectoryName
-  }/${activeGameDetails.gameDirectory}/addons${addon.fromWorkshop ? '/workshop' : ''}/${
-    addon.vpkId
-  }.jpg`
+  }/${activeGameDetails.gameDirectory}/addons${
+    addon.workshop?.publishedFileId ? '/workshop' : ''
+  }/${addon.workshop?.publishedFileId}.jpg`
 
   $: fileSizeMb = addon.vpkSizeInBytes / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`
 
   function openModInBrowser() {
     window.api.openLinkInBrowser(
-      `https://steamcommunity.com/sharedfiles/filedetails/?id=${addon.vpkId}`
+      `https://steamcommunity.com/sharedfiles/filedetails/?id=${addon.workshop?.publishedFileId}`
     )
   }
 
   function openModInSteam() {
-    window.api.openLinkInBrowser(`steam://url/CommunityFilePage/${addon.vpkId}`)
+    window.api.openLinkInBrowser(`steam://url/CommunityFilePage/${addon.workshop?.publishedFileId}`)
   }
 
   function openVpkBrowserModal() {
@@ -96,7 +96,7 @@
       </div>
     </div>
 
-    {#if addon.fromWorkshop}
+    {#if addon.workshop?.publishedFileId}
       <div>
         <div class="text-sm mb-1 text-gray-400">Workshop</div>
         <div class="inline-flex gap-2">

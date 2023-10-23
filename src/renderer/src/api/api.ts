@@ -62,12 +62,10 @@ export async function writeAddonList(): Promise<void> {
 
   // Loop through all the mods in the manifest
   for (const mod in manifest.addons) {
-    const modId = manifest.addons[mod].vpkId
+    const modId = manifest.addons[mod].id.replaceAll('/', '\\')
     const enabled = mergedEnabledMods.includes(modId) ? '1' : '0'
 
-    if (manifest.addons[mod]?.fromWorkshop)
-      outputVdfString += `\t"workshop\\${modId}.vpk"\t\t\t"${enabled}"\n`
-    else outputVdfString += `\t"${modId}.vpk"\t\t\t"${enabled}"\n`
+    outputVdfString += `\t"${modId}"\t\t\t"${enabled}"\n`
   }
 
   outputVdfString += '}'

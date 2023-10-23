@@ -8,13 +8,13 @@ export interface Addon {
 
   files?: AddonFiles
 
-  vpkId?: string
   vpkTimeLastModified?: string
   vpkSizeInBytes?: number
   vpkHash?: string
 
-  fromWorkshop: boolean
-  workshopId?: number
+  workshop?: {
+    publishedFileId: number
+  }
 }
 
 export interface AddonInfo {

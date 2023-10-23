@@ -65,7 +65,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
     for (const file of files) {
       // Check if the addon is already present in the manifest
-      const cachedAddon = cachedManifest?.addons.find((addon) => addon.vpkId === file)
+      const cachedAddon = cachedManifest?.addons.find((addon) => addon.id === file)
       if (cachedAddon && params.mode != 'full-update') {
         // Addon is already present in the cached manifest
         // Only thing we need to do then is mark it as installed, the rest of the data is already there
@@ -75,11 +75,11 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
       const bIsWorkshopVpk = file.includes('workshop')
       const fileName = file.split('/').at(-1)?.split('.')[0]
-      const vpkId = fileName
-      const addonId = bIsWorkshopVpk ? `workshop/${vpkId}` : fileName
+      const addonId = file.replaceAll('\\', '/').split('addons/')[1]
+      const publishedFileId = fileName
 
-      if (!vpkId || !addonId) {
-        console.log('failed to get vpkId')
+      if (!publishedFileId || !addonId) {
+        console.log('failed to get publishedFileId')
         continue
       }
 
@@ -138,7 +138,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
           throw new Error('Missing required fields in addoninfo.txt')
         }
       } catch (e) {
-        workshopAddonIdsWithMissingAddonInfo.push(vpkId)
+        workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
         console.log('failed to read vpk addoninfo.txt')
       }
 
@@ -146,18 +146,16 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         id: addonId,
         addonInfo: vpkAddonInfo,
         files: vpkFiles,
-        vpkId: vpkId,
         vpkTimeLastModified: vpkStats.mtime.toISOString(),
         vpkSizeInBytes: vpkStats.size,
-        vpkHash: '',
-        fromWorkshop: false,
-        workshopId: 0
+        vpkHash: ''
       }
 
       // Check if the addon is from the workshop. And if it is, get the workshop id
       if (bIsWorkshopVpk) {
-        addonData.workshopId = +vpkId
-        addonData.fromWorkshop = true
+        addonData.workshop = {
+          publishedFileId: +publishedFileId
+        }
       }
 
       addonCategories.categories[addonId] = categorizeVpk(game, vpkFiles)
@@ -194,7 +192,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         for (const publishedFile of data.response?.publishedfiledetails) {
           const id = publishedFile.publishedfileid.toString()
           if (workshopAddonIdsWithMissingAddonInfo.includes(id)) {
-            let addonToModify = addons.find((addon) => addon?.workshopId === +id)
+            let addonToModify = addons.find((addon) => addon?.workshop?.publishedFileId === +id)
             if (!addonToModify) continue
             addonToModify.addonInfo = {
               title: publishedFile.title,

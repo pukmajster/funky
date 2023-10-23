@@ -168,8 +168,8 @@
 
         for (const addonId of $librarySelectedAddonIds) {
           const addon = $currentGameManifest.addons.find((a) => a.id == addonId)
-          if (addon?.fromWorkshop ?? false) {
-            toUnsubscribeFrom.push(addon.vpkId)
+          if (addon?.workshop?.publishedFileId ?? false) {
+            toUnsubscribeFrom.push(addon.workshop.publishedFileId.toString())
             toUninstall.push(addon.id)
           } else {
             toUninstall.push(addon.id)

@@ -27,9 +27,9 @@
   $: activeGameDetails = games[activeGameId] as Game
   $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
     activeGameDetails.rootDirectoryName
-  }/${activeGameDetails.gameDirectory}/addons${addon.fromWorkshop ? '/workshop' : ''}/${
-    addon.vpkId
-  }.jpg`
+  }/${activeGameDetails.gameDirectory}/addons${
+    addon.workshop?.publishedFileId ? '/workshop' : ''
+  }/${addon.workshop?.publishedFileId}.jpg`
   $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
   $: isShuffled = $derviedAddonIdsInEnabledShuffles.includes(addon.id)
   $: isConflicting = $conflictGroups.some((group) =>

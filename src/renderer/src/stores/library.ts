@@ -133,7 +133,7 @@ export const libraryAddonPool = derived(
 
     // WTF was i doing here
     Object.keys($currentGameManifest?.addons ?? []).map((addonIndex) => {
-      const thisAddon = $currentGameManifest.addons[addonIndex]
+      const thisAddon: Addon = $currentGameManifest.addons[addonIndex]
 
       if (!thisAddon) return
       const addonId = thisAddon.id
@@ -161,10 +161,10 @@ export const libraryAddonPool = derived(
 
       switch ($addonSource) {
         case 'workshop':
-          if (!thisAddon.fromWorkshop) return
+          if (!thisAddon.workshop?.publishedFileId) return
           break
         case 'local':
-          if (thisAddon.fromWorkshop) return
+          if (thisAddon.workshop?.publishedFileId) return
           break
         default:
           break

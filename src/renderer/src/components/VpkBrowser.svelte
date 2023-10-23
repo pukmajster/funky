@@ -20,9 +20,7 @@
     const steamDir = $userStore.steamGamesDir
     const game = games[$userStore.activeGameId]
     const isWorkshop = addonMetadata.fromWorkshop
-    const addonVpkPath = `${steamDir}common/${game.rootDirectoryName}/${
-      game.gameDirectory
-    }/addons/${isWorkshop ? 'workshop/' : ''}${addonId}.vpk`
+    const addonVpkPath = `${steamDir}/common/${game.rootDirectoryName}/${game.gameDirectory}/addons/${addonId}.vpk`
 
     try {
       await extractVpk({
