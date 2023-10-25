@@ -1,10 +1,9 @@
-import { VPK } from 'vpk'
-import { AddonId, ExportVpkOptions, Game, UninstallAddonsParams } from 'shared'
+import { VPK, VPKcreator } from 'vpk2'
+import { AddonId, CreateVpkOptions, ExportVpkOptions, UninstallAddonsParams } from 'shared'
 import games from 'shared/games'
 import path from 'path'
 import * as fs from 'fs'
 import { manifestMarkUninstalledAddons } from './manifest'
-import { log } from 'console'
 
 export async function extractVpk({ vpkPath, extractPath }: ExportVpkOptions) {
   try {
@@ -65,4 +64,19 @@ export async function uninstallAddons({ steamGamesDir, addonIds, appId }: Uninst
   await manifestMarkUninstalledAddons({ addonIds: succesfullyDeletedAddons, appId })
 
   return succesfullyDeletedAddons
+}
+
+export function createVpk({ sourceDirectory, writeDirectory, vpkName }: CreateVpkOptions) {
+  const fullSourceDirectory = path.join(sourceDirectory)
+  const fullWriteDirectory = path.join(writeDirectory, vpkName)
+
+  try {
+    console.log(`Creating vpk from ${fullSourceDirectory} to ${fullWriteDirectory}`)
+    const targetVpk = new VPKcreator(fullSourceDirectory)
+    targetVpk.load()
+    targetVpk.save(fullWriteDirectory)
+  } catch (err) {
+    console.error(err)
+    throw new Error("Couldn't create vpk")
+  }
 }

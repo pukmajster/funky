@@ -48,7 +48,7 @@
 
 <div
   class="flex flex-col justify-between h-full flex-1 transition-transform"
-  class:disable-categories={$view == 'conflicts'}
+  class:disable-categories={!['mods', 'shuffles'].includes($view)}
 >
   <div class="w-[250px] p-2 space-y-2 box-border">
     <input

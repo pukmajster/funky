@@ -6,7 +6,8 @@ import {
   User,
   WriteAddonlistParams,
   ExportVpkOptions,
-  UninstallAddonsParams
+  UninstallAddonsParams,
+  CreateVpkOptions
 } from 'shared'
 
 // Custom APIs for renderer
@@ -23,7 +24,8 @@ const api: BridgeApi = {
   getPath: () => ipcRenderer.invoke('getPath'),
   getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file),
   extractVpk: (params: ExportVpkOptions) => ipcRenderer.invoke('vpk:extractVpk', params),
-  uninstallAddons: (params: UninstallAddonsParams) => ipcRenderer.invoke('vpk:uninstall', params)
+  uninstallAddons: (params: UninstallAddonsParams) => ipcRenderer.invoke('vpk:uninstall', params),
+  createVpk: (params: CreateVpkOptions) => ipcRenderer.invoke('vpk:pack', params)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

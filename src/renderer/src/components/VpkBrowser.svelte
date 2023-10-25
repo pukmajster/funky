@@ -19,8 +19,7 @@
   async function handleExtract() {
     const steamDir = $userStore.steamGamesDir
     const game = games[$userStore.activeGameId]
-    const isWorkshop = addonMetadata.fromWorkshop
-    const addonVpkPath = `${steamDir}/common/${game.rootDirectoryName}/${game.gameDirectory}/addons/${addonId}.vpk`
+    const addonVpkPath = `${steamDir}/common/${game.rootDirectoryName}/${game.gameDirectory}/addons/${addonId}`
 
     try {
       await extractVpk({

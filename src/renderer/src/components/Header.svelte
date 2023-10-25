@@ -171,8 +171,9 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-3 border-t border-solid border-surface-600 bg-surface-800 shadow-xl">
-    <div />
+  <div
+    class="flex justify-between border-t border-solid border-surface-600 bg-surface-800 shadow-xl"
+  >
     <div>
       <TabGroup
         active="border-b-2 !text-white   border-solid"
@@ -190,6 +191,10 @@
         <Tab bind:group={$view} name="conflicts" value={'conflicts'}
           >{$totalConflictingAddons} Conflicts</Tab
         >
+
+        <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
+
+        <Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab>
       </TabGroup>
     </div>
 

@@ -3,6 +3,7 @@ import { BrowserWindow, app, dialog, ipcMain, shell } from 'electron'
 import * as path from 'path'
 import { join } from 'path'
 import {
+  CreateVpkOptions,
   ExportVpkOptions,
   RequestGameManifestParams,
   UninstallAddonsParams,
@@ -13,7 +14,7 @@ import icon from '../../resources/icon.png?asset'
 import { writeAddonList } from './addonlist'
 import { requestGameManifest } from './manifest'
 import { openDirectory, openWorkingDirectory, readUserFile, writeUserFile } from './user'
-import { extractVpk, uninstallAddons } from './vpk'
+import { createVpk, extractVpk, uninstallAddons } from './vpk'
 
 ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestParams) =>
   requestGameManifest(params)
@@ -35,6 +36,7 @@ ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appDa
 
 ipcMain.handle('vpk:extractVpk', (_e, options: ExportVpkOptions) => extractVpk(options))
 ipcMain.handle('vpk:uninstall', (_e, options: UninstallAddonsParams) => uninstallAddons(options))
+ipcMain.handle('vpk:pack', (_e, options: CreateVpkOptions) => createVpk(options))
 
 let firstPassFinished = false
 let mainWindow: BrowserWindow | null = null

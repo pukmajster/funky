@@ -16,7 +16,7 @@
   }
 </script>
 
-<div class:hidden={$view == 'conflicts'} class="relative h-full flex flex-col">
+<div class:hidden={!['mods', 'shuffles'].includes($view)} class="relative h-full flex flex-col">
   <LibraryFilters />
 
   <div>

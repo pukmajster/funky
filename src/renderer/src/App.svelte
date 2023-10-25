@@ -14,6 +14,7 @@
   import ShufflesManager from './components/ShufflesManager.svelte'
   import { isRequestingGameManifest, requestManifest } from './stores/manifest'
   import { view } from './stores/view'
+  import ToolsPage from './components/ToolsPage.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeGameId = $userStore?.activeGameId
@@ -55,6 +56,8 @@
     <AddonLibrary bind:profile={activeProfile} />
 
     <Conflicts />
+
+    <ToolsPage />
 
     <svelte:fragment slot="sidebarRight">
       {#if $view == 'shuffles'}
