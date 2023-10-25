@@ -18,12 +18,11 @@
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = $userStore.activeGameId
   $: activeGameDetails = games[activeGameId] as Game
-  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
-    activeGameDetails.rootDirectoryName
-  }/${activeGameDetails.gameDirectory}/addons${
-    addon.workshop?.publishedFileId ? '/workshop' : ''
-  }/${addon.workshop?.publishedFileId}.jpg`
-
+  $: thumbnail =
+    `file:///${$userStore.steamGamesDir}/common/${activeGameDetails.rootDirectoryName}/${activeGameDetails.gameDirectory}/addons/${addon.id}`.replace(
+      'vpk',
+      'jpg'
+    )
   $: fileSizeMb = addon.vpkSizeInBytes / (1024 * 1024)
   $: fileSizeLabel = fileSizeMb > 1 ? `${fileSizeMb.toFixed(1)} MB` : `< 1.0 MB`
 

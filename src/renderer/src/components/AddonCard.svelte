@@ -25,11 +25,11 @@
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = $userStore.activeGameId
   $: activeGameDetails = games[activeGameId] as Game
-  $: thumbnail = `file:///${$userStore.steamGamesDir}/common/${
-    activeGameDetails.rootDirectoryName
-  }/${activeGameDetails.gameDirectory}/addons${
-    addon.workshop?.publishedFileId ? '/workshop' : ''
-  }/${addon.workshop?.publishedFileId}.jpg`
+  $: thumbnail =
+    `file:///${$userStore.steamGamesDir}/common/${activeGameDetails.rootDirectoryName}/${activeGameDetails.gameDirectory}/addons/${addon.id}`.replace(
+      'vpk',
+      'jpg'
+    )
   $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
   $: isShuffled = $derviedAddonIdsInEnabledShuffles.includes(addon.id)
   $: isConflicting = $conflictGroups.some((group) =>
