@@ -12,21 +12,21 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Search and filters
 - [x] Automatic mod categorization based on mod contents
 - [x] Detailed mod inspection
+- [x] Batch selection of mods w/ various actions
 - [x] Conflict solving menu, showing you exactly which mods are conflicting
-- [x] Support for different profiles, letting you quickly hop between various setups
-- [x] Mod shuffles. Change things up everytime you launch the game
-- [x] VPK browser with full-vpk extraction 
+- [x] Profiles, letting you quickly hop between various setups
+- [x] Mod shuffles that change things up everytime you launch the game
+- [x] Unsubscribing from mods via Steam Web API
+- [x] VPK browser with extraction 
 
 ## Ideas
 
 Here are some ideas or features I'd still like implemented one day
 
-- [ ] Batch selection of mods w/ various actions
 - [ ] Built-in custom config/autoexec editor
 - [ ] Local data backup
 - [ ] Online data backup
 - [ ] Collections
-- [ ] In-app unsubscribing from mods
 - [ ] Custom vocalizer editor
 - [ ] Proper L4D1 Support
 
