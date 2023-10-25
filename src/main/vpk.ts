@@ -1,4 +1,4 @@
-import { VPK, VPKcreator } from 'vpk2'
+import { VPK, VPKcreator } from 'vpk'
 import { AddonId, CreateVpkOptions, ExportVpkOptions, UninstallAddonsParams } from 'shared'
 import games from 'shared/games'
 import path from 'path'
