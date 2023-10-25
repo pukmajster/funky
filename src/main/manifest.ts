@@ -16,6 +16,10 @@ import {
 } from 'shared'
 import games from 'shared/games'
 
+function filePathToAddonId(filePath: string): AddonId {
+  return filePath.replaceAll('\\', '/').split('addons/')[1]
+}
+
 async function buildGameManifest(params: RequestGameManifestParams): Promise<GameManifest | void> {
   const addons: Addon[] = []
   const game = games[params.appId]
@@ -65,7 +69,9 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
     for (const file of files) {
       // Check if the addon is already present in the manifest
-      const cachedAddon = cachedManifest?.addons.find((addon) => addon.id === file)
+      const cachedAddon = cachedManifest?.addons.find(
+        (addon) => addon.id === filePathToAddonId(file)
+      )
       if (cachedAddon && params.mode != 'full-update') {
         // Addon is already present in the cached manifest
         // Only thing we need to do then is mark it as installed, the rest of the data is already there
@@ -75,7 +81,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
       const bIsWorkshopVpk = file.includes('workshop')
       const fileName = file.split('/').at(-1)?.split('.')[0]
-      const addonId = file.replaceAll('\\', '/').split('addons/')[1]
+      const addonId = filePathToAddonId(file)
       const publishedFileId = fileName
 
       if (!publishedFileId || !addonId) {
