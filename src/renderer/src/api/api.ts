@@ -37,6 +37,7 @@ export async function writeAddonList(): Promise<void> {
 
   // Get all the fixed-enabled mods
   let enabledMods = profile.enabledAddonIds
+  console.log('enabledMod', enabledMods)
 
   // Remove any mods from enabledMods if they appear in allAddonIdsInShuffles
   enabledMods = enabledMods.filter((mod) => !allAddonIdsInShuffles.includes(mod))
@@ -60,11 +61,14 @@ export async function writeAddonList(): Promise<void> {
   // Merge the two arrays
   const mergedEnabledMods = [...enabledMods, ...randomMods]
 
+  console.log('mergedEnabledMods', mergedEnabledMods)
+
   // Loop through all the mods in the manifest
   for (const mod in manifest.addons) {
-    const modId = manifest.addons[mod].id.replaceAll('/', '\\')
+    const modId = manifest.addons[mod].id
     const enabled = mergedEnabledMods.includes(modId) ? '1' : '0'
 
+    const modIdForAddonlist = modId.replaceAll('\\', '/')
     outputVdfString += `\t"${modId}"\t\t\t"${enabled}"\n`
   }
 
