@@ -68,8 +68,8 @@ export async function writeAddonList(): Promise<void> {
     const modId = manifest.addons[mod].id
     const enabled = mergedEnabledMods.includes(modId) ? '1' : '0'
 
-    const modIdForAddonlist = modId.replaceAll('\\', '/')
-    outputVdfString += `\t"${modId}"\t\t\t"${enabled}"\n`
+    const modIdForAddonlist = modId.replaceAll('/', '\\')
+    outputVdfString += `\t"${modIdForAddonlist}"\t\t\t"${enabled}"\n`
   }
 
   outputVdfString += '}'
