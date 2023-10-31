@@ -6,11 +6,11 @@
   import { game550 } from 'shared/games/550'
   import {
     derviedAddonIdsInEnabledShuffles,
+    installedAddons,
     libraryActiveCategory,
     libraryActiveSubCategories,
     librarySearchQueue
   } from '../stores/library'
-  import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import { derivedEnabledAddonIds } from '../stores/user-derivatives'
   import { view } from '../stores/view'
@@ -132,12 +132,11 @@
 
   <div class=" flex p-2 flex-col gap-2 text-left text-sm">
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
-      <span class="font-bold">{$currentGameManifest?.addons.length}</span> total mods
+      <span class="font-bold">{$installedAddons?.length}</span> installed mods
     </div>
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
-      <span class="font-bold"
-        >{$derivedEnabledAddonIds.length + $derviedAddonIdsInEnabledShuffles.length}
-      </span> enabled / shuffled
+      <span class="font-bold">{$derivedEnabledAddonIds.length} </span> enabled
+      <span class="font-bold">{$derviedAddonIdsInEnabledShuffles.length} </span> shuffled
     </div>
   </div>
 </div>
