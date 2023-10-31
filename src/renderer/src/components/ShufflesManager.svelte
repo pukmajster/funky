@@ -18,8 +18,6 @@
   )?.shuffles
 
   function drop(event: DragEvent, shuffleId: string) {
-    console.log(event)
-
     const json = event.dataTransfer.getData('text/plain')
     const data = JSON.parse(json)
 

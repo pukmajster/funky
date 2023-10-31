@@ -32,7 +32,7 @@ export async function uninstallAddons({ steamGamesDir, addonIds, appId }: Uninst
       game.rootDirectoryName,
       game.gameDirectory,
       'addons',
-      `${addonId}.vpk`
+      addonId
     )
     console.log(dir)
     return dir
