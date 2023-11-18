@@ -40,10 +40,17 @@ So taking both of these points into account, if you've just subscribed to a new 
 
 ## Project Setup
 
-### Install
+### Prep submodules
 
 ```bash
-$ npm install
+$ git submodule init
+$ git submodule update
+```
+
+### Install dependencies
+
+```bash
+$ npm i
 ```
 
 ### Development
