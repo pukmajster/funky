@@ -1,12 +1,12 @@
 <script lang="ts">
   import { ListBox, ListBoxItem, modalStore } from '@skeletonlabs/skeleton'
   import { nanoid } from 'nanoid'
-  import games from 'shared/games'
+  //import games from 'shared/games'
   import { userStore } from '../stores/user'
 
   $: activeGameId = $userStore.activeGameId
 
-  const gameIds = Object.keys(games)
+  //const gameIds = Object.keys(games)
 
   // $: {
   //   Object.keys($gamePreferences).length == 0 &&
@@ -45,13 +45,33 @@
       }
     })
   }
+
+  function promptEditProfileModal() {
+    const profileId = $userStore.games[activeGameId].activeProfileId
+    const profileName = $userStore.games[activeGameId].profiles.find(
+      (profile) => profile.id == profileId
+    )?.label
+
+    if (!profileName) return console.error('No profile name found')
+
+    modalStore.trigger({
+      type: 'prompt',
+      title: 'Edit Profile: ' + profileName,
+      body: 'Rename the profile',
+      value: profileName,
+      valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
+      response: (r: string) => {
+        if (r) userStore.renameProfile(profileId, r)
+      }
+    })
+  }
 </script>
 
 <div data-popup="gameManagerPopup">
   <div
     class="flex border border-solid border-surface-600 flex-grow !z-50 items-stretch rounded-md overflow-hidden shadow-lg bg-surface-700"
   >
-    <div class="w-[180px] space-y-2 p-4 bg-surface-800">
+    <!-- <div class="w-[180px] space-y-2 p-4 bg-surface-800">
       <h4 class="h4">Game</h4>
       <ListBox>
         {#each gameIds as gameId}
@@ -61,11 +81,11 @@
           >
         {/each}
       </ListBox>
-    </div>
+    </div> -->
 
     <!-- <div class="w-[1px] bg-surface-600" /> -->
 
-    <div class="w-[360px] p-4 space-y-2">
+    <div class="w-[360px] p-4 space-y-2 bg-surface-800">
       <h4 class="h4">Profile</h4>
 
       <ListBox>
@@ -82,7 +102,11 @@
       <div class="pb-3" />
 
       <div class="space-y-2">
-        <div class="flex justify-end gap-2">
+        <div class="flex justify-between gap-2">
+          <button class="btn btn-sm variant-ghost" on:click={promptEditProfileModal}
+            >Edit Profile</button
+          >
+
           <button class="btn btn-sm variant-filled" on:click={promptNewProfileModal}
             >New Profile</button
           >

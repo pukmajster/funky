@@ -383,6 +383,29 @@ function createUserStore() {
     })
   }
 
+  function renameProfile(profileId: string, newName: string) {
+    update((user) => {
+      const activeGameId = user.activeGameId
+      const workingGamePreferences = user.games[activeGameId]
+
+      const workingProfile = workingGamePreferences.profiles.find(
+        (profile) => profile.id === profileId
+      )
+
+      if (!workingProfile) return user
+
+      workingProfile.label = newName
+
+      return {
+        ...user,
+        games: {
+          ...user.games,
+          [activeGameId]: workingGamePreferences
+        }
+      }
+    })
+  }
+
   return {
     set,
     subscribe,
@@ -395,6 +418,7 @@ function createUserStore() {
 
     addProfile,
     setupGameWithDefaultProfile,
+    renameProfile,
 
     batchDisableAddonIds,
     batchEnableAddonIds,
