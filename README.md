@@ -4,7 +4,7 @@ Keith is an open-source mods manager for L4D2, developed with Electron, Svelte a
 
 ![App](/resources/app.png)
 
-Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted something that gives me more functionallity, like search and a better method of solving conflicts, but the scope has since gotten much broader with lots of other great features and QoL improvements that are not possible in the in-game menu.
+Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted something that gives me more functionality, like search and a better method of solving conflicts, but the scope has since gotten much broader with lots of other great features and QoL improvements that are not possible in the in-game menu.
 
 ## Features
 
@@ -28,7 +28,6 @@ Here are some ideas or features I'd still like implemented one day
 - [ ] Online data backup
 - [ ] Collections
 - [ ] Custom vocalizer editor
-- [ ] Proper L4D1 Support
 
 ## Caveats
 
