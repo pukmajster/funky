@@ -1,5 +1,5 @@
-appId: com.keith.pukmajster
-productName: keith
+appId: com.funky.pukmajster
+productName: funky
 directories:
   buildResources: build
 files:
@@ -17,7 +17,7 @@ asarUnpack:
   - resources/**
 afterSign: build/notarize.js
 win:
-  executableName: keith
+  executableName: funky
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -30,7 +30,7 @@ dmg:
 linux:
   target:
     - AppImage
-   # - snap
+    # - snap
     #- deb
   maintainer: electronjs.org
   category: Utility

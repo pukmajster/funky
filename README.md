@@ -1,6 +1,6 @@
-# Keith
+# Funky
 
-Keith is an open-source mods manager for L4D2, developed with Electron, Svelte and SkeletonUI.
+Funky is an open-source mods manager for L4D2, developed with Electron, Svelte and SkeletonUI.
 
 ![App](/resources/app.png)
 
@@ -17,7 +17,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Profiles, letting you quickly hop between various setups
 - [x] Mod shuffles that change things up everytime you launch the game
 - [x] Unsubscribing from mods via Steam Web API
-- [x] VPK browser with extraction 
+- [x] VPK browser with extraction
 
 ## Ideas
 
@@ -31,11 +31,12 @@ Here are some ideas or features I'd still like implemented one day
 
 ## Caveats
 
-While I've found Keith to be extremly useful in organizing my ever growing library of mods, there's still some things to keep in mind:
-- The game needs to be restarted before any changes made in Keith can take effect.
+While I've found Funky to be extremly useful in organizing my ever growing library of mods, there's still some things to keep in mind:
+
+- The game needs to be restarted before any changes made in Funky can take effect.
 - Newly subscribed-to Workshop mods will only be downloaded after you start the game.
 
-So taking both of these points into account, if you've just subscribed to a new mod, you'll have to open up the game, wait for the game to download the mod, close the game, make any changes in Keith and then finally, run the game from within Keith in order for all changes to take effect. Quite clumbersome, but it is what it is.
+So taking both of these points into account, if you've just subscribed to a new mod, you'll have to open up the game, wait for the game to download the mod, close the game, make any changes in Funky and then finally, run the game from within Funky in order for all changes to take effect. Quite clumbersome, but it is what it is.
 
 ## Project Setup
 

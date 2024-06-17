@@ -59,19 +59,19 @@
 
           <p>
             A surprising amount of mod VPKs come with incorrectly formatted or straight up missing
-            addoninfo.txt's. Without these files, Keith can't read typical mod metadata, like titles
+            addoninfo.txt's. Without these files, Funky can't read typical mod metadata, like titles
             and descriptions.
           </p>
 
           <p>
-            By enabling networking, Keith can fetch mod metadata online by contacting the Steam
+            By enabling networking, Funky can fetch mod metadata online by contacting the Steam
             workshop directly. This request does not contain any personal data, only a list of mod
             IDs with missing data.
           </p>
         {:else if tabSet === 'swebapi'}
           <h4 class="h4">Steam Web API Key</h4>
           <p>
-            To enable certain features, like unsubscribing from workshop mods directly within Keith,
+            To enable certain features, like unsubscribing from workshop mods directly within Funky,
             requires you providing your Steam Web API key, which you can get from
             <a
               href="https://steamcommunity.com/dev/apikey"
@@ -80,7 +80,7 @@
               class="text-primary-500"
             >
               here</a
-            >. Keith will only ever use this key to unsubscribe you from workshop mods, and nothing
+            >. Funky will only ever use this key to unsubscribe you from workshop mods, and nothing
             else.
           </p>
 
@@ -98,7 +98,7 @@
 
           <aside class="alert variant-filled-error">
             <p>
-              <strong>Warning:</strong> Providing Keith with your Steam Web API key means it will be
+              <strong>Warning:</strong> Providing Funky with your Steam Web API key means it will be
               stored in plain text in your config file, meaning it can be accessed by anyone for malicious
               purposes. You can however always revoke your key from the same link as above.
             </p>
