@@ -132,7 +132,7 @@
     // TRUE if confirm pressed, FALSE if cancel pressed
     response: (r: boolean) => {
       if (r) {
-        userStore.batchEnableAddonIds($librarySelectedAddonIds)
+        //userStore.batchEnableAddonIds($librarySelectedAddonIds)
         clearSelection()
       }
     }
@@ -147,7 +147,7 @@
     // TRUE if confirm pressed, FALSE if cancel pressed
     response: (r: boolean) => {
       if (r) {
-        userStore.batchDisableAddonIds($librarySelectedAddonIds)
+        //userStore.batchDisableAddonIds($librarySelectedAddonIds)
         clearSelection()
       }
     }

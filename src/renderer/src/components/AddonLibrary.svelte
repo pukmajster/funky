@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Profile } from 'shared'
   import { libraryActiveSubCategories, libraryAddonPoolSortedPaginated } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
@@ -7,8 +6,6 @@
   import AddonCard from './AddonCard.svelte'
   import LibraryFilters from './LibraryFilters.svelte'
   import SubCategoryShuffleSettings from './SubCategoryShuffleSettings.svelte'
-
-  export let profile: Profile
 
   $: {
     console.log('userStore', $userStore)
@@ -29,9 +26,9 @@
       {/each}
     </div>
 
-    {#if $libraryActiveSubCategories.length == 1}
+    <!-- {#if $libraryActiveSubCategories.length == 1}
       <SubCategoryShuffleSettings />
-    {/if}
+    {/if} -->
   </div>
 </div>
 

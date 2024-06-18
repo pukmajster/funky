@@ -8,6 +8,9 @@
   import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom'
   import { storePopup } from '@skeletonlabs/skeleton'
   import { isRequestingGameManifest, requestManifest } from './stores/manifest'
+  import LibraryStateManager from './components/LibraryStateManager.svelte'
+  import CategoriesPanel from './components/CategoriesPanel.svelte'
+  import AddonLibrary from './components/AddonLibrary.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -25,27 +28,29 @@
   <p>waiting for active profile.default..</p>
   waiting for active profile.default..
 {:else if $userStore !== undefined}
-  <AppShell slotHeader="z-30" slotSidebarRight="">
-    <svelte:fragment slot="header">
-      <Header />
-    </svelte:fragment>
-    <!-- 
-    <svelte:fragment slot="sidebarLeft">
-      <CategoriesPanel bind:profile={activeProfile} />
-    </svelte:fragment>
+  <LibraryStateManager>
+    <AppShell slotHeader="z-30" slotSidebarRight="">
+      <svelte:fragment slot="header">
+        <Header />
+      </svelte:fragment>
 
-    <AddonLibrary bind:profile={activeProfile} />
+      <svelte:fragment slot="sidebarLeft">
+        <CategoriesPanel />
+      </svelte:fragment>
 
-    <Conflicts />
-
-    <ToolsPage />
-
-    <svelte:fragment slot="sidebarRight">
-      {#if $view == 'shuffles'}
-        <ShufflesManager />
-      {/if}
-    </svelte:fragment> -->
-  </AppShell>
+      <AddonLibrary />
+      <!-- 
+      <Conflicts />
+  
+      <ToolsPage />
+  
+      <svelte:fragment slot="sidebarRight">
+        {#if $view == 'shuffles'}
+          <ShufflesManager />
+        {/if}
+      </svelte:fragment> -->
+    </AppShell>
+  </LibraryStateManager>
 
   {#if $isRequestingGameManifest}
     <div

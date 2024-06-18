@@ -4,6 +4,7 @@
   import games from 'shared/games'
   import { libraryActiveCategory, libraryActiveSubCategories } from '../stores/library'
   import { userStore } from '../stores/user'
+  import { L4D2_GAME_ID } from '../utils'
 
   export let categoryId: string
 
@@ -18,7 +19,7 @@
   }
 
   $: {
-    const game: Game = games[$userStore?.activeGameId]
+    const game: Game = games[L4D2_GAME_ID]
     const cats = game.addons.categories
     for (let cat of cats) {
       if (cat.id === categoryId) {

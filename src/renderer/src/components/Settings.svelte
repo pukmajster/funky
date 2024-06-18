@@ -2,6 +2,7 @@
   import { writeAddonList } from '../api/api'
   import { currentGameManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
+  import { L4D2_GAME_ID } from '../utils'
   import GamePicker from './GamePicker.svelte'
   import ProfilesManager from './ProfilesManager.svelte'
   import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
@@ -15,7 +16,7 @@
 
     try {
       let req = await window.api.requestGameManifest({
-        appId: $userStore.activeGameId,
+        appId: L4D2_GAME_ID,
         onlineMetadataFetching: true,
         mode: 'full-update',
         steamGamesDir: $userStore.steamGamesDir

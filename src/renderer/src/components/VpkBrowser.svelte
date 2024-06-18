@@ -7,18 +7,17 @@
   import { userStore } from '../stores/user'
   import games from 'shared/games'
   import classNames from 'classnames'
+  import { L4D2_GAME_ID } from '../utils'
 
   let addonId = $modalStore[0].meta.addonId
   $: addonMetadata = $currentGameManifest.addons.find((addon) => addon.id === addonId)
   $: addonFilesTree = pathsToTree(addonMetadata ? addonMetadata.files : [])
 
-  const defaultExtractPath = `${$userStore.steamGamesDir}common/${
-    games[$userStore.activeGameId].rootDirectoryName
-  }/${games[$userStore.activeGameId].gameDirectory}/`
+  const defaultExtractPath = `${$userStore.steamGamesDir}common/${games[L4D2_GAME_ID].rootDirectoryName}/${games[L4D2_GAME_ID].gameDirectory}/`
 
   async function handleExtract() {
     const steamDir = $userStore.steamGamesDir
-    const game = games[$userStore.activeGameId]
+    const game = games[L4D2_GAME_ID]
     const addonVpkPath = `${steamDir}/common/${game.rootDirectoryName}/${game.gameDirectory}/addons/${addonId}`
 
     try {

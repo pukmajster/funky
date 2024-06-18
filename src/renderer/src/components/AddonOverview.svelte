@@ -8,6 +8,7 @@
   import AddonOverviewStat from './AddonOverviewStat.svelte'
   import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton'
   import VpkBrowser from './VpkBrowser.svelte'
+  import { L4D2_GAME_ID } from '../utils'
 
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
@@ -16,7 +17,7 @@
   console.log('addon', addon)
 
   // Thumbnail based on the active game id, and if it's from the workshop
-  $: activeGameId = $userStore.activeGameId
+  $: activeGameId = L4D2_GAME_ID
   $: activeGameDetails = games[activeGameId] as Game
   $: thumbnail =
     `file:///${$userStore.steamGamesDir}/common/${activeGameDetails.rootDirectoryName}/${activeGameDetails.gameDirectory}/addons/${addon.id}`.replace(

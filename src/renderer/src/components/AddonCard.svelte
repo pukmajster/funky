@@ -4,37 +4,44 @@
   import type { Addon, Game } from 'shared'
   import games from 'shared/games'
   import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
-  import { conflictGroups } from '../stores/conflicts'
+  //import { conflictGroups } from '../stores/conflicts'
   import {
     addonOverviewId,
-    derviedAddonIdsInEnabledShuffles,
+    libraryAddonIdsInEnabledShuffles,
     installedAddons,
     isDraggingAddon,
     libraryActiveSubCategories,
     librarySelectedAddonIds,
-    unsubscribedItemsThisSession
+    unsubscribedItemsThisSession,
+    libraryActiveAddons
   } from '../stores/library'
   import { userStore } from '../stores/user'
-  import { derivedEnabledAddonIds } from '../stores/user-derivatives'
+  import { L4D2_GAME_ID } from '../utils'
+  import { db } from '../db/db'
+  import { liveQuery } from 'dexie'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
   export let asShuffle: boolean = false
   export let mode: 'in-shuffle-list' | 'card'
 
+  const profileId = $userStore.activeProfileId
+  const activeProfile = liveQuery(() => db.profiles.get({ id: profileId }))
+
   // Thumbnail based on the active game id, and if it's from the workshop
-  $: activeGameId = $userStore.activeGameId
+  $: activeGameId = L4D2_GAME_ID
   $: activeGameDetails = games[activeGameId] as Game
   $: thumbnail =
     `file:///${$userStore.steamGamesDir}/common/${activeGameDetails.rootDirectoryName}/${activeGameDetails.gameDirectory}/addons/${addon.id}`.replace(
       'vpk',
       'jpg'
     )
-  $: isEnabled = $derivedEnabledAddonIds.includes(addon.id)
-  $: isShuffled = $derviedAddonIdsInEnabledShuffles.includes(addon.id)
-  $: isConflicting = $conflictGroups.some((group) =>
-    group.some((conflictingMod) => conflictingMod.id == addon.id)
-  )
+  $: isEnabled = $libraryActiveAddons.includes(addon.id)
+  $: isShuffled = $libraryAddonIdsInEnabledShuffles.includes(addon.id)
+  $: isConflicting = false
+  // $conflictGroups.some((group) =>
+  //   group.some((conflictingMod) => conflictingMod.id == addon.id)
+  // )
   $: wasUnsubscribed = $unsubscribedItemsThisSession.includes(addon.id)
   $: isInstalled = $installedAddons.includes(addon.id)
 
@@ -43,17 +50,31 @@
   $: userIsSelecting = $librarySelectedAddonIds.length > 0
 
   function toggleModEnable() {
-    if (isShuffled) {
-      if ($libraryActiveSubCategories.length == 0) return
-      userStore.toggleAddonShuffleForSubCategory($libraryActiveSubCategories[0], addon.id)
-      return
+    // iF shuffles...
+    // else
+
+    if (isEnabled) {
+      console.log('disabled', addon.id)
+      db.profiles.update(profileId, {
+        enabledAddonIds: $libraryActiveAddons.filter((id) => id != addon.id)
+      })
+    } else {
+      console.log('enabled', addon.id)
+
+      db.profiles.update(profileId, {
+        enabledAddonIds: [...$libraryActiveAddons, addon.id]
+      })
     }
 
+    //if (isShuffled) {
+    //  if ($libraryActiveSubCategories.length == 0) return
+    //  userStore.toggleAddonShuffleForSubCategory($libraryActiveSubCategories[0], addon.id)
+    //  return
+    //}
     // $derivedIsShuffleEnabledForSubCategory
     //   ? userStore.toggleAddonShuffleForSubCategory(libraryActiveSubCategories[0], addon.id)
     //   : userStore.toggleAddonEnabledState(addon.id)
-
-    userStore.toggleAddonEnabledState(addon.id)
+    //userStore.toggleAddonEnabledState(addon.id)
   }
 
   function dragStart(event) {

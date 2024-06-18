@@ -21,14 +21,11 @@ export function getProfile(id: number) {
   return db.profiles.get(id)
 }
 
-export const useActiveProfile = liveQuery(async () => {
-  const activeProfileId = db.generalPreferences.get('activeProfileId')
-  if (!activeProfileId) return null
-  const profile = db.profiles.get(activeProfileId)
-  if (!profile) return null
-  return profile
-})
-
-export const generalPreferences = liveQuery(async () => {
-  return await db.generalPreferences.get('steamGamesDir')
-})
+export const useActiveProfile = () =>
+  liveQuery(async () => {
+    const activeProfileId = db.generalPreferences.get('activeProfileId')
+    if (!activeProfileId) return null
+    const profile = db.profiles.get(activeProfileId)
+    if (!profile) return null
+    return profile
+  })

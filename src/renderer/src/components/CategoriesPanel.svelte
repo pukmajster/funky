@@ -1,25 +1,15 @@
 <script lang="ts">
   import classNames from 'classnames'
   import { FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
-  import type { Profile } from 'shared'
-  import games from 'shared/games'
   import { game550 } from 'shared/games/550'
   import {
-    derviedAddonIdsInEnabledShuffles,
-    installedAddons,
     libraryActiveCategory,
     libraryActiveSubCategories,
     librarySearchQueue
   } from '../stores/library'
-  import { userStore } from '../stores/user'
-  import { derivedEnabledAddonIds } from '../stores/user-derivatives'
   import { view } from '../stores/view'
+
   let categories = game550.addons.categories
-
-  $: activeGameId = $userStore.activeGameId
-  $: categories = games[activeGameId].addons.categories
-
-  export let profile: Profile
 
   function setActiveCategory(categoryId: string) {
     $libraryActiveCategory = categoryId
@@ -129,16 +119,16 @@
       </div>
     </div>
   </div>
-
+  <!-- 
   <div class=" flex p-2 flex-col gap-2 text-left text-sm">
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
       <span class="font-bold">{$installedAddons?.length}</span> installed mods
     </div>
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
       <span class="font-bold">{$derivedEnabledAddonIds.length} </span> enabled
-      <span class="font-bold">{$derviedAddonIdsInEnabledShuffles.length} </span> shuffled
+      <span class="font-bold">{$libraryAddonIdsInEnabledShuffles.length} </span> shuffled
     </div>
-  </div>
+  </div> -->
 </div>
 
 <style lang="postcss">

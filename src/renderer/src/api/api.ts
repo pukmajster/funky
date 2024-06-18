@@ -2,7 +2,7 @@ import type { AddonId, CategoryShuffle, ExportVpkOptions, GameManifest, Profile 
 import games from 'shared/games'
 import { get } from 'svelte/store'
 import {
-  derviedAddonIdsInEnabledShuffles,
+  libraryAddonIdsInEnabledShuffles,
   isUnsubscribeOngoing,
   unsubscribeQueue,
   unsubscribedItemsThisSession
@@ -16,7 +16,7 @@ import { useActiveProfile } from '../db/profile'
 
 export async function writeAddonList(): Promise<void> {
   const workingUserStore = get(userStore)
-  const allAddonIdsInShuffles = get(derviedAddonIdsInEnabledShuffles)
+  const allAddonIdsInShuffles = get(libraryAddonIdsInEnabledShuffles)
 
   const activeProfile = useActiveProfile
 
