@@ -20,7 +20,7 @@
 </script>
 
 <div
-  class=" bg-surface-800 max-w-[600px] w-full min-h-[466px] shadow-lg rounded-lg space-y-4 overflow-hidden"
+  class=" bg-surface-800 max-w-[666px] w-full min-h-[466px] shadow-lg rounded-lg space-y-4 overflow-hidden"
 >
   <TabGroup active="variant-filled-primary" hover="hover:variant-soft-primary" rounded="">
     <Tab bind:group={tabSet} name="tab1" value={'game dir'}>
