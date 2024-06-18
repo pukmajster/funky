@@ -6,11 +6,9 @@
 
   let defaultConfig: User = {
     steamGamesDir: '',
-    games: {},
     enableNetworking: true,
-    activeGameId: 550,
     hasFinishedFirstTimeSetup: false,
-    steamWebApiKey: ''
+    activeProfileId: 0
   }
 
   let hasSetupUserProfile = false

@@ -12,16 +12,17 @@
   import { HelpCircleIcon, InfoIcon, LucidePlay, RefreshCw, Settings } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../api/api'
-  import { totalConflictingAddons } from '../stores/conflicts'
   import { isRequestingGameManifest, requestManifest } from '../stores/manifest'
   import { userStore } from '../stores/user'
   import { view } from '../stores/view'
   import AboutModal from './AboutModal.svelte'
   import GameManager from './GameManager.svelte'
   import HelpModal from './HelpModal.svelte'
-  import ProfilesManager from './ProfilesManager.svelte'
   import SettingsModal from './SettingsModal.svelte'
   import { isUnsubscribeOngoing } from '../stores/library'
+  import { L4D2_GAME_ID } from '../utils'
+  import { liveQuery } from 'dexie'
+  import { db } from '../db/db'
 
   async function launchGame() {
     await writeAddonList()
@@ -90,10 +91,8 @@
     placement: 'top'
   }
 
-  $: currentProfileId = $userStore.games[$userStore.activeGameId]?.activeProfileId
-  $: currentProfileName = $userStore.games[$userStore.activeGameId]?.profiles.find(
-    (profile) => profile.id == currentProfileId
-  )?.label
+  $: activeProfileId = $userStore.activeProfileId
+  const activeProfile = liveQuery(() => db.profiles.get(activeProfileId))
 </script>
 
 <div class=" bg-surface-800">
@@ -140,11 +139,11 @@
         use:popup={popupClick}
         class="bg-primary-700/50 hover:bg-primary-700/70 flex items-center px-4 py-1 flex-1 h-full"
       >
-        <img src={games[$userStore?.activeGameId]?.gameLogo} class="w-5 mr-1" alt="" />
+        <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-1" alt="" />
 
         <div class="flex pl-2 gap-1 flex-col justify-evenly items-start [&>*]:leading-none">
-          <span class="text-sm">{games[$userStore?.activeGameId]?.label}</span>
-          <span class="text-[12px]">{currentProfileName}</span>
+          <span class="text-sm">Left 4 Dead 2</span>
+          <span class="text-[12px]">{$activeProfile?.label}</span>
         </div>
       </button>
 
@@ -157,7 +156,6 @@
     </div>
 
     <GameManager />
-    <ProfilesManager />
 
     <div class="place-self-end flex gap-2">
       <button class="btn btn-sm variant-filled-surface" on:click={openAboutModal}>
@@ -188,9 +186,9 @@
 
         <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
 
-        <Tab bind:group={$view} name="conflicts" value={'conflicts'}
+        <!-- <Tab bind:group={$view} name="conflicts" value={'conflicts'}
           >{$totalConflictingAddons} Conflicts</Tab
-        >
+        > -->
 
         <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
 

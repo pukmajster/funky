@@ -1,6 +1,6 @@
-import type { Addon, AddonId, Profile } from 'shared'
+import type { Addon, AddonId } from 'shared'
 import { derived, writable } from 'svelte/store'
-import { arraysShareValues } from '../utils'
+import { L4D2_GAME_ID, arraysShareValues } from '../utils'
 import { currentGameManifest } from './manifest'
 import { userStore } from './user'
 
@@ -60,32 +60,30 @@ export const installedAddons = derived([currentGameManifest], ([$currentGameMani
 export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
   const activeAddons: AddonId[] = []
 
-  const { games, activeGameId } = $userStore
-  const activeProfileId = games[activeGameId]?.activeProfileId
-
-  if (!games) return activeAddons
+  const activeProfileId = $userStore.activeProfileId
   if (!activeProfileId) return activeAddons
 
-  const profile: Profile = games[activeGameId]?.profiles.find(
-    (profile) => profile.id === activeProfileId
-  ) as Profile
-  if (!profile) return activeAddons
+  // const profile: Profile = games[activeGameId]?.profiles.find(
+  //   (profile) => profile.id === activeProfileId
+  // ) as Profile
+  // if (!profile) return activeAddons
 
-  profile.enabledAddonIds.forEach((addonId) => {
-    activeAddons.push(addonId)
-  })
+  // profile.enabledAddonIds.forEach((addonId) => {
+  //   activeAddons.push(addonId)
+  // })
 
-  return activeAddons
+  // return activeAddons
 })
 
 // Derive list of all addons that are in active shuffles
 export const derviedAddonIdsInEnabledShuffles = derived([userStore], ([$userStore]) => {
-  const activeGameId = $userStore?.activeGameId
-  const activeProfileId = $userStore?.games[activeGameId]?.activeProfileId
+  const activeGameId = L4D2_GAME_ID
+  const activeProfileId = $userStore?.activeProfileId
 
-  const shuffles = $userStore?.games[activeGameId]?.profiles.find(
-    (profile) => profile.id === activeProfileId
-  )?.shuffles
+  const shuffles = []
+  //   $userStore?.games[activeGameId]?.profiles.find(
+  //   (profile) => profile.id === activeProfileId
+  // )?.shuffles
 
   const shuffledAddonIds: string[] = []
 

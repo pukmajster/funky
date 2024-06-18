@@ -11,25 +11,21 @@ import { currentGameManifest, requestManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
 import SteamWebApi from '../steam-web-api'
 import { modalStore, toastStore } from '@skeletonlabs/skeleton'
+import { L4D2_GAME_ID } from '../utils'
+import { useActiveProfile } from '../db/profile'
 
 export async function writeAddonList(): Promise<void> {
   const workingUserStore = get(userStore)
   const allAddonIdsInShuffles = get(derviedAddonIdsInEnabledShuffles)
-  const { activeGameId } = workingUserStore
 
-  const workingProfile = workingUserStore.games[workingUserStore.activeGameId]?.profiles.find(
-    (profile) =>
-      profile.id === workingUserStore.games[workingUserStore.activeGameId]?.activeProfileId
-  ) as Profile
-  if (!workingProfile) return
+  const activeProfile = useActiveProfile
 
   const { steamGamesDir } = workingUserStore
   const manifest: GameManifest = get(currentGameManifest)
 
-  const gameDir = games[activeGameId]
-  const profile = workingProfile
-
-  const game = games[activeGameId]
+  const gameDir = games[L4D2_GAME_ID]
+  const profile = $activeProfile
+  const game = games[L4D2_GAME_ID]
 
   const addonListDir = `${game.rootDirectoryName}/${game.gameDirectory}`
 
@@ -111,15 +107,13 @@ export async function unsubscribeFromMods(addonIds: AddonId[]) {
 }
 
 export async function uninstallMods(addonIds: AddonId[]) {
-  const { activeGameId } = get(userStore)
-  const game = games[activeGameId]
   const length = addonIds.length
 
   try {
     await window.api.uninstallAddons({
       steamGamesDir: get(userStore).steamGamesDir,
       addonIds: addonIds,
-      appId: game.appId
+      appId: L4D2_GAME_ID
     })
 
     toastStore.trigger({

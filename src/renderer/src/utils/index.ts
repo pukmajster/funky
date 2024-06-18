@@ -9,3 +9,5 @@ export function trimString(string: string, length: number): string {
 export function clamp(number: number, min: number, max: number) {
   return Math.max(min, Math.min(number, max))
 }
+
+export const L4D2_GAME_ID = 550

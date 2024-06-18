@@ -27,7 +27,7 @@
     </a>
   </p>
 
-  <p>Developed with Electron, Svelte and Skeleton UI</p>
+  <p>Developed with Electron, Dexie, Svelte and Skeleton UI</p>
 
   <p>Shoutout to Valve and the modding community</p>
 
