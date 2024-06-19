@@ -160,7 +160,7 @@
           <span>Mods</span>
         </Tab>
 
-        <!-- <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab> -->
+        <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
 
         <Tab bind:group={$view} name="conflicts" value={'conflicts'}
           >{$totalConflictingAddons} Conflicts</Tab

@@ -14,6 +14,7 @@
   import { onMount } from 'svelte'
   import Conflicts from './components/library/Conflicts.svelte'
   import { view } from './stores/view'
+  import LibraryShuffles from './components/library/LibraryShuffles.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -48,7 +49,7 @@
 
     <svelte:fragment slot="sidebarRight">
       {#if $view == 'shuffles'}
-        <!-- <ShufflesManager /> -->
+        <LibraryShuffles />
       {/if}
     </svelte:fragment>
   </AppShell>

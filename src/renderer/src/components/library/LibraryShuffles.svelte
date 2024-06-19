@@ -1,0 +1,203 @@
+<script lang="ts">
+  import {
+    Accordion,
+    AccordionItem,
+    SlideToggle,
+    modalStore,
+    type ModalSettings
+  } from '@skeletonlabs/skeleton'
+  import { db } from '../../db/db'
+  import { liveQuery } from 'dexie'
+  import classNames from 'classnames'
+  import { Dices, TrashIcon } from 'lucide-svelte'
+  import { isDraggingAddon } from '../../stores/library'
+  import { currentGameManifest } from '../../stores/manifest'
+  import AddonCard from '../addons/AddonCard.svelte'
+  import { activeProfileStore } from '../../stores/active-profile'
+
+  function drop(event: DragEvent, shuffleId: number) {
+    const json = event.dataTransfer.getData('text/plain')
+    const data = JSON.parse(json)
+
+    toggleAddonIdInShuffle(shuffleId, data.addonId)
+    event.preventDefault()
+  }
+
+  function promptCreateShuffle() {
+    const createShuffleModal: ModalSettings = {
+      type: 'prompt',
+      // Data
+      title: 'Create shuffle',
+      body: 'Please name your new shuffle.',
+      value: '',
+      valueAttr: { type: 'text', minlength: 1, maxlength: 32, required: true },
+      // Returns the updated response value
+      response: (r: string) => {
+        if (r) {
+          db.shuffles.add({
+            shuffledAddonIds: [],
+            label: r
+          })
+        }
+      }
+    }
+    modalStore.trigger(createShuffleModal)
+  }
+
+  async function toggleAddonIdInShuffle(shuffleId: number, addonId: string) {
+    const shuffle = await db.shuffles.get(shuffleId)
+    if (shuffle) {
+      const shuffledAddonIds = shuffle.shuffledAddonIds
+      if (shuffledAddonIds.includes(addonId)) {
+        db.shuffles.update(shuffleId, {
+          shuffledAddonIds: shuffledAddonIds.filter((id) => id !== addonId)
+        })
+      } else {
+        db.shuffles.update(shuffleId, {
+          shuffledAddonIds: [...shuffledAddonIds, addonId]
+        })
+      }
+    }
+  }
+
+  function toggleShuffleEnabled(shuffleId: number) {
+    const currentlyEnabledShufflesForActiveProfile = $activeProfileStore.enabledShuffleIds
+    if (currentlyEnabledShufflesForActiveProfile.includes(shuffleId)) {
+      db.profiles.update($activeProfileStore.id, {
+        enabledShuffleIds: currentlyEnabledShufflesForActiveProfile.filter((id) => id !== shuffleId)
+      })
+    } else {
+      db.profiles.update($activeProfileStore.id, {
+        enabledShuffleIds: [...currentlyEnabledShufflesForActiveProfile, shuffleId]
+      })
+    }
+  }
+
+  function promptShuffleRename(shuffleId: number, currentName: string) {
+    const renameShuffleModal: ModalSettings = {
+      type: 'prompt',
+      // Data
+      title: 'Rename shuffle',
+      body: `Rename shuffle "${currentName}" to:`,
+      value: currentName,
+      valueAttr: { type: 'text', minlength: 1, maxlength: 32, required: true },
+      // Returns the updated response value
+      response: (r: string) => {
+        if (r) {
+          db.shuffles.update(shuffleId, { label: r })
+        }
+      }
+    }
+    modalStore.trigger(renameShuffleModal)
+  }
+
+  function promptShuffleDelete(shuffleId: number, currentName: string) {
+    const renameShuffleModal: ModalSettings = {
+      type: 'confirm',
+      // Data
+      title: 'Delete shuffle',
+      body: `Are you sure you want to delete the shuffle "${currentName}"?`,
+      response: (r: boolean) => {
+        if (r) {
+          db.shuffles.delete(shuffleId)
+        }
+      }
+    }
+    modalStore.trigger(renameShuffleModal)
+  }
+
+  const shuffles = liveQuery(() => db.shuffles.toArray())
+</script>
+
+<div class="w-[30vw] max-w-[400px] h-full p-4 bg-surface-800">
+  <div class="flex justify-between mb-4">
+    <h1 class="text-2xl">Shuffles</h1>
+    <button on:click={promptCreateShuffle} class="btn btn-sm variant-filled-surface"
+      >Create shuffle</button
+    >
+  </div>
+
+  <Accordion>
+    {#each $shuffles ?? [] as shuffle}
+      {@const enabled = $activeProfileStore.enabledShuffleIds.includes(shuffle.id)}
+      <AccordionItem>
+        <svelte:fragment slot="lead">
+          <Dices
+            size={16}
+            class={classNames({
+              'text-emerald-600': enabled,
+              'text-red-600': !enabled
+            })}
+          />
+        </svelte:fragment>
+        <svelte:fragment slot="summary">{shuffle?.label ?? shuffle?.id}</svelte:fragment>
+        <svelte:fragment slot="content">
+          <div class="flex justify-between items-center gap-2">
+            <SlideToggle
+              size="sm"
+              active="bg-emerald-500"
+              name=""
+              checked={enabled}
+              on:change={() => toggleShuffleEnabled(shuffle.id)}
+            >
+              <!-- <span class="text-sm"> {shuffle.enabled ? 'Enabled' : 'Disabled'}</span> -->
+            </SlideToggle>
+
+            <div class="flex items-center gap-2">
+              <button
+                on:click={() => promptShuffleRename(shuffle.id, shuffle.label)}
+                class="btn btn-sm variant-filled-surface"
+              >
+                Rename
+              </button>
+
+              <button
+                on:click={() => promptShuffleDelete(shuffle.id, shuffle.label)}
+                class="btn btn-sm variant-filled-surface"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col rounded-md gap-2"
+            on:dragover={(ev) => {
+              ev.preventDefault()
+            }}
+            on:drop={(e) => drop(e, shuffle.id)}
+            class:dropActive={$isDraggingAddon}
+          >
+            {#if shuffle.shuffledAddonIds.length == 0}
+              <div class="text-left text-sm text-gray-400">
+                Drag and drop addons here to shuffle them
+              </div>
+            {/if}
+
+            {#each shuffle.shuffledAddonIds as addonId}
+              <div class="flex items-center justify-between">
+                <AddonCard
+                  mode="in-shuffle-list"
+                  addon={$currentGameManifest.addons.find((addon) => addon.id == addonId)}
+                />
+
+                <button
+                  class="btn w-full max-w-[32px] btn-icon btn-sm variant-filled-surface"
+                  on:click={() => toggleAddonIdInShuffle(shuffle.id, addonId)}
+                >
+                  <TrashIcon size={16} />
+                </button>
+              </div>
+            {/each}
+          </div>
+        </svelte:fragment>
+      </AccordionItem>
+    {/each}
+  </Accordion>
+</div>
+
+<style lang="postcss">
+  .dropActive {
+    @apply outline-1  outline-dashed outline-primary-500;
+  }
+</style>
