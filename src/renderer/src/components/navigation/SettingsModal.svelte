@@ -38,7 +38,7 @@
           <SteamGamesDirectoryManager />
         {:else if tabSet === 'dev'}
           <h4 class="h4">Developer</h4>
-          <div class="space-x-2 rounded-lg">
+          <div class="flex flex-wrap gap-4 rounded-lg">
             <button class="btn variant-filled" on:click={openGamesDir}>open game dir</button>
             <button class="btn variant-filled" on:click={openWorkingDir}>open working dir</button>
             <button class="btn variant-filled" on:click={userStore.resetFirstTimeSetup}
