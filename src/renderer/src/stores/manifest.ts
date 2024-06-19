@@ -9,8 +9,14 @@ export const isRequestingGameManifest = writable<boolean>(false)
 export async function requestManifest(mode: RequestGameManifestParams['mode']) {
   isRequestingGameManifest.set(true)
 
-  const { steamGamesDir } = get(userStore)
+  const user = get(userStore)
 
+  if (!user?.steamGamesDir) {
+    isRequestingGameManifest.set(false)
+    return
+  }
+
+  const { steamGamesDir } = user
   console.log(steamGamesDir, L4D2_GAME_ID)
 
   try {
