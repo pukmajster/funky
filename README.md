@@ -11,18 +11,19 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Grid display with thumbnails and pagination
 - [x] Search and filters
 - [x] Automatic mod categorization based on mod contents
-- [x] Detailed mod inspection
-- [x] Batch selection of mods with various actions
+- [x] Much more detailed mod overview with useful actions
 - [x] Conflict solving menu, showing you exactly which mods are conflicting
 - [x] Profiles, letting you quickly hop between different setups
+- [x] Shuffles, randomizing your mod selection every time you boot up the game
+- [x] Batch selection of mods with various actions
 - [x] Unsubscribing from mods via Steam Web API
-- [x] VPK browser with extraction
+- [x] VPK browser with extraction functionality
 
 ## Ideas
 
 Here are some ideas or features I'd still like implemented one day
 
-- [ ] Mod shuffle re-implementation
+- [ ] List view of mods
 - [ ] Built-in custom config/autoexec editor
 - [ ] Local data backup
 - [ ] Online data backup

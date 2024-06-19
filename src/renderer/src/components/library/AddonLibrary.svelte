@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { libraryAddonPoolSortedPaginated } from '../../stores/library'
+  import { libraryActiveSubCategories, libraryAddonPoolSortedPaginated } from '../../stores/library'
   import { currentGameManifest } from '../../stores/manifest'
   import { view } from '../../stores/view'
   import AddonCard from '../addons/AddonCard.svelte'
   import LibraryFilters from './LibraryFilters.svelte'
+  import SubCategoryShuffle from './SubCategoryShuffle.svelte'
 
   // $: {
   //   console.log('userStore', $userStore)
@@ -15,18 +16,18 @@
   <LibraryFilters />
 
   <div>
-    <div class="library-list p-3 pt-0 pb-[200px]">
+    <div class="library-list relative p-3 pb-[200px]">
       {#each $libraryAddonPoolSortedPaginated as addon}
         {@const addonData = $currentGameManifest.addons.find((_addon) => _addon.id === addon)}
         {#if addonData}
           <AddonCard addon={addonData} mode="card" />
         {/if}
       {/each}
-    </div>
 
-    <!-- {#if $libraryActiveSubCategories.length == 1}
-      <SubCategoryShuffleSettings />
-    {/if} -->
+      {#if $libraryActiveSubCategories.length == 1}
+        <SubCategoryShuffle />
+      {/if}
+    </div>
   </div>
 </div>
 
