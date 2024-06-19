@@ -60,19 +60,21 @@ export const installedAddons = derived([currentGameManifest], ([$currentGameMani
   return $currentGameManifest?.installedAddons ?? []
 })
 
-const activeProfileId = get(userStore)?.activeProfileId
-const activeProfileObservable = liveQuery(() => db.profiles.get({ id: activeProfileId }))
+// const activeProfileId = get(userStore)?.activeProfileId
+// const activeProfileObservable = liveQuery(
+//   async () => await db.profiles.get({ id: activeProfileId })
+// )
 
-const sub = activeProfileObservable.subscribe({
-  next: (profile) => {
-    console.log('Profile changed', profile)
-    libraryActiveAddons.set(profile.enabledAddonIds)
-    libraryAddonIdsInEnabledShuffles.set([])
-  },
-  error: (error) => {
-    console.error('Error', error)
-  }
-})
+// const sub = activeProfileObservable.subscribe({
+//   next: (profile) => {
+//     console.log('Profile changed', profile)
+//     libraryActiveAddons.set(profile.enabledAddonIds)
+//     libraryAddonIdsInEnabledShuffles.set([])
+//   },
+//   error: (error) => {
+//     console.error('Error', error)
+//   }
+// })
 
 export const libraryActiveAddons = writable<AddonId[]>([])
 export const libraryAddonIdsInEnabledShuffles = writable<AddonId[]>([])

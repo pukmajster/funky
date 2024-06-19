@@ -91,8 +91,7 @@
     placement: 'top'
   }
 
-  $: activeProfileId = $userStore.activeProfileId
-  const activeProfile = liveQuery(() => db.profiles.get(activeProfileId))
+  $: activeProfile = liveQuery(async () => await db.profiles.get($userStore.activeProfileId))
 </script>
 
 <div class=" bg-surface-800">

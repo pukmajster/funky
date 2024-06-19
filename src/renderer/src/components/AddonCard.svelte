@@ -10,7 +10,7 @@
     libraryAddonIdsInEnabledShuffles,
     installedAddons,
     isDraggingAddon,
-    libraryActiveSubCategories,
+    // libraryActiveSubCategories,
     librarySelectedAddonIds,
     unsubscribedItemsThisSession,
     libraryActiveAddons
@@ -18,7 +18,6 @@
   import { userStore } from '../stores/user'
   import { L4D2_GAME_ID } from '../utils'
   import { db } from '../db/db'
-  import { liveQuery } from 'dexie'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
@@ -27,8 +26,7 @@
 
   let count = 0
 
-  const profileId = $userStore.activeProfileId
-  const activeProfile = liveQuery(() => db.profiles.get({ id: profileId }))
+  // const activeProfile = liveQuery(() => db.profiles.get({ id: profileId }))
 
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = L4D2_GAME_ID
@@ -57,7 +55,7 @@
 
     if (isEnabled) {
       console.log('disabled', addon.id)
-      db.profiles.update(profileId, {
+      db.profiles.update($userStore.activeProfileId, {
         enabledAddonIds: $libraryActiveAddons.filter((id) => id != addon.id)
       })
     } else {
@@ -65,10 +63,8 @@
 
       count += 1
 
-      db.profiles.update(profileId, {
-        //enabledAddonIds: [...$libraryActiveAddons, addon.id],
-
-        label: $activeProfile.label + `${count}`
+      db.profiles.update($userStore.activeProfileId, {
+        enabledAddonIds: [...$libraryActiveAddons, addon.id]
       })
     }
 

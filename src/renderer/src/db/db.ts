@@ -10,19 +10,10 @@ interface Profile {
 interface Shuffle {
   id: number
   label: string
-  addonIds: string[]
+  shuffledAddonIds: string[]
 }
 
-interface GeneralPreferences {
-  id: number
-  steamGamesDir: string
-  activeProfileId: string
-  enableNetworking: boolean
-  hasFinishedFirstTimeSetup: boolean
-  steamWebApiKey: string
-}
-
-const db = new Dexie('FunkyDatabase-v4') as Dexie & {
+const db = new Dexie('FunkyDatabase-v6') as Dexie & {
   profiles: EntityTable<
     Profile,
     'id' // primary key "id" (for the typings only)
@@ -31,35 +22,30 @@ const db = new Dexie('FunkyDatabase-v4') as Dexie & {
     Shuffle,
     'id' // primary key "id" (for the typings only)
   >
-  generalPreferences: EntityTable<
-    GeneralPreferences,
-    'steamGamesDir' // primary key "steamGamesDir" (for the typings only)
-  >
 }
 
 // Schema declaration:
 db.version(1).stores({
   profiles: '++id, *enabledAddonIds, *enabledShuffleIds',
-  shuffles: '++id, *shuffledAddonIds',
-  generalPreferences: '++id'
+  shuffles: '++id, *shuffledAddonIds'
 })
 
 // Populate the database with default, empty profiles
 db.on('populate', async () => {
   db.profiles.add({
-    id: 0,
+    id: 1,
     label: 'Default',
     enabledAddonIds: [],
     enabledShuffleIds: []
   })
 
   db.profiles.add({
-    id: 1,
+    id: 2,
     label: 'No Mods',
     enabledAddonIds: [],
     enabledShuffleIds: []
   })
 })
 
-export type { Profile, Shuffle, GeneralPreferences }
+export type { Profile, Shuffle }
 export { db }

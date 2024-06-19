@@ -3,6 +3,7 @@
   import { userStore } from '../stores/user'
   import games from 'shared/games'
   import classNames from 'classnames'
+  import { L4D2_GAME_ID } from '../utils'
 
   let directoryToPack = ''
   let writeToDirectory = ''
@@ -11,7 +12,7 @@
 
   $: packName = directoryToPack ? directoryToPack.split('/').pop() + '.vpk' : 'new-vpk.vpk'
 
-  const activeGame = $userStore.activeGameId
+  const activeGame = L4D2_GAME_ID
   const game = games[activeGame]
   $: addonsFolder = [
     $userStore.steamGamesDir,

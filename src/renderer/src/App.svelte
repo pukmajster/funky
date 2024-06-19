@@ -11,13 +11,14 @@
   import LibraryStateManager from './components/LibraryStateManager.svelte'
   import CategoriesPanel from './components/CategoriesPanel.svelte'
   import AddonLibrary from './components/AddonLibrary.svelte'
+  import { onMount } from 'svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
-  $: {
-    // Wait for userstore before requesting manifest
-    activeProfileId && requestManifest('cached')
-  }
+
+  onMount(() => {
+    requestManifest('cached')
+  })
 </script>
 
 <Config />
@@ -26,31 +27,30 @@
   <WelcomeGuide />
 {:else if activeProfileId === undefined}
   <p>waiting for active profile.default..</p>
-  waiting for active profile.default..
 {:else if $userStore !== undefined}
-  <LibraryStateManager>
-    <AppShell slotHeader="z-30" slotSidebarRight="">
-      <svelte:fragment slot="header">
-        <Header />
-      </svelte:fragment>
+  <LibraryStateManager />
 
-      <svelte:fragment slot="sidebarLeft">
-        <CategoriesPanel />
-      </svelte:fragment>
+  <AppShell slotHeader="z-30" slotSidebarRight="">
+    <svelte:fragment slot="header">
+      <Header />
+    </svelte:fragment>
 
-      <AddonLibrary />
-      <!-- 
-      <Conflicts />
-  
-      <ToolsPage />
-  
-      <svelte:fragment slot="sidebarRight">
-        {#if $view == 'shuffles'}
-          <ShufflesManager />
-        {/if}
-      </svelte:fragment> -->
-    </AppShell>
-  </LibraryStateManager>
+    <svelte:fragment slot="sidebarLeft">
+      <CategoriesPanel />
+    </svelte:fragment>
+
+    <AddonLibrary />
+    <!-- 
+    <Conflicts />
+
+    <ToolsPage />
+
+    <svelte:fragment slot="sidebarRight">
+      {#if $view == 'shuffles'}
+        <ShufflesManager />
+      {/if}
+    </svelte:fragment> -->
+  </AppShell>
 
   {#if $isRequestingGameManifest}
     <div

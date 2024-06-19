@@ -5,9 +5,7 @@
   import { liveQuery } from 'dexie'
 
   $: activeProfileId = $userStore.activeProfileId
-
-  const profiles = liveQuery(() => db.profiles.toArray())
-
+  const profiles = liveQuery(async () => await db.profiles.toArray())
   $: console.log('profiles:', $profiles)
 
   function promptNewProfileModal() {

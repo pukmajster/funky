@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { libraryActiveSubCategories, libraryAddonPoolSortedPaginated } from '../stores/library'
+  import { libraryAddonPoolSortedPaginated } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
-  import { userStore } from '../stores/user'
   import { view } from '../stores/view'
   import AddonCard from './AddonCard.svelte'
   import LibraryFilters from './LibraryFilters.svelte'
-  import SubCategoryShuffleSettings from './SubCategoryShuffleSettings.svelte'
 
   // $: {
   //   console.log('userStore', $userStore)

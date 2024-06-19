@@ -20,12 +20,3 @@ export function deleteProfile(id: number) {
 export function getProfile(id: number) {
   return db.profiles.get(id)
 }
-
-export const useActiveProfile = () =>
-  liveQuery(async () => {
-    const activeProfileId = db.generalPreferences.get('activeProfileId')
-    if (!activeProfileId) return null
-    const profile = db.profiles.get(activeProfileId)
-    if (!profile) return null
-    return profile
-  })

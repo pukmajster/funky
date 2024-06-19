@@ -8,7 +8,7 @@
     steamGamesDir: '',
     enableNetworking: true,
     hasFinishedFirstTimeSetup: false,
-    activeProfileId: 0
+    activeProfileId: 1
   }
 
   let hasSetupUserProfile = false

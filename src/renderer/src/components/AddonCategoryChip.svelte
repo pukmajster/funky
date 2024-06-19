@@ -3,7 +3,6 @@
   import type { Game } from 'shared'
   import games from 'shared/games'
   import { libraryActiveCategory, libraryActiveSubCategories } from '../stores/library'
-  import { userStore } from '../stores/user'
   import { L4D2_GAME_ID } from '../utils'
 
   export let categoryId: string
