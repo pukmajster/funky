@@ -23,6 +23,7 @@
   import { L4D2_GAME_ID } from '../utils'
   import { liveQuery } from 'dexie'
   import { db } from '../db/db'
+  import { totalConflictingAddons } from '../stores/conflicts'
 
   async function launchGame() {
     await writeAddonList()
@@ -173,9 +174,9 @@
   >
     <div>
       <TabGroup
-        active="border-b-2 !text-white   border-solid"
+        active="border-b-2 !text-white border-solid"
         justify="justify-center"
-        rounded="text-white/50 uppercase font-bold  border-primary-500"
+        rounded="text-white/50 uppercase font-bold border-primary-500"
         border=""
         hover="hover:text-white/70"
       >
@@ -185,9 +186,9 @@
 
         <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
 
-        <!-- <Tab bind:group={$view} name="conflicts" value={'conflicts'}
+        <Tab bind:group={$view} name="conflicts" value={'conflicts'}
           >{$totalConflictingAddons} Conflicts</Tab
-        > -->
+        >
 
         <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
 

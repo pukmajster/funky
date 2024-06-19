@@ -18,6 +18,7 @@
   import { userStore } from '../stores/user'
   import { L4D2_GAME_ID } from '../utils'
   import { db } from '../db/db'
+  import { conflictGroups } from '../stores/conflicts'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
@@ -38,10 +39,9 @@
     )
   $: isEnabled = $libraryActiveAddons.includes(addon.id)
   $: isShuffled = $libraryAddonIdsInEnabledShuffles.includes(addon.id)
-  $: isConflicting = false
-  // $conflictGroups.some((group) =>
-  //   group.some((conflictingMod) => conflictingMod.id == addon.id)
-  // )
+  $: isConflicting = $conflictGroups.some((group) =>
+    group.some((conflictingMod) => conflictingMod.id == addon.id)
+  )
   $: wasUnsubscribed = $unsubscribedItemsThisSession.includes(addon.id)
   $: isInstalled = $installedAddons.includes(addon.id)
 

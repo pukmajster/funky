@@ -133,6 +133,6 @@
 
 <style lang="postcss">
   .disable-categories {
-    @apply opacity-40 pointer-events-none -translate-x-80;
+    @apply opacity-40 pointer-events-none;
   }
 </style>

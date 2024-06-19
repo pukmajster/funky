@@ -12,6 +12,7 @@
   import CategoriesPanel from './components/CategoriesPanel.svelte'
   import AddonLibrary from './components/AddonLibrary.svelte'
   import { onMount } from 'svelte'
+  import Conflicts from './components/Conflicts.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -40,9 +41,9 @@
     </svelte:fragment>
 
     <AddonLibrary />
-    <!-- 
-    <Conflicts />
 
+    <Conflicts />
+    <!-- 
     <ToolsPage />
 
     <svelte:fragment slot="sidebarRight">
