@@ -1,64 +1,68 @@
-import type { AddonId, ExportVpkOptions } from 'shared'
+import type { AddonId, ExportVpkOptions, GameManifest } from 'shared'
 import { get } from 'svelte/store'
 import {
   isUnsubscribeOngoing,
   unsubscribeQueue,
   unsubscribedItemsThisSession
 } from '../stores/library'
-import { requestManifest } from '../stores/manifest'
+import { currentGameManifest, requestManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
 import SteamWebApi from '../steam-web-api'
 import { toastStore } from '@skeletonlabs/skeleton'
 import { L4D2_GAME_ID } from '../utils'
+import { activeProfileStore } from '../stores/active-profile'
+import games from 'shared/games'
+import { db } from '../db/db'
 
 export async function writeAddonList(): Promise<void> {
-  // const workingUserStore = get(userStore)
-  // const allAddonIdsInShuffles = get(libraryAddonIdsInEnabledShuffles)
-  // const activeProfile = useActiveProfile
-  // const { steamGamesDir } = workingUserStore
-  // const manifest: GameManifest = get(currentGameManifest)
-  // const gameDir = games[L4D2_GAME_ID]
-  // const profile = $activeProfile
-  // const game = games[L4D2_GAME_ID]
-  // const addonListDir = `${game.rootDirectoryName}/${game.gameDirectory}`
-  // let outputVdfString = `"AddonList"\n{\n`
-  // // Get all the fixed-enabled mods
-  // let enabledMods = profile.enabledAddonIds
-  // console.log('enabledMod', enabledMods)
-  // // Remove any mods from enabledMods if they appear in allAddonIdsInShuffles
-  // enabledMods = enabledMods.filter((mod) => !allAddonIdsInShuffles.includes(mod))
-  // // choose a randon mod from each shuffled subcategory
-  // let randomMods: AddonId[] = []
-  // Object.keys(profile.shuffles).forEach((category) => {
-  //   const shuffle: CategoryShuffle = profile.shuffles[category]
-  //   if (!shuffle.enabled) return
-  //   const randomIndex = Math.floor(Math.random() * shuffle.shuffledAddonIds.length)
-  //   const randomMod = shuffle.shuffledAddonIds[randomIndex]
-  //   // +1 so it always picks a mod, otherwise there's a chance no mod will be picked at all.
-  //   // TODO: that could be a feature?
-  //   randomMods.push(randomMod)
-  // })
-  // // Merge the two arrays
-  // const mergedEnabledMods = [...enabledMods, ...randomMods]
-  // console.log('mergedEnabledMods', mergedEnabledMods)
-  // // Loop through all the mods in the manifest
-  // for (const mod in manifest.addons) {
-  //   const modId = manifest.addons[mod].id
-  //   const enabled = mergedEnabledMods.includes(modId) ? '1' : '0'
-  //   const modIdForAddonlist = modId.replaceAll('/', '\\')
-  //   outputVdfString += `\t"${modIdForAddonlist}"\t\t\t"${enabled}"\n`
-  // }
-  // outputVdfString += '}'
-  // console.log(steamGamesDir, gameDir)
-  // await window.api.writeAddonList({
-  //   steamGamesDir,
-  //   gameDir: addonListDir,
-  //   data: outputVdfString
-  // })
+  // Collect meta-data
+  const { steamGamesDir } = get(userStore)
+  const manifest: GameManifest = get(currentGameManifest)
+  const game = games[L4D2_GAME_ID]
+  const addonListDir = `${game.rootDirectoryName}/${game.gameDirectory}`
+
+  // Collect the enabled and shuffled mods we'll be working with
+  const activeProfile = get(activeProfileStore)
+  const { enabledAddonIds, enabledShuffleIds } = activeProfile
+  const enabledShuffles = await db.shuffles.where('id').anyOf(enabledShuffleIds).toArray()
+
+  // TODO: ignore enabled mods if they appear in shuffles?
+  //enabledMods = enabledMods.filter((mod) => !allAddonIdsInShuffles.includes(mod))
+
+  const randomlyShuffledMods: string[] = []
+
+  // Choose a random mod from each shuffled subcategory
+  enabledShuffles.forEach((shuffle) => {
+    const randomIndex = Math.floor(Math.random() * shuffle.shuffledAddonIds.length)
+    const randomMod = shuffle.shuffledAddonIds[randomIndex]
+    randomlyShuffledMods.push(randomMod)
+  })
+
+  // Merge the two arrays
+  const mergedEnabledMods = [...enabledAddonIds, ...randomlyShuffledMods]
+  console.log('mergedEnabledMods', mergedEnabledMods)
+
+  // Write the addonlist.txt file by looping through all the mods in the manifest
+  let outputVdfString = `"AddonList"\n{\n`
+  for (const mod in manifest.addons) {
+    const modId = manifest.addons[mod].id
+    const enabled = mergedEnabledMods.includes(modId) ? '1' : '0'
+    const modIdForAddonlist = modId.replaceAll('/', '\\')
+    outputVdfString += `\t"${modIdForAddonlist}"\t\t\t"${enabled}"\n`
+  }
+
+  // Close the KeyValue block
+  outputVdfString += '}'
+
+  // Update the actual file
+  await window.api.writeAddonList({
+    steamGamesDir,
+    gameDir: addonListDir,
+    data: outputVdfString
+  })
 }
 
 export async function extractVpk(params: ExportVpkOptions) {
-  // Extract the vpk
   window.api.extractVpk(params)
 }
 
