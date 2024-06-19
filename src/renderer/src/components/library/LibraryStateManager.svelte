@@ -8,9 +8,18 @@
     async () => await db.profiles.get({ id: $userStore.activeProfileId })
   )
 
+  $: enabledShuffles = liveQuery(
+    async () => await db.shuffles.where('id').anyOf($activeProfile.enabledShuffleIds).toArray()
+  )
+
+  $: {
+    libraryAddonIdsInEnabledShuffles.set(
+      $enabledShuffles?.flatMap((shuffle) => shuffle.shuffledAddonIds) ?? []
+    )
+  }
+
   $: {
     console.log('activeProfile', $activeProfile)
     libraryActiveAddons.set($activeProfile?.enabledAddonIds ?? [])
-    libraryAddonIdsInEnabledShuffles.set([])
   }
 </script>

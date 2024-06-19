@@ -3,8 +3,11 @@
   import { FileQuestionIcon, InfinityIcon } from 'lucide-svelte'
   import { game550 } from 'shared/games/550'
   import {
+    installedAddons,
+    libraryActiveAddons,
     libraryActiveCategory,
     libraryActiveSubCategories,
+    libraryAddonIdsInEnabledShuffles,
     librarySearchQueue
   } from '../../stores/library'
   import { view } from '../../stores/view'
@@ -119,16 +122,16 @@
       </div>
     </div>
   </div>
-  <!-- 
+
   <div class=" flex p-2 flex-col gap-2 text-left text-sm">
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
       <span class="font-bold">{$installedAddons?.length}</span> installed mods
     </div>
     <div class=" self-start px-2 py-1 rounded-lg bg-surface-700">
-      <span class="font-bold">{$derivedEnabledAddonIds.length} </span> enabled
+      <span class="font-bold">{$libraryActiveAddons.length} </span> enabled
       <span class="font-bold">{$libraryAddonIdsInEnabledShuffles.length} </span> shuffled
     </div>
-  </div> -->
+  </div>
 </div>
 
 <style lang="postcss">
