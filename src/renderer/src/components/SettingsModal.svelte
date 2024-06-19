@@ -40,6 +40,9 @@
           <div class="space-x-2 rounded-lg">
             <button class="btn variant-filled" on:click={openGamesDir}>open game dir</button>
             <button class="btn variant-filled" on:click={openWorkingDir}>open working dir</button>
+            <button class="btn variant-filled" on:click={userStore.resetFirstTimeSetup}
+              >reset first time setup</button
+            >
           </div>
         {:else if tabSet === 'networking'}
           <h4 class="h4">Networking</h4>

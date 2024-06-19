@@ -38,12 +38,22 @@ function createUserStore() {
     })
   }
 
+  function resetFirstTimeSetup() {
+    update((user) => {
+      return {
+        ...user,
+        hasFinishedFirstTimeSetup: false
+      }
+    })
+  }
+
   return {
     set,
     subscribe,
     setActiveGameId,
     setSteamGamesDir,
-    setActiveProfileId
+    setActiveProfileId,
+    resetFirstTimeSetup
   }
 }
 
