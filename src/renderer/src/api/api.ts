@@ -1,16 +1,14 @@
-import type { AddonId, ExportVpkOptions, GameManifest } from 'shared'
-import games from 'shared/games'
+import type { AddonId, ExportVpkOptions } from 'shared'
 import { get } from 'svelte/store'
 import {
-  libraryAddonIdsInEnabledShuffles,
   isUnsubscribeOngoing,
   unsubscribeQueue,
   unsubscribedItemsThisSession
 } from '../stores/library'
-import { currentGameManifest, requestManifest } from '../stores/manifest'
+import { requestManifest } from '../stores/manifest'
 import { userStore } from '../stores/user'
 import SteamWebApi from '../steam-web-api'
-import { modalStore, toastStore } from '@skeletonlabs/skeleton'
+import { toastStore } from '@skeletonlabs/skeleton'
 import { L4D2_GAME_ID } from '../utils'
 
 export async function writeAddonList(): Promise<void> {

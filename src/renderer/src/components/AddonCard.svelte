@@ -161,7 +161,7 @@
     <img
       alt="mod"
       on:error={handleMissingThumbnail}
-      class=" rounded-md w-[200px] aspect-[5/3] w-full"
+      class=" rounded-md aspect-[5/3] w-full"
       src={thumbnail}
     />
 

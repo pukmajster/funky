@@ -66,7 +66,7 @@
     </div>
 
     <div
-      class={classNames('hidden flex px-3 p-3 border-t border-surface-800 bg-surface-900', {
+      class={classNames('hidden px-3 p-3 border-t border-surface-800 bg-surface-900', {
         '!block': showExtractionOptions
       })}
     >

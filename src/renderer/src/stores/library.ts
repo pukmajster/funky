@@ -1,10 +1,7 @@
 import type { Addon, AddonId } from 'shared'
-import { derived, get, writable } from 'svelte/store'
-import { L4D2_GAME_ID, arraysShareValues } from '../utils'
+import { derived, writable } from 'svelte/store'
+import { arraysShareValues } from '../utils'
 import { currentGameManifest } from './manifest'
-import { userStore } from './user'
-import { liveQuery } from 'dexie'
-import { db } from '../db/db'
 
 export const librarySearchQueue = writable('')
 export const libraryActiveCategory = writable<string>('all')

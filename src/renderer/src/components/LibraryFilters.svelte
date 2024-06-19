@@ -324,17 +324,3 @@
     </div>
   {/if}
 </div>
-
-<style lang="postcss">
-  .noConflicts {
-    @apply bg-green-500;
-  }
-
-  .showConflicts {
-    @apply bg-primary-500;
-  }
-
-  .showingConflicts {
-    @apply bg-blue-600;
-  }
-</style>

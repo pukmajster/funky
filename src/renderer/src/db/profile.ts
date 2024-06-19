@@ -1,5 +1,4 @@
 import { db } from './db'
-import { liveQuery } from 'dexie'
 
 export function createProfile(label: string) {
   return db.profiles.add({ label, enabledAddonIds: [], enabledShuffleIds: [] })
