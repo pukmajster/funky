@@ -14,8 +14,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Detailed mod inspection
 - [x] Batch selection of mods w/ various actions
 - [x] Conflict solving menu, showing you exactly which mods are conflicting
-- [x] Profiles, letting you quickly hop between various setups
-- [x] Mod shuffles that change things up everytime you launch the game
+- [x] Profiles, letting you quickly hop between different setups
 - [x] Unsubscribing from mods via Steam Web API
 - [x] VPK browser with extraction
 
@@ -23,6 +22,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 
 Here are some ideas or features I'd still like implemented one day
 
+- [ ] Mod shuffle reimplementation
 - [ ] Built-in custom config/autoexec editor
 - [ ] Local data backup
 - [ ] Online data backup
@@ -31,7 +31,7 @@ Here are some ideas or features I'd still like implemented one day
 
 ## Caveats
 
-While I've found Funky to be extremly useful in organizing my ever growing library of mods, there's still some things to keep in mind:
+While I've found Funky to be extremly useful in organizing my ever growing library of mods, there's some things to keep in mind:
 
 - The game needs to be restarted before any changes made in Funky can take effect.
 - Newly subscribed-to Workshop mods will only be downloaded after you start the game.

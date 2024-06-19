@@ -17,15 +17,13 @@
   } from '../stores/library'
   import { userStore } from '../stores/user'
   import { L4D2_GAME_ID } from '../utils'
-  import { db } from '../db/db'
   import { conflictGroups } from '../stores/conflicts'
+  import { activeProfileStore } from '../stores/active-profile'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
   export let asShuffle: boolean = false
   export let mode: 'in-shuffle-list' | 'card'
-
-  let count = 0
 
   // const activeProfile = liveQuery(() => db.profiles.get({ id: profileId }))
 
@@ -53,20 +51,7 @@
     // iF shuffles...
     // else
 
-    if (isEnabled) {
-      console.log('disabled', addon.id)
-      db.profiles.update($userStore.activeProfileId, {
-        enabledAddonIds: $libraryActiveAddons.filter((id) => id != addon.id)
-      })
-    } else {
-      console.log('enabled', addon.id)
-
-      count += 1
-
-      db.profiles.update($userStore.activeProfileId, {
-        enabledAddonIds: [...$libraryActiveAddons, addon.id]
-      })
-    }
+    activeProfileStore.toggleAddonEnabled(addon.id)
 
     //if (isShuffled) {
     //  if ($libraryActiveSubCategories.length == 0) return

@@ -4,7 +4,7 @@ interface Profile {
   id: number
   label: string
   enabledAddonIds: string[]
-  enabledShuffleIds: string[]
+  enabledShuffleIds: number[]
 }
 
 interface Shuffle {
