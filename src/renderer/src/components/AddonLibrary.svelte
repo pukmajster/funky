@@ -7,10 +7,10 @@
   import LibraryFilters from './LibraryFilters.svelte'
   import SubCategoryShuffleSettings from './SubCategoryShuffleSettings.svelte'
 
-  $: {
-    console.log('userStore', $userStore)
-    console.log('libraryAddonPoolSortedPaginated', $libraryAddonPoolSortedPaginated)
-  }
+  // $: {
+  //   console.log('userStore', $userStore)
+  //   console.log('libraryAddonPoolSortedPaginated', $libraryAddonPoolSortedPaginated)
+  // }
 </script>
 
 <div class:hidden={!['mods', 'shuffles'].includes($view)} class="relative h-full flex flex-col">

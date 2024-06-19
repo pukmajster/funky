@@ -25,6 +25,8 @@
   export let asShuffle: boolean = false
   export let mode: 'in-shuffle-list' | 'card'
 
+  let count = 0
+
   const profileId = $userStore.activeProfileId
   const activeProfile = liveQuery(() => db.profiles.get({ id: profileId }))
 
@@ -61,8 +63,12 @@
     } else {
       console.log('enabled', addon.id)
 
+      count += 1
+
       db.profiles.update(profileId, {
-        enabledAddonIds: [...$libraryActiveAddons, addon.id]
+        //enabledAddonIds: [...$libraryActiveAddons, addon.id],
+
+        label: $activeProfile.label + `${count}`
       })
     }
 

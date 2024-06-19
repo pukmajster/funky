@@ -22,7 +22,7 @@ interface GeneralPreferences {
   steamWebApiKey: string
 }
 
-const db = new Dexie('FunkyDatabase-v3') as Dexie & {
+const db = new Dexie('FunkyDatabase-v4') as Dexie & {
   profiles: EntityTable<
     Profile,
     'id' // primary key "id" (for the typings only)

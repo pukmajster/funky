@@ -8,7 +8,7 @@
 
   const profiles = liveQuery(() => db.profiles.toArray())
 
-  console.log($profiles)
+  $: console.log('profiles:', $profiles)
 
   function promptNewProfileModal() {
     modalStore.trigger({
