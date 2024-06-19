@@ -141,7 +141,7 @@
             class:dropActive={$isDraggingAddon}
           >
             {#if shuffle.shuffledAddonIds.length == 0}
-              <div class="text-left text-sm text-gray-400">
+              <div class="text-left text-sm text-gray-400 p-2">
                 Drag and drop addons here to shuffle them
               </div>
             {/if}
