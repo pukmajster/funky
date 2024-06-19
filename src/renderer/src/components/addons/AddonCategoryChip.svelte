@@ -2,8 +2,8 @@
   import { drawerStore } from '@skeletonlabs/skeleton'
   import type { Game } from 'shared'
   import games from 'shared/games'
-  import { libraryActiveCategory, libraryActiveSubCategories } from '../stores/library'
-  import { L4D2_GAME_ID } from '../utils'
+  import { libraryActiveCategory, libraryActiveSubCategories } from '../../stores/library'
+  import { L4D2_GAME_ID } from '../../utils'
 
   export let categoryId: string
 

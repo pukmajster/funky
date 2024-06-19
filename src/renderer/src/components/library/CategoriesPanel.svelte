@@ -6,8 +6,8 @@
     libraryActiveCategory,
     libraryActiveSubCategories,
     librarySearchQueue
-  } from '../stores/library'
-  import { view } from '../stores/view'
+  } from '../../stores/library'
+  import { view } from '../../stores/view'
 
   let categories = game550.addons.categories
 

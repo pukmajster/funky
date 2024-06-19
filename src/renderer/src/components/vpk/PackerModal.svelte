@@ -1,9 +1,9 @@
 <script lang="ts">
   import { ProgressRadial, SlideToggle, modalStore, toastStore } from '@skeletonlabs/skeleton'
-  import { userStore } from '../stores/user'
   import games from 'shared/games'
   import classNames from 'classnames'
-  import { L4D2_GAME_ID } from '../utils'
+  import { L4D2_GAME_ID } from '../../utils'
+  import { userStore } from '../../stores/user'
 
   let directoryToPack = ''
   let writeToDirectory = ''

@@ -1,9 +1,9 @@
 <script lang="ts">
   import { ListBox, ListBoxItem, modalStore } from '@skeletonlabs/skeleton'
-  import { userStore } from '../stores/user'
-  import { db } from '../db/db'
+  import { userStore } from '../../stores/user'
+  import { db } from '../../db/db'
   import { liveQuery } from 'dexie'
-  import { activeProfileStore } from '../stores/active-profile'
+  import { activeProfileStore } from '../../stores/active-profile'
 
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())

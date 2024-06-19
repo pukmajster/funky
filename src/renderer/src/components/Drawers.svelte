@@ -2,7 +2,7 @@
   import { Drawer, drawerStore } from '@skeletonlabs/skeleton'
   import { addonOverviewId } from '../stores/library'
   import { currentGameManifest } from '../stores/manifest'
-  import AddonOverview from './AddonOverview.svelte'
+  import AddonOverview from './addons/AddonOverview.svelte'
 </script>
 
 <Drawer>

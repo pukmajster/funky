@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { libraryAddonPoolSortedPaginated } from '../stores/library'
-  import { currentGameManifest } from '../stores/manifest'
-  import { view } from '../stores/view'
-  import AddonCard from './AddonCard.svelte'
+  import { libraryAddonPoolSortedPaginated } from '../../stores/library'
+  import { currentGameManifest } from '../../stores/manifest'
+  import { view } from '../../stores/view'
+  import AddonCard from '../addons/AddonCard.svelte'
   import LibraryFilters from './LibraryFilters.svelte'
 
   // $: {

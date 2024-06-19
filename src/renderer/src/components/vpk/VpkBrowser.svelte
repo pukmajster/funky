@@ -1,13 +1,13 @@
 <script lang="ts">
   import { modalStore, toastStore } from '@skeletonlabs/skeleton'
-  import { currentGameManifest } from '../stores/manifest'
-  import { pathsToTree } from '../utils/vpk-browser'
+  import { currentGameManifest } from '../../stores/manifest'
+  import { pathsToTree } from '../../utils/vpk-browser'
   import VpkBrowserPath from './VpkBrowserPath.svelte'
-  import { extractVpk } from '../api/api'
-  import { userStore } from '../stores/user'
+  import { extractVpk } from '../../api/api'
+  import { userStore } from '../../stores/user'
   import games from 'shared/games'
   import classNames from 'classnames'
-  import { L4D2_GAME_ID } from '../utils'
+  import { L4D2_GAME_ID } from '../../utils'
 
   let addonId = $modalStore[0].meta.addonId
   $: addonMetadata = $currentGameManifest.addons.find((addon) => addon.id === addonId)

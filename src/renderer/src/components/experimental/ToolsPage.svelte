@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { view } from '../stores/view'
-  import PackerModal from './PackerModal.svelte'
+  import { view } from '../../stores/view'
+  import PackerModal from '../vpk/PackerModal.svelte'
   import { modalStore, type ModalComponent } from '@skeletonlabs/skeleton'
 
   function openPackerModal() {

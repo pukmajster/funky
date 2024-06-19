@@ -1,19 +1,6 @@
 <script lang="ts">
   import { ArrowLeft, ArrowRight } from 'lucide-svelte'
   import {
-    libraryActiveSubCategories,
-    libraryPage,
-    libraryPageCount,
-    sortingType,
-    typeToShow,
-    type SortingType,
-    type TypeOfMod,
-    librarySelectedAddonIds,
-    type AddonSource,
-    addonSource
-  } from '../stores/library'
-  import { clamp } from '../utils'
-  import {
     ListBox,
     ListBoxItem,
     popup,
@@ -21,9 +8,22 @@
     type PopupSettings,
     modalStore
   } from '@skeletonlabs/skeleton'
-  import { userStore } from '../stores/user'
-  import { uninstallMods, unsubscribeFromMods } from '../api/api'
-  import { currentGameManifest } from '../stores/manifest'
+  import { unsubscribeFromMods, uninstallMods } from '../../api/api'
+  import {
+    type SortingType,
+    type TypeOfMod,
+    type AddonSource,
+    libraryActiveSubCategories,
+    libraryPage,
+    libraryPageCount,
+    librarySelectedAddonIds,
+    sortingType,
+    typeToShow,
+    addonSource
+  } from '../../stores/library'
+  import { currentGameManifest } from '../../stores/manifest'
+  import { userStore } from '../../stores/user'
+  import { clamp } from '../../utils'
 
   // Limit the active subcategories to 1
   $: {

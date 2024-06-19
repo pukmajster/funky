@@ -1,14 +1,14 @@
 <script lang="ts">
   import type { Addon, Game } from 'shared'
   import games from 'shared/games'
-  import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
-  import { currentGameManifest } from '../stores/manifest'
-  import { userStore } from '../stores/user'
+  import thumbnailFallback from '../../assets/addon-thumbnail-fallback.jpg'
+  import { currentGameManifest } from '../../stores/manifest'
+  import { userStore } from '../../stores/user'
   import AddonCategoryChip from './AddonCategoryChip.svelte'
   import AddonOverviewStat from './AddonOverviewStat.svelte'
   import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton'
-  import VpkBrowser from './VpkBrowser.svelte'
-  import { L4D2_GAME_ID } from '../utils'
+  import { L4D2_GAME_ID } from '../../utils'
+  import VpkBrowser from '../vpk/VpkBrowser.svelte'
 
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { SlideToggle, Tab, TabGroup, modalStore } from '@skeletonlabs/skeleton'
   import { X } from 'lucide-svelte'
-  import { userStore } from '../stores/user'
-  import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
+  import { userStore } from '../../stores/user'
+  import SteamGamesDirectoryManager from '../SteamGamesDirectoryManager.svelte'
 
   function close() {
     modalStore.close()

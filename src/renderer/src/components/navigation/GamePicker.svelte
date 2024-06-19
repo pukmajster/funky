@@ -1,6 +1,6 @@
 <script lang="ts">
   import games from 'shared/games'
-  import { L4D2_GAME_ID } from '../utils'
+  import { L4D2_GAME_ID } from '../../utils'
 
   const gameIds = Object.keys(games)
 </script>

@@ -1,7 +1,7 @@
 <script>
-  import { conflictGroups } from '../stores/conflicts'
-  import { view } from '../stores/view'
-  import AddonCard from './AddonCard.svelte'
+  import { conflictGroups } from '../../stores/conflicts'
+  import { view } from '../../stores/view'
+  import AddonCard from '../addons/AddonCard.svelte'
 </script>
 
 <div>

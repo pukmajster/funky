@@ -1,7 +1,7 @@
 <script lang="ts">
   import { CheckSquare, ChevronDown, ChevronUp, Square } from 'lucide-svelte'
-  import type { PathTreeEntry } from '../utils/vpk-browser'
   import classNames from 'classnames'
+  import type { PathTreeEntry } from '../../utils/vpk-browser'
 
   export let treePath: PathTreeEntry
   export let selectedFromParent = false

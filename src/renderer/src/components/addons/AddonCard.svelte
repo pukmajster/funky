@@ -3,22 +3,20 @@
   import { AlertTriangle, Check, CheckCircle2, Dices } from 'lucide-svelte'
   import type { Addon, Game } from 'shared'
   import games from 'shared/games'
-  import thumbnailFallback from '../assets/addon-thumbnail-fallback.jpg'
-  //import { conflictGroups } from '../stores/conflicts'
+  import thumbnailFallback from '../../assets/addon-thumbnail-fallback.jpg'
+  import { activeProfileStore } from '../../stores/active-profile'
+  import { conflictGroups } from '../../stores/conflicts'
   import {
-    addonOverviewId,
+    librarySelectedAddonIds,
+    libraryActiveAddons,
     libraryAddonIdsInEnabledShuffles,
+    unsubscribedItemsThisSession,
     installedAddons,
     isDraggingAddon,
-    // libraryActiveSubCategories,
-    librarySelectedAddonIds,
-    unsubscribedItemsThisSession,
-    libraryActiveAddons
-  } from '../stores/library'
-  import { userStore } from '../stores/user'
-  import { L4D2_GAME_ID } from '../utils'
-  import { conflictGroups } from '../stores/conflicts'
-  import { activeProfileStore } from '../stores/active-profile'
+    addonOverviewId
+  } from '../../stores/library'
+  import { userStore } from '../../stores/user'
+  import { L4D2_GAME_ID } from '../../utils'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
