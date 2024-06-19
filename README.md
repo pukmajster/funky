@@ -1,6 +1,6 @@
 # Funky
 
-Funky is an open-source mods manager for L4D2, developed with Electron, Svelte and SkeletonUI.
+Funky is an open-source mods manager for Left 4 Dead 2, developed with Electron, Dexie, Svelte and SkeletonUI.
 
 ![App](/resources/app.png)
 
@@ -12,7 +12,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Search and filters
 - [x] Automatic mod categorization based on mod contents
 - [x] Detailed mod inspection
-- [x] Batch selection of mods w/ various actions
+- [x] Batch selection of mods with various actions
 - [x] Conflict solving menu, showing you exactly which mods are conflicting
 - [x] Profiles, letting you quickly hop between different setups
 - [x] Unsubscribing from mods via Steam Web API
@@ -22,12 +22,12 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 
 Here are some ideas or features I'd still like implemented one day
 
-- [ ] Mod shuffle reimplementation
+- [ ] Mod shuffle re-implementation
 - [ ] Built-in custom config/autoexec editor
 - [ ] Local data backup
 - [ ] Online data backup
 - [ ] Collections
-- [ ] Custom vocalizer editor
+- [ ] Vocalizer editor
 
 ## Caveats
 
