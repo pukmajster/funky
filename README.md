@@ -19,9 +19,16 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Unsubscribing from mods via Steam Web API
 - [x] VPK browser with extraction functionality
 
-## Ideas
+## Planned improvements
 
-Here are some ideas or features I'd still like implemented one day
+- [ ] Improved shuffle dragging behaviour
+- [ ] Feedback UI for empty search query results
+- [ ] Profile deletion
+- [ ] Shuffle option to allow no mod being chosen
+
+## Unplanned ideas
+
+Here are some ideas or features that may or may not be considered in the future
 
 - [ ] List view of mods
 - [ ] Built-in custom config/autoexec editor
@@ -29,6 +36,7 @@ Here are some ideas or features I'd still like implemented one day
 - [ ] Online data backup
 - [ ] Collections
 - [ ] Vocalizer editor
+- [ ] Profile duplication
 
 ## Caveats
 
