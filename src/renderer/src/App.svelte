@@ -14,7 +14,6 @@
   import { onMount } from 'svelte'
   import Conflicts from './components/Conflicts.svelte'
   import { view } from './stores/view'
-  import ShufflesManager from './components/ShufflesManager.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
