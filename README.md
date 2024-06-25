@@ -49,13 +49,6 @@ So taking both of these points into account, if you've just subscribed to a new 
 
 ## Project Setup
 
-### Prep submodules
-
-```bash
-git submodule init
-git submodule update
-```
-
 ### Install dependencies
 
 ```bash

@@ -1,6 +1,6 @@
-const { VPK } = require('vpk')
 import { app } from 'electron'
 import * as fs from 'fs'
+const VPK = require('vpk')
 const path = require('path')
 const fsp = fs.promises
 const vdf = require('node-vdf')
@@ -261,6 +261,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     return manifest
   } catch (err) {
     console.log('error reading mods from dir')
+    console.log(err)
   }
 }
 
