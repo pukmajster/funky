@@ -34,7 +34,7 @@
   }
 
   const categoryStyles =
-    'flex flex-col w-14 h-14 btn text-[11px] p-2 justify-center items-center rounded-none'
+    'flex flex-col w-14 h-14 btn text-[11px] p-2  gap-0 justify-center items-center rounded-none'
 
   const fixedIconStyles = 'min-w-[17px] min-h-[17px]'
 </script>
@@ -59,7 +59,7 @@
             on:click={() => setActiveCategory('all')}
             class={categoryStyles}
           >
-            <InfinityIcon className={fixedIconStyles} />
+            <InfinityIcon className={fixedIconStyles} class="min-h-[24px]" />
             All
           </button>
 
@@ -81,9 +81,9 @@
             on:click={() => setActiveCategory('?')}
             class={categoryStyles}
           >
-            <FileQuestionIcon />
-            Unknown</button
-          >
+            <FileQuestionIcon class="mt-2 min-w-[355px] min-h-[21px]" />
+            Unknown
+          </button>
         </div>
       </div>
 
