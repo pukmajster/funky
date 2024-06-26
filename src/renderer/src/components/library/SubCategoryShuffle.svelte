@@ -41,7 +41,6 @@
 
       // Enable new shuffle
       toggleShuffleEnabled(newShuffle)
-      return
     } else {
       // Enable existing shuffle
       toggleShuffleEnabled($shuffle.id)
@@ -64,10 +63,15 @@
 
     event.preventDefault()
   }
+
+  $: activeSubCat = games[550].addons.categories
+    .find((cat) => cat.id == $libraryActiveCategory)
+    ?.subCategories.find((subCat) => subCat.id == $libraryActiveSubCategories[0])
 </script>
 
 <div class="z-10 flex-1 fixed left-[250px] bottom-0 right-0 flex items-end w-full">
   <div
+    class:hidden={!activeSubCat?.allowSingleAddonRandomization}
     class:inactive={!shuffleEnabled}
     on:dragover={(ev) => {
       ev.preventDefault()
@@ -78,12 +82,7 @@
   >
     <div class="">
       {#if $libraryActiveSubCategories.length == 1}
-        {@const activeGameData = games[550]}
-        {@const activeSubCat = activeGameData.addons.categories
-          .find((cat) => cat.id == $libraryActiveCategory)
-          ?.subCategories.find((subCat) => subCat.id == $libraryActiveSubCategories[0])}
-
-        {#if activeSubCat.allowSingleAddonRandomization}
+        {#if activeSubCat?.allowSingleAddonRandomization}
           <div class="px-3 py-1">
             <SlideToggle
               active="bg-emerald-500"
