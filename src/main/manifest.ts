@@ -336,6 +336,8 @@ async function writeManifest({ appId, manifest }: WriteManifestParams) {
 function categorizeVpk(game: Game, vpkFiles: AddonFiles): string[] {
   const categories: string[] = []
 
+  let categorizeAsCampaign = false
+
   for (const category of game.addons.categories) {
     for (const subCategory of category.subCategories) {
       for (const file of vpkFiles) {
@@ -345,15 +347,24 @@ function categorizeVpk(game: Game, vpkFiles: AddonFiles): string[] {
         }
       }
 
-      for (const reference of subCategory.matches.references) {
-        for (const file of vpkFiles) {
+      for (const file of vpkFiles) {
+        for (const reference of subCategory.matches.references) {
           if (file.includes(reference)) {
             categories.push(subCategory.id)
             categories.push(category.id)
           }
+
+          // a file within the missions folder means the VPK is a campaign
+          if (file.includes('/missions/')) {
+            categorizeAsCampaign = true
+          }
         }
       }
     }
+  }
+
+  if (categorizeAsCampaign) {
+    categories.push('campaign')
   }
 
   // Remove duplicates
