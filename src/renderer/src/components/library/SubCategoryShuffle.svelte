@@ -92,7 +92,7 @@
             >
           </div>
 
-          <div class="flex gap-2 p-2 w-full overflow-x-scroll" class:grayscale={!shuffleEnabled}>
+          <div class="flex gap-2 p-2 w-full overflow-x-auto" class:grayscale={!shuffleEnabled}>
             {#each $shuffle?.shuffledAddonIds ?? [] as addonId}
               {@const addonData = $currentGameManifest.addons.find((addon) => addon.id == addonId)}
               {#if addonData}
