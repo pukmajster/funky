@@ -25,6 +25,7 @@ export interface SubCategoryDefinition {
   id: string
   label: string
 
+  hidden?: boolean
   allowSingleAddonRandomization?: boolean
 
   matches: {

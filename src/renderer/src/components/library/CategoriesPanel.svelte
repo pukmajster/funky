@@ -34,7 +34,7 @@
   }
 
   const categoryStyles =
-    'flex flex-col w-14 h-14 btn text-[11px] p-2  gap-0 justify-center items-center rounded-none'
+    'flex flex-col w-14 h-14 btn text-[11px] p-2 text-neutral-300 gap-0 justify-center items-center rounded-none '
 
   const fixedIconStyles = 'min-w-[17px] min-h-[17px]'
 </script>
@@ -95,6 +95,7 @@
                 {@const subCatActive = $libraryActiveSubCategories.includes(subCategory.id)}
 
                 <button
+                  class:hidden={subCategory.hidden}
                   class={classNames(
                     'w-full text-left text-[14px] bg-surface-800 p-[3px] px-2 flex items-center gap-2 text-ellipsis overflow-hidden ...',
                     {
