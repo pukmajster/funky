@@ -7,7 +7,6 @@
 
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())
-  $: console.log('profiles:', $profiles)
 
   $: {
     const activeProfile = $profiles?.find((p) => p.id === activeProfileId)

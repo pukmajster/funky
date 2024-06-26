@@ -19,7 +19,6 @@
   }
 
   $: {
-    console.log('activeProfile', $activeProfile)
     libraryActiveAddons.set($activeProfile?.enabledAddonIds ?? [])
   }
 </script>
