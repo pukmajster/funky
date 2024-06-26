@@ -13,7 +13,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [x] Automatic mod categorization based on mod contents
 - [x] Much more detailed mod overview with useful actions
 - [x] Conflict solving menu, showing you exactly which mods are conflicting
-- [x] Profiles, letting you quickly hop between different setups
+- [x] Playlists, letting you quickly hop between different setups
 - [x] Shuffles, randomizing your mod selection every time you boot up the game
 - [x] Batch selection of mods with various actions
 - [x] Unsubscribing from mods via Steam Web API
@@ -24,7 +24,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 - [ ] Campaigns category
 - [ ] Improved shuffle dragging behaviour
 - [ ] Feedback UI for empty search query results
-- [ ] Profile deletion
+- [ ] Playlist deletion
 - [ ] Shuffle option to allow no mod being chosen
 
 ## Unplanned ideas
@@ -37,7 +37,7 @@ Here are some ideas or features that may or may not be considered in the future
 - [ ] Online data backup
 - [ ] Collections
 - [ ] Vocalizer editor
-- [ ] Profile duplication
+- [ ] Playlist duplication
 
 ## Caveats
 

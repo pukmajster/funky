@@ -18,8 +18,8 @@
   function promptNewProfileModal() {
     modalStore.trigger({
       type: 'prompt',
-      title: 'New profile',
-      body: 'Enter the name of the new profile',
+      title: 'New playlist',
+      body: 'Enter the name of the new playlist',
       value: '',
       valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
       response: (r: string) => {
@@ -42,8 +42,8 @@
 
     modalStore.trigger({
       type: 'prompt',
-      title: 'Edit Profile: ' + profileName,
-      body: 'Rename the profile',
+      title: 'Edit Playlist: ' + profileName,
+      body: 'Rename the playlist',
       value: profileName,
       valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
       response: (r: string) => {
@@ -61,7 +61,7 @@
     class="flex border border-solid border-surface-600 flex-grow !z-50 items-stretch rounded-md overflow-hidden shadow-lg bg-surface-700"
   >
     <div class="w-[360px] p-4 space-y-2 bg-surface-800">
-      <h4 class="h4">Profile</h4>
+      <h4 class="h4">Playlists</h4>
 
       {#if !!$profiles}
         <ListBox>
@@ -80,11 +80,11 @@
       <div class="space-y-2">
         <div class="flex justify-between gap-2">
           <button class="btn btn-sm variant-ghost" on:click={promptEditProfileModal}
-            >Edit Profile</button
+            >Edit Playlist</button
           >
 
           <button class="btn btn-sm variant-filled" on:click={promptNewProfileModal}
-            >New Profile</button
+            >New Playlist</button
           >
         </div>
       </div>

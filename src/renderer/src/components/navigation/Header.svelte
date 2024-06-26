@@ -9,7 +9,7 @@
     type PopupSettings,
     ProgressRadial
   } from '@skeletonlabs/skeleton'
-  import { HelpCircleIcon, InfoIcon, LucidePlay, RefreshCw, Settings } from 'lucide-svelte'
+  import { HelpCircleIcon, InfoIcon, LucideListTodo, RefreshCw, Settings } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../../api/api'
   import { isRequestingGameManifest, requestManifest } from '../../stores/manifest'
@@ -113,19 +113,21 @@
         use:popup={popupClick}
         class="bg-primary-700/50 hover:bg-primary-700/70 flex items-center px-4 py-1 flex-1 h-full"
       >
-        <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-1" alt="" />
+        <LucideListTodo size={21} />
+        <!-- <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-1" alt="" /> -->
 
-        <div class="flex pl-2 gap-1 flex-col justify-evenly items-start [&>*]:leading-none">
-          <span class="text-sm">Left 4 Dead 2</span>
-          <span class="text-[12px]">{$activeProfile?.label}</span>
+        <div class="flex pl-2 gap-[2px] flex-col justify-evenly items-start [&>*]:leading-none">
+          <span class="text-[12px]">Selected Playlist</span>
+          <span class="text-sm font-semibold">{$activeProfile?.label}</span>
         </div>
       </button>
 
       <button
-        class="flex items-center px-4 bg-primary-500 hover:bg-primary-500/60"
+        class="flex items-center pr-4 pl-3 bg-primary-500 hover:bg-primary-500/80"
         on:click={launchGame}
       >
-        <LucidePlay class="mr-2" size={16} />
+        <!-- <LucidePlay class="mr-2" size={16} /> -->
+        <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-2" alt="" />
         Play
       </button>
     </div>
