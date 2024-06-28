@@ -860,6 +860,14 @@ export const game550: Game = {
             }
           },
           {
+            id: 'sound',
+            label: 'Sound',
+            matches: {
+              files: [],
+              references: ['.wav']
+            }
+          },
+          {
             id: 'water',
             label: 'Water',
             matches: {
