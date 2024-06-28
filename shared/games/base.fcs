@@ -1,0 +1,21 @@
+namespace 550
+
+template gun(soundId, worldId, viewmodelId) 
+[
+  "sound/weapons/$soundId/",
+  "models/w_models/weapons/w_$worldId.",
+  "models/v_models/v_$viewmodelId."
+]
+
+template survivor (id)
+[
+  "models/survivors/survivor_$id.",
+  "/survivors/$id/"
+]
+
+category guns {
+  subcategory weapon_ak47 {
+    reference gun("ak47")
+    
+  }
+}
