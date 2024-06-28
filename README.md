@@ -2,7 +2,7 @@
 
 Funky is an open-source mods manager for Left 4 Dead 2, developed with Electron, Dexie, Svelte and Skeleton UI.
 
-![App](/resources/app.png)
+![App](/resources/funky.png)
 
 Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted something that gives me more functionality, like search and a better method of solving conflicts, but the scope has since gotten much broader with lots of other great features and QoL improvements that are not possible in the in-game menu.
 
