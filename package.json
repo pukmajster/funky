@@ -4,7 +4,12 @@
   "description": "Open-source mods manager for Source Engine games",
   "main": "./out/main/index.js",
   "author": "Žan Pukmajster",
-  "homepage": "https://github.com/pukmajster/funky",
+  "homepage": "https://pukmajster.github.io/funky",
+  "repository": "https://github.com/pukmajster/funky",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -17,7 +22,8 @@
     "postinstall": "electron-builder install-app-deps",
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "npm run build && electron-builder --mac --config",
-    "build:linux": "npm run build && electron-builder --linux --config"
+    "build:linux": "npm run build && electron-builder --linux --config",
+    "dist": "npm run build && electron-builder --linux --win --config"
   },
   "build": {
     "productName": "Funky",

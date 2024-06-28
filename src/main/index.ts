@@ -15,6 +15,10 @@ import { writeAddonList } from './addonlist'
 import { requestGameManifest } from './manifest'
 import { openDirectory, openWorkingDirectory, readUserFile, writeUserFile } from './user'
 import { createVpk, extractVpk, uninstallAddons } from './vpk'
+import { autoUpdater, AppUpdater } from 'electron-updater'
+
+autoUpdater.autoDownload = false
+autoUpdater.autoInstallOnAppQuit = false
 
 ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestParams) =>
   requestGameManifest(params)
@@ -119,6 +123,8 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+
+  autoUpdater.checkForUpdatesAndNotify()
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
