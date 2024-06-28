@@ -1,4 +1,4 @@
-import { VPK, VPKcreator } from 'vpk'
+const VPK = require('vpk')
 import { AddonId, CreateVpkOptions, ExportVpkOptions, UninstallAddonsParams } from 'shared'
 import games from 'shared/games'
 import path from 'path'
@@ -72,9 +72,9 @@ export function createVpk({ sourceDirectory, writeDirectory, vpkName }: CreateVp
 
   try {
     console.log(`Creating vpk from ${fullSourceDirectory} to ${fullWriteDirectory}`)
-    const targetVpk = new VPKcreator(fullSourceDirectory)
-    targetVpk.load()
-    targetVpk.save(fullWriteDirectory)
+    // const targetVpk = new VPKcreator(fullSourceDirectory)
+    // targetVpk.load()
+    // targetVpk.save(fullWriteDirectory)
   } catch (err) {
     console.error(err)
     throw new Error("Couldn't create vpk")

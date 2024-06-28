@@ -10,7 +10,7 @@ export function pathsToTree(paths: string[]): PathTreeEntry[] {
   let level = { result }
 
   paths.forEach((path) => {
-    path.split('/').reduce((r, name, i, a) => {
+    path.split('/').reduce((r, name) => {
       if (!r[name]) {
         r[name] = { result: [] }
         r.result.push({ name, children: r[name].result })

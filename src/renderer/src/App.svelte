@@ -1,67 +1,55 @@
 <script lang="ts">
   import { AppShell, Modal, ProgressBar, Toast } from '@skeletonlabs/skeleton'
   import Config from './Config.svelte'
-  import AddonLibrary from './components/AddonLibrary.svelte'
-  import CategoriesPanel from './components/CategoriesPanel.svelte'
   import Drawers from './components/Drawers.svelte'
-  import Header from './components/Header.svelte'
+  import Header from './components/navigation/Header.svelte'
   import WelcomeGuide from './components/WelcomeGuide.svelte'
   import { userStore } from './stores/user'
-
   import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom'
   import { storePopup } from '@skeletonlabs/skeleton'
-  import Conflicts from './components/Conflicts.svelte'
-  import ShufflesManager from './components/ShufflesManager.svelte'
   import { isRequestingGameManifest, requestManifest } from './stores/manifest'
+  import LibraryStateManager from './components/library/LibraryStateManager.svelte'
+  import CategoriesPanel from './components/library/CategoriesPanel.svelte'
+  import AddonLibrary from './components/library/AddonLibrary.svelte'
+  import { onMount } from 'svelte'
+  import Conflicts from './components/library/Conflicts.svelte'
   import { view } from './stores/view'
-  import ToolsPage from './components/ToolsPage.svelte'
+  import LibraryShuffles from './components/library/LibraryShuffles.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
-  $: activeGameId = $userStore?.activeGameId
+  $: activeProfileId = $userStore?.activeProfileId
 
-  $: activeProfile = $userStore?.games[activeGameId]?.profiles.find(
-    (profile) => profile.id == $userStore.games[activeGameId].activeProfileId
-  )
-
-  $: {
-    activeGameId && !activeProfile && userStore.setupGameWithDefaultProfile(activeGameId)
-  }
-
-  $: {
-    activeGameId && requestManifest('cached')
-  }
+  onMount(() => {
+    requestManifest('cached')
+  })
 </script>
 
 <Config />
 
 {#if ($userStore?.hasFinishedFirstTimeSetup ?? false) === false}
   <WelcomeGuide />
-{:else if !activeProfile}
-  waiting for active profile.default..
-{:else if $userStore?.activeGameId === undefined}
-  <div class="flex flex-col items-center justify-center h-full">
-    <h1 class="text-3xl font-bold">No game selected</h1>
-    <p class="text-center">Please select a game from the dropdown in the header to get started.</p>
-  </div>
+{:else if activeProfileId === undefined}
+  <p>waiting for active profile.default..</p>
 {:else if $userStore !== undefined}
+  <LibraryStateManager />
+
   <AppShell slotHeader="z-30" slotSidebarRight="">
     <svelte:fragment slot="header">
       <Header />
     </svelte:fragment>
 
     <svelte:fragment slot="sidebarLeft">
-      <CategoriesPanel bind:profile={activeProfile} />
+      <CategoriesPanel />
     </svelte:fragment>
 
-    <AddonLibrary bind:profile={activeProfile} />
+    <AddonLibrary />
 
     <Conflicts />
-
-    <ToolsPage />
+    <!--  <ToolsPage /> -->
 
     <svelte:fragment slot="sidebarRight">
       {#if $view == 'shuffles'}
-        <ShufflesManager />
+        <LibraryShuffles />
       {/if}
     </svelte:fragment>
   </AppShell>

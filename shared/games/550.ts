@@ -860,6 +860,14 @@ export const game550: Game = {
             }
           },
           {
+            id: 'sound',
+            label: 'Sound',
+            matches: {
+              files: [],
+              references: ['.wav']
+            }
+          },
+          {
             id: 'water',
             label: 'Water',
             matches: {
@@ -926,6 +934,23 @@ export const game550: Game = {
             matches: {
               files: [],
               references: [`materials/vgui/loadingscreen_`]
+            }
+          }
+        ]
+      },
+      {
+        id: 'campaigns',
+        label: 'Maps',
+        image: assets.campaign,
+        subCategories: [
+          {
+            id: 'campaign',
+            label: 'Campaign',
+            allowSingleAddonRandomization: false,
+            hidden: true,
+            matches: {
+              files: [],
+              references: ['missions/']
             }
           }
         ]

@@ -1,8 +1,7 @@
-import type { Addon, AddonId, Profile } from 'shared'
+import type { Addon, AddonId } from 'shared'
 import { derived, writable } from 'svelte/store'
 import { arraysShareValues } from '../utils'
 import { currentGameManifest } from './manifest'
-import { userStore } from './user'
 
 export const librarySearchQueue = writable('')
 export const libraryActiveCategory = writable<string>('all')
@@ -18,11 +17,12 @@ export const derivedSingleActiveSubCategory = derived(
 
 export const addonOverviewId = writable<AddonId | null>(null)
 
+// Library pagination
 export const libraryPage = writable<number>(1)
 export const libraryPageSize = writable<number>(50)
-
 export const libraryPageSizes = [20, 50, 100, 200, 500, 1000, 9999] as const
 
+// Library filters
 export type SortingType =
   | 'name_asc'
   | 'name_desc'
@@ -39,69 +39,87 @@ export type TypeOfMod =
   | 'enabled/shuffled'
   | 'hidden'
   | 'uninstalled'
-
 export type AddonSource = 'workshop' | 'local' | 'all'
-
 export const typeToShow = writable<TypeOfMod>('any')
 export const sortingType = writable<SortingType>('time_newest')
 export const addonSource = writable<AddonSource>('all')
 
+// Addon selection
 export const librarySelectedAddonIds = writable<AddonId[]>([])
 
+// Unsubscribing from Steam Workshop mods
 export const isUnsubscribeOngoing = writable(false)
 export const unsubscribeQueue = writable<AddonId[]>([])
 export const unsubscribedItemsThisSession = writable<AddonId[]>([])
 
+// Pull the list of installed addons from the current game manifest
 export const installedAddons = derived([currentGameManifest], ([$currentGameManifest]) => {
   return $currentGameManifest?.installedAddons ?? []
 })
 
+// const activeProfileId = get(userStore)?.activeProfileId
+// const activeProfileObservable = liveQuery(
+//   async () => await db.profiles.get({ id: activeProfileId })
+// )
+
+// const sub = activeProfileObservable.subscribe({
+//   next: (profile) => {
+//     console.log('Profile changed', profile)
+//     libraryActiveAddons.set(profile.enabledAddonIds)
+//     libraryAddonIdsInEnabledShuffles.set([])
+//   },
+//   error: (error) => {
+//     console.error('Error', error)
+//   }
+// })
+
+export const libraryActiveAddons = writable<AddonId[]>([])
+export const libraryAddonIdsInEnabledShuffles = writable<AddonId[]>([])
+
 // Derive active addons from the current active profiile for the current game
-export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
-  const activeAddons: AddonId[] = []
+// export const libraryActiveAddons = derived([userStore], ([$userStore]) => {
+//   const activeAddons: AddonId[] = []
 
-  const { games, activeGameId } = $userStore
-  const activeProfileId = games[activeGameId]?.activeProfileId
+//   const activeProfileId = $userStore.activeProfileId
+//   if (!activeProfileId) return activeAddons
 
-  if (!games) return activeAddons
-  if (!activeProfileId) return activeAddons
+//   // const profile: Profile = games[activeGameId]?.profiles.find(
+//   //   (profile) => profile.id === activeProfileId
+//   // ) as Profile
+//   // if (!profile) return activeAddons
 
-  const profile: Profile = games[activeGameId]?.profiles.find(
-    (profile) => profile.id === activeProfileId
-  ) as Profile
-  if (!profile) return activeAddons
+//   // profile.enabledAddonIds.forEach((addonId) => {
+//   //   activeAddons.push(addonId)
+//   // })
 
-  profile.enabledAddonIds.forEach((addonId) => {
-    activeAddons.push(addonId)
-  })
-
-  return activeAddons
-})
+//   // return activeAddons
+// })
 
 // Derive list of all addons that are in active shuffles
-export const derviedAddonIdsInEnabledShuffles = derived([userStore], ([$userStore]) => {
-  const activeGameId = $userStore?.activeGameId
-  const activeProfileId = $userStore?.games[activeGameId]?.activeProfileId
+// export const libraryAddonIdsInEnabledShuffles = derived([userStore], ([$userStore]) => {
+//   const activeGameId = L4D2_GAME_ID
+//   const activeProfileId = $userStore?.activeProfileId
 
-  const shuffles = $userStore?.games[activeGameId]?.profiles.find(
-    (profile) => profile.id === activeProfileId
-  )?.shuffles
+//   const shuffles = []
+//   //   $userStore?.games[activeGameId]?.profiles.find(
+//   //   (profile) => profile.id === activeProfileId
+//   // )?.shuffles
 
-  const shuffledAddonIds: string[] = []
+//   const shuffledAddonIds: string[] = []
 
-  if (!shuffles) return []
+//   if (!shuffles) return []
 
-  Object.keys(shuffles).forEach((subCategoryId) => {
-    const shuffle = shuffles[subCategoryId]
-    if (!shuffle.enabled) return
-    console.log(shuffle)
-    shuffle.shuffledAddonIds.forEach((addonId) => {
-      shuffledAddonIds.push(addonId)
-    })
-  })
+//   Object.keys(shuffles).forEach((subCategoryId) => {
+//     const shuffle = shuffles[subCategoryId]
+//     if (!shuffle.enabled) return
+//     console.log(shuffle)
+//     shuffle.shuffledAddonIds.forEach((addonId) => {
+//       shuffledAddonIds.push(addonId)
+//     })
+//   })
 
-  return shuffledAddonIds
-})
+//   return shuffledAddonIds
+// })
 
 export const isDraggingAddon = writable(false)
 
@@ -113,7 +131,7 @@ export const libraryAddonPool = derived(
     libraryActiveCategory,
     typeToShow,
     libraryActiveAddons,
-    derviedAddonIdsInEnabledShuffles,
+    libraryAddonIdsInEnabledShuffles,
     installedAddons,
     addonSource
   ],
@@ -124,7 +142,7 @@ export const libraryAddonPool = derived(
     $libraryActiveCategory,
     $typeToShow,
     $libraryActiveAddons,
-    $derviedAddonIdsInEnabledShuffles,
+    $libraryAddonIdsInEnabledShuffles,
     $installedAddons,
     $addonSource
   ]) => {
@@ -178,19 +196,19 @@ export const libraryAddonPool = derived(
           if (!$libraryActiveAddons.includes(addonId)) return
           break
         case 'shuffled':
-          if (!$derviedAddonIdsInEnabledShuffles.includes(addonId)) return
+          if (!$libraryAddonIdsInEnabledShuffles.includes(addonId)) return
           break
         case 'enabled/shuffled':
           if (
             !$libraryActiveAddons.includes(addonId) &&
-            !$derviedAddonIdsInEnabledShuffles.includes(addonId)
+            !$libraryAddonIdsInEnabledShuffles.includes(addonId)
           )
             return
           break
         case 'disabled':
           if (
             $libraryActiveAddons.includes(addonId) ||
-            $derviedAddonIdsInEnabledShuffles.includes(addonId)
+            $libraryAddonIdsInEnabledShuffles.includes(addonId)
           )
             return
           break

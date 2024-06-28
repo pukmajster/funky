@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+body {
+  max-width: 100vw;
+  background-color: #14111b;
+}
+
+.Hero {
+  height: 86vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 1rem;
+
+  img {
+    width: 100%;
+    max-width: 1300px;
+  }
+
+  @media screen and (max-width: 768px){
+    justify-content: start;
+    align-items: start;
+    height: auto;
+    padding: 3rem 2rem;
+  }
+}
+
+h1 {
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+h2 {
+  font-size: 2.6rem;
+  font-weight: 500;
+  margin: 0.6rem 0;
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 0.6rem 0;
+}
+
+.Features {
+  padding-top: 5rem;
+  background-color: black;
+}
+
+.Feature {
+  padding: 4rem 8rem;
+  background-color: black;
+
+  max-width: 1200px;
+  margin: 0 auto;
+
+  word-break:break-word;
+  text-overflow: clip;
+
+  @media screen and (max-width: 768px){
+    padding: 3rem 2rem;
+  }
+
+  img {
+    width: 100%;
+    max-width: 1300px;
+
+    margin-top: 2rem;
+    border-radius: 1rem;
+  }
+}
+
+footer {
+  background-color: #14111b;
+  background-color: black;
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+
+
+  @media screen and (max-width: 768px){
+    padding: 3rem 2rem;
+    flex-direction: column;
+  }
+}

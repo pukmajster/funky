@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import { User } from 'shared'
 const path = require('path')
 
-const PROFILE_PATH = path.join(app.getPath('userData'), 'user.json')
+const PROFILE_PATH = path.join(app.getPath('userData'), 'user2.json')
 
 export async function readUserFile(): Promise<User | undefined> {
   try {

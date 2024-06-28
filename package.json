@@ -1,10 +1,10 @@
 {
-  "name": "keith",
-  "version": "0.0.1",
+  "name": "funky",
+  "version": "0.1.1",
   "description": "Open-source mods manager for Source Engine games",
   "main": "./out/main/index.js",
-  "author": "https://github.com/pukmajster",
-  "homepage": "https://github.com/pukmajster/keith",
+  "author": "Žan Pukmajster",
+  "homepage": "https://github.com/pukmajster/funky",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -20,8 +20,8 @@
     "build:linux": "npm run build && electron-builder --linux --config"
   },
   "build": {
-    "productName": "Keith",
-    "appId": "keith",
+    "productName": "Funky",
+    "appId": "funky",
     "extraResources": {
       "from": "./renderer/src/assets",
       "to": "assets",
@@ -40,11 +40,11 @@
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^1.0.2",
     "classnames": "^2.3.2",
+    "dexie": "^4.0.7",
     "lucide-svelte": "^0.260.0",
     "nanoid": "^4.0.2",
     "node-vdf": "^0.0.3",
-    "vpk": "file:node-vpk",
-    "vpk2": "^0.2.0"
+    "vpk": "^0.2.0"
   },
   "devDependencies": {
     "@electron-toolkit/tsconfig": "^1.0.1",
