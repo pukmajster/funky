@@ -21,7 +21,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 
 ## Planned improvements
 
-- [ ] Campaigns category
+- [x] Campaigns category
 - [ ] Improved shuffle dragging behaviour
 - [ ] Feedback UI for empty search query results
 - [ ] Playlist deletion
