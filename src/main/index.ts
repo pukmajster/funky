@@ -15,7 +15,7 @@ import { writeAddonList } from './addonlist'
 import { requestGameManifest } from './manifest'
 import { openDirectory, openWorkingDirectory, readUserFile, writeUserFile } from './user'
 import { createVpk, extractVpk, uninstallAddons } from './vpk'
-import { autoUpdater, AppUpdater } from 'electron-updater'
+import { autoUpdater } from 'electron-updater'
 
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
