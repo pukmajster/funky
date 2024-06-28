@@ -1,6 +1,6 @@
 {
   "name": "funky",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Open-source mods manager for Source Engine games",
   "main": "./out/main/index.js",
   "author": "Žan Pukmajster",
@@ -21,7 +21,7 @@
   },
   "build": {
     "productName": "Funky",
-    "appId": "funky",
+    "appId": "com.pukmajster.funky",
     "extraResources": {
       "from": "./renderer/src/assets",
       "to": "assets",
@@ -29,11 +29,17 @@
         "**/*"
       ]
     },
+    "directories": {
+      "output": "./dist"
+    },
     "nsis": {
       "runAfterFinish": false
     },
     "linux": {
       "target": "AppImage"
+    },
+    "win": {
+      "target": "nsis"
     }
   },
   "dependencies": {
@@ -59,6 +65,7 @@
     "autoprefixer": "^10.4.14",
     "electron": "^24.6.2",
     "electron-builder": "^23.6.0",
+    "electron-updater": "^6.2.1",
     "electron-vite": "^1.0.25",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
