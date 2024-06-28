@@ -59,6 +59,12 @@ h3 {
   margin: 0.6rem 0;
 }
 
+h4 {
+  font-size:  2rem;
+  font-weight: 500;
+  margin: 0.6rem 0;
+}
+
 .Features {
   padding-top: 5rem;
   background-color: black;
@@ -86,6 +92,16 @@ h3 {
   }
 }
 
+nav {
+  display: flex;
+  justify-content: end;
+
+  .NavLink {
+    padding: 2rem;
+    color: white;
+  }
+}
+
 footer {
   background-color: #14111b;
   background-color: black;
@@ -99,5 +115,34 @@ footer {
 
   @media screen and (max-width: 1500px){
     padding: 3rem 2rem;
+  }
+}
+
+.Downloads {
+  padding-top: 1rem;
+  display: flex;
+  gap: 1rem;
+
+  @media screen and (max-width: 780px){
+    flex-direction: column;
+    
+    .DownloadButton {
+      font-size: 1rem;
+    }
+  }
+}
+
+.DownloadButton {
+  background-color: #e31818;
+  color: rgb(255, 255, 255);
+  padding: 1rem 2rem;
+  border-radius: 430px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #ffffff;
+    color: #e31818;
   }
 }
