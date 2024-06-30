@@ -23,7 +23,7 @@
 
   export let addon: Addon
   export let asShuffle: boolean = false
-  export let mode: 'in-shuffle-list' | 'card'
+  export let mode: 'in-shuffle-list' | 'card' | 'list'
 
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = L4D2_GAME_ID
@@ -67,16 +67,6 @@
     }
 
     activeProfileStore.toggleAddonEnabled(addon.id)
-
-    //if (isShuffled) {
-    //  if ($libraryActiveSubCategories.length == 0) return
-    //  userStore.toggleAddonShuffleForSubCategory($libraryActiveSubCategories[0], addon.id)
-    //  return
-    //}
-    // $derivedIsShuffleEnabledForSubCategory
-    //   ? userStore.toggleAddonShuffleForSubCategory(libraryActiveSubCategories[0], addon.id)
-    //   : userStore.toggleAddonEnabledState(addon.id)
-    //userStore.toggleAddonEnabledState(addon.id)
   }
 
   function dragStart(event) {
@@ -138,6 +128,9 @@
 
   const tagStyle =
     'absolute items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full backdrop-blur-md w-[60%] py-1 text-[12px] left-[50%] translate-x-[-50%] hidden'
+
+  const tagStyleList =
+    ' inline items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full px-4 py-1 text-[12px] hidden'
 </script>
 
 {#if mode == 'in-shuffle-list'}
@@ -158,7 +151,7 @@
 
     <span class="text-sm">{addon.addonInfo.title}</span>
   </div>
-{:else}
+{:else if mode == 'card'}
   <button
     on:mouseenter={handleMouseEnter}
     draggable={true}
@@ -211,6 +204,68 @@
         Shuffle
       </div>
     {/if}
+  </button>
+{:else if mode == 'list'}
+  <button
+    on:mouseenter={handleMouseEnter}
+    draggable={true}
+    on:dragstart={dragStart}
+    on:dragend={dragEnd}
+    on:contextmenu={openOverview}
+    class:selected
+    class:unselected={otherModsSelectedButNotThisOne && !selected}
+    class="relative shadow-md transition-transform p-2 bg-surface-700 rounded-md"
+    class:enabled={isEnabled}
+    class:asShuffle
+    class:unsubscribed={wasUnsubscribed}
+    on:click={handleClick}
+  >
+    <div class=" flex gap-2">
+      <img
+        alt="mod"
+        on:error={handleMissingThumbnail}
+        class=" rounded-md aspect-[5/3] w-[96px]"
+        src={thumbnail}
+      />
+
+      <div class="text-left flex flex-col justify-between">
+        <p>{addon.addonInfo.title}</p>
+
+        <div class="flex">
+          {#if !asShuffle}
+            <div class={tagStyleList} class:addonEnabled={isEnabled && !isConflicting}>
+              <Check class="w-4 mr-2" />
+              Enabled
+            </div>
+
+            <div class={tagStyleList} class:addonConflicting={isConflicting}>
+              <AlertTriangle class="w-4 mr-2" />
+              Conflicting
+            </div>
+
+            <div class={tagStyleList} class:addonUninstalled={!isInstalled}>
+              <AlertTriangle class="w-4 mr-2" />
+              Uninstalled
+            </div>
+
+            <div class={tagStyleList} class:addonShuffled={isShuffled}>
+              <Dices class="w-4 mr-2" />
+              Shuffle
+            </div>
+          {/if}
+        </div>
+      </div>
+
+      {#if selected}
+        <div
+          class="selected-overlay absolute inset-0 bg w-full h-full right-0 justify-center items-center flex"
+        >
+          <div class="backdrop-blur-lg rounded-full">
+            <CheckCircle2 size={64} />
+          </div>
+        </div>
+      {/if}
+    </div>
   </button>
 {/if}
 

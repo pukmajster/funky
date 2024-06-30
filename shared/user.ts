@@ -4,4 +4,5 @@ export interface User {
   enableNetworking: boolean
   activeProfileId?: number
   steamWebApiKey?: string
+  libraryDisplayMode?: 'grid' | 'list'
 }

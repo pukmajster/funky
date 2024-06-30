@@ -24,6 +24,7 @@
   import { liveQuery } from 'dexie'
   import { db } from '../../db/db'
   import { totalConflictingAddons } from '../../stores/conflicts'
+  import LibraryDisplayMode from '../library/LibraryDisplayMode.svelte'
 
   async function launchGame() {
     await writeAddonList()
@@ -168,6 +169,8 @@
           >{$totalConflictingAddons} Conflicts</Tab
         >
 
+        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab> -->
+
         <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
 
         <Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab> -->
@@ -181,6 +184,8 @@
           <ProgressRadial width="w-[21px]" value={undefined} />
         </span>
       {/if}
+
+      <LibraryDisplayMode />
     </div>
   </div>
 </div>

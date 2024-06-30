@@ -7,6 +7,7 @@
   let defaultConfig: User = {
     steamGamesDir: '',
     enableNetworking: true,
+    libraryDisplayMode: 'grid',
     hasFinishedFirstTimeSetup: false,
     activeProfileId: 1
   }

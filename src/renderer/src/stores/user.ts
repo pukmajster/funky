@@ -11,6 +11,16 @@ function createUserStore() {
   const store = writable<User | undefined>(undefined)
   const { subscribe, set, update } = store
 
+  // Generic function to set a value in the User store
+  function setValue<T extends keyof User>(key: T, value: User[T]) {
+    update((user) => {
+      return {
+        ...user,
+        [key]: value
+      }
+    })
+  }
+
   function setActiveGameId(gameId: number) {
     update((user) => {
       return {
@@ -53,7 +63,9 @@ function createUserStore() {
     setActiveGameId,
     setSteamGamesDir,
     setActiveProfileId,
-    resetFirstTimeSetup
+    resetFirstTimeSetup,
+
+    setValue
   }
 }
 
