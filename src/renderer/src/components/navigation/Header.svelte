@@ -169,11 +169,9 @@
           >{$totalConflictingAddons} Conflicts</Tab
         >
 
-        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab> -->
+        <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
 
-        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
-
-        <Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab> -->
+        <!--<Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab> -->
       </TabGroup>
     </div>
 
