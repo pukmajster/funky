@@ -21,6 +21,25 @@
 
   onMount(() => {
     requestManifest('cached')
+
+    async function persist() {
+      if (navigator.storage && navigator.storage.persist) {
+        const isPersisted = await navigator.storage.persist()
+        console.log(`Persisted: ${isPersisted}`)
+      } else {
+        console.error("can't persist indexedDB data.")
+      }
+
+      if (navigator.storage && navigator.storage.estimate) {
+        const estimation = await navigator.storage.estimate()
+        console.log(`Quota: ${estimation.quota}`)
+        console.log(`Usage: ${estimation.usage}`)
+      } else {
+        console.error('StorageManager not found')
+      }
+    }
+
+    persist()
   })
 </script>
 
