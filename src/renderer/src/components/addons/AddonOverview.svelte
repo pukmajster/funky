@@ -14,8 +14,6 @@
 
   export let addon: Addon
 
-  console.log('addon', addon)
-
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = L4D2_GAME_ID
   $: activeGameDetails = games[activeGameId] as Game
