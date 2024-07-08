@@ -7,7 +7,7 @@
   const modes: User['libraryDisplayMode'][] = ['grid', 'list']
 </script>
 
-<div class="flex items-center gap-2">
+<div class="flex items-center gap-2 hidden">
   {#each modes as mode}
     <button
       class="btn btn-xl btn-icon max-w-[32px] max-h-[32px]"
