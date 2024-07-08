@@ -1,11 +1,11 @@
 const validSteamGameDirEndings = [
   // Unix / Darwin
-  'Steam/steamapps',
-  'Steam/steamapps/',
+  '/steamapps',
+  '/steamapps/',
 
   // Windows
-  'Steam\\steamapps',
-  'Steam\\steamapps\\'
+  '\\steamapps',
+  '\\steamapps\\'
 ]
 
 export function isDirValidSteamGamesDir(dir: string): boolean {
