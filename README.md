@@ -8,7 +8,7 @@ Initially inspired by Left 4 Dead 2's terrible in-game addons menu, I wanted som
 
 Please note that Funky is still in beta / early development. Future updates may or may not introduce breaking changes that may or may not break user configurations.
 
-## Insitallation
+## Installation
 
 You can find the latest releases of Funky for Windows and Linux on the [Releases page](https://github.com/pukmajster/funky/releases).
 
