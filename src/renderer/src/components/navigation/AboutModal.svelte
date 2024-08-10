@@ -31,5 +31,7 @@
 
   <p>Shoutout to Valve and the modding community</p>
 
+  <p class="text-xs opacity-60">Funky 0.2.1</p>
+
   <button on:click={close} class="btn btn-sm variant-filled">Close</button>
 </div>
