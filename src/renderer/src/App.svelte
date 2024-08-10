@@ -15,12 +15,22 @@
   import Conflicts from './components/library/Conflicts.svelte'
   import { view } from './stores/view'
   import LibraryShuffles from './components/library/LibraryShuffles.svelte'
+  import vdf from 'shared/vdf'
+  import text from './assets/radialmenu'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
 
   onMount(() => {
     requestManifest('cached')
+
+    console.log('tokenizing')
+    const tokens = vdf.tokenize(text)
+
+    console.log('parsing')
+    const vdfAsJson = vdf.parse(tokens)
+    console.log(JSON.stringify(vdfAsJson, null, 2))
+    console.log(vdf.stringify(vdfAsJson, null, 0))
   })
 </script>
 

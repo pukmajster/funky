@@ -8,6 +8,7 @@ export * from './games'
 export * from './manifest'
 export * from './user'
 export * from './vpk'
+export * from './vdf'
 
 declare global {
   interface Window {
