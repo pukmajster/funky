@@ -9,5 +9,5 @@ const validSteamGameDirEndings = [
 ]
 
 export function isDirValidSteamGamesDir(dir: string): boolean {
-  return validSteamGameDirEndings.some((ending) => dir.endsWith(ending))
+  return validSteamGameDirEndings.some((ending) => dir.toLowerCase().endsWith(ending))
 }
