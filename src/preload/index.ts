@@ -5,6 +5,7 @@ import {
   RequestGameManifestParams,
   User,
   WriteAddonlistParams,
+  ReadAddonlistParams,
   ExportVpkOptions,
   UninstallAddonsParams,
   CreateVpkOptions
@@ -15,6 +16,7 @@ const api: BridgeApi = {
   requestGameManifest: (params: RequestGameManifestParams) =>
     ipcRenderer.invoke('requestGameManifest', params),
   writeAddonList: (params: WriteAddonlistParams) => ipcRenderer.invoke('addonlist:write', params),
+  readAddonList: (params: ReadAddonlistParams) => ipcRenderer.invoke('addonlist:read', params),
   openLinkInBrowser: (url: string) => openLinkInBrowser(url),
   writeUserFile: (profileData: User) => ipcRenderer.invoke('profile:write', profileData),
   readUserFile: () => ipcRenderer.invoke('profile:read'),
