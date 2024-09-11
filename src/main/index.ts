@@ -28,9 +28,9 @@ ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestPara
 ipcMain.handle('addonlist:write', async (_e, params: WriteAddonlistParams) => {
   return writeAddonList(params)
 })
-ipcMain.handle('addonlist:read', async (_e, params: ReadAddonlistParams) => {
-  return readAddonList(params)
-})
+ipcMain.handle('addonlist:read', async (_e, params) => {
+  return await readAddonList(params);
+});
 
 ipcMain.handle('profile:write', async (_e, profileData: User) => writeUserFile(profileData))
 ipcMain.handle('profile:read', async () => readUserFile())

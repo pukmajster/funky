@@ -52,10 +52,6 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<any | 
       }
     }
 
-    console.log(libraryActiveAddons)
-    libraryActiveAddons.set(resultActive)
-    console.log(get(libraryActiveAddons))
-
     return resultActive
   } catch {
     return 'An error happened'
