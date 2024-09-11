@@ -15,7 +15,7 @@ export interface BridgeApi {
   getPath: () => Promise<string>
   getPathJoin: (file: string) => Promise<string>
   writeAddonList: (params: WriteAddonlistParams) => Promise<void>
-  readAddonList: (params: ReadAddonlistParams) => Promise<string>
+  readAddonList: (params: ReadAddonlistParams) => Promise<string[]>
   extractVpk: (options: ExportVpkOptions) => Promise<void>
   uninstallAddons: (params: UninstallAddonsParams) => Promise<AddonId[]>
   createVpk: (options: CreateVpkOptions) => Promise<void>

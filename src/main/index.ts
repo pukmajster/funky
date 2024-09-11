@@ -28,7 +28,7 @@ ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestPara
 ipcMain.handle('addonlist:write', async (_e, params: WriteAddonlistParams) => {
   return writeAddonList(params)
 })
-ipcMain.handle('addonlist:read', async (_e, params) => {
+ipcMain.handle('addonlist:read', async (_e, params: ReadAddonlistParams) => {
   return await readAddonList(params);
 });
 

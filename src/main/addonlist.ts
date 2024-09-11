@@ -1,8 +1,6 @@
 import * as fs from 'fs'
 import { WriteAddonlistParams, ReadAddonlistParams } from 'shared'
-import { libraryActiveAddons } from '../renderer/src/stores/library'
-import type { Addon, AddonId } from 'shared'
-import { get } from 'svelte/store'
+import type {  AddonId } from 'shared'
 // Example usage
 
 const path = require('path')
@@ -22,9 +20,9 @@ export async function writeAddonList(params: WriteAddonlistParams): Promise<bool
     return false
   }
 }
-export async function readAddonList(params: ReadAddonlistParams): Promise<any | string> {
-  console.log('Reading addonlist.txt')
+export async function readAddonList(params: ReadAddonlistParams): Promise<string[] | string> {
 
+  console.log('Reading addonlist.txt')
   const dir = path.join(params.steamGamesDir, 'common', params.gameDir, '/addonlist.txt')
   console.log(dir)
 
@@ -37,7 +35,7 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<any | 
 
     let match
     const result: { txtAddonID: string; txtEnabled: boolean }[] = []
-    const resultActive: AddonId[] = []
+    const txtActiveAddon: AddonId[] = []
     // Loop through all matches
     while ((match = regex.exec(addonlist)) !== null) {
       const txtFoundAddonID: string = match[1]
@@ -48,12 +46,12 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<any | 
         txtEnabled: txtFoundEnabled
       })
       if (txtFoundEnabled) {
-        resultActive.push(txtFoundAddonID)
+        txtActiveAddon.push(txtFoundAddonID)
       }
     }
 
-    return resultActive
-  } catch {
+    return txtActiveAddon
+  } catch{
     return 'An error happened'
   }
 }
