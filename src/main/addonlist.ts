@@ -2,6 +2,7 @@ import * as fs from 'fs'
 import { WriteAddonlistParams, ReadAddonlistParams } from 'shared'
 import { libraryActiveAddons } from '../renderer/src/stores/library'
 import type { Addon, AddonId } from 'shared'
+import { get } from 'svelte/store'
 // Example usage
 
 const path = require('path')
@@ -21,7 +22,7 @@ export async function writeAddonList(params: WriteAddonlistParams): Promise<bool
     return false
   }
 }
-export async function readAddonList(params: ReadAddonlistParams): Promise<JSON> {
+export async function readAddonList(params: ReadAddonlistParams): Promise<any | string> {
   console.log('Reading addonlist.txt')
 
   const dir = path.join(params.steamGamesDir, 'common', params.gameDir, '/addonlist.txt')
@@ -30,32 +31,33 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<JSON> 
   try {
     const addonlist = await fs.promises.readFile(dir, 'utf-8')
     console.log('File succesfully read')
-    console.log(addonlist)
 
     // Regex to match workshop IDs and their enabled status
     const regex = /workshop\\(\d+)\.vpk"\s+"(\d)"/g
 
     let match
-    const result: { AddonID: string; Enabled: boolean }[] = [];
-    const resultActive: AddonId[] = [];
+    const result: { txtAddonID: string; txtEnabled: boolean }[] = []
+    const resultActive: AddonId[] = []
     // Loop through all matches
     while ((match = regex.exec(addonlist)) !== null) {
-      const addonID:string = match[1]
-      const enabled:boolean = parseInt(match[2], 2) === 1
+      const txtFoundAddonID: string = match[1]
+      const txtFoundEnabled: boolean = parseInt(match[2], 2) === 1
 
-      // resultActive.push({
-      //   id: addonID
-      // });
       result.push({
-        AddonID: addonID,
-        Enabled: enabled
+        txtAddonID: txtFoundAddonID,
+        txtEnabled: txtFoundEnabled
       })
-
+      if (txtFoundEnabled) {
+        resultActive.push(txtFoundAddonID)
+      }
     }
 
-    return JSON.parse(JSON.stringify(result, null, 2));
+    console.log(libraryActiveAddons)
+    libraryActiveAddons.set(resultActive)
+    console.log(get(libraryActiveAddons))
+
+    return resultActive
   } catch {
-    console.log("An error happened");
-    return JSON.parse("An error happened");
+    return 'An error happened'
   }
 }
