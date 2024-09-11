@@ -4,7 +4,8 @@
   import { userStore } from '../../stores/user'
   import SteamGamesDirectoryManager from '../SteamGamesDirectoryManager.svelte'
   import { writeAddonList } from '../../api/api'
-
+  import { get } from 'svelte/store'
+  import games from 'shared/games'
   function close() {
     modalStore.close()
   }
@@ -16,7 +17,15 @@
   function openWorkingDir() {
     window.api.openWorkingDirectory()
   }
+  async function readAddonList() {
+    const user = get(userStore)
 
+    const text = await window.api.readAddonList({
+      steamGamesDir: user.steamGamesDir,
+      gameDir: `${games[550].rootDirectoryName}/${games[550].gameDirectory}`
+    })
+    console.log(text)
+  }
   let tabSet: 'game dir' | 'dev' | 'networking' = 'game dir'
 </script>
 
@@ -44,6 +53,7 @@
             <button class="btn variant-filled" on:click={userStore.resetFirstTimeSetup}
               >reset first time setup</button
             >
+            <button class="btn variant-filled" on:click={readAddonList}>read addonlist</button>
             <button class="btn variant-filled" on:click={writeAddonList}>write addonlist</button>
           </div>
         {:else if tabSet === 'networking'}

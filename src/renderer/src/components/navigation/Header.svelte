@@ -25,7 +25,7 @@
   import { db } from '../../db/db'
   import { totalConflictingAddons } from '../../stores/conflicts'
   import LibraryDisplayMode from '../library/LibraryDisplayMode.svelte'
-  import { get } from 'svelte/store'
+
   async function launchGame() {
     await writeAddonList()
     //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
@@ -46,15 +46,7 @@
 
     modalStore.trigger(modal)
   }
-  async function test() {
-    const user = get(userStore)
 
-    const text = await window.api.readAddonList({
-      steamGamesDir: user.steamGamesDir,
-      gameDir: `${games[550].rootDirectoryName}/${games[550].gameDirectory}`
-    })
-    console.log(text)
-  }
   function openHelpModal() {
     const modalComponent: ModalComponent = {
       ref: HelpModal,
@@ -99,11 +91,6 @@
       <button class="btn btn-sm variant-filled-surface" on:click={openSettingsModal}>
         <Settings size={16} class="mr-2" />
         Settings
-      </button>
-
-      <button class="btn btn-sm variant-filled-surface" on:click={test}>
-        <RefreshCw size={16} class="mr-2" />
-        AL
       </button>
 
       <button
