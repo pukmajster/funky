@@ -61,7 +61,25 @@ export async function writeAddonList(): Promise<void> {
     data: outputVdfString
   })
 }
+export async function readAddonList() {
+  const user = get(userStore)
 
+  try {
+    const enabledAddonIds = await window.api.readAddonList({
+      steamGamesDir: user.steamGamesDir,
+      gameDir: `${games[550].rootDirectoryName}/${games[550].gameDirectory}`
+    })
+
+    if (typeof enabledAddonIds !== 'string') {
+      // Update DB with the addonlist
+      activeProfileStore.addonListEnabled(enabledAddonIds)
+    } else {
+      console.error('Error reading addon list:', enabledAddonIds)
+    }
+  } catch (error) {
+    console.error('Failed to read addon list:', error)
+  }
+}
 export async function extractVpk(params: ExportVpkOptions) {
   window.api.extractVpk(params)
 }
