@@ -6,7 +6,7 @@
   import { writeAddonList } from '../../api/api'
   import { get } from 'svelte/store'
   import games from 'shared/games'
-  import { libraryActiveAddons } from '../../stores/library'
+  import { activeProfileStore } from '../../stores/active-profile'
   function close() {
     modalStore.close()
   }
@@ -25,16 +25,16 @@
       const enabledAddonIds = await window.api.readAddonList({
         steamGamesDir: user.steamGamesDir,
         gameDir: `${games[550].rootDirectoryName}/${games[550].gameDirectory}`
-      });
+      })
 
       if (typeof enabledAddonIds !== 'string') {
-        // Update the reactive store with the enabled addon IDs
-        libraryActiveAddons.set(enabledAddonIds);
+        // Update DB with the addonlist
+        activeProfileStore.addonListEnabled(enabledAddonIds)
       } else {
-        console.error('Error reading addon list:', enabledAddonIds);
+        console.error('Error reading addon list:', enabledAddonIds)
       }
     } catch (error) {
-      console.error('Failed to read addon list:', error);
+      console.error('Failed to read addon list:', error)
     }
   }
   let tabSet: 'game dir' | 'dev' | 'networking' = 'game dir'

@@ -46,7 +46,7 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
         txtEnabled: txtFoundEnabled
       })
       if (txtFoundEnabled) {
-        txtActiveAddon.push(txtFoundAddonID)
+        txtActiveAddon.push("workshop/"+txtFoundAddonID+".vpk")
       }
     }
 
