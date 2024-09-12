@@ -3,8 +3,7 @@
   import { X } from 'lucide-svelte'
   import { userStore } from '../../stores/user'
   import SteamGamesDirectoryManager from '../SteamGamesDirectoryManager.svelte'
-  import { writeAddonList } from '../../api/api'
-  import { readAddonList } from '../../api/api'
+  import { writeAddonList, readAddonList } from '../../api/api'
   function close() {
     modalStore.close()
   }
