@@ -1,9 +1,7 @@
 import * as fs from 'fs'
 import { WriteAddonlistParams, ReadAddonlistParams } from 'shared'
 import type {  AddonId } from 'shared'
-// Example usage
-
-const path = require('path')
+import path from 'path'
 
 export async function writeAddonList(params: WriteAddonlistParams): Promise<boolean> {
   console.log('Writing addonlist.txt to disk...')
@@ -33,10 +31,14 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
     // Regex to match workshop IDs and their enabled status
     const regex = /workshop\\(\d+)\.vpk"\s+"(\d)"/g
 
-    let match
+    //rebundant variable that might be useful for future use
     const result: { txtAddonID: string; txtEnabled: boolean }[] = []
+
+    //Store AddonIds that are active in the addonlist
     const txtActiveAddon: AddonId[] = []
-    // Loop through all matches
+
+    // Loop through all matches with regex sorcery
+    let match
     while ((match = regex.exec(addonlist)) !== null) {
       const txtFoundAddonID: string = match[1]
       const txtFoundEnabled: boolean = parseInt(match[2], 2) === 1
@@ -46,6 +48,7 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
         txtEnabled: txtFoundEnabled
       })
       if (txtFoundEnabled) {
+        //Re add workshop/ and file extension, so that it properly gets detected afterwards
         txtActiveAddon.push("workshop/"+txtFoundAddonID+".vpk")
       }
     }
