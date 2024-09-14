@@ -4,7 +4,8 @@
   import { db } from '../../db/db'
   import { liveQuery } from 'dexie'
   import { activeProfileStore } from '../../stores/active-profile'
-
+  import { X } from 'lucide-svelte'
+  import { deleteProfile } from '../../api/api'
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())
 
@@ -54,6 +55,23 @@
       }
     })
   }
+
+  function promptConfirmDeleteProfile(profileId) {
+    const profileName = $profiles.find((p) => p.id === profileId)?.label
+
+    if (!profileName) return console.error('No profile name found')
+
+    modalStore.trigger({
+      type: 'confirm',
+      title: 'Delete Playlist ' + profileName + '?',
+      body: 'Are you sure you wish to proceed?',
+      response: (r: boolean) => {
+        if (r) {
+          deleteProfile(profileId)
+        }
+      }
+    })
+  }
 </script>
 
 <div data-popup="gameManagerPopup">
@@ -69,8 +87,22 @@
             <ListBoxItem
               bind:group={$userStore.activeProfileId}
               name={`${profile.id}`}
-              value={profile.id}>{profile.label}</ListBoxItem
+              value={profile.id}
             >
+              <div class="flex justify-between items-center w-full">
+                <p>{profile.label}</p>
+                <!-- if profile id 1 or 2, skip delete button, they are default profiles -->
+                {#if profile.id !== 1 && profile.id !== 2}
+                <button
+                  class="hover:bg-red-300 rounded-full"
+                  style="padding: 2px;"
+                  on:click={() => promptConfirmDeleteProfile(profile.id)}
+                >
+                  <X color="#ff0000" size={22} />
+                </button>
+                {/if}
+              </div>
+            </ListBoxItem>
           {/each}
         </ListBox>
       {/if}
