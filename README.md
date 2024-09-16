@@ -25,18 +25,13 @@ You can find the latest releases of Funky for Windows and Linux on the [Releases
 - [x] Unsubscribing from mods via Steam Web API
 - [x] VPK browser with extraction functionality
 
-## Planned improvements
-
-- [x] Campaigns category
-- [ ] Improved shuffle dragging behaviour
-- [ ] Feedback UI for empty search query results
-- [ ] Playlist deletion
-- [ ] Shuffle option to allow no mod being chosen
-
-## Unplanned ideas
+## Ideas
 
 Here are some ideas or features that may or may not be considered in the future
 
+- [ ] Improved shuffle dragging behaviour
+- [ ] Feedback UI for empty search query results
+- [ ] Shuffle option to allow no mod being chosen
 - [ ] List view of mods
 - [ ] Built-in custom config/autoexec editor
 - [ ] Local data backup
