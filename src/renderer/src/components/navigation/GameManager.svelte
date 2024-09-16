@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { ListBox, ListBoxItem, modalStore } from '@skeletonlabs/skeleton'
+  import { modalStore } from '@skeletonlabs/skeleton'
   import { userStore } from '../../stores/user'
   import { db } from '../../db/db'
   import { liveQuery } from 'dexie'
   import { activeProfileStore } from '../../stores/active-profile'
-  import { X } from 'lucide-svelte'
+  import { Trash, Pencil } from 'lucide-svelte'
   import { deleteProfile } from '../../api/api'
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())
@@ -35,15 +35,14 @@
     })
   }
 
-  function promptEditProfileModal() {
-    const profileId = activeProfileId
+  function promptEditProfileModal(profileId) {
     const profileName = $profiles.find((p) => p.id === profileId)?.label
 
     if (!profileName) return console.error('No profile name found')
 
     modalStore.trigger({
       type: 'prompt',
-      title: 'Edit Playlist: ' + profileName,
+      title: `Edit Playlist "${profileName}"`,
       body: 'Rename the playlist',
       value: profileName,
       valueAttr: { type: 'text', minlength: 1, maxlength: 64, required: true },
@@ -63,7 +62,7 @@
 
     modalStore.trigger({
       type: 'confirm',
-      title: 'Delete Playlist ' + profileName + '?',
+      title: `Delete Playlist "${profileName}"?`,
       body: 'Are you sure you wish to proceed?',
       response: (r: boolean) => {
         if (r) {
@@ -82,42 +81,51 @@
       <h4 class="h4">Playlists</h4>
 
       {#if !!$profiles}
-        <ListBox>
+        <div class="grid grid-cols-1 bg-surface-500 overflow-hidden rounded-lg">
           {#each $profiles as profile}
-            <ListBoxItem
-              bind:group={$userStore.activeProfileId}
-              name={`${profile.id}`}
-              value={profile.id}
+            {@const isEnabled = $userStore.activeProfileId === profile.id}
+            <div
+              data-enabled={isEnabled}
+              class="flex overflow-hidden [&:not(:last-child)]:border-b border-surface-800 data-[enabled=true]:bg-slate-200 data-[enabled=true]:text-black data-[enabled=false]:hover:bg-surface-600"
             >
-              <div class="flex justify-between items-center w-full">
-                <p>{profile.label}</p>
-                <!-- if profile id 1 or 2, skip delete button, they are default profiles -->
-                {#if profile.id !== 1 && profile.id !== 2}
+              <button
+                on:click={() => ($userStore.activeProfileId = profile.id)}
+                class="flex-1 h-[42px] pl-3 flex justify-between items-center"
+              >
+                <span class=" max-w-[200px] text text-ellipsis whitespace-nowrap overflow-hidden"
+                  >{profile.label}
+                </span>
+              </button>
+
+              {#if profile.id !== 1 && profile.id !== 2}
                 <button
-                  class="hover:bg-red-300 rounded-full"
-                  style="padding: 2px;"
+                  data-enabled={isEnabled}
+                  class="hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square grid place-items-center"
                   on:click={() => promptConfirmDeleteProfile(profile.id)}
                 >
-                  <X color="#ff0000" size={22} />
+                  <Trash color="#d4163c" size={18} />
                 </button>
-                {/if}
-              </div>
-            </ListBoxItem>
+              {/if}
+
+              <button
+                data-enabled={isEnabled}
+                class="hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square grid place-items-center"
+                on:click={() => promptEditProfileModal(profile.id)}
+              >
+                <Pencil size={18} />
+              </button>
+            </div>
           {/each}
-        </ListBox>
+        </div>
       {/if}
 
-      <div class="pb-3" />
+      <div class="pb-1" />
 
       <div class="space-y-2">
-        <div class="flex justify-between gap-2">
-          <button class="btn btn-sm variant-ghost" on:click={promptEditProfileModal}
-            >Edit Playlist</button
-          >
-
-          <button class="btn btn-sm variant-filled" on:click={promptNewProfileModal}
-            >New Playlist</button
-          >
+        <div class="flex justify-end gap-2">
+          <button class="btn btn-sm variant-filled" on:click={promptNewProfileModal}>
+            New Playlist
+          </button>
         </div>
       </div>
     </div>
