@@ -97,7 +97,7 @@
                 </span>
               </button>
 
-              {#if profile.id !== 1 && profile.id !== 2}
+              {#if profile.id !== 1}
                 <button
                   data-enabled={isEnabled}
                   class="hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square grid place-items-center"
