@@ -119,7 +119,10 @@
 
         <div class="flex pl-2 gap-[2px] flex-col justify-evenly items-start [&>*]:leading-none">
           <span class="text-[12px]">Selected Playlist</span>
-          <span class="text-sm font-semibold">{$activeProfile?.label}</span>
+          <span
+            class="text-sm font-semibold max-w-[128px] text-ellipsis whitespace-nowrap overflow-hidden"
+            >{$activeProfile?.label}</span
+          >
         </div>
       </button>
 

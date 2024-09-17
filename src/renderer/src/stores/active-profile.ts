@@ -19,6 +19,20 @@ function createProfileStore() {
     })
   }
 
+  async function deleteProfile(id: number) {
+    try {
+      if (id == 1 || id == 2) {
+        // Ensure that user somehow doesn't delete Default/No mod profiles
+        return
+      } else {
+        await db.profiles.delete(id)
+        // console.log('Profile id ' + id + ' has been succesfully deleted')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   function addonListEnabled(addonIds: string[]) {
     db.profiles.update(get(store).id, {
       enabledAddonIds: addonIds
@@ -55,6 +69,7 @@ function createProfileStore() {
     set,
     subscribe,
 
+    deleteProfile,
     renameProfile,
     toggleAddonEnabled,
     addonListEnabled,
