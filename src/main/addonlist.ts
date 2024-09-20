@@ -28,7 +28,7 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
     const addonlist = await fs.promises.readFile(dir, 'utf-8')
     console.log('File succesfully read')
 
-    // Regex to match workshop IDs and their enabled status
+    // Regex to match .vpk files installed from addonlist.txt 
     const regex = /"([^"]+\.vpk)"\s+"(\d)"/g
 
     //rebundant variable that might be useful for future use
@@ -41,14 +41,13 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
     let match
     while ((match = regex.exec(addonlist)) !== null) {
       // Workshop files have a double backward slash replace them to single forward slash
+      // This is needed to be done because by some reason regex returns double backward slashes
+
       const txtFoundAddonID: string = match[1].replace(/\\/g, '/')
       const txtFoundEnabled: boolean = parseInt(match[2], 2) === 1
-      // result.push({
-      //   txtAddonID: txtFoundAddonID,
-      //   txtEnabled: txtFoundEnabled
-      // })
+
       if (txtFoundEnabled) {
-        //Re add workshop/ and file extension, so that it properly gets detected afterwards
+        // Add to enabled addons array that were found in the text file
         txtActiveAddon.push(txtFoundAddonID);
       }
     }
