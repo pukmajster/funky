@@ -29,10 +29,10 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
     console.log('File succesfully read')
 
     // Regex to match workshop IDs and their enabled status
-    const regex = /workshop\\(\d+)\.vpk"\s+"(\d)"/g
+    const regex = /"([^"]+\.vpk)"\s+"(\d)"/g
 
     //rebundant variable that might be useful for future use
-    const result: { txtAddonID: string; txtEnabled: boolean }[] = []
+    // const result: { txtAddonID: string; txtEnabled: boolean }[] = []
 
     //Store AddonIds that are active in the addonlist
     const txtActiveAddon: AddonId[] = []
@@ -40,21 +40,23 @@ export async function readAddonList(params: ReadAddonlistParams): Promise<string
     // Loop through all matches with regex sorcery
     let match
     while ((match = regex.exec(addonlist)) !== null) {
-      const txtFoundAddonID: string = match[1]
+      // Workshop files have a double backward slash replace them to single forward slash
+      const txtFoundAddonID: string = match[1].replace(/\\/g, '/')
       const txtFoundEnabled: boolean = parseInt(match[2], 2) === 1
-
-      result.push({
-        txtAddonID: txtFoundAddonID,
-        txtEnabled: txtFoundEnabled
-      })
+      // result.push({
+      //   txtAddonID: txtFoundAddonID,
+      //   txtEnabled: txtFoundEnabled
+      // })
       if (txtFoundEnabled) {
         //Re add workshop/ and file extension, so that it properly gets detected afterwards
-        txtActiveAddon.push("workshop/"+txtFoundAddonID+".vpk")
+        txtActiveAddon.push(txtFoundAddonID);
       }
     }
 
     return txtActiveAddon
-  } catch{
-    return 'An error happened'
+  } catch (error){
+    console.error(error);
+    // Send empty array, to avoid getting softlocked in case of an error
+    return []
   }
 }
