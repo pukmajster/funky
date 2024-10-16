@@ -9,10 +9,9 @@
     type PopupSettings,
     ProgressRadial
   } from '@skeletonlabs/skeleton'
-  import { HelpCircleIcon, LucideListTodo, RefreshCw, Settings } from 'lucide-svelte'
+  import { HelpCircleIcon, LucideListTodo, Settings } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../../api/api'
-  import { isRequestingGameManifest, requestManifest } from '../../stores/manifest'
   import { userStore } from '../../stores/user'
   import { view } from '../../stores/view'
   import GameManager from './GameManager.svelte'
@@ -25,6 +24,7 @@
   import LibraryDisplayMode from '../library/LibraryDisplayMode.svelte'
   import SettingsModal from '../../features/settings/SettingsModal.svelte'
   import UpdateChecker from '../../features/updates/UpdateChecker.svelte'
+  import RefreshManifestButton from '../../features/nav/RefreshManifestButton.svelte'
 
   async function launchGame() {
     await writeAddonList()
@@ -78,20 +78,7 @@
         Settings
       </button>
 
-      <button
-        class="btn btn-sm variant-filled-surface"
-        on:click={() => requestManifest('quick-refresh')}
-        on:contextmenu={() => requestManifest('full-update')}
-        disabled={$isRequestingGameManifest}
-      >
-        {#if $isRequestingGameManifest}
-          <RefreshCw size={16} class="animate-spin" />
-          <span class="ml-2">Refreshing...</span>
-        {:else}
-          <RefreshCw size={16} />
-          <span class="ml-2">Refresh</span>
-        {/if}
-      </button>
+      <RefreshManifestButton />
     </div>
 
     <div class="place-self-center flex items-stretch overflow-hidden rounded-full">
