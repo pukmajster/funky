@@ -1,6 +1,6 @@
 <script lang="ts">
   import { userStore } from '../stores/user'
-  export let lockStep = false
+  //export let lockStep = false
   export let hideSteamStorageButton = false
 </script>
 

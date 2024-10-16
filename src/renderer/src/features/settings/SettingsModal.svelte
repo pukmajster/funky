@@ -41,7 +41,7 @@
       component: SettingsPageDev,
       seperated: true
     }
-  ] as const
+  ]
 
   type Tab = (typeof tabs)[number]['value']
   let activeTab: Tab = 'gameDir'
