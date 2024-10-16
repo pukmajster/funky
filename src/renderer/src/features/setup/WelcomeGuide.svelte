@@ -4,11 +4,13 @@
   import SteamGamesDirectoryManager from '../../components/SteamGamesDirectoryManager.svelte'
   import { readAddonList } from '../../api/api'
   import { userStore } from '../../stores/user'
+  import { requestManifest } from '../../stores/manifest'
 
   let lockStep = false
 
-  function finishSetup() {
+  async function finishSetup() {
     $userStore.hasFinishedFirstTimeSetup = true
+    await requestManifest('full-update')
     if (importModsAfterSetup) readAddonList()
   }
 
