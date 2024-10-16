@@ -51,6 +51,6 @@
 {#if isUpdateAvailable}
   <button class="btn btn-sm variant-ghost-success flex" on:click={openLatestReleasePage}>
     <DownloadIcon class="w-4 inline" />
-    <p class="text-sm">Update available: {newUpdateVersion}</p>
+    <p class="text-sm">Update available: v{newUpdateVersion}</p>
   </button>
 {/if}
