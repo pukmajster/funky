@@ -1,15 +1,29 @@
 <script>
   import { Step, Stepper } from '@skeletonlabs/skeleton'
-
-  import SetupImageSteam from '../assets/welcome-steam.png'
-  import { userStore } from '../stores/user'
-  import SteamGamesDirectoryManager from './SteamGamesDirectoryManager.svelte'
+  import SetupImageSteam from '../../assets/welcome-steam.png'
+  import SteamGamesDirectoryManager from '../../components/SteamGamesDirectoryManager.svelte'
+  import { readAddonList } from '../../api/api'
+  import { userStore } from '../../stores/user'
 
   let lockStep = false
 
   function finishSetup() {
     $userStore.hasFinishedFirstTimeSetup = true
+    if (importModsAfterSetup) readAddonList()
   }
+
+  let importModsAfterSetup = true
+
+  const importOptions = [
+    {
+      label: 'Yes, I want to import my mod list',
+      value: true
+    },
+    {
+      label: "No, I don't want to import my mod list",
+      value: false
+    }
+  ]
 </script>
 
 <div class="w-full max-h-screen overflow-y-auto p-5 mx-auto">
@@ -18,9 +32,9 @@
 
     <Stepper on:complete={finishSetup}>
       <Step>
-        <svelte:fragment slot="header">Welcome to Funky!</svelte:fragment>
+        <svelte:fragment slot="header">WELCOME TO FUNKY!</svelte:fragment>
 
-        <p>
+        <p class=" pb-24">
           Thanks for installing Funky! It's still in early development, so bugs are very likely to
           occur and new features are still being cooked. <br /><br />
           Now, before you can actually start using Funky, you just need to go through a quick setup.
@@ -29,7 +43,7 @@
       </Step>
 
       <Step locked={lockStep}>
-        <svelte:fragment slot="header">Steam games directory</svelte:fragment>
+        <svelte:fragment slot="header">STEAM GAMES DIRECTORY</svelte:fragment>
 
         <p>
           Funky needs to know where Left 4 Dead 2 is installed in order to build a list of all
@@ -49,9 +63,9 @@
           >Open Steam Storage Settings</a
         >
 
-        <img src={SetupImageSteam} class="shadow-lg rounded-sm" alt="Steam Storage" />
+        <img src={SetupImageSteam} class="shadow-lg rounded-sm max-w-lg" alt="Steam Storage" />
 
-        <div class="space-y-1">
+        <div class="space-y-1 pb-16">
           <p>
             The end of the directory should look like this:
             <span class="pl-4 font-bold">
@@ -59,17 +73,40 @@
               /steamapps
             </span>
           </p>
-          <SteamGamesDirectoryManager bind:lockStep />
+
+          <SteamGamesDirectoryManager bind:lockStep hideSteamStorageButton />
         </div>
       </Step>
 
       <Step>
-        <svelte:fragment slot="header">Setup Finished!</svelte:fragment>
+        <svelte:fragment slot="header">IMPORT MOD LIST</svelte:fragment>
+
+        <p>Do you want to import your current selection of enabled mods from Left 4 Dead 2?</p>
+
+        <div class="flex flex-col gap-4 max-w-md pb-24">
+          {#each importOptions as option}
+            <button
+              data-active={importModsAfterSetup == option.value}
+              class="p-4 flex items-center justify-between text-left border border-surface-600 bg-surface-900 rounded-lg transition-colors data-[active=true]:border-primary-500 data-[active=true]:bg-surface-700 data-[active=true]:font-bold"
+              on:click={() => (importModsAfterSetup = option.value)}
+            >
+              {option.label}
+
+              {#if importModsAfterSetup == option.value}
+                <span class="text-primary-500">Selected</span>
+              {/if}
+            </button>
+          {/each}
+        </div>
+      </Step>
+
+      <Step>
+        <svelte:fragment slot="header">SETUP FINISHED!</svelte:fragment>
 
         <p>
           See? I told you it was gonna be quick.<br /><br />Feedback is, of course, highly
-          appreciated, and you can provide said feedback by visiting the GitHub page, of which
-          you'll find a link to in the About menu.
+          appreciated. You can provide said feedback by visiting the GitHub page, of which you'll
+          find a link to in settings or the help menu.
           <br /><br />
           That's it! <strong>Enjoy!</strong>
         </p>

@@ -71,8 +71,18 @@ export async function readAddonList() {
   try {
     // Update DB with the addonlist
     activeProfileStore.addonListEnabled(enabledAddonIds)
+
+    toastStore.trigger({
+      background: 'variant-filled-success',
+      message: 'Mods successfully imported!'
+    })
   } catch (error) {
-    console.error('Failed to read addon list:', error);
+    console.error('Failed to read addon list:', error)
+
+    toastStore.trigger({
+      background: 'variant-filled-error',
+      message: 'Failed to import mods...'
+    })
   }
 }
 export async function extractVpk(params: ExportVpkOptions) {

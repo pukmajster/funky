@@ -1,18 +1,52 @@
 <script lang="ts">
   import { modalStore } from '@skeletonlabs/skeleton'
   import { X } from 'lucide-svelte'
-  import SteamGamesDirectoryManager from '../../components/SteamGamesDirectoryManager.svelte'
   import SettingsTab from './SettingsTab.svelte'
   import SettingsPageSteamWebApi from './subpages/SettingsPageSteamWebApi.svelte'
-  import SettingsPageNetworking from './subpages/SettingsPageNetworking.svelte'
   import SettingsPageDev from './subpages/SettingsPageDev.svelte'
   import SettingsPageAbout from './subpages/SettingsPageAbout.svelte'
+  import SettingsPageGamesDirectory from './subpages/SettingsPageGamesDirectory.svelte'
 
   function close() {
     modalStore.close()
   }
 
-  let activeTab: 'GameDir' | 'Dev' | 'Networking' | 'SteamWebApi' | 'About' = 'GameDir'
+  interface TabDetails {
+    label: string
+    value: string
+    component: any
+    seperated?: boolean
+  }
+
+  const tabs: TabDetails[] = [
+    {
+      label: 'Steam Games Directory',
+      value: 'gameDir',
+      component: SettingsPageGamesDirectory
+    },
+    {
+      label: 'Steam Web API Key',
+      value: 'swebapi',
+      component: SettingsPageSteamWebApi
+    },
+    {
+      label: 'About',
+      value: 'about',
+      component: SettingsPageAbout,
+      seperated: true
+    },
+    {
+      label: 'Developer',
+      value: 'dev',
+      component: SettingsPageDev,
+      seperated: true
+    }
+  ] as const
+
+  type Tab = (typeof tabs)[number]['value']
+  let activeTab: Tab = 'gameDir'
+
+  $: activeTabData = tabs.find((tab) => tab.value == activeTab)
 </script>
 
 <div
@@ -22,27 +56,21 @@
     <div class="w-full flex flex-col">
       <h3 class="px-5 pt-6 pb-4 font-semibold text-xl uppercase">Funky Settings</h3>
 
-      <SettingsTab bind:activeTab value={'GameDir'} label="Games Directory" />
-      <!-- <SettingsTab bind:activeTab value={'Networking'} label="Networking" /> -->
-      <SettingsTab bind:activeTab value={'SteamWebApi'} label="Steam Web API Key" />
-      <SettingsTab bind:activeTab value={'About'} label="About" />
-      <SettingsTab bind:activeTab value={'Dev'} label="Dev" />
+      {#each tabs as tab}
+        {#if tab?.seperated}
+          <hr class="!border-surface-500 my-2" />
+        {/if}
+        <SettingsTab bind:activeTab value={tab.value} label={tab.label} />
+      {/each}
     </div>
   </div>
 
-  <div class="flex flex-col gap-4 p-4">
-    <button on:click={close} class="ml-auto btn btn-icon btn-sm"> <X size={24} /></button>
+  <div class="flex flex-col gap-4 px-4 pt-4">
+    <div class="flex justify-between items-center">
+      <p class="text-xl font-semibold uppercase">{activeTabData.label}</p>
+      <button on:click={close} class="ml-auto btn btn-icon btn-sm"> <X size={24} /></button>
+    </div>
 
-    {#if activeTab === 'GameDir'}
-      <SteamGamesDirectoryManager />
-    {:else if activeTab === 'Dev'}
-      <SettingsPageDev />
-    {:else if activeTab === 'Networking'}
-      <SettingsPageNetworking />
-    {:else if activeTab === 'About'}
-      <SettingsPageAbout />
-    {:else if activeTab === 'SteamWebApi'}
-      <SettingsPageSteamWebApi />
-    {/if}
+    <svelte:component this={activeTabData.component} />
   </div>
 </div>

@@ -12,7 +12,7 @@
 
 <button
   data-active={isActive}
-  class=" hover:variant-soft-primary data-[active=true]:variant-filled-primary data-[active=true]:hover:variant-filled-primary text-left px-5 py-3"
+  class=" transition-all data-[active=true]:indent-1 text-sm hover:variant-soft-primary data-[active=true]:variant-filled-primary data-[active=true]:hover:variant-filled-primary text-left px-5 py-3"
   on:click={onClick}
 >
   {label}

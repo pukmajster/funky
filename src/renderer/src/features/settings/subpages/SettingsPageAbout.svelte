@@ -12,7 +12,7 @@
   })
 </script>
 
-<div class="text-center bg-surface-800 space-y-4">
+<div class="text-center bg-surface-800 space-y-4 pt-10">
   <p>
     Made with ❤️ by <a
       class="text-primary-400"

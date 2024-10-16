@@ -3,7 +3,7 @@
   import Config from './Config.svelte'
   import Drawers from './components/Drawers.svelte'
   import Header from './components/navigation/Header.svelte'
-  import WelcomeGuide from './components/WelcomeGuide.svelte'
+  import WelcomeGuide from './features/setup/WelcomeGuide.svelte'
   import { userStore } from './stores/user'
   import { arrow, autoUpdate, computePosition, flip, offset, shift } from '@floating-ui/dom'
   import { storePopup } from '@skeletonlabs/skeleton'
