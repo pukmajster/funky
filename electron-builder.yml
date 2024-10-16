@@ -17,17 +17,18 @@ asarUnpack:
   - resources/**
 afterSign: build/notarize.js
 win:
-  executableName: funky
+  artifactName: ${name}.${version}.${ext}
 nsis:
-  artifactName: ${name}-${version}-setup.${ext}
+  artifactName: ${name}.setup.${version}.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
   entitlementsInherit: build/entitlements.mac.plist
 dmg:
-  artifactName: ${name}-${version}.${ext}
+  artifactName: ${name}.${version}.${ext}
 linux:
+  artifactName: ${name}.${version}.${ext}
   target:
     - AppImage
     # - snap
@@ -35,8 +36,5 @@ linux:
   maintainer: electronjs.org
   category: Utility
 appImage:
-  artifactName: ${name}-${version}.${ext}
+  artifactName: ${name}.${version}.${ext}
 npmRebuild: false
-publish:
-  provider: generic
-  url: https://example.com/auto-updates
