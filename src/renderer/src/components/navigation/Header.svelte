@@ -18,13 +18,13 @@
   import AboutModal from './AboutModal.svelte'
   import GameManager from './GameManager.svelte'
   import HelpModal from './HelpModal.svelte'
-  import SettingsModal from './SettingsModal.svelte'
   import { isUnsubscribeOngoing } from '../../stores/library'
   import { L4D2_GAME_ID } from '../../utils'
   import { liveQuery } from 'dexie'
   import { db } from '../../db/db'
   import { totalConflictingAddons } from '../../stores/conflicts'
   import LibraryDisplayMode from '../library/LibraryDisplayMode.svelte'
+  import SettingsModal from '../../features/settings/SettingsModal.svelte'
 
   async function launchGame() {
     await writeAddonList()
