@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { modalStore } from '@skeletonlabs/skeleton'
   import { GithubIcon } from 'lucide-svelte'
   import { onMount } from 'svelte'
   import type { AppMeta } from 'shared'
@@ -13,7 +12,7 @@
   })
 </script>
 
-<div class="text-center bg-surface-800 p-8 space-y-4">
+<div class="text-center bg-surface-800 space-y-4">
   <p>
     Made with ❤️ by <a
       class="text-primary-400"

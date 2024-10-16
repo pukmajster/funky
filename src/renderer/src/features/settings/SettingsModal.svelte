@@ -34,18 +34,14 @@
     <button on:click={close} class="ml-auto btn btn-icon btn-sm"> <X size={24} /></button>
 
     {#if activeTab === 'GameDir'}
-      <h4 class="h4">Games Directory</h4>
       <SteamGamesDirectoryManager />
     {:else if activeTab === 'Dev'}
-      <h4 class="h4">Developer</h4>
       <SettingsPageDev />
     {:else if activeTab === 'Networking'}
-      <h4 class="h4">Networking</h4>
       <SettingsPageNetworking />
     {:else if activeTab === 'About'}
       <SettingsPageAbout />
     {:else if activeTab === 'SteamWebApi'}
-      <h4 class="h4">Steam Web API Key</h4>
       <SettingsPageSteamWebApi />
     {/if}
   </div>
