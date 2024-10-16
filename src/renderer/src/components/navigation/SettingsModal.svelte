@@ -3,8 +3,7 @@
   import { X } from 'lucide-svelte'
   import { userStore } from '../../stores/user'
   import SteamGamesDirectoryManager from '../SteamGamesDirectoryManager.svelte'
-  import { writeAddonList } from '../../api/api'
-
+  import { writeAddonList, readAddonList } from '../../api/api'
   function close() {
     modalStore.close()
   }
@@ -16,7 +15,6 @@
   function openWorkingDir() {
     window.api.openWorkingDirectory()
   }
-
   let tabSet: 'game dir' | 'dev' | 'networking' = 'game dir'
 </script>
 
@@ -44,6 +42,7 @@
             <button class="btn variant-filled" on:click={userStore.resetFirstTimeSetup}
               >reset first time setup</button
             >
+            <button class="btn variant-filled" on:click={readAddonList}>read addonlist</button>
             <button class="btn variant-filled" on:click={writeAddonList}>write addonlist</button>
           </div>
         {:else if tabSet === 'networking'}
