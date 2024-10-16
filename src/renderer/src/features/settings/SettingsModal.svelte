@@ -6,12 +6,13 @@
   import SettingsPageSteamWebApi from './subpages/SettingsPageSteamWebApi.svelte'
   import SettingsPageNetworking from './subpages/SettingsPageNetworking.svelte'
   import SettingsPageDev from './subpages/SettingsPageDev.svelte'
+  import SettingsPageAbout from './subpages/SettingsPageAbout.svelte'
 
   function close() {
     modalStore.close()
   }
 
-  let activeTab: 'GameDir' | 'Dev' | 'Networking' | 'SteamWebApi' = 'GameDir'
+  let activeTab: 'GameDir' | 'Dev' | 'Networking' | 'SteamWebApi' | 'About' = 'GameDir'
 </script>
 
 <div
@@ -22,8 +23,9 @@
       <h3 class="px-5 pt-6 pb-4 font-semibold text-xl uppercase">Funky Settings</h3>
 
       <SettingsTab bind:activeTab value={'GameDir'} label="Games Directory" />
-      <SettingsTab bind:activeTab value={'Networking'} label="Networking" />
+      <!-- <SettingsTab bind:activeTab value={'Networking'} label="Networking" /> -->
       <SettingsTab bind:activeTab value={'SteamWebApi'} label="Steam Web API Key" />
+      <SettingsTab bind:activeTab value={'About'} label="About" />
       <SettingsTab bind:activeTab value={'Dev'} label="Dev" />
     </div>
   </div>
@@ -40,6 +42,8 @@
     {:else if activeTab === 'Networking'}
       <h4 class="h4">Networking</h4>
       <SettingsPageNetworking />
+    {:else if activeTab === 'About'}
+      <SettingsPageAbout />
     {:else if activeTab === 'SteamWebApi'}
       <h4 class="h4">Steam Web API Key</h4>
       <SettingsPageSteamWebApi />

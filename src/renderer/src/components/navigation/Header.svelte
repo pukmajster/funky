@@ -9,13 +9,12 @@
     type PopupSettings,
     ProgressRadial
   } from '@skeletonlabs/skeleton'
-  import { HelpCircleIcon, InfoIcon, LucideListTodo, RefreshCw, Settings } from 'lucide-svelte'
+  import { HelpCircleIcon, LucideListTodo, RefreshCw, Settings } from 'lucide-svelte'
   import games from 'shared/games'
   import { writeAddonList } from '../../api/api'
   import { isRequestingGameManifest, requestManifest } from '../../stores/manifest'
   import { userStore } from '../../stores/user'
   import { view } from '../../stores/view'
-  import AboutModal from './AboutModal.svelte'
   import GameManager from './GameManager.svelte'
   import HelpModal from './HelpModal.svelte'
   import { isUnsubscribeOngoing } from '../../stores/library'
@@ -25,26 +24,12 @@
   import { totalConflictingAddons } from '../../stores/conflicts'
   import LibraryDisplayMode from '../library/LibraryDisplayMode.svelte'
   import SettingsModal from '../../features/settings/SettingsModal.svelte'
+  import UpdateChecker from '../../features/updates/UpdateChecker.svelte'
 
   async function launchGame() {
     await writeAddonList()
     //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
     window.api.openLinkInBrowser(`steam://rungameid/550/`)
-  }
-
-  function openAboutModal() {
-    const modalComponent: ModalComponent = {
-      ref: AboutModal,
-      props: { background: 'bg-primary-500' },
-      slot: '<p>Skeleton</p>'
-    }
-
-    const modal: ModalSettings = {
-      type: 'component',
-      component: modalComponent
-    }
-
-    modalStore.trigger(modal)
   }
 
   function openHelpModal() {
@@ -139,10 +124,7 @@
     <GameManager />
 
     <div class="place-self-end flex gap-2">
-      <button class="btn btn-sm variant-filled-surface" on:click={openAboutModal}>
-        <InfoIcon class="w-4 mr-2 inline" />
-        About
-      </button>
+      <UpdateChecker />
 
       <button class="btn btn-sm variant-filled-surface" on:click={openHelpModal}>
         <HelpCircleIcon class="w-4 mr-2 inline" />

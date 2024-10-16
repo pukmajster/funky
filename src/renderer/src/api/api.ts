@@ -116,8 +116,12 @@ export async function uninstallMods(addonIds: AddonId[]) {
   }
 }
 
-export async function deleteProfile(id: number){
-  activeProfileStore.deleteProfile(id);
+export async function deleteProfile(id: number) {
+  activeProfileStore.deleteProfile(id)
   // After a succesful delete, change to default profile
-  userStore.setActiveProfileId(1);
+  userStore.setActiveProfileId(1)
+}
+
+export function getAppMeta() {
+  return window.api.appMeta()
 }

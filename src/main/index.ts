@@ -3,6 +3,7 @@ import { BrowserWindow, app, dialog, ipcMain, shell } from 'electron'
 import * as path from 'path'
 import { join } from 'path'
 import {
+  AppMeta,
   CreateVpkOptions,
   ExportVpkOptions,
   RequestGameManifestParams,
@@ -19,6 +20,10 @@ import { autoUpdater } from 'electron-updater'
 
 autoUpdater.autoDownload = false
 autoUpdater.autoInstallOnAppQuit = false
+
+const appMeta: AppMeta = {
+  version: app.getVersion()
+}
 
 ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestParams) =>
   requestGameManifest(params)
@@ -41,6 +46,8 @@ ipcMain.handle('getPathJoin', (_e, file: string) => path.join(app.getPath('appDa
 ipcMain.handle('vpk:extractVpk', (_e, options: ExportVpkOptions) => extractVpk(options))
 ipcMain.handle('vpk:uninstall', (_e, options: UninstallAddonsParams) => uninstallAddons(options))
 ipcMain.handle('vpk:pack', (_e, options: CreateVpkOptions) => createVpk(options))
+
+ipcMain.handle('app:meta', (_e) => appMeta)
 
 let firstPassFinished = false
 let mainWindow: BrowserWindow | null = null

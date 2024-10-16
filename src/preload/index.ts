@@ -25,7 +25,8 @@ const api: BridgeApi = {
   getPathJoin: (file: string) => ipcRenderer.invoke('getPathJoin', file),
   extractVpk: (params: ExportVpkOptions) => ipcRenderer.invoke('vpk:extractVpk', params),
   uninstallAddons: (params: UninstallAddonsParams) => ipcRenderer.invoke('vpk:uninstall', params),
-  createVpk: (params: CreateVpkOptions) => ipcRenderer.invoke('vpk:pack', params)
+  createVpk: (params: CreateVpkOptions) => ipcRenderer.invoke('vpk:pack', params),
+  appMeta: () => ipcRenderer.invoke('app:meta')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

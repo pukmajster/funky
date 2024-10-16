@@ -1,13 +1,19 @@
 <script lang="ts">
   import { modalStore } from '@skeletonlabs/skeleton'
   import { GithubIcon } from 'lucide-svelte'
+  import { onMount } from 'svelte'
+  import type { AppMeta } from 'shared'
+  import { getAppMeta } from '../../../api/api'
 
-  function close() {
-    modalStore.close()
-  }
+  let appMeta: AppMeta | undefined
+
+  onMount(async () => {
+    appMeta = await getAppMeta()
+    console.log(appMeta)
+  })
 </script>
 
-<div class="text-center bg-surface-800 p-8 shadow-lg rounded-lg space-y-4">
+<div class="text-center bg-surface-800 p-8 space-y-4">
   <p>
     Made with ❤️ by <a
       class="text-primary-400"
@@ -31,7 +37,5 @@
 
   <p>Shoutout to Valve and the modding community</p>
 
-  <p class="text-xs opacity-60">Funky 0.2.2</p>
-
-  <button on:click={close} class="btn btn-sm variant-filled">Close</button>
+  <p class="text-xs opacity-60">Funky v{appMeta?.version}</p>
 </div>
