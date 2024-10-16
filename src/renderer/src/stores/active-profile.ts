@@ -33,6 +33,12 @@ function createProfileStore() {
     }
   }
 
+  function addonListEnabled(addonIds: string[]) {
+    db.profiles.update(get(store).id, {
+      enabledAddonIds: addonIds
+    })
+  }
+
   function toggleAddonEnabled(addonId: string) {
     const list = get(store).enabledAddonIds
     if (list.includes(addonId)) {
@@ -66,6 +72,7 @@ function createProfileStore() {
     deleteProfile,
     renameProfile,
     toggleAddonEnabled,
+    addonListEnabled,
     toggleShuffleEnabled
   }
 }
