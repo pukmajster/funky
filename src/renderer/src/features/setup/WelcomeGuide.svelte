@@ -74,7 +74,7 @@
             </span>
           </p>
 
-          <SteamGamesDirectoryManager bind:lockStep hideSteamStorageButton />
+          <SteamGamesDirectoryManager hideSteamStorageButton />
         </div>
       </Step>
 

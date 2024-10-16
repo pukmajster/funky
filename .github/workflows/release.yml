@@ -1,0 +1,61 @@
+# Shoutout to https://github.com/marketplace/actions/electron-builder-action
+
+name: Build and release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+
+jobs:
+  build-windows:
+    name: Build Windows binaries
+    runs-on: windows-latest
+    environment: production
+    timeout-minutes: 80
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+      - name: Update NPM
+        run: |
+          npm install -g npm@latest
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:win
+        shell: pwsh
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: exe
+          path: ./dist/funky.setup.*.exe
+
+  build-linux:
+    name: Build Linux binaries
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 80
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+      - name: Update NPM
+        run: |
+          npm install -g npm@latest
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:win
+        shell: pwsh
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: exe
+          path: ./dist/funky.*.AppImage
