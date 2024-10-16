@@ -71,7 +71,6 @@
     "autoprefixer": "^10.4.14",
     "electron": "^24.6.2",
     "electron-builder": "^23.6.0",
-    "electron-updater": "^6.2.1",
     "electron-vite": "^1.0.25",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",

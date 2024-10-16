@@ -17,10 +17,6 @@ import { writeAddonList, readAddonList } from './addonlist'
 import { requestGameManifest } from './manifest'
 import { openDirectory, openWorkingDirectory, readUserFile, writeUserFile } from './user'
 import { createVpk, extractVpk, uninstallAddons } from './vpk'
-import { autoUpdater } from 'electron-updater'
-
-autoUpdater.autoDownload = false
-autoUpdater.autoInstallOnAppQuit = false
 
 const appMeta: AppMeta = {
   version: app.getVersion()
@@ -34,8 +30,8 @@ ipcMain.handle('addonlist:write', async (_e, params: WriteAddonlistParams) => {
   return writeAddonList(params)
 })
 ipcMain.handle('addonlist:read', async (_e, params: ReadAddonlistParams) => {
-  return await readAddonList(params);
-});
+  return await readAddonList(params)
+})
 
 ipcMain.handle('profile:write', async (_e, profileData: User) => writeUserFile(profileData))
 ipcMain.handle('profile:read', async () => readUserFile())
@@ -134,8 +130,6 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
-
-  autoUpdater.checkForUpdatesAndNotify()
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
