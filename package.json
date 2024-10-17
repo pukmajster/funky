@@ -1,6 +1,6 @@
 {
   "name": "funky",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Open-source mod manager for Left 4 Dead 2",
   "main": "./out/main/index.js",
   "author": "Žan Pukmajster",

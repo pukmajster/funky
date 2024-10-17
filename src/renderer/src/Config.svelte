@@ -9,7 +9,8 @@
     enableNetworking: true,
     libraryDisplayMode: 'grid',
     hasFinishedFirstTimeSetup: false,
-    activeProfileId: 1
+    activeProfileId: 1,
+    hideDescriptions: true
   }
 
   let hasSetupUserProfile = false

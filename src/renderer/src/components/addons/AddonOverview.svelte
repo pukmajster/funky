@@ -90,7 +90,7 @@
           {/each}
         </div>
 
-        {#if description}
+        {#if description && !$userStore.hideDescriptions}
           <p class=" text-[11px]">{description}</p>
         {/if}
       </div>

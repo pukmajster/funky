@@ -1,52 +1,59 @@
 <script lang="ts">
   import { modalStore } from '@skeletonlabs/skeleton'
   import { X } from 'lucide-svelte'
-  import SettingsTab from './SettingsTab.svelte'
   import SettingsPageSteamWebApi from './subpages/SettingsPageSteamWebApi.svelte'
   import SettingsPageDev from './subpages/SettingsPageDev.svelte'
   import SettingsPageAbout from './subpages/SettingsPageAbout.svelte'
   import SettingsPageGamesDirectory from './subpages/SettingsPageGamesDirectory.svelte'
+  import SettingsPageGeneral from './subpages/SettingsPageGeneral.svelte'
+  import SettingsTab from './SettingsTab.svelte'
 
   function close() {
     modalStore.close()
   }
 
   interface TabDetails {
-    label: string
-    value: string
-    component: any
-    seperated?: boolean
+    readonly label: string
+    readonly id: string
+    readonly component: any
+    readonly seperated?: boolean
   }
 
   const tabs: TabDetails[] = [
     {
+      label: 'Funky',
+      id: 'funky',
+      component: SettingsPageGeneral
+    },
+    {
       label: 'Steam Games Directory',
-      value: 'gameDir',
-      component: SettingsPageGamesDirectory
+      id: 'gameDir',
+      component: SettingsPageGamesDirectory,
+      seperated: true
     },
     {
       label: 'Steam Web API Key',
-      value: 'swebapi',
+      id: 'swebapi',
       component: SettingsPageSteamWebApi
     },
     {
       label: 'About',
-      value: 'about',
+      id: 'about',
       component: SettingsPageAbout,
       seperated: true
     },
     {
       label: 'Developer',
-      value: 'dev',
+      id: 'dev',
       component: SettingsPageDev,
       seperated: true
     }
   ]
 
-  type Tab = (typeof tabs)[number]['value']
-  let activeTab: Tab = 'gameDir'
+  type Tab = (typeof tabs)[number]['id']
+  let activeTab: Tab = 'funky'
 
-  $: activeTabData = tabs.find((tab) => tab.value == activeTab)
+  $: activeTabData = tabs.find((tab) => tab.id == activeTab)
 </script>
 
 <div
@@ -60,7 +67,7 @@
         {#if tab?.seperated}
           <hr class="!border-surface-500 my-2" />
         {/if}
-        <SettingsTab bind:activeTab value={tab.value} label={tab.label} />
+        <SettingsTab bind:activeTab value={tab.id} label={tab.label} />
       {/each}
     </div>
   </div>
