@@ -42,3 +42,11 @@ export async function openDirectory(directory: string): Promise<void> {
     console.log('ERROR OPENING DIRECTORY', err)
   }
 }
+
+export async function openFileInFileManager(path: string): Promise<void> {
+  try {
+    shell.showItemInFolder(path)
+  } catch (err) {
+    console.log('ERROR OPENING DIRECTORY', err)
+  }
+}

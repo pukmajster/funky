@@ -33,6 +33,12 @@
     )
   }
 
+  function openInFileManager() {
+    window.api.openFileInFileManager(
+      `${$userStore.steamGamesDir}/common/Left 4 Dead 2/left4dead2/addons/${addon.id}`
+    )
+  }
+
   function openModInSteam() {
     window.api.openLinkInBrowser(`steam://url/CommunityFilePage/${addon.workshop?.publishedFileId}`)
   }
@@ -123,6 +129,10 @@
       <div class="flex gap-2">
         <button class="btn btn-sm variant-filled-surface" on:click={openVpkBrowserModal}>
           Browse VPK
+        </button>
+
+        <button class="btn btn-sm variant-filled-surface" on:click={openInFileManager}>
+          Open in File Manager
         </button>
 
         {#if showFiles}

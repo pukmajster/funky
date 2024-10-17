@@ -13,6 +13,7 @@ export interface BridgeApi {
   openWorkingDirectory: () => void
   openDirectoryFinder(): Promise<string | undefined>
   openDirectory(directory: string): Promise<unknown>
+  openFileInFileManager(path: string): Promise<void>
   getPath: () => Promise<string>
   getPathJoin: (file: string) => Promise<string>
   writeAddonList: (params: WriteAddonlistParams) => Promise<void>

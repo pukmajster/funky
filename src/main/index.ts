@@ -15,7 +15,13 @@ import {
 import icon from '../../resources/icon.png?asset'
 import { writeAddonList, readAddonList } from './addonlist'
 import { requestGameManifest } from './manifest'
-import { openDirectory, openWorkingDirectory, readUserFile, writeUserFile } from './user'
+import {
+  openDirectory,
+  openFileInFileManager,
+  openWorkingDirectory,
+  readUserFile,
+  writeUserFile
+} from './user'
 import { createVpk, extractVpk, uninstallAddons } from './vpk'
 
 const appMeta: AppMeta = {
@@ -38,6 +44,7 @@ ipcMain.handle('profile:read', async () => readUserFile())
 
 ipcMain.handle('external:openLinkInBrowser', async (__e, url: string) => shell.openExternal(url))
 ipcMain.handle('openDirectory', (_e, directory: string) => openDirectory(directory))
+ipcMain.handle('openFileInFileManager', (_e, path: string) => openFileInFileManager(path))
 ipcMain.handle('profile:openWorkingDirectory', async (_e) => openWorkingDirectory())
 
 ipcMain.handle('getPath', () => app.getPath('appData'))
