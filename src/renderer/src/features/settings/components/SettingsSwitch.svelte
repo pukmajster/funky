@@ -18,8 +18,7 @@
   </div>
 
   <SlideToggle
-    size="sm"
-    name="onlineMetadataFetching"
+    name={label}
     background="bg-surface-500"
     active="bg-primary-500"
     bind:checked={value}
