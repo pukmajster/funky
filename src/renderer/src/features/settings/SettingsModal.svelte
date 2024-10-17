@@ -21,8 +21,8 @@
 
   const tabs: TabDetails[] = [
     {
-      label: 'Funky',
-      id: 'funky',
+      label: 'General',
+      id: 'general',
       component: SettingsPageGeneral
     },
     {
@@ -51,7 +51,7 @@
   ]
 
   type Tab = (typeof tabs)[number]['id']
-  let activeTab: Tab = 'funky'
+  let activeTab: Tab = 'general'
 
   $: activeTabData = tabs.find((tab) => tab.id == activeTab)
 </script>

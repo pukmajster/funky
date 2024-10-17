@@ -6,4 +6,5 @@ export interface User {
   steamWebApiKey?: string
   libraryDisplayMode?: 'grid' | 'list'
   hideDescriptions?: boolean
+  enableExperimentalManifestParser?: boolean
 }

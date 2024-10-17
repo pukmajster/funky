@@ -13,3 +13,9 @@
 />
 
 <SettingsDivider />
+
+<SettingsSwitch
+  label="Experimental manifest parser"
+  description="Try out the experimental manifest parser that should fix Funky crashing when trying to read from certain mod VPKs"
+  bind:value={$userStore.enableExperimentalManifestParser}
+/>

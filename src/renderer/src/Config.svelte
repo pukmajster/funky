@@ -10,7 +10,8 @@
     libraryDisplayMode: 'grid',
     hasFinishedFirstTimeSetup: false,
     activeProfileId: 1,
-    hideDescriptions: true
+    hideDescriptions: true,
+    enableExperimentalManifestParser: false
   }
 
   let hasSetupUserProfile = false

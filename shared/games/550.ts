@@ -169,7 +169,10 @@ export const game550: Game = {
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
-              references: genericGunFiles('auto_shotgun_spas', 'shotgun_spas', 'shotgun_spas')
+              references: [
+                'autoshot/shotgun_spas',
+                ...genericGunFiles('auto_shotgun', 'autoshot_m4super', 'autoshotgun')
+              ]
             }
           },
           {
