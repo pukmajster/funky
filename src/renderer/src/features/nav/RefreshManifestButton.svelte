@@ -6,7 +6,7 @@
   const popupHover: PopupSettings = {
     event: 'hover',
     target: 'popupHover',
-    placement: 'bottom'
+    placement: 'bottom-start'
   }
 </script>
 
