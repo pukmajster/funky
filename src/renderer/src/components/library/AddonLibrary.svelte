@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { libraryActiveSubCategories, libraryAddonPoolSortedPaginated } from '../../stores/library'
+  import {
+    installedAddons,
+    libraryActiveSubCategories,
+    libraryAddonPoolSortedPaginated
+  } from '../../stores/library'
   import { currentGameManifest } from '../../stores/manifest'
   import { userStore } from '../../stores/user'
   import { view } from '../../stores/view'
@@ -19,6 +23,24 @@
   <LibraryFilters />
 
   <div>
+    {#if $installedAddons.length == 0}
+      <div class="flex flex-col justify-center items-center gap-3 h-full">
+        <p class="text-center text-xl">No mods detected...</p>
+        <p class="text-center text-sm opacity-60">
+          Try refreshing your library by clicking the refresh button in the top left corner.
+        </p>
+      </div>
+    {/if}
+
+    {#if $installedAddons.length > 0 && $libraryAddonPoolSortedPaginated.length == 0}
+      <div class="flex flex-col justify-center items-center gap-3 h-full">
+        <p class="text-center text-xl">We've come up empty...</p>
+        <p class="text-center text-sm opacity-60">
+          Try changing any filters or searching for something else.
+        </p>
+      </div>
+    {/if}
+
     <div
       class="relative p-3 pb-[200px]"
       class:library-list={libraryDisplayMode === 'list'}

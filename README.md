@@ -30,7 +30,6 @@ You can find the latest releases of Funky for Windows and Linux on the [Releases
 Here are some ideas or features that may or may not be considered in the future
 
 - [ ] Improved shuffle dragging behaviour
-- [ ] Feedback UI for empty search query results
 - [ ] Shuffle option to allow no mod being chosen
 - [ ] List view of mods
 - [ ] Built-in custom config/autoexec editor
