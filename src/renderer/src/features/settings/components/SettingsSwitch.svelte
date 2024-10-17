@@ -20,6 +20,7 @@
   <SlideToggle
     size="sm"
     name="onlineMetadataFetching"
+    background="bg-surface-500"
     active="bg-primary-500"
     bind:checked={value}
     class="flex items-center gap-2"
