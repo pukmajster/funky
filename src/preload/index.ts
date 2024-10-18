@@ -16,7 +16,7 @@ const api: BridgeApi = {
   requestGameManifest: (params: RequestGameManifestParams) =>
     ipcRenderer.invoke('requestGameManifest', params),
   requestGameManifestExperimental: (params: RequestGameManifestParams) =>
-    ipcRenderer.invoke('requestGameManifest', params),
+    ipcRenderer.invoke('requestGameManifestExperimental', params),
   writeAddonList: (params: WriteAddonlistParams) => ipcRenderer.invoke('addonlist:write', params),
   readAddonList: (params: ReadAddonlistParams) => ipcRenderer.invoke('addonlist:read', params),
   openLinkInBrowser: (url: string) => openLinkInBrowser(url),

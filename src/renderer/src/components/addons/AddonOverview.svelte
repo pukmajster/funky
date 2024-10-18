@@ -117,6 +117,17 @@
       </div>
     {/if}
 
+    {#if addon.vpkAddonInfoMissing}
+      <div class="text-xs alert variant-ghost-secondary rounded-xl">
+        <div class="space-y-2">
+          <p>This mod did not provide any metadata.</p>
+          {#if addon.workshop?.publishedFileId}
+            <p>Replacement metadata for this mod should be provided by the Steam Workshop.</p>
+          {/if}
+        </div>
+      </div>
+    {/if}
+
     <div class="mt-10 grid grid-cols-3 gap-8">
       <AddonOverviewStat title="Author" value={addon.addonInfo.author} />
       <AddonOverviewStat title="Version" value={addon.addonInfo.version} />

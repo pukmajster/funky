@@ -6,7 +6,7 @@
   export let value: boolean
 </script>
 
-<div class="flex items-center justify-between gap-4">
+<div class="flex items-center justify-between gap-4 p-3 bg-surface-700 rounded-lg">
   <div>
     <span class="text-base">{label}</span>
 

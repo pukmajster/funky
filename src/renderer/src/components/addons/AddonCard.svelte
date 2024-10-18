@@ -166,12 +166,36 @@
     class:unsubscribed={wasUnsubscribed}
     on:click={handleClick}
   >
-    <img
-      alt="mod"
-      on:error={handleMissingThumbnail}
-      class=" rounded-md aspect-[5/3] w-full"
-      src={thumbnail}
-    />
+    <!-- -->
+
+    {#if $userStore.enableAdaptiveThumbnails}
+      <div
+        class="relative grid aspect-[5/3] w-full [&>*]:[grid-area:1/1] rounded-md overflow-hidden"
+      >
+        <img
+          alt="mod"
+          on:error={handleMissingThumbnail}
+          class=" rounded-md blur-2xl aspect-[5/3] mx-auto opacity-60 h-full"
+          src={thumbnail}
+        />
+
+        <div class="absolute inset-0 flex items-center justify-center">
+          <img
+            alt="mod"
+            on:error={handleMissingThumbnail}
+            class="opacity-100 h-full"
+            src={thumbnail}
+          />
+        </div>
+      </div>
+    {:else}
+      <img
+        alt="mod"
+        on:error={handleMissingThumbnail}
+        class=" rounded-md aspect-[5/3] w-full"
+        src={thumbnail}
+      />
+    {/if}
 
     {#if selected}
       <div

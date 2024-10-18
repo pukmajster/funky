@@ -113,17 +113,15 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
       // -------------------------------------------------------------
       //
       // Get addon metadata
-      // - For workshop mods, this is done by the workshop API
-      // - For local mods, we get the metadata by reading the VPK's addoninfo.txt
-      // TODO Find a way to fix some mod addoninfo.txt's halting funky
+      //
+      // Best we can do is read the addoninfo.txt file in the VPK
+      // If that fails, we'll have to fetch the metadata from the workshop API
+      // if the mod is from the workshop
       //
       // -------------------------------------------------------------
 
-      // Workshop mod - Collect it's ID and fetch it's data later from the workshop API
-      //if (bIsWorkshopVpk) {
-      //  workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
-      //} else {
-      // Local mod - Attempt to read the addoninfo.txt file and hope shit doesn't die on us
+      let vpkAddonInfoMissing = false
+
       try {
         const addoninfoFile = vpk.getFile('addoninfo.txt')
         if (!addoninfoFile) {
@@ -131,36 +129,41 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         }
 
         const addoninfo = addoninfoFile.toString('utf-8')
-        const cleanedUpAddonInfo = addoninfo.replace(/^\/\/.*$/gm, '')
 
         // Read the file buffer and turn it into a string our VDF parser can read
         const addoninfoData = tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
 
         if (!addoninfoData) {
+          console.log('missing addoninfo object')
           throw new Error('Missing AddonInfo object in addoninfo.txt')
         }
 
         // Take a look at the addoninfo.txt file and see what useful information we can snatch
-        vpkAddonInfo.title = addoninfoData.addontitle || ''
-        vpkAddonInfo.description = addoninfoData.addondescription || ''
-        vpkAddonInfo.version = addoninfoData.addonversion || ''
-        vpkAddonInfo.author = addoninfoData.addonauthor || ''
-        vpkAddonInfo.tagline = addoninfoData.addontagline || ''
-        vpkAddonInfo.url = addoninfoData.addonurl0 || ''
+        vpkAddonInfo.title = addoninfoData?.addontitle
+        vpkAddonInfo.description = addoninfoData?.addondescription
+        vpkAddonInfo.version = addoninfoData?.addonversion
+        vpkAddonInfo.author = addoninfoData?.addonauthor
+        vpkAddonInfo.tagline = addoninfoData?.addontagline
+        vpkAddonInfo.url = addoninfoData?.addonurl0
 
         // Check if the addoninfo.txt is missing any of the required fields
         if (!vpkAddonInfo.title) {
           throw new Error('Missing required fields in addoninfo.txt')
         }
       } catch (e) {
-        workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
-        console.log('failed to read vpk addoninfo.txt')
+        console.error('Failed to read addoninfo.txt file', e)
+        vpkAddonInfoMissing = true
+
+        if (bIsWorkshopVpk) {
+          console.log(`Workshop mod ${addonId} metadata will be fetched from Steam Workshop API`)
+          workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
+        }
       }
-      //}
 
       const addonData: Addon = {
         id: addonId,
         addonInfo: vpkAddonInfo,
+        vpkAddonInfoMissing,
         files: vpkFiles,
         vpkTimeLastModified: vpkStats.mtime.toISOString(),
         vpkSizeInBytes: vpkStats.size,
@@ -192,7 +195,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         i++
       }
 
-      console.log('Fetching mod titles from Steam Workshop...')
+      //console.log('Fetching mod titles from Steam Workshop...')
 
       try {
         const res = await fetch(

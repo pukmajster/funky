@@ -11,6 +11,7 @@ export interface Addon {
   vpkTimeLastModified?: string
   vpkSizeInBytes?: number
   vpkHash?: string
+  vpkAddonInfoMissing?: boolean
 
   workshop?: {
     publishedFileId: number

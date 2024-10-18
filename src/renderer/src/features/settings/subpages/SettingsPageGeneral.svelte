@@ -1,10 +1,16 @@
 <script lang="ts">
   import { userStore } from '../../../stores/user'
-  import SettingsDivider from '../components/SettingsDivider.svelte'
+  import SettingsHeader from '../components/SettingsHeader.svelte'
   import SettingsSwitch from '../components/SettingsSwitch.svelte'
 </script>
 
-<h4 class="font-semibold text-lg">Addons</h4>
+<SettingsHeader label="Addons" />
+
+<!-- <SettingsSwitch
+  label="Fetch missing metadata from the Steam Workshop"
+  description="A good amount of mods (especially Workshop ones) don't provide metadata. Enabling this will fetch the missing metadata from the Steam Workshop API. Mods outside the Workshop obviously can't utilize this feature."
+  bind:value={$userStore.enableWorkshopMetadataFetching}
+/> -->
 
 <SettingsSwitch
   label="Hide descriptions"
@@ -12,10 +18,16 @@
   bind:value={$userStore.hideDescriptions}
 />
 
-<SettingsDivider />
+<SettingsSwitch
+  label="Adaptive thumbnails"
+  description="Displays thumbnails in their native aspect ratio when enabled."
+  bind:value={$userStore.enableAdaptiveThumbnails}
+/>
+
+<SettingsHeader label="Experimental" />
 
 <SettingsSwitch
-  label="Experimental manifest parser"
-  description="Try out the experimental manifest parser that should fix Funky crashing when trying to read from certain mod VPKs"
+  label="Enable experimental manifest parser"
+  description="This new parser should do a much better job at parsing vpk metadata and only relying on the workshop API for mods with missing addoninfo.txt's. You can try it by right-clicking the refresh button to see if it works."
   bind:value={$userStore.enableExperimentalManifestParser}
 />

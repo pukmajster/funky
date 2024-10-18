@@ -7,4 +7,6 @@ export interface User {
   libraryDisplayMode?: 'grid' | 'list'
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
+  enableAdaptiveThumbnails?: boolean
+  enableWorkshopMetadataFetching?: boolean
 }

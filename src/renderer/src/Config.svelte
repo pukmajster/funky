@@ -11,7 +11,9 @@
     hasFinishedFirstTimeSetup: false,
     activeProfileId: 1,
     hideDescriptions: true,
-    enableExperimentalManifestParser: false
+    enableExperimentalManifestParser: false,
+    enableAdaptiveThumbnails: false,
+    enableWorkshopMetadataFetching: true
   }
 
   let hasSetupUserProfile = false
