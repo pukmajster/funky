@@ -80,7 +80,7 @@
       <button on:click={close} class="ml-auto btn btn-icon btn-sm"> <X size={24} /></button>
     </div>
 
-    <div class="px-4 pb-4 flex flex-col gap-4">
+    <div class="px-4 pb-4 flex flex-col gap-3">
       <svelte:component this={activeTabData.component} />
     </div>
   </div>

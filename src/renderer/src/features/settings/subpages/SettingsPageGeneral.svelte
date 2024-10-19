@@ -44,7 +44,10 @@
 
 <SettingsPaper label="Wasted space">
   <svelte:fragment slot="description">
-    <p>Select your preferred method of filling the wasted space around thumbnails.</p>
+    <p>
+      Choose how to fill the wasted space around thumbnails that don't fit your preferred aspect
+      ratio.
+    </p>
   </svelte:fragment>
 
   <svelte:fragment slot="main">
