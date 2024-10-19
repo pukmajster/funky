@@ -7,6 +7,8 @@ export interface User {
   libraryDisplayMode?: 'grid' | 'list'
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
-  enableAdaptiveThumbnails?: boolean
   enableWorkshopMetadataFetching?: boolean
+
+  thumbnailsPreferredAspectRatio?: 'wide' | 'square'
+  thumbnailsWastedSpace: 'stretch' | 'fill-black' | 'fill-blur' | 'disabled'
 }

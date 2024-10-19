@@ -72,12 +72,16 @@
     </div>
   </div>
 
-  <div class="flex flex-col gap-4 px-4 pt-4">
-    <div class="flex justify-between items-center">
+  <div class="overflow-y-auto">
+    <div
+      class="flex justify-between items-center sticky top-0 backdrop-blur-xl p-4 z-10 bg-surface-800/80"
+    >
       <p class="text-xl font-semibold uppercase">{activeTabData.label}</p>
       <button on:click={close} class="ml-auto btn btn-icon btn-sm"> <X size={24} /></button>
     </div>
 
-    <svelte:component this={activeTabData.component} />
+    <div class="px-4 pb-4 flex flex-col gap-4">
+      <svelte:component this={activeTabData.component} />
+    </div>
   </div>
 </div>

@@ -2,15 +2,11 @@
   import { userStore } from '../../../stores/user'
   import SettingsHeader from '../components/SettingsHeader.svelte'
   import SettingsSwitch from '../components/SettingsSwitch.svelte'
+  import SettingsDropdown from '../components/SettingsDropdown.svelte'
+  import SettingsPaper from '../components/SettingsPaper.svelte'
 </script>
 
 <SettingsHeader label="Addons" />
-
-<!-- <SettingsSwitch
-  label="Fetch missing metadata from the Steam Workshop"
-  description="A good amount of mods (especially Workshop ones) don't provide metadata. Enabling this will fetch the missing metadata from the Steam Workshop API. Mods outside the Workshop obviously can't utilize this feature."
-  bind:value={$userStore.enableWorkshopMetadataFetching}
-/> -->
 
 <SettingsSwitch
   label="Hide descriptions"
@@ -18,11 +14,63 @@
   bind:value={$userStore.hideDescriptions}
 />
 
-<SettingsSwitch
-  label="Adaptive thumbnails"
-  description="Displays thumbnails in their native aspect ratio when enabled."
-  bind:value={$userStore.enableAdaptiveThumbnails}
-/>
+<SettingsHeader label="Thumbnails" />
+
+<SettingsPaper label="Preferred thumbnail aspect ratio">
+  <svelte:fragment slot="description">
+    <p>
+      Sadly thumbnails come in a variety of aspect ratios, so you can choose which one you prefer.
+      Wide is 16:9 and square is 1:1.
+    </p>
+    <p />
+  </svelte:fragment>
+
+  <svelte:fragment slot="main">
+    <SettingsDropdown
+      bind:value={$userStore.thumbnailsPreferredAspectRatio}
+      options={[
+        {
+          label: 'Wide',
+          value: 'wide'
+        },
+        {
+          label: 'Square',
+          value: 'square'
+        }
+      ]}
+    />
+  </svelte:fragment>
+</SettingsPaper>
+
+<SettingsPaper label="Wasted space">
+  <svelte:fragment slot="description">
+    <p>Select your preferred method of filling the wasted space around thumbnails.</p>
+  </svelte:fragment>
+
+  <svelte:fragment slot="main">
+    <SettingsDropdown
+      bind:value={$userStore.thumbnailsWastedSpace}
+      options={[
+        {
+          label: 'Stretch',
+          value: 'stretch'
+        },
+        {
+          label: 'Blur',
+          value: 'fill-blur'
+        },
+        {
+          label: 'Black',
+          value: 'fill-black'
+        },
+        {
+          label: 'None',
+          value: 'none'
+        }
+      ]}
+    />
+  </svelte:fragment>
+</SettingsPaper>
 
 <SettingsHeader label="Experimental" />
 

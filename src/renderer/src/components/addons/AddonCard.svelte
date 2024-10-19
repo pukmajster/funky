@@ -145,7 +145,7 @@
     <img
       alt="mod"
       on:error={handleMissingThumbnail}
-      class="shadow-md rounded-md w-[64px] aspect-[5/3]"
+      class="shadow-md rounded-md w-[64px] aspect-[16/9]"
       src={thumbnail}
     />
 
@@ -160,39 +160,46 @@
     on:contextmenu={openOverview}
     class:selected
     class:unselected={otherModsSelectedButNotThisOne && !selected}
-    class="relative shadow-md transition-transform"
+    class="relative -shadow-md transition-transform group"
     class:enabled={isEnabled}
     class:asShuffle
     class:unsubscribed={wasUnsubscribed}
     on:click={handleClick}
   >
-    <!-- -->
-
-    {#if $userStore.enableAdaptiveThumbnails}
+    {#if $userStore.thumbnailsWastedSpace !== 'stretch'}
       <div
-        class="relative grid aspect-[5/3] w-full [&>*]:[grid-area:1/1] rounded-md overflow-hidden"
+        data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+        data-black={$userStore.thumbnailsWastedSpace == 'fill-black'}
+        class="relative data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] data-[black=true]:bg-black w-full rounded-md overflow-hidden"
       >
-        <img
-          alt="mod"
-          on:error={handleMissingThumbnail}
-          class=" rounded-md blur-2xl aspect-[5/3] mx-auto opacity-60 h-full"
-          src={thumbnail}
-        />
-
-        <div class="absolute inset-0 flex items-center justify-center">
+        {#if $userStore.thumbnailsWastedSpace == 'fill-blur'}
           <img
-            alt="mod"
+            alt=""
             on:error={handleMissingThumbnail}
-            class="opacity-100 h-full"
+            class="h-full w-full absolute inset-0 blur-lg -z-10 opacity-50 scale-110"
+            src={thumbnail}
+          />
+        {/if}
+
+        <div
+          data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+          class="absolute inset-0 flex items-center data-[aspect=square]:flex-col justify-center"
+        >
+          <img
+            data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+            class="data-[aspect=wide]:max-h-[100%] data-[aspect=wide]:my-auto"
+            alt=""
+            on:error={handleMissingThumbnail}
             src={thumbnail}
           />
         </div>
       </div>
     {:else}
       <img
-        alt="mod"
+        alt=""
+        data-aspect={$userStore.thumbnailsPreferredAspectRatio}
         on:error={handleMissingThumbnail}
-        class=" rounded-md aspect-[5/3] w-full"
+        class=" rounded-md data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] w-full"
         src={thumbnail}
       />
     {/if}
@@ -248,7 +255,7 @@
       <img
         alt="mod"
         on:error={handleMissingThumbnail}
-        class=" rounded-md aspect-[5/3] w-[96px]"
+        class=" rounded-md aspect-[16/9] w-[96px]"
         src={thumbnail}
       />
 

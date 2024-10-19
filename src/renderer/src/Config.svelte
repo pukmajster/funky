@@ -12,8 +12,9 @@
     activeProfileId: 1,
     hideDescriptions: true,
     enableExperimentalManifestParser: false,
-    enableAdaptiveThumbnails: false,
-    enableWorkshopMetadataFetching: true
+    enableWorkshopMetadataFetching: true,
+    thumbnailsPreferredAspectRatio: 'wide',
+    thumbnailsWastedSpace: 'stretch'
   }
 
   let hasSetupUserProfile = false
