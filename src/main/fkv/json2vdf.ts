@@ -28,9 +28,9 @@ export function json2vdf(json: Object, rootName: string, options?: Partial<VdfFo
     return '\t'.repeat(level)
   }
 
-  function print(level: number, str: string) {
-    output += vdfIndent(level) + str + '\n'
-  }
+  // function print(level: number, str: string) {
+  //   output += vdfIndent(level) + str + '\n'
+  // }
 
   output += `"${rootName}"\n{\n`
 
