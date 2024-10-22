@@ -57,7 +57,7 @@ export function json2vdf(json: Object, rootName: string, options?: Partial<VdfFo
             break
 
           case 'boolean':
-            formattedValue = value ? 'true' : 'false'
+            formattedValue = value ? '1' : '0'
             break
 
           default:
