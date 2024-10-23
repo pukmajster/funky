@@ -3,6 +3,7 @@
   import { onMount } from 'svelte'
   import { requestManifest } from './stores/manifest'
   import { userStore } from './stores/user'
+  import { selectLanguage } from './i18n/store'
 
   let defaultConfig: User = {
     steamGamesDir: '',
@@ -14,7 +15,8 @@
     enableExperimentalManifestParser: false,
     enableWorkshopMetadataFetching: true,
     thumbnailsPreferredAspectRatio: 'wide',
-    thumbnailsWastedSpace: 'stretch'
+    thumbnailsWastedSpace: 'stretch',
+    locale: 'en'
   }
 
   let hasSetupUserProfile = false
@@ -40,6 +42,11 @@
     if ($userStore) {
       window.api.writeUserFile($userStore)
     }
+  }
+
+  $: {
+    const _locale = $userStore?.locale ?? 'en'
+    selectLanguage(_locale)
   }
 
   $: {

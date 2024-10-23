@@ -28,13 +28,16 @@
   "build": {
     "productName": "Funky",
     "appId": "com.pukmajster.funky",
-    "extraResources": {
-      "from": "./renderer/src/assets",
-      "to": "assets",
-      "filter": [
-        "**/*"
-      ]
-    },
+    "extraResources": [
+      {
+        "from": "./renderer/src/assets",
+        "to": "assets",
+        "filter": [
+          "**/*"
+        ]
+      },
+      "i18n"
+    ],
     "directories": {
       "output": "./dist"
     },

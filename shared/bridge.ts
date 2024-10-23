@@ -25,4 +25,5 @@ export interface BridgeApi {
   uninstallAddons: (params: UninstallAddonsParams) => Promise<AddonId[]>
   createVpk: (options: CreateVpkOptions) => Promise<void>
   appMeta: () => Promise<AppMeta>
+  getTranslations: (locale: string) => Promise<Record<string, string>>
 }

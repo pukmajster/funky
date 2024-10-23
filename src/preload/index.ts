@@ -31,7 +31,8 @@ const api: BridgeApi = {
   extractVpk: (params: ExportVpkOptions) => ipcRenderer.invoke('vpk:extractVpk', params),
   uninstallAddons: (params: UninstallAddonsParams) => ipcRenderer.invoke('vpk:uninstall', params),
   createVpk: (params: CreateVpkOptions) => ipcRenderer.invoke('vpk:pack', params),
-  appMeta: () => ipcRenderer.invoke('app:meta')
+  appMeta: () => ipcRenderer.invoke('app:meta'),
+  getTranslations: (locale: string) => ipcRenderer.invoke('i18n:getTranslations', locale)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

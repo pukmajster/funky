@@ -24,6 +24,7 @@ import {
 } from './user'
 import { createVpk, extractVpk, uninstallAddons } from './vpk'
 import { requestGameManifestExperimental } from './manifest2'
+import { getTranslations } from './i18n'
 
 const appMeta: AppMeta = {
   version: app.getVersion()
@@ -60,6 +61,7 @@ ipcMain.handle('vpk:uninstall', (_e, options: UninstallAddonsParams) => uninstal
 ipcMain.handle('vpk:pack', (_e, options: CreateVpkOptions) => createVpk(options))
 
 ipcMain.handle('app:meta', (_e) => appMeta)
+ipcMain.handle('i18n:getTranslations', (_e, locale: string) => getTranslations(locale))
 
 let firstPassFinished = false
 let mainWindow: BrowserWindow | null = null

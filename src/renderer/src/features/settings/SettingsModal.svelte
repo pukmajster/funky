@@ -7,6 +7,7 @@
   import SettingsPageGamesDirectory from './subpages/SettingsPageGamesDirectory.svelte'
   import SettingsPageGeneral from './subpages/SettingsPageGeneral.svelte'
   import SettingsTab from './SettingsTab.svelte'
+  import Translate from '../../i18n/Translate.svelte'
 
   function close() {
     modalStore.close()
@@ -21,29 +22,29 @@
 
   const tabs: TabDetails[] = [
     {
-      label: 'General',
+      label: 'SettingsNav.General',
       id: 'general',
       component: SettingsPageGeneral
     },
     {
-      label: 'Steam Games Directory',
+      label: 'SettingsNav.GameDirectory',
       id: 'gameDir',
       component: SettingsPageGamesDirectory,
       seperated: true
     },
     {
-      label: 'Steam Web API Key',
+      label: 'SettingsNav.SteamWebApiKey',
       id: 'swebapi',
       component: SettingsPageSteamWebApi
     },
     {
-      label: 'About',
+      label: 'SettingsNav.About',
       id: 'about',
       component: SettingsPageAbout,
       seperated: true
     },
     {
-      label: 'Developer',
+      label: 'SettingsNav.Developer',
       id: 'dev',
       component: SettingsPageDev,
       seperated: true
@@ -76,7 +77,9 @@
     <div
       class="flex justify-between items-center sticky top-0 backdrop-blur-xl p-4 z-10 bg-surface-800/80"
     >
-      <p class="text-xl font-semibold uppercase">{activeTabData.label}</p>
+      <p class="text-xl font-semibold uppercase">
+        <Translate token={activeTabData.label} />
+      </p>
       <button on:click={close} class="ml-auto btn btn-icon btn-sm"> <X size={24} /></button>
     </div>
 

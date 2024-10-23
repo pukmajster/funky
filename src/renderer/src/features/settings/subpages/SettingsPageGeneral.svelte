@@ -6,6 +6,25 @@
   import SettingsPaper from '../components/SettingsPaper.svelte'
 </script>
 
+<SettingsHeader label="Language" />
+<SettingsPaper label="Language">
+  <svelte:fragment slot="main">
+    <SettingsDropdown
+      bind:value={$userStore.locale}
+      options={[
+        {
+          label: 'English',
+          value: 'en'
+        },
+        {
+          label: 'Slovenščina',
+          value: 'sl'
+        }
+      ]}
+    />
+  </svelte:fragment>
+</SettingsPaper>
+
 <SettingsHeader label="Addons" />
 
 <SettingsSwitch

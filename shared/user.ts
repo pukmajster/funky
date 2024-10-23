@@ -8,6 +8,7 @@ export interface User {
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
   enableWorkshopMetadataFetching?: boolean
+  locale?: string
 
   thumbnailsPreferredAspectRatio?: 'wide' | 'square'
   thumbnailsWastedSpace: 'stretch' | 'fill-black' | 'fill-blur' | 'disabled'

@@ -1,0 +1,13 @@
+{
+  "Header.Settings": "Nastavitve",
+  "Header.Refresh": "Osveži",
+  "Header.RefreshTool": "<strong>Left-Click</strong> Look for newly installed mods only<br/><strong>Right-Click</strong>for do a full scan",
+
+  "SettingsNav.Title": "Nastavitve",
+  "SettingsNav.Language": "Jezik",
+  "SettingsNav.General": "Osnovne",
+  "SettingsNav.GameDirectory": "Game Directory",
+  "SettingsNav.SteamWebApiKey": "Steam Api Ključ",
+  "SettingsNav.About": "O Programu",
+  "SettingsNav.Developer": "Developer"
+}

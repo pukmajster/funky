@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Translate from '../../i18n/Translate.svelte'
+
   export let activeTab: string
   export let value: string
   export let label: string
@@ -19,6 +21,6 @@
     data-active={isActive}
     class="transition-transform data-[active=false]:scale-[97%] ease-in-out duration-500 antialiased origin-[left_center]"
   >
-    {label}
+    <Translate token={label} />
   </p>
 </button>

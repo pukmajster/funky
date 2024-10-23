@@ -15,6 +15,7 @@
   import Conflicts from './components/library/Conflicts.svelte'
   import { view } from './stores/view'
   import LibraryShuffles from './components/library/LibraryShuffles.svelte'
+  import LocaleTest from './components/LocaleTest.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -43,7 +44,7 @@
     </svelte:fragment>
 
     <AddonLibrary />
-
+    <LocaleTest />
     <Conflicts />
     <!--  <ToolsPage /> -->
 

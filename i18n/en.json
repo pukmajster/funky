@@ -1,0 +1,16 @@
+{
+  "Header.Settings": "Settings",
+  "Header.Refresh": "Refresh",
+  "Header.RefreshTool": "<strong>Left-Click</strong> Look for newly installed mods only<br/><strong>Right-Click</strong>for do a full scan",
+  "Header.SelectedPlaylist": "Selected Playlist",
+  "Header.Play": "Play",
+  "Header.About": "About",
+
+  "SettingsNav.Title": "Settings",
+  "SettingsNav.Language": "Language",
+  "SettingsNav.General": "General",
+  "SettingsNav.GameDirectory": "Game Directory",
+  "SettingsNav.SteamWebApiKey": "Steam Web API Key",
+  "SettingsNav.About": "About",
+  "SettingsNav.Developer": "Developer"
+}
