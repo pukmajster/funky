@@ -3,18 +3,18 @@ import * as fs from 'fs'
 const VPK = require('vpk')
 const path = require('path')
 const fsp = fs.promises
-const vdf = require('node-vdf')
-
 import {
   Addon,
   AddonFiles,
   AddonId,
   AddonInfo,
+  AddonInfoTxt,
   Game,
   GameManifest,
   RequestGameManifestParams
 } from 'shared'
 import games from 'shared/games'
+import { vdf2json } from './funky-values'
 
 function filePathToAddonId(filePath: string): AddonId {
   return filePath.replaceAll('\\', '/').split('addons/')[1]
@@ -68,6 +68,8 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     const workshopAddonIdsWithMissingAddonInfo: string[] = []
 
     for (const file of files) {
+      console.log(`Reading file ${file}`)
+
       // Check if the addon is already present in the manifest
       const cachedAddon = cachedManifest?.addons.find(
         (addon) => addon.id === filePathToAddonId(file)
@@ -111,54 +113,58 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
       // -------------------------------------------------------------
       //
       // Get addon metadata
-      // - For workshop mods, this is done by the workshop API
-      // - For local mods, we get the metadata by reading the VPK's addoninfo.txt
-      // TODO Find a way to fix some mod addoninfo.txt's halting funky
+      //
+      // Best we can do is read the addoninfo.txt file in the VPK
+      // If that fails, we'll have to fetch the metadata from the workshop API
+      // if the mod is from the workshop
       //
       // -------------------------------------------------------------
 
-      // Workshop mod - Collect it's ID and fetch it's data later from the workshop API
-      if (bIsWorkshopVpk) {
-        workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
-      } else {
-        // Local mod - Attempt to read the addoninfo.txt file and hope shit doesn't die on us
-        try {
-          const addoninfoFile = vpk.getFile('addoninfo.txt')
-          if (!addoninfoFile) {
-            throw new Error('Missing addoninfo.txt')
-          }
+      let vpkAddonInfoMissing = false
 
-          const addoninfo = addoninfoFile.toString('utf-8')
-          const cleanedUpAddonInfo = addoninfo.replace(/^\/\/.*$/gm, '')
+      try {
+        const addoninfoFile = vpk.getFile('addoninfo.txt')
+        if (!addoninfoFile) {
+          throw new Error('Missing addoninfo.txt')
+        }
 
-          // Read the file buffer and turn it into a string our VDF parser can read
-          const addoninfoData = vdf.parse(cleanedUpAddonInfo)?.AddonInfo
+        const addoninfo = addoninfoFile.toString('utf-8') //.replace(/^\/\/.*$/gm, '')
 
-          if (!addoninfoData) {
-            throw new Error('Missing AddonInfo object in addoninfo.txt')
-          }
+        // Read the file buffer and turn it into a string our VDF parser can read
+        const addoninfoParsed = vdf2json(addoninfo) as AddonInfoTxt //tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
+        const addoninfoData = addoninfoParsed?.addoninfo
 
-          // Take a look at the addoninfo.txt file and see what useful information we can snatch
-          vpkAddonInfo.title = addoninfoData.addontitle || ''
-          vpkAddonInfo.description = addoninfoData.addondescription || ''
-          vpkAddonInfo.version = addoninfoData.addonversion || ''
-          vpkAddonInfo.author = addoninfoData.addonauthor || ''
-          vpkAddonInfo.tagline = addoninfoData.addontagline || ''
-          vpkAddonInfo.url = addoninfoData.addonurl0 || ''
+        if (!addoninfoData) {
+          console.log('missing addoninfo object')
+          throw new Error('Missing AddonInfo object in addoninfo.txt')
+        }
 
-          // Check if the addoninfo.txt is missing any of the required fields
-          if (!vpkAddonInfo.title) {
-            throw new Error('Missing required fields in addoninfo.txt')
-          }
-        } catch (e) {
+        // Take a look at the addoninfo.txt file and see what useful information we can snatch
+        vpkAddonInfo.title = addoninfoData?.addontitle
+        vpkAddonInfo.description = addoninfoData?.addondescription
+        vpkAddonInfo.version = addoninfoData?.addonversion
+        vpkAddonInfo.author = addoninfoData?.addonauthor
+        vpkAddonInfo.tagline = addoninfoData?.addontagline
+        vpkAddonInfo.url = addoninfoData?.addonurl0
+
+        // Check if the addoninfo.txt is missing any of the required fields
+        if (!vpkAddonInfo.title) {
+          throw new Error('Missing required fields in addoninfo.txt')
+        }
+      } catch (e) {
+        console.error('Failed to read addoninfo.txt file', e)
+        vpkAddonInfoMissing = true
+
+        if (bIsWorkshopVpk) {
+          console.log(`Workshop mod ${addonId} metadata will be fetched from Steam Workshop API`)
           workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
-          console.log('failed to read vpk addoninfo.txt')
         }
       }
 
       const addonData: Addon = {
         id: addonId,
         addonInfo: vpkAddonInfo,
+        vpkAddonInfoMissing,
         files: vpkFiles,
         vpkTimeLastModified: vpkStats.mtime.toISOString(),
         vpkSizeInBytes: vpkStats.size,
@@ -177,7 +183,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     }
 
     console.log(`${workshopAddonIdsWithMissingAddonInfo.length} addons missing addoninfo.txt`)
-    console.log(workshopAddonIdsWithMissingAddonInfo)
+    //console.log(workshopAddonIdsWithMissingAddonInfo)
 
     // Fetch addon info from Steam API
     if (workshopAddonIdsWithMissingAddonInfo.length > 0) {
@@ -190,7 +196,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         i++
       }
 
-      console.log('Fetching mod titles from Steam Workshop...')
+      //console.log('Fetching mod titles from Steam Workshop...')
 
       try {
         const res = await fetch(
@@ -202,7 +208,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         )
         const data: IOnlineAddoninfoResponse = await res.json()
 
-        console.log(JSON.stringify(data, null, 2))
+        //console.log(JSON.stringify(data, null, 2))
 
         for (const publishedFile of data.response?.publishedfiledetails) {
           const id = publishedFile.publishedfileid.toString()

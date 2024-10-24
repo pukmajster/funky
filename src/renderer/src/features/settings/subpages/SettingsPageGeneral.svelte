@@ -60,11 +60,3 @@
     }
   ]}
 />
-
-<SettingsHeader label="Experimental" />
-
-<SettingsSwitch
-  label="Enable experimental manifest parser"
-  description="This new parser should do a much better job at parsing vpk metadata and only relying on the workshop API for mods with missing addoninfo.txt's. You can try it by right-clicking the refresh button to see if it works."
-  bind:value={$userStore.enableExperimentalManifestParser}
-/>

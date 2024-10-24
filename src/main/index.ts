@@ -14,7 +14,6 @@ import {
 } from 'shared'
 import icon from '../../resources/icon.png?asset'
 import { writeAddonList, readAddonList } from './addonlist'
-import { requestGameManifest } from './manifest'
 import {
   openDirectory,
   openFileInFileManager,
@@ -23,7 +22,7 @@ import {
   writeUserFile
 } from './user'
 import { createVpk, extractVpk, uninstallAddons } from './vpk'
-import { requestGameManifestExperimental } from './manifest2'
+import { requestGameManifest } from './manifest'
 
 const appMeta: AppMeta = {
   version: app.getVersion()
@@ -31,10 +30,6 @@ const appMeta: AppMeta = {
 
 ipcMain.handle('requestGameManifest', async (_e, params: RequestGameManifestParams) =>
   requestGameManifest(params)
-)
-
-ipcMain.handle('requestGameManifestExperimental', async (_e, params: RequestGameManifestParams) =>
-  requestGameManifestExperimental(params)
 )
 
 ipcMain.handle('addonlist:write', async (_e, params: WriteAddonlistParams) => {

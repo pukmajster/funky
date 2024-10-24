@@ -7,9 +7,6 @@ import type { AppMeta } from './appMeta'
 
 export interface BridgeApi {
   requestGameManifest: (params: RequestGameManifestParams) => Promise<GameManifest | undefined>
-  requestGameManifestExperimental: (
-    params: RequestGameManifestParams
-  ) => Promise<GameManifest | undefined>
   openLinkInBrowser: (url: string) => void
   writeUserFile: (profileData: User) => void
   readUserFile: () => Promise<User | undefined>

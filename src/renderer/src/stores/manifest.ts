@@ -20,11 +20,7 @@ export async function requestManifest(mode: RequestGameManifestParams['mode']) {
   console.log(steamGamesDir, L4D2_GAME_ID)
 
   try {
-    const method = user.enableExperimentalManifestParser
-      ? window.api.requestGameManifestExperimental
-      : window.api.requestGameManifest
-
-    let manifest = await method({
+    let manifest = await window.api.requestGameManifest({
       appId: L4D2_GAME_ID,
       onlineMetadataFetching: get(userStore).enableNetworking,
       mode,
