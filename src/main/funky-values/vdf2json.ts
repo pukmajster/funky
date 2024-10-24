@@ -7,7 +7,7 @@
 type TokenType = 'unknown' | 'word' | 'special' | 'string' | 'comment'
 
 function isWhitespace(char: string) {
-  return char === ' ' || char === '\t' || char === '\n'
+  return /\s/.test(char)
 }
 
 function isSpecial(char: string) {
@@ -24,35 +24,13 @@ type KeyValueNode = { [key: string]: KeyValueNode | string }
 
 /*************************************************
  *
- * OPTIONS
- *
- ************************************************/
-
-interface ParseOptions {
-  escapeSequences: boolean
-  debug: boolean
-}
-
-const defaultOptions: ParseOptions = {
-  escapeSequences: false,
-  debug: false
-}
-
-/*************************************************
- *
  * PARSER
  *
  ************************************************/
 
-export function vdf2json<T extends Object>(
-  input: string,
-  options: Partial<ParseOptions> = {}
-): unknown {
-  performance.mark('fkv.parse.start')
-
-  const opt: ParseOptions = { ...defaultOptions, ...options }
-
-  console.log(`\n[FKV] parse start`)
+export function vdf2json(input: string): unknown {
+  //performance.mark('fkv.parse.start')
+  //console.log(`\n[FKV] parse start`)
 
   const root: KeyValueNode = {}
   const stack: KeyValueNode[] = []
@@ -143,6 +121,7 @@ export function vdf2json<T extends Object>(
 
       if (tokenType === 'word') {
         if (isWhitespace(char)) {
+          i++
           break
         }
 
@@ -170,17 +149,21 @@ export function vdf2json<T extends Object>(
 
       if (tokenType === 'string') {
         if (char === '"') {
-          // End of string as soon as we reach the end of a string
-          if (!opt.escapeSequences) {
-            i++
-            break
-          }
+          i++
+          break
 
-          // If we're escaping sequences, we need to check if the previous character is a backslash
-          const previousChar = input[i - 1]
-          if (previousChar !== '\\') {
-            break
-          }
+          // TODO re-enable escape sequences?
+          // // End of string as soon as we reach the end of a string
+          // if (!opt.escapeSequences) {
+          //   i++
+          //   break
+          // }
+
+          // // If we're escaping sequences, we need to check if the previous character is a backslash
+          // const previousChar = input[i - 1]
+          // if (previousChar !== '\\') {
+          //   break
+          // }
         }
 
         token += char
@@ -201,7 +184,7 @@ export function vdf2json<T extends Object>(
       if (tokenType === 'comment') {
         if (char === '\n') {
           i++
-          console.log(`(comment)\t\t ${token}`)
+          //console.log(`(comment)\t\t ${token}`)
           tokenType = 'unknown'
           token = ''
           continue
@@ -213,7 +196,7 @@ export function vdf2json<T extends Object>(
       }
     }
 
-    console.log(`(${tokenType})\t\t "${token}"`)
+    //console.log(`(${tokenType})\t "${token}"`)
 
     if (tokenType !== 'unknown') {
     }
@@ -261,12 +244,10 @@ export function vdf2json<T extends Object>(
    *
    ************************************************/
 
-  performance.mark('fkv.parse.end')
+  //performance.mark('fkv.parse.end')
+  //const measure = performance.measure('fkv.parse.measure', 'fkv.parse.start', 'fkv.parse.end')
+  //console.log(`\n[FKV] parse measure`)
+  //console.log(JSON.stringify(measure, null, 4))
 
-  const measure = performance.measure('fkv.parse.measure', 'fkv.parse.start', 'fkv.parse.end')
-
-  console.log(`\n[FKV] parse measure`)
-  console.log(JSON.stringify(measure, null, 4))
-
-  return root as unknown as T
+  return root as unknown
 }

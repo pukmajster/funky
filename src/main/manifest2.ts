@@ -129,7 +129,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
           throw new Error('Missing addoninfo.txt')
         }
 
-        const addoninfo = addoninfoFile.toString('utf-8')
+        const addoninfo = addoninfoFile.toString('utf-8') //.replace(/^\/\/.*$/gm, '')
 
         // Read the file buffer and turn it into a string our VDF parser can read
         const addoninfoParsed = vdf2json(addoninfo) as AddonInfoTxt //tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
