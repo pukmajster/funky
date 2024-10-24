@@ -9,7 +9,7 @@
 
 <SettingsSwitch
   label="Refresh manifest on startup"
-  bind:value={$userStore.refreshManifestsOnStartup}
+  bind:value={$userStore.refreshManifestOnStartup}
 />
 
 <SettingsSwitch

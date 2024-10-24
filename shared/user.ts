@@ -8,7 +8,7 @@ export interface User {
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
   enableWorkshopMetadataFetching?: boolean
-  refreshManifestsOnStartup?: boolean
+  refreshManifestOnStartup?: boolean
 
   thumbnailsPreferredAspectRatio?: 'wide' | 'square'
   thumbnailsWastedSpace: 'stretch' | 'fill-black' | 'fill-blur' | 'disabled'
