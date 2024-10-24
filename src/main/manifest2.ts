@@ -9,12 +9,13 @@ import {
   AddonFiles,
   AddonId,
   AddonInfo,
+  AddonInfoTxt,
   Game,
   GameManifest,
   RequestGameManifestParams
 } from 'shared'
 import games from 'shared/games'
-import { tokenizeVdfString, tokensToJSON } from './simple-vdf-parser'
+import { vdf2json } from './funky-values'
 
 function filePathToAddonId(filePath: string): AddonId {
   return filePath.replaceAll('\\', '/').split('addons/')[1]
@@ -131,7 +132,8 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         const addoninfo = addoninfoFile.toString('utf-8')
 
         // Read the file buffer and turn it into a string our VDF parser can read
-        const addoninfoData = tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
+        const addoninfoParsed = vdf2json(addoninfo) as AddonInfoTxt //tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
+        const addoninfoData = addoninfoParsed?.addoninfo
 
         if (!addoninfoData) {
           console.log('missing addoninfo object')

@@ -31,3 +31,14 @@ export interface AddonInfo {
 export interface AddonInfoOnline {
   title?: string
 }
+
+export type AddonInfoTxt = {
+  addoninfo: {
+    addontitle: string
+    addondescription: string
+    addonversion: string
+    addonauthor: string
+    addontagline: string
+    addonurl0: string
+  }
+}

@@ -44,7 +44,10 @@ const defaultOptions: ParseOptions = {
  *
  ************************************************/
 
-export function vdf2json(input: string, options: Partial<ParseOptions> = {}): KeyValueNode {
+export function vdf2json<T extends Object>(
+  input: string,
+  options: Partial<ParseOptions> = {}
+): unknown {
   performance.mark('fkv.parse.start')
 
   const opt: ParseOptions = { ...defaultOptions, ...options }
@@ -265,5 +268,5 @@ export function vdf2json(input: string, options: Partial<ParseOptions> = {}): Ke
   console.log(`\n[FKV] parse measure`)
   console.log(JSON.stringify(measure, null, 4))
 
-  return root
+  return root as unknown as T
 }
