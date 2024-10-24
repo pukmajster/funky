@@ -3,10 +3,14 @@
   import SettingsHeader from '../components/SettingsHeader.svelte'
   import SettingsSwitch from '../components/SettingsSwitch.svelte'
   import SettingsDropdown from '../components/SettingsDropdown.svelte'
-  import SettingsPaper from '../components/SettingsPaper.svelte'
 </script>
 
 <SettingsHeader label="Addons" />
+
+<SettingsSwitch
+  label="Refresh manifest on startup"
+  bind:value={$userStore.refreshManifestsOnStartup}
+/>
 
 <SettingsSwitch
   label="Hide descriptions"
@@ -16,64 +20,46 @@
 
 <SettingsHeader label="Thumbnails" />
 
-<SettingsPaper label="Preferred thumbnail aspect ratio">
-  <svelte:fragment slot="description">
-    <p>
-      Sadly thumbnails come in a variety of aspect ratios, so you can choose which one you prefer.
-      Wide is 16:9 and square is 1:1.
-    </p>
-    <p />
-  </svelte:fragment>
+<SettingsDropdown
+  label="Preferred thumbnail aspect ratio"
+  description="Sadly thumbnails come in a variety of aspect ratios, so you can choose which one you prefer. Wide is 16:9 and square is 1:1."
+  bind:value={$userStore.thumbnailsPreferredAspectRatio}
+  options={[
+    {
+      label: 'Wide',
+      value: 'wide'
+    },
+    {
+      label: 'Square',
+      value: 'square'
+    }
+  ]}
+/>
 
-  <svelte:fragment slot="main">
-    <SettingsDropdown
-      bind:value={$userStore.thumbnailsPreferredAspectRatio}
-      options={[
-        {
-          label: 'Wide',
-          value: 'wide'
-        },
-        {
-          label: 'Square',
-          value: 'square'
-        }
-      ]}
-    />
-  </svelte:fragment>
-</SettingsPaper>
-
-<SettingsPaper label="Wasted space">
-  <svelte:fragment slot="description">
-    <p>
-      Choose how to fill the wasted space around thumbnails that don't fit your preferred aspect
-      ratio.
-    </p>
-  </svelte:fragment>
-
-  <svelte:fragment slot="main">
-    <SettingsDropdown
-      bind:value={$userStore.thumbnailsWastedSpace}
-      options={[
-        {
-          label: 'Stretch',
-          value: 'stretch'
-        },
-        {
-          label: 'Blur',
-          value: 'fill-blur'
-        },
-        {
-          label: 'Black',
-          value: 'fill-black'
-        },
-        {
-          label: 'None',
-          value: 'none'
-        }
-      ]}
-    />
-  </svelte:fragment>
-</SettingsPaper>
+<SettingsDropdown
+  label="Wasted space"
+  description="Choose how to fill the wasted space around thumbnails that don't fit your preferred aspect
+      ratio."
+  bind:value={$userStore.thumbnailsWastedSpace}
+  options={[
+    {
+      label: 'Stretch',
+      value: 'stretch'
+    },
+    {
+      label: 'Blur',
+      value: 'fill-blur'
+    },
+    {
+      label: 'Black',
+      value: 'fill-black'
+    },
+    {
+      label: 'None',
+      value: 'none'
+    }
+  ]}
+/>
 
 <SettingsHeader label="Experimental" />
 

@@ -14,7 +14,8 @@
     enableExperimentalManifestParser: false,
     enableWorkshopMetadataFetching: true,
     thumbnailsPreferredAspectRatio: 'wide',
-    thumbnailsWastedSpace: 'stretch'
+    thumbnailsWastedSpace: 'stretch',
+    refreshManifestsOnStartup: true
   }
 
   let hasSetupUserProfile = false
@@ -42,9 +43,15 @@
     }
   }
 
+  function getManifestOnStartup() {
+    if ($userStore.steamGamesDir)
+      requestManifest($userStore.refreshManifestsOnStartup ? 'quick-refresh' : 'cached')
+  }
+
+  // Only execute the manifest fetcher once, on startup
   $: {
     if (hasSetupUserProfile) {
-      requestManifest('cached')
+      getManifestOnStartup()
     }
   }
 </script>

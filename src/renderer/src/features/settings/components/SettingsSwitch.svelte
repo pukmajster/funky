@@ -2,7 +2,7 @@
   import { SlideToggle } from '@skeletonlabs/skeleton'
 
   export let label: string
-  export let description: string
+  export let description: string = ''
   export let value: boolean
 </script>
 
