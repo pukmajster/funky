@@ -223,7 +223,7 @@ export function vdf2json(input: string): unknown {
       continue
     }
 
-    const [value, valueType] = readToken()
+    const [value] = readToken()
 
     if (value === '{') {
       const newObj = {}
