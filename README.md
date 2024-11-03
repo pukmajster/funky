@@ -12,6 +12,8 @@ Please note that Funky is still in beta / early development. Future updates may 
 
 You can find the latest releases of Funky for Windows and Linux on the [Releases page](https://github.com/pukmajster/funky/releases).
 
+Note that Windows will warn you about installing an unknown app as I'm not ready to give Microsoft my money yet.
+
 ## Features
 
 - [x] Grid display with thumbnails and pagination
