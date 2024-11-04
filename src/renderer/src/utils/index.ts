@@ -2,14 +2,6 @@ export function arraysShareValues<T>(array1: T[], array2: T[]): boolean {
   return array1.filter((element) => array2.includes(element)).length > 0
 }
 
-// Returns an array of values that are shared between all arrays
-export function sharedArrayValues<T>(...arrays: T[][]): T[] {
-  return arrays.reduce(
-    (acc, array) => acc.filter((element) => arrays.some((arr) => arr.includes(element))),
-    []
-  )
-}
-
 export function findRepeatedValues<T>(...arrays: T[][]): T[] {
   const elementCount: Map<T, number> = new Map()
 
