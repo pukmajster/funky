@@ -29,7 +29,8 @@
           See exactly which mods are conflicting with each other.
           {#if showFiles}
             <br />
-            Common files, such as "addoninfo.txt" and "addonimage.jpg", are excluded from conflicts.
+            Common files, such as <span class="font-semibold">addoninfo.txt</span> and
+            <span class="font-semibold">addonimage.jpg</span>, are excluded from conflicts.
           {/if}
         </p>
       </div>
