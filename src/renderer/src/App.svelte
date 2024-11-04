@@ -12,7 +12,7 @@
   import CategoriesPanel from './components/library/CategoriesPanel.svelte'
   import AddonLibrary from './components/library/AddonLibrary.svelte'
   import { onMount } from 'svelte'
-  import Conflicts from './components/library/Conflicts.svelte'
+  import Conflicts from './features/library/conflicts/Conflicts.svelte'
   import { view } from './stores/view'
   import LibraryShuffles from './components/library/LibraryShuffles.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
