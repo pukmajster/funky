@@ -15,6 +15,7 @@
   import Conflicts from './features/library/conflicts/Conflicts.svelte'
   import { view } from './stores/view'
   import LibraryShuffles from './components/library/LibraryShuffles.svelte'
+  import LoadOrderManager from './features/library/load-order/LoadOrderManager.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -50,6 +51,10 @@
     <svelte:fragment slot="sidebarRight">
       {#if $view == 'shuffles'}
         <LibraryShuffles />
+      {/if}
+
+      {#if $view == 'load-order'}
+        <LoadOrderManager />
       {/if}
     </svelte:fragment>
   </AppShell>

@@ -19,7 +19,10 @@
   $: libraryDisplayMode = $userStore.libraryDisplayMode
 </script>
 
-<div class:hidden={!['mods', 'shuffles'].includes($view)} class="relative h-full flex flex-col">
+<div
+  class:hidden={!['mods', 'shuffles', 'load-order'].includes($view)}
+  class="relative h-full flex flex-col"
+>
   <LibraryFilters />
 
   <div>
