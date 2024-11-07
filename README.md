@@ -27,19 +27,9 @@ Note that Windows will warn you about installing an unknown app as I'm not ready
 - [x] Unsubscribing from mods via Steam Web API
 - [x] VPK browser with extraction functionality
 
-## Ideas
+## Trello board
 
-Here are some ideas or features that may or may not be considered in the future
-
-- [ ] Improved shuffle dragging behaviour
-- [ ] Shuffle option to allow no mod being chosen
-- [ ] List view of mods
-- [ ] Built-in custom config/autoexec editor
-- [ ] Local data backup
-- [ ] Online data backup
-- [ ] Collections
-- [ ] Vocalizer editor
-- [ ] Playlist duplication
+If you're interested in the active development, here's the public [Trello board](https://trello.com/b/N0XKvUsx/funky).
 
 ## Caveats
 
