@@ -10,7 +10,7 @@ Please note that Funky is still in beta / early development. Future updates may 
 
 ## Installation
 
-You can find the latest releases of Funky for Windows and Linux on the [Releases page](https://github.com/pukmajster/funky/releases).
+You can find the latest releases of Funky for Windows and Linux on the [Releases page](https://github.com/pukmajster/funky/releases). Also works on Steam Deck!
 
 Note that Windows will warn you about installing an unknown app as I'm not ready to give Microsoft my money yet.
 
