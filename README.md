@@ -25,7 +25,6 @@ Note that Windows will warn you about installing an unknown app as I'm not ready
 - [x] Shuffles, randomizing your mod selection every time you boot up the game
 - [x] Batch selection of mods with various actions
 - [x] Unsubscribing from mods via Steam Web API
-- [x] VPK browser with extraction functionality
 
 ## Trello board
 
