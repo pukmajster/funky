@@ -8,26 +8,6 @@ function genericGunFiles(soundId: string, worldId: string, viewmodelId: string):
   ]
 }
 
-function genericGunFilesV2(
-  baseWeaponId: string,
-  { soundId = baseWeaponId, modelName = baseWeaponId, materialName = baseWeaponId }
-): string[] {
-  return [
-    // Audio
-    `sound/weapons/${soundId}/`,
-
-    // Materials
-    `materials/models/v_models/weapons/${materialName}/`,
-    `materials/models/w_models/weapons/${materialName}/`,
-
-    // Models
-    `models/v_models/weapons/${modelName}/`,
-    `models/w_models/weapons/${modelName}/`
-
-    // TODO: add weapon scripts dir
-  ]
-}
-
 const weaponSoundFiles = (id: string) => `sound/weapons/${id}/`
 
 const weaponModelFiles = (id: string) => [
