@@ -48,6 +48,9 @@
       "target": "nsis"
     }
   },
+  "engines": {
+    "node": ">=22.9.0"
+  },
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^1.0.2",
