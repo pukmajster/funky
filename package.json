@@ -1,6 +1,6 @@
 {
   "name": "funky",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "description": "Open-source mod manager for Left 4 Dead 2",
   "main": "./out/main/index.js",
   "author": "Žan Pukmajster",
@@ -47,6 +47,9 @@
     "win": {
       "target": "nsis"
     }
+  },
+  "engines": {
+    "node": ">=22.9.0"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",

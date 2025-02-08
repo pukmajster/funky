@@ -10,7 +10,7 @@ Please note that Funky is still in beta / early development. Future updates may 
 
 ## Installation
 
-You can find the latest releases of Funky for Windows and Linux on the [Releases page](https://github.com/pukmajster/funky/releases).
+You can find the latest releases of Funky for Windows and Linux on the [Releases page](https://github.com/pukmajster/funky/releases). Also works on Steam Deck!
 
 Note that Windows will warn you about installing an unknown app as I'm not ready to give Microsoft my money yet.
 
@@ -25,21 +25,10 @@ Note that Windows will warn you about installing an unknown app as I'm not ready
 - [x] Shuffles, randomizing your mod selection every time you boot up the game
 - [x] Batch selection of mods with various actions
 - [x] Unsubscribing from mods via Steam Web API
-- [x] VPK browser with extraction functionality
 
-## Ideas
+## Trello board
 
-Here are some ideas or features that may or may not be considered in the future
-
-- [ ] Improved shuffle dragging behaviour
-- [ ] Shuffle option to allow no mod being chosen
-- [ ] List view of mods
-- [ ] Built-in custom config/autoexec editor
-- [ ] Local data backup
-- [ ] Online data backup
-- [ ] Collections
-- [ ] Vocalizer editor
-- [ ] Playlist duplication
+If you're interested in the active development, here's the public [Trello board](https://trello.com/b/N0XKvUsx/funky).
 
 ## Caveats
 

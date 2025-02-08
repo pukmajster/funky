@@ -66,15 +66,21 @@
   let showFiles = false
 </script>
 
-<div class="mod h-full">
-  <div class="flex justify-center relative w-full aspect-[16/9]">
+<div class="mod h-full relative">
+  <div class="absolute top-0 left-0 right-0 h-[440px] overflow-hidden">
     <img
       on:error={handleMissingThumbnail}
       alt="blurred-bg"
       src={thumbnail}
-      class="select-none absolute inset-0 blur-2xl w-full aspect-[16/9] pointer-events-none scale-y-[1.5] opacity-20"
+      class="select-none blur-xl top-0 left-0 right-0 w-full h-[440px] pointer-events-none opacity-40 arotate-180"
     />
+  </div>
 
+  <div
+    class="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-transparent via-surface-800/50 to-surface-800 h-[440px]"
+  />
+
+  <div class="flex justify-center relative w-full aspect-[16/9]">
     <img
       alt=""
       src={thumbnail}

@@ -86,8 +86,8 @@
       {/if} -->
     </button>
 
-    {#if isDirectory && expanded}
-      <div class="pl-4">
+    {#if isDirectory}
+      <div class="pl-4" class:hidden={!expanded}>
         {#each treePath.children as child}
           <svelte:self treePath={child} selectedFromParent={isSelected} level={level + 1} />
         {/each}

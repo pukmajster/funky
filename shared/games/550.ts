@@ -8,6 +8,14 @@ function genericGunFiles(soundId: string, worldId: string, viewmodelId: string):
   ]
 }
 
+const weaponSoundFiles = (id: string) => `sound/weapons/${id}/`
+
+const weaponModelFiles = (id: string) => [
+  `models/w_models/weapons/w_${id}.`,
+  `models/v_models/v_${id}.`,
+  `models/v_models/weapons/v_${id}.`
+]
+
 function genericMeleeFiles(soundId: string, worldId: string, viewmodelId: string): string[] {
   return [
     `sound/weapons/${soundId}/`,
@@ -170,8 +178,8 @@ export const game550: Game = {
             matches: {
               files: [],
               references: [
-                'autoshot/shotgun_spas',
-                ...genericGunFiles('auto_shotgun', 'autoshot_m4super', 'autoshotgun')
+                weaponSoundFiles('auto_shotgun_spas'),
+                ...weaponModelFiles('shotgun_spas')
               ]
             }
           },
@@ -345,7 +353,12 @@ export const game550: Game = {
             allowSingleAddonRandomization: true,
             matches: {
               files: [],
-              references: genericMeleeFiles('pan', 'frying_pan', 'frying_pan')
+              references: [
+                'frying_pan',
+                'sound/weapons/pan/',
+                '/weapons/melee/v_frying_pan',
+                '/weapons/melee/w_frying_pan'
+              ]
             }
           },
           {
@@ -385,6 +398,21 @@ export const game550: Game = {
                 'sound/weapons/knife/melee',
                 'models/w_models/weapons/w_knife_t.',
                 'models/v_models/v_knife_t.'
+              ]
+            }
+          },
+          {
+            id: 'chainsaw',
+            label: 'Chainsaw',
+            allowSingleAddonRandomization: true,
+            matches: {
+              files: [],
+              references: [
+                'sound/weapons/chainsaw/melee',
+                'materials/models/weapons/v_chainsaw',
+                'materials/models/weapons/w_chainsaw',
+                'models/weapons/melee/v_chainsaw',
+                'models/weapons/melee/w_chainsaw'
               ]
             }
           }
