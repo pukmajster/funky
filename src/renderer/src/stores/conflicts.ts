@@ -6,7 +6,9 @@ import { currentGameManifest } from './manifest'
 
 export const showingConflictingAddons = writable(false)
 
-const commonFiles = ['addonimage.jpg', 'addoninfo.txt']
+export function filterTopLevelFiles(files: string[]) {
+  return files.filter((file) => file.includes('/'))
+}
 
 // Group enabled mods that share indentical files
 export const conflictGroups = derived(
@@ -22,8 +24,12 @@ export const conflictGroups = derived(
         let files = thisMod?.files ?? []
 
         // Remove common files from the list
-        const groupFiles = group[0]?.files.filter((file) => !commonFiles.includes(file)) ?? []
-        const addonFiles = files.filter((file) => !commonFiles.includes(file))
+        // Remove common files from the list
+        const groupFiles = filterTopLevelFiles(group[0]?.files ?? [])
+        const addonFiles = filterTopLevelFiles(files)
+
+        //const groupFiles = group[0]?.files.filter((file) => !commonFiles.includes(file)) ?? []
+        //const addonFiles = files.filter((file) => !commonFiles.includes(file))
 
         if (arraysShareValues(groupFiles, addonFiles)) {
           group.push(thisMod)

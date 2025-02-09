@@ -37,7 +37,7 @@
         {:else}
           <p class="text-sm mt-2 text-surface-300">
             See exactly which mods are conflicting with each other.
-            {#if showFiles}
+            {#if showFiles && false}
               <br />
               Common files, such as <span class="font-semibold">addoninfo.txt</span> and
               <span class="font-semibold">addonimage.jpg</span>, are excluded from conflicts.
