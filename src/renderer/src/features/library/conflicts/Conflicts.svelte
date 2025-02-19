@@ -35,12 +35,13 @@
         {#if noConflicts}
           <div class="text-sm mt-2 text-surface-300">No conflicts found.</div>
         {:else}
-          <p class="text-sm mt-2 text-surface-300">
+          <p class="text-sm mt-2 text-surface-300 max-w-lg">
             See exactly which mods are conflicting with each other.
-            {#if showFiles && false}
+            {#if showFiles}
               <br />
-              Common files, such as <span class="font-semibold">addoninfo.txt</span> and
-              <span class="font-semibold">addonimage.jpg</span>, are excluded from conflicts.
+              Common files, such as <span class="font-semibold">addoninfo.txt</span>,
+              <span class="font-semibold">addonimage.jpg</span>, and other top-level files, which
+              are unrelated to the mods themselves, are excluded from conflict checks.
             {/if}
           </p>
         {/if}
