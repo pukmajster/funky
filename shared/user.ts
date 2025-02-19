@@ -12,4 +12,7 @@ export interface User {
 
   thumbnailsPreferredAspectRatio?: 'wide' | 'square'
   thumbnailsWastedSpace: 'stretch' | 'fill-black' | 'fill-blur' | 'disabled'
+  priorityLoad: string[]
+
+  showWorkshopIds?: boolean
 }

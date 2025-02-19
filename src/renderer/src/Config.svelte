@@ -15,7 +15,9 @@
     enableWorkshopMetadataFetching: true,
     thumbnailsPreferredAspectRatio: 'wide',
     thumbnailsWastedSpace: 'stretch',
-    refreshManifestOnStartup: false
+    refreshManifestOnStartup: false,
+    priorityLoad: [],
+    showWorkshopIds: false
   }
 
   let hasSetupUserProfile = false

@@ -95,6 +95,10 @@
         <h3 class="h3">{addon?.addonInfo?.title}</h3>
       {/if}
 
+      {#if $userStore.showWorkshopIds && addon.workshop?.publishedFileId}
+        <h6 class="h6 text-neutral-500">Workshop ID: {addon.workshop.publishedFileId}</h6>
+      {/if}
+
       <div class="space-y-2">
         <div class="flex flex-wrap gap-2">
           {#each $currentGameManifest.addonCategories.categories[addon.id] as cat}

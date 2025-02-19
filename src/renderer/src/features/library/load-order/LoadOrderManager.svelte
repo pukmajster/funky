@@ -6,8 +6,7 @@
   import { HelpCircle } from 'lucide-svelte'
   import { modalStore, type ModalComponent, type ModalSettings } from '@skeletonlabs/skeleton'
   import LoadOrderDialog from './LoadOrderDialog.svelte'
-
-  let priorityMods: AddonId[] = []
+  import { userStore } from '../../../stores/user'
 
   function drop(event: DragEvent) {
     const json = event.dataTransfer.getData('text/plain')
@@ -18,10 +17,10 @@
   }
 
   function toggleAddonIdInPriority(addonId: AddonId) {
-    if (priorityMods.includes(addonId)) {
-      priorityMods = priorityMods.filter((id) => id !== addonId)
+    if ($userStore.priorityLoad.includes(addonId)) {
+      $userStore.priorityLoad = $userStore.priorityLoad.filter((id) => id !== addonId)
     } else {
-      priorityMods = [...priorityMods, addonId]
+      $userStore.priorityLoad = [...$userStore.priorityLoad, addonId]
     }
   }
 
@@ -43,7 +42,7 @@
   <div
     class="flex sticky top-0 gap-2 items-center px-4 py-3 bg-surface-800/80 backdrop-blur-lg z-10"
   >
-    <h1 class="text-xl">Load Order</h1>
+    <h1 class="text-xl">Priority Load</h1>
     <button class="btn btn-sm variant-filled-surface ml-auto hidden">Clear</button>
     <button on:click={openHelpModal} class="btn btn-icon btn-icon-sm ml-auto">
       <HelpCircle />
@@ -58,13 +57,13 @@
     on:drop={(e) => drop(e)}
     class:dropActive={$isDraggingAddon}
   >
-    {#if priorityMods.length == 0}
+    {#if $userStore.priorityLoad.length == 0}
       <div class="text-left text-sm text-gray-400 p-2">
         Drag and drop mods here for priority load.
       </div>
     {/if}
 
-    {#each priorityMods as addonId}
+    {#each $userStore.priorityLoad as addonId}
       <AddonCard
         addon={$currentGameManifest.addons.find((addon) => addon.id == addonId)}
         mode="in-shuffle-list"

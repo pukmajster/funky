@@ -16,7 +16,7 @@ import { db } from '../db/db'
 
 export async function writeAddonList(): Promise<void> {
   // Collect meta-data
-  const { steamGamesDir } = get(userStore)
+  const { steamGamesDir, priorityLoad } = get(userStore)
   const manifest: GameManifest = get(currentGameManifest)
   const game = games[L4D2_GAME_ID]
   const addonListDir = `${game.rootDirectoryName}/${game.gameDirectory}`
@@ -44,14 +44,29 @@ export async function writeAddonList(): Promise<void> {
 
   // Write the addonlist.txt file by looping through all the mods in the manifest
   let outputVdfString = `"AddonList"\n{\n`
+
+  // First write mods that are listed in priority load, in the order they appear in the list
+  for (const priorityModId of priorityLoad) {
+    const enabled = mergedEnabledMods.includes(priorityModId) ? '1' : '0'
+    const modIdForAddonlist = priorityModId.replaceAll('/', '\\')
+    outputVdfString += `\t"${modIdForAddonlist}"\t\t\t"${enabled}"\n`
+  }
+
+  // Then write the rest of the non-priority mods
   for (const mod in manifest.addons) {
     const modId = manifest.addons[mod].id
+
+    // Skip any mods that are already in the priority list
+    if (priorityLoad.includes(modId)) {
+      continue
+    }
+
     const enabled = mergedEnabledMods.includes(modId) ? '1' : '0'
     const modIdForAddonlist = modId.replaceAll('/', '\\')
     outputVdfString += `\t"${modIdForAddonlist}"\t\t\t"${enabled}"\n`
   }
 
-  // Close the KeyValue block
+  // Finalise the output and close the KeyValue block
   outputVdfString += '}'
 
   // Update the actual file
@@ -61,6 +76,7 @@ export async function writeAddonList(): Promise<void> {
     data: outputVdfString
   })
 }
+
 export async function readAddonList() {
   const user = get(userStore)
 
