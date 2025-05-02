@@ -148,3 +148,36 @@ export async function deleteProfile(id: number) {
 export function getAppMeta() {
   return window.api.appMeta()
 }
+// Download all items from a Steam Workshop Collection and create a playlist
+export async function downloadCollection(collectionInput: string): Promise<void> {
+  // Extract numeric ID from input
+  const matches = collectionInput.match(/(\d+)/g)
+  if (!matches || matches.length === 0) {
+    toastStore.trigger({ background: 'variant-filled-error', message: 'Invalid collection ID or URL' })
+    return
+  }
+  const collectionId = matches[matches.length - 1]
+  try {
+    toastStore.trigger({ background: 'variant-filled-surface', message: `Fetching collection ${collectionId}...` })
+    const publishedIds = await SteamWebApi.getCollectionPublishedFileIds(collectionId)
+    if (!publishedIds || publishedIds.length === 0) {
+      toastStore.trigger({ background: 'variant-filled-warning', message: 'No items found in collection' })
+      return
+    }
+    toastStore.trigger({ background: 'variant-filled-surface', message: `Subscribing to ${publishedIds.length} items...` })
+    await SteamWebApi.subscribeToPublishedItems(publishedIds)
+    toastStore.trigger({ background: 'variant-filled-success', message: `Subscribed to ${publishedIds.length} workshop items` })
+    // Update profile and refresh manifest
+    activeProfileStore.addonListEnabled(publishedIds)
+    try {
+      await requestManifest('full-update')
+    } catch (e) {
+      console.error('Manifest refresh failed:', e)
+    }
+    await writeAddonList()
+    toastStore.trigger({ background: 'variant-filled-success', message: 'Collection downloaded and playlist created' })
+  } catch (error: any) {
+    console.error('Error downloading collection:', error)
+    toastStore.trigger({ background: 'variant-filled-error', message: `Error: ${error.message}` })
+  }
+}

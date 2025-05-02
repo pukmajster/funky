@@ -28,36 +28,18 @@
 
   async function launchGame() {
     await writeAddonList()
-    //window.api.openLinkInBrowser(`steam://rungameid/550//${$launchParameters}`)
     window.api.openLinkInBrowser(`steam://rungameid/550/`)
   }
 
   function openHelpModal() {
-    const modalComponent: ModalComponent = {
-      ref: HelpModal,
-      slot: '<p>Skeleton</p>'
-    }
-
-    const modal: ModalSettings = {
-      type: 'component',
-      component: modalComponent
-    }
-
+    const modalComponent: ModalComponent = { ref: HelpModal, slot: '<p>Skeleton</p>' }
+    const modal: ModalSettings = { type: 'component', component: modalComponent }
     modalStore.trigger(modal)
   }
 
   function openSettingsModal() {
-    const modalComponent: ModalComponent = {
-      ref: SettingsModal,
-      slot: '<p>Skeleton</p>'
-    }
-
-    const modal: ModalSettings = {
-      type: 'component',
-      // Pass the component directly:
-      component: modalComponent
-    }
-
+    const modalComponent: ModalComponent = { ref: SettingsModal, slot: '<p>Skeleton</p>' }
+    const modal: ModalSettings = { type: 'component', component: modalComponent }
     modalStore.trigger(modal)
   }
 
@@ -70,15 +52,21 @@
   $: activeProfile = liveQuery(async () => await db.profiles.get($userStore.activeProfileId))
 </script>
 
-<div class=" bg-surface-800">
+<div class="bg-surface-800">
   <div class="grid grid-cols-3 gap-4 p-2">
     <div class="flex gap-2">
       <button class="btn btn-sm variant-filled-surface" on:click={openSettingsModal}>
         <Settings size={16} class="mr-2" />
         Settings
       </button>
-
       <RefreshManifestButton />
+      <!-- Nouveau bouton Tools -->
+      <button
+        class="btn btn-sm variant-filled-surface"
+        on:click={() => view.set('tools')}
+      >
+        Tools
+      </button>
     </div>
 
     <div class="place-self-center flex items-stretch overflow-hidden rounded-full">
@@ -87,8 +75,6 @@
         class="bg-primary-700/50 hover:bg-primary-700/70 flex items-center px-4 py-1 flex-1 h-full"
       >
         <LucideListTodo size={21} />
-        <!-- <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-1" alt="" /> -->
-
         <div class="flex pl-2 gap-[2px] flex-col justify-evenly items-start [&>*]:leading-none">
           <span class="text-[12px]">Selected Playlist</span>
           <span
@@ -97,12 +83,10 @@
           >
         </div>
       </button>
-
       <button
         class="flex items-center pr-4 pl-3 bg-primary-500 hover:bg-primary-500/80"
         on:click={launchGame}
       >
-        <!-- <LucidePlay class="mr-2" size={16} /> -->
         <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-2" alt="" />
         Play
       </button>
@@ -112,7 +96,6 @@
 
     <div class="place-self-end flex gap-2">
       <UpdateChecker />
-
       <button class="btn btn-sm variant-filled-surface" on:click={openHelpModal}>
         <HelpCircleIcon class="w-4 mr-2 inline" />
         Help
@@ -120,9 +103,7 @@
     </div>
   </div>
 
-  <div
-    class="flex justify-between border-t border-solid border-surface-600 bg-surface-800 shadow-xl"
-  >
+  <div class="flex justify-between border-t border-solid border-surface-600 bg-surface-800 shadow-xl">
     <div>
       <TabGroup
         active="border-b-2 !text-white border-solid"
@@ -131,21 +112,11 @@
         border=""
         hover="hover:text-white/70"
       >
-        <Tab bind:group={$view} name="mods" value={'mods'}>
-          <span>Mods</span>
-        </Tab>
-
+        <Tab bind:group={$view} name="mods" value={'mods'}>Mods</Tab>
         <Tab bind:group={$view} name="shuffles" value={'shuffles'}>Shuffles</Tab>
-
-        <Tab bind:group={$view} name="conflicts" value={'conflicts'}
-          >{$totalConflictingAddons} Conflicts</Tab
-        >
-
-        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab> -->
-
-        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
-
-        <Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab> -->
+        <Tab bind:group={$view} name="conflicts" value={'conflicts'}>{$totalConflictingAddons} Conflicts</Tab>
+        <!-- Ajout de l'onglet Tools -->
+        <Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab>
       </TabGroup>
     </div>
 
@@ -156,7 +127,6 @@
           <ProgressRadial width="w-[21px]" value={undefined} />
         </span>
       {/if}
-
       <LibraryDisplayMode />
     </div>
   </div>
