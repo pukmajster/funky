@@ -15,6 +15,7 @@
   import Conflicts from './features/library/conflicts/Conflicts.svelte'
   import { view } from './stores/view'
   import LibraryShuffles from './components/library/LibraryShuffles.svelte'
+  import ToolsPage from './components/experimental/ToolsPage.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -42,13 +43,16 @@
       <CategoriesPanel />
     </svelte:fragment>
 
-    <AddonLibrary />
-
-    <Conflicts />
-    <!--  <ToolsPage /> -->
+    {#if $view === 'mods'}
+      <AddonLibrary />
+    {:else if $view === 'conflicts'}
+      <Conflicts />
+    {:else if $view === 'tools'}
+      <ToolsPage />        <!-- ta page Tools s’affiche ici -->
+    {/if}
 
     <svelte:fragment slot="sidebarRight">
-      {#if $view == 'shuffles'}
+      {#if $view === 'shuffles'}
         <LibraryShuffles />
       {/if}
     </svelte:fragment>

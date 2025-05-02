@@ -1,32 +1,47 @@
 <script lang="ts">
-  import { view } from '../../stores/view'
-  import PackerModal from '../vpk/PackerModal.svelte'
+  import { activeProfileStore } from '../../stores/active-profile'
   import { modalStore, type ModalComponent } from '@skeletonlabs/skeleton'
+  import PackerModal from '../vpk/PackerModal.svelte'
+  let collectionInput = ''
 
   function openPackerModal() {
-    const modalComponent: ModalComponent = {
-      // Pass a reference to your custom component
-      ref: PackerModal,
-      // Add the component properties as key/value pairs
-      // Provide a template literal for the default component slot
-      slot: '<p>Skeleton</p>'
-    }
-
-    const modal: import('@skeletonlabs/skeleton').ModalSettings = {
+    modalStore.trigger({
       type: 'component',
-      // Pass the component directly:
-      component: modalComponent
-    }
+      component: { ref: PackerModal, slot: '<p>Pack it!</p>' }
+    })
+  }
 
-    modalStore.trigger(modal)
+  async function createPlaylistFromCollection() {
+    await activeProfileStore.createProfileFromCollection(collectionInput)
   }
 </script>
 
-{#if $view == 'tools'}
-  <div>
-    <h1 class="text-3xl mb-4 my-6">Tools</h1>
+<div class="p-4">
+  <h1 class="text-3xl mb-6">Tools</h1>
 
-    <h2 class="text-xl">VPK Packer</h2>
-    <button on:click={openPackerModal} class="btn variant-filled-surface">create VPK</button>
-  </div>
-{/if}
+  <section class="mb-8">
+    <h2 class="text-xl mb-2">VPK Packer</h2>
+    <button on:click={openPackerModal} class="btn variant-filled-surface">
+      Create VPK
+    </button>
+  </section>
+
+  <section>
+    <h2 class="text-xl mb-2">Create Playlist from Collection</h2>
+    <div class="flex gap-2 items-center">
+      <input
+        type="text"
+        bind:value={collectionInput}
+        placeholder="Steam Collection URL or ID"
+        class="input variant-form-material flex-1"
+      />
+      <button
+        on:click={createPlaylistFromCollection}
+        class="btn variant-filled-surface"
+        disabled={!collectionInput.trim()}
+      >
+        Create Profile
+      </button>
+    </div>
+  </section>
+</div>
