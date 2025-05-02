@@ -18,7 +18,11 @@ const STEAM_PUBLISHED_FILE_URL = 'https://api.steampowered.com/ISteamRemoteStora
 
 async function fetchPublishedFileTitle(fileId: string): Promise<string> {
   const params = new URLSearchParams({ itemcount: '1', 'publishedfileids[0]': fileId })
-  const res = await fetch(STEAM_PUBLISHED_FILE_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params })
+  const res = await fetch(STEAM_PUBLISHED_FILE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params
+  })
   const data = await res.json()
   const details = data.response.publishedfiledetails?.[0]
   return details?.title || ''
@@ -26,7 +30,11 @@ async function fetchPublishedFileTitle(fileId: string): Promise<string> {
 
 async function fetchCollectionDetails(collectionId: string): Promise<SteamCollectionDetails> {
   const params = new URLSearchParams({ collectioncount: '1', 'publishedfileids[0]': collectionId })
-  const res = await fetch(STEAM_COLLECTION_DETAILS_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params })
+  const res = await fetch(STEAM_COLLECTION_DETAILS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params
+  })
   const data = await res.json()
   const raw = data.response.collectiondetails?.[0]
   const children = Array.isArray(raw.children)
@@ -56,6 +64,10 @@ function createProfileStore() {
     db.profiles.update(get(store)!.id, { enabledAddonIds: addonIds })
   }
 
+  function addonListEnabled(addonIds: string[]) {
+    setAddonList(addonIds)
+  }
+
   function toggleAddonEnabled(addonEntry: string) {
     update(profile => {
       if (!profile) return undefined
@@ -72,7 +84,9 @@ function createProfileStore() {
     update(profile => {
       if (!profile) return undefined
       const list = profile.enabledShuffleIds
-      const updated = list.includes(shuffleId) ? list.filter(id => id !== shuffleId) : [...list, shuffleId]
+      const updated = list.includes(shuffleId)
+        ? list.filter(id => id !== shuffleId)
+        : [...list, shuffleId]
       db.profiles.update(profile.id, { enabledShuffleIds: updated })
       return { ...profile, enabledShuffleIds: updated }
     })
@@ -80,14 +94,20 @@ function createProfileStore() {
 
   async function createProfileFromCollection(collectionInput: string) {
     const matches = collectionInput.match(/(\d+)/g)
-    if (!matches) { toastStore.trigger({ background: 'variant-filled-error', message: 'ID de collection invalide' }); return }
+    if (!matches) {
+      toastStore.trigger({ background: 'variant-filled-error', message: 'ID de collection invalide' })
+      return
+    }
     const collectionId = matches.pop()!
 
     toastStore.trigger({ background: 'variant-filled-surface', message: `Récupération collection ${collectionId}…` })
     const { title, children } = await fetchCollectionDetails(collectionId)
-    // Build addon entries with proper workshop path
+
     const addonEntries = children.map(c => `workshop/${c.publishedfileid}.vpk`)
-    if (!addonEntries.length) { toastStore.trigger({ background: 'variant-filled-warning', message: 'Aucun addon dans cette collection' }); return }
+    if (!addonEntries.length) {
+      toastStore.trigger({ background: 'variant-filled-warning', message: 'Aucun addon dans cette collection' })
+      return
+    }
 
     toastStore.trigger({ background: 'variant-filled-surface', message: `Création profil « ${title} »…` })
     const newId = await db.profiles.add({ label: title, enabledAddonIds: [], enabledShuffleIds: [] })
@@ -95,11 +115,12 @@ function createProfileStore() {
     const newProfile = await db.profiles.get(newId)
     set(newProfile)
 
-    // Activate all addons one by one
     addonEntries.forEach(entry => toggleAddonEnabled(entry))
-
     await writeAddonList()
-    toastStore.trigger({ background: 'variant-filled-success', message: `Profil '${title}' créé avec ${addonEntries.length} addons activés !` })
+    toastStore.trigger({
+      background: 'variant-filled-success',
+      message: `Profil '${title}' créé avec ${addonEntries.length} addons activés !`
+    })
   }
 
   // Sync store on active profile change
@@ -110,7 +131,17 @@ function createProfileStore() {
     }
   })
 
-  return { set, subscribe, deleteProfile, renameProfile, toggleAddonEnabled, toggleShuffleEnabled, setAddonList, createProfileFromCollection }
+  return {
+    set,
+    subscribe,
+    deleteProfile,
+    renameProfile,
+    toggleAddonEnabled,
+    toggleShuffleEnabled,
+    setAddonList,
+    addonListEnabled,
+    createProfileFromCollection
+  }
 }
 
 export const activeProfileStore = createProfileStore()

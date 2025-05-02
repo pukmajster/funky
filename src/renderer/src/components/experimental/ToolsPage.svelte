@@ -1,6 +1,6 @@
 <script lang="ts">
   import { activeProfileStore } from '../../stores/active-profile'
-  import { modalStore, type ModalComponent } from '@skeletonlabs/skeleton'
+  import { modalStore } from '@skeletonlabs/skeleton'
   import PackerModal from '../vpk/PackerModal.svelte'
   let collectionInput = ''
 
