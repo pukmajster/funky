@@ -1,6 +1,6 @@
 {
   "name": "funky",
-  "version": "0.5.0",
+  "version": "0.4.5",
   "description": "Open-source mod manager for Left 4 Dead 2",
   "main": "./out/main/index.js",
   "author": "Žan Pukmajster",
@@ -58,6 +58,7 @@
     "dexie": "^4.0.7",
     "lucide-svelte": "^0.260.0",
     "nanoid": "^4.0.2",
+    "svelte-dnd-action": "^0.9.48",
     "vpk": "^0.2.0"
   },
   "devDependencies": {
