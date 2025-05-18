@@ -22,21 +22,21 @@
     items = e.detail.items
   }
 
-  function drop(event: DragEvent) {
-    const json = event.dataTransfer.getData('text/plain')
-    const data = JSON.parse(json)
+  //function drop(event: DragEvent) {
+  //  const json = event.dataTransfer.getData('text/plain')
+  //  const data = JSON.parse(json)
 
-    toggleAddonIdInPriority(data.addonId)
-    event.preventDefault()
-  }
+  //  toggleAddonIdInPriority(data.addonId)
+  //  event.preventDefault()
+  //}
 
-  function toggleAddonIdInPriority(addonId: AddonId) {
-    //if ($userStore.priorityLoad.includes(addonId)) {
-    //  $userStore.priorityLoad = $userStore.priorityLoad.filter((id) => id !== addonId)
-    //} else {
-    //  $userStore.priorityLoad = [...$userStore.priorityLoad, addonId]
-    //}
-  }
+  // function toggleAddonIdInPriority(addonId: AddonId) {
+  //   //if ($userStore.priorityLoad.includes(addonId)) {
+  //   //  $userStore.priorityLoad = $userStore.priorityLoad.filter((id) => id !== addonId)
+  //   //} else {
+  //   //  $userStore.priorityLoad = [...$userStore.priorityLoad, addonId]
+  //   //}
+  // }
 
   function openHelpModal() {
     const modalComponent: ModalComponent = {
