@@ -2,7 +2,7 @@
   import type { Addon } from 'shared'
   import AddonCard from '../../../components/addons/AddonCard.svelte'
   import { findRepeatedValues } from '../../../utils'
-  import { filterTopLevelFiles } from '../../../stores/conflicts'
+  import { filterNotConflictingFiles } from './conflicts'
 
   export let group: Addon[]
   export let index: number
@@ -10,7 +10,9 @@
   // TODO: would be great if conflicts were all handled by one main
   // component or something, instead of reusing some logic
   // in individual components
-  $: sharedFiles = findRepeatedValues(...group.map((addon) => filterTopLevelFiles(addon.files)))
+  $: sharedFiles = findRepeatedValues(
+    ...group.map((addon) => filterNotConflictingFiles(addon.files))
+  )
 
   export let showFiles: boolean
 </script>

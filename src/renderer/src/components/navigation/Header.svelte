@@ -20,7 +20,7 @@
   import { L4D2_GAME_ID } from '../../utils'
   import { liveQuery } from 'dexie'
   import { db } from '../../db/db'
-  import { totalConflictingAddons } from '../../stores/conflicts'
+  import { totalConflictingAddons } from '../../features/library/conflicts/conflicts'
   import LibraryDisplayMode from '../library/LibraryDisplayMode.svelte'
   import SettingsModal from '../../features/settings/SettingsModal.svelte'
   import UpdateChecker from '../../features/updates/UpdateChecker.svelte'

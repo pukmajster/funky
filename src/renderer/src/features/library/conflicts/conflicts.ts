@@ -1,13 +1,25 @@
 import type { Addon } from 'shared'
 import { derived, writable } from 'svelte/store'
-import { arraysShareValues } from '../utils'
-import { libraryActiveAddons } from './library'
-import { currentGameManifest } from './manifest'
+import { arraysShareValues } from '../../../utils'
+import { libraryActiveAddons } from '../../../stores/library'
+import { currentGameManifest } from '../../../stores/manifest'
 
 export const showingConflictingAddons = writable(false)
 
-export function filterTopLevelFiles(files: string[]) {
-  return files.filter((file) => file.includes('/'))
+// These vscript files don't actually override eachother, but instead all get loaded
+// alongside eachother, so we just don't consider them as conflicting
+// https://developer.valvesoftware.com/wiki/Left_4_Dead_2/Scripting
+const vscriptNonConflictingFiles = [
+  'scripts/vscripts/mapspawn_addon.nut',
+  'scripts/vscripts/response_testbed_addon.nut',
+  'scripts/vscripts/scriptedmode_addon.nut',
+  'scripts/vscripts/director_base_addon.nut'
+]
+
+export function filterNotConflictingFiles(files: string[]) {
+  // This filters out all root level files, which are unrelated to the mod itself
+  // Then it filters out non-conflicting vscript files
+  return files.filter((file) => file.includes('/') && !vscriptNonConflictingFiles.includes(file))
 }
 
 // Group enabled mods that share indentical files
@@ -25,8 +37,8 @@ export const conflictGroups = derived(
 
         // Remove common files from the list
         // Remove common files from the list
-        const groupFiles = filterTopLevelFiles(group[0]?.files ?? [])
-        const addonFiles = filterTopLevelFiles(files)
+        const groupFiles = filterNotConflictingFiles(group[0]?.files ?? [])
+        const addonFiles = filterNotConflictingFiles(files)
 
         //const groupFiles = group[0]?.files.filter((file) => !commonFiles.includes(file)) ?? []
         //const addonFiles = files.filter((file) => !commonFiles.includes(file))

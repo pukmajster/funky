@@ -1,5 +1,5 @@
 <script>
-  import { conflictGroups } from '../../../stores/conflicts'
+  import { conflictGroups } from './conflicts'
   import { view } from '../../../stores/view'
   import ConflictGroup from './ConflictGroup.svelte'
 

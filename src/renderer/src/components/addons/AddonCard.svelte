@@ -5,7 +5,7 @@
   import games from 'shared/games'
   import thumbnailFallback from '../../assets/addon-thumbnail-fallback.jpg'
   import { activeProfileStore } from '../../stores/active-profile'
-  import { conflictGroups } from '../../stores/conflicts'
+  import { conflictGroups } from '../../features/library/conflicts/conflicts'
   import {
     librarySelectedAddonIds,
     libraryActiveAddons,
@@ -136,8 +136,6 @@
 {#if mode == 'in-shuffle-list'}
   <div
     draggable={true}
-    on:dragstart={dragStart}
-    on:dragend={dragEnd}
     on:contextmenu={openOverview}
     class="flex items-center gap-2"
     class:unsubscribed={wasUnsubscribed}
