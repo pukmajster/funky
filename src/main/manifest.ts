@@ -103,83 +103,87 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
       modDirs.push(vpkPath)
 
-      // Load vpk
-      const vpk = new VPK(vpkPath)
-      vpk.load()
-
-      // Save all file directories, including addoninfo.txt and addonimage.jpg
-      vpkFiles = vpk.files
-
-      // -------------------------------------------------------------
-      //
-      // Get addon metadata
-      //
-      // Best we can do is read the addoninfo.txt file in the VPK
-      // If that fails, we'll have to fetch the metadata from the workshop API
-      // if the mod is from the workshop
-      //
-      // -------------------------------------------------------------
-
-      let vpkAddonInfoMissing = false
-
       try {
-        const addoninfoFile = vpk.getFile('addoninfo.txt')
-        if (!addoninfoFile) {
-          throw new Error('Missing addoninfo.txt')
+        // Load vpk
+        const vpk = new VPK(vpkPath)
+        vpk.load()
+
+        // Save all file directories, including addoninfo.txt and addonimage.jpg
+        vpkFiles = vpk.files
+
+        // -------------------------------------------------------------
+        //
+        // Get addon metadata
+        //
+        // Best we can do is read the addoninfo.txt file in the VPK
+        // If that fails, we'll have to fetch the metadata from the workshop API
+        // if the mod is from the workshop
+        //
+        // -------------------------------------------------------------
+
+        let vpkAddonInfoMissing = false
+
+        try {
+          const addoninfoFile = vpk.getFile('addoninfo.txt')
+          if (!addoninfoFile) {
+            throw new Error('Missing addoninfo.txt')
+          }
+
+          const addoninfo = addoninfoFile.toString('utf-8') //.replace(/^\/\/.*$/gm, '')
+
+          // Read the file buffer and turn it into a string our VDF parser can read
+          const addoninfoParsed = vdf2json(addoninfo) as AddonInfoTxt //tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
+          const addoninfoData = addoninfoParsed?.addoninfo
+
+          if (!addoninfoData) {
+            console.log('missing addoninfo object')
+            throw new Error('Missing AddonInfo object in addoninfo.txt')
+          }
+
+          // Take a look at the addoninfo.txt file and see what useful information we can snatch
+          vpkAddonInfo.title = addoninfoData?.addontitle
+          vpkAddonInfo.description = addoninfoData?.addondescription
+          vpkAddonInfo.version = addoninfoData?.addonversion
+          vpkAddonInfo.author = addoninfoData?.addonauthor
+          vpkAddonInfo.tagline = addoninfoData?.addontagline
+          vpkAddonInfo.url = addoninfoData?.addonurl0
+
+          // Check if the addoninfo.txt is missing any of the required fields
+          if (!vpkAddonInfo.title) {
+            throw new Error('Missing required fields in addoninfo.txt')
+          }
+        } catch (e) {
+          console.error('Failed to read addoninfo.txt file', e)
+          vpkAddonInfoMissing = true
+
+          if (bIsWorkshopVpk) {
+            console.log(`Workshop mod ${addonId} metadata will be fetched from Steam Workshop API`)
+            workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
+          }
         }
 
-        const addoninfo = addoninfoFile.toString('utf-8') //.replace(/^\/\/.*$/gm, '')
-
-        // Read the file buffer and turn it into a string our VDF parser can read
-        const addoninfoParsed = vdf2json(addoninfo) as AddonInfoTxt //tokensToJSON(tokenizeVdfString(addoninfo)).addoninfo
-        const addoninfoData = addoninfoParsed?.addoninfo
-
-        if (!addoninfoData) {
-          console.log('missing addoninfo object')
-          throw new Error('Missing AddonInfo object in addoninfo.txt')
+        const addonData: Addon = {
+          id: addonId,
+          addonInfo: vpkAddonInfo,
+          vpkAddonInfoMissing,
+          files: vpkFiles,
+          vpkTimeLastModified: vpkStats.mtime.toISOString(),
+          vpkSizeInBytes: vpkStats.size,
+          vpkHash: ''
         }
 
-        // Take a look at the addoninfo.txt file and see what useful information we can snatch
-        vpkAddonInfo.title = addoninfoData?.addontitle
-        vpkAddonInfo.description = addoninfoData?.addondescription
-        vpkAddonInfo.version = addoninfoData?.addonversion
-        vpkAddonInfo.author = addoninfoData?.addonauthor
-        vpkAddonInfo.tagline = addoninfoData?.addontagline
-        vpkAddonInfo.url = addoninfoData?.addonurl0
-
-        // Check if the addoninfo.txt is missing any of the required fields
-        if (!vpkAddonInfo.title) {
-          throw new Error('Missing required fields in addoninfo.txt')
-        }
-      } catch (e) {
-        console.error('Failed to read addoninfo.txt file', e)
-        vpkAddonInfoMissing = true
-
+        // Check if the addon is from the workshop. And if it is, get the workshop id
         if (bIsWorkshopVpk) {
-          console.log(`Workshop mod ${addonId} metadata will be fetched from Steam Workshop API`)
-          workshopAddonIdsWithMissingAddonInfo.push(publishedFileId)
+          addonData.workshop = {
+            publishedFileId: +publishedFileId
+          }
         }
-      }
 
-      const addonData: Addon = {
-        id: addonId,
-        addonInfo: vpkAddonInfo,
-        vpkAddonInfoMissing,
-        files: vpkFiles,
-        vpkTimeLastModified: vpkStats.mtime.toISOString(),
-        vpkSizeInBytes: vpkStats.size,
-        vpkHash: ''
+        addonCategories.categories[addonId] = categorizeVpk(game, vpkFiles)
+        addons.push(addonData)
+      } catch (error) {
+        console.error('Failed to read VPK file', error)
       }
-
-      // Check if the addon is from the workshop. And if it is, get the workshop id
-      if (bIsWorkshopVpk) {
-        addonData.workshop = {
-          publishedFileId: +publishedFileId
-        }
-      }
-
-      addonCategories.categories[addonId] = categorizeVpk(game, vpkFiles)
-      addons.push(addonData)
     }
 
     console.log(`${workshopAddonIdsWithMissingAddonInfo.length} addons missing addoninfo.txt`)
