@@ -4,7 +4,7 @@ export interface User {
   enableNetworking?: boolean
   activeProfileId?: number
   steamWebApiKey?: string
-  libraryDisplayMode?: 'grid' | 'list' | 'list_no_thumbnails'
+  libraryDisplayMode?: 'grid' | 'list'
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
   enableWorkshopMetadataFetching?: boolean
@@ -15,4 +15,6 @@ export interface User {
   priorityLoad: string[]
 
   showWorkshopIds?: boolean
+
+  libraryHideThumbnails?: boolean
 }

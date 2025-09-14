@@ -17,7 +17,9 @@
     thumbnailsWastedSpace: 'stretch',
     refreshManifestOnStartup: false,
     priorityLoad: [],
-    showWorkshopIds: false
+    showWorkshopIds: false,
+
+    libraryHideThumbnails: false
   }
 
   let hasSetupUserProfile = false
