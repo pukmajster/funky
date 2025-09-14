@@ -25,6 +25,8 @@
   import SettingsModal from '../../features/settings/SettingsModal.svelte'
   import UpdateChecker from '../../features/updates/UpdateChecker.svelte'
   import RefreshManifestButton from '../../features/nav/RefreshManifestButton.svelte'
+  import PlaylistsManager from '../../features/nav/PlaylistsManager.svelte'
+  import { fullscreenMenuStore } from '../fullscreen-menu/store'
 
   async function launchGame() {
     await writeAddonList()
@@ -67,6 +69,10 @@
     placement: 'top'
   }
 
+  function openPlaylistManager() {
+    fullscreenMenuStore.set('playlists-manager')
+  }
+
   $: activeProfile = liveQuery(async () => await db.profiles.get($userStore.activeProfileId))
 </script>
 
@@ -83,7 +89,7 @@
 
     <div class="place-self-center flex items-stretch overflow-hidden rounded-full">
       <button
-        use:popup={popupClick}
+        on:click={openPlaylistManager}
         class="bg-primary-700/50 hover:bg-primary-700/70 flex items-center px-4 py-1 flex-1 h-full"
       >
         <LucideListTodo size={21} />
@@ -109,6 +115,7 @@
     </div>
 
     <GameManager />
+    <PlaylistsManager />
 
     <div class="place-self-end flex gap-2">
       <UpdateChecker />
