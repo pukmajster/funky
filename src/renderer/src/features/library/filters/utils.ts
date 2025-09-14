@@ -1,4 +1,4 @@
-import { fullscreenMenuStore } from '../../../components/fullscreen-menu/store'
+import { funkyDrawerStore } from '../../../components/funky-drawer/store'
 import type { SortingType, TypeOfMod, AddonSource } from '../../../stores/library'
 
 export function getSortingLabel(value: SortingType) {
@@ -32,5 +32,5 @@ export function getAddonSourceLabel(value: AddonSource) {
 }
 
 export function openFiltersMenu() {
-  fullscreenMenuStore.set('library-filters')
+  funkyDrawerStore.set('library-filters')
 }

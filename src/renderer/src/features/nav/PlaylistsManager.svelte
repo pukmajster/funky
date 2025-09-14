@@ -1,5 +1,4 @@
 <script lang="ts">
-  import FullscreenMenu from '../../components/fullscreen-menu/FullscreenMenu.svelte'
   import { modalStore } from '@skeletonlabs/skeleton'
   import { userStore } from '../../stores/user'
   import { db } from '../../db/db'
@@ -8,7 +7,8 @@
   import { Trash, Pencil, PlusIcon } from 'lucide-svelte'
   import { deleteProfile } from '../../api/api'
   import classNames from 'classnames'
-  import { fullscreenMenuStore } from '../../components/fullscreen-menu/store'
+  import FunkyDrawer from '../../components/funky-drawer/FunkyDrawer.svelte'
+  import { funkyDrawerStore } from '../../components/funky-drawer/store'
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())
 
@@ -77,11 +77,11 @@
 
   function selectPlaylist(playlistId: number) {
     $userStore.activeProfileId = playlistId
-    fullscreenMenuStore.set(undefined)
+    funkyDrawerStore.set(undefined)
   }
 </script>
 
-<FullscreenMenu id="playlists-manager" label="Playlists">
+<FunkyDrawer id="playlists-manager" label="Playlists">
   <div class="w-[360px] mx-auto space-y-2">
     {#if !!$profiles}
       <div class="grid grid-cols-1 bg-surface-600 overflow-hidden rounded-lg">
@@ -145,4 +145,4 @@
       </div>
     {/if}
   </div>
-</FullscreenMenu>
+</FunkyDrawer>

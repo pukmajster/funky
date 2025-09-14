@@ -1,6 +1,5 @@
 <script lang="ts">
   import { ListBox, ListBoxItem } from '@skeletonlabs/skeleton'
-  import FullscreenMenu from '../../../components/fullscreen-menu/FullscreenMenu.svelte'
   import {
     type SortingType,
     type TypeOfMod,
@@ -13,6 +12,7 @@
     addonSource
   } from '../../../stores/library'
   import { clamp } from '../../../utils'
+  import FunkyDrawer from '../../../components/funky-drawer/FunkyDrawer.svelte'
 
   // Limit the active subcategories to 1
   $: {
@@ -55,7 +55,7 @@
   ]
 </script>
 
-<FullscreenMenu id="library-filters" label="Filters">
+<FunkyDrawer id="library-filters" label="Filters">
   <div class="grid grid-cols-1 gap-3 flex-1 w-[300px]">
     <div>
       <h3 class="text-sm font-semibold mb-2 indent-3">SORT BY</h3>
@@ -123,4 +123,4 @@
       </ListBox>
     </div>
   </div>
-</FullscreenMenu>
+</FunkyDrawer>

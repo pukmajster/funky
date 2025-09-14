@@ -1,15 +1,15 @@
 <script lang="ts">
   import classNames from 'classnames'
-  import { fullscreenMenuStore, type FullscreenMenuType } from './store'
+  import { funkyDrawerStore, type FunkyDrawerType } from './store'
   import { X } from 'lucide-svelte'
 
-  export let id: FullscreenMenuType
+  export let id: FunkyDrawerType
   export let label: string
 
-  $: open = $fullscreenMenuStore === id
+  $: open = $funkyDrawerStore === id
 
   function close() {
-    fullscreenMenuStore.set(undefined)
+    funkyDrawerStore.set(undefined)
   }
 </script>
 

@@ -3,7 +3,6 @@
     Tab,
     TabGroup,
     modalStore,
-    popup,
     type ModalComponent,
     type ModalSettings,
     type PopupSettings,
@@ -26,7 +25,7 @@
   import UpdateChecker from '../../features/updates/UpdateChecker.svelte'
   import RefreshManifestButton from '../../features/nav/RefreshManifestButton.svelte'
   import PlaylistsManager from '../../features/nav/PlaylistsManager.svelte'
-  import { fullscreenMenuStore } from '../fullscreen-menu/store'
+  import { funkyDrawerStore } from '../funky-drawer/store'
 
   async function launchGame() {
     await writeAddonList()
@@ -63,14 +62,8 @@
     modalStore.trigger(modal)
   }
 
-  const popupClick: PopupSettings = {
-    event: 'click',
-    target: 'gameManagerPopup',
-    placement: 'top'
-  }
-
   function openPlaylistManager() {
-    fullscreenMenuStore.set('playlists-manager')
+    funkyDrawerStore.set('playlists-manager')
   }
 
   $: activeProfile = liveQuery(async () => await db.profiles.get($userStore.activeProfileId))
