@@ -1,11 +1,5 @@
 <script lang="ts">
   import FullscreenMenu from '../../components/fullscreen-menu/FullscreenMenu.svelte'
-  import { fullscreenMenuStore } from '../../components/fullscreen-menu/store'
-
-  function openPlaylistsManager() {
-    fullscreenMenuStore.set('playlists-manager')
-  }
-
   import { modalStore } from '@skeletonlabs/skeleton'
   import { userStore } from '../../stores/user'
   import { db } from '../../db/db'
@@ -14,6 +8,7 @@
   import { Trash, Pencil } from 'lucide-svelte'
   import { deleteProfile } from '../../api/api'
   import classNames from 'classnames'
+  import { fullscreenMenuStore } from '../../components/fullscreen-menu/store'
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())
 
@@ -79,6 +74,11 @@
       }
     })
   }
+
+  function selectPlaylist(playlistId: number) {
+    $userStore.activeProfileId = playlistId
+    fullscreenMenuStore.set(undefined)
+  }
 </script>
 
 <FullscreenMenu id="playlists-manager" label="Playlists">
@@ -92,7 +92,7 @@
             class=" flex overflow-hidden [&:not(:last-child)]:border-b border-surface-800 data-[enabled=true]:bg-primary-600 data-[enabled=true]:text-white data-[enabled=true]:text-black data-[enabled=false]:hover:bg-surface-300/10"
           >
             <button
-              on:click={() => ($userStore.activeProfileId = profile.id)}
+              on:click={() => selectPlaylist(profile.id)}
               class="flex-1 h-[40px] pl-3 flex justify-between items-center"
             >
               <span class=" max-w-[200px] text text-ellipsis whitespace-nowrap overflow-hidden"
