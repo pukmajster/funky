@@ -7,6 +7,7 @@
   import SettingsPageGamesDirectory from './subpages/SettingsPageGamesDirectory.svelte'
   import SettingsPageGeneral from './subpages/SettingsPageGeneral.svelte'
   import SettingsTab from './SettingsTab.svelte'
+  import SettingsPageAppearance from './subpages/SettingsPageAppearance.svelte'
 
   function close() {
     modalStore.close()
@@ -24,6 +25,11 @@
       label: 'General',
       id: 'general',
       component: SettingsPageGeneral
+    },
+    {
+      label: 'Appearance',
+      id: 'appearance',
+      component: SettingsPageAppearance
     },
     {
       label: 'Steam Games Directory',

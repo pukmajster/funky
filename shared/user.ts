@@ -4,7 +4,7 @@ export interface User {
   enableNetworking?: boolean
   activeProfileId?: number
   steamWebApiKey?: string
-  libraryDisplayMode?: 'grid' | 'list'
+  libraryDisplayMode?: 'grid' | 'list' | 'list_no_thumbnails'
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
   enableWorkshopMetadataFetching?: boolean
