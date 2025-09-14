@@ -89,7 +89,7 @@
           {@const isEnabled = $userStore.activeProfileId === profile.id}
           <div
             data-enabled={isEnabled}
-            class=" flex overflow-hidden [&:not(:last-child)]:border-b border-surface-800 data-[enabled=true]:bg-primary-600 data-[enabled=true]:text-white data-[enabled=true]:text-black data-[enabled=false]:hover:bg-surface-300/10"
+            class="group flex overflow-hidden [&:not(:last-child)]:border-b border-surface-800 data-[enabled=true]:bg-primary-600 data-[enabled=true]:text-white data-[enabled=true]:text-black data-[enabled=false]:hover:bg-surface-300/10"
           >
             <button
               on:click={() => selectPlaylist(profile.id)}
@@ -103,7 +103,7 @@
             {#if profile.id !== 1}
               <button
                 data-enabled={isEnabled}
-                class="hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square grid place-items-center"
+                class="hidden group-hover:grid hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square place-items-center"
                 on:click={() => promptConfirmDeleteProfile(profile.id)}
               >
                 <Trash
@@ -118,7 +118,7 @@
 
             <button
               data-enabled={isEnabled}
-              class="hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square grid place-items-center"
+              class="hidden group-hover:grid hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square place-items-center"
               on:click={() => promptEditProfileModal(profile.id)}
             >
               <Pencil size={18} />
