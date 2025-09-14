@@ -68,7 +68,7 @@
           <ListBoxItem
             bind:group={$sortingType}
             active="bg-primary-600 font-semibold !rounded-none mt-0"
-            rounded="rounded-none"
+            rounded="rounded-none text-sm"
             hover="hover:bg-slate-100/20"
             padding="px-3 py-2"
             name={_st.value}
@@ -90,7 +90,7 @@
           <ListBoxItem
             bind:group={$typeToShow}
             active="bg-primary-600 font-semibold !rounded-none mt-0"
-            rounded="rounded-none"
+            rounded="rounded-none text-sm"
             hover="hover:bg-slate-100/20"
             padding="px-3 py-2"
             name={_tts.value}
@@ -112,7 +112,7 @@
           <ListBoxItem
             bind:group={$addonSource}
             active="bg-primary-600 font-semibold !rounded-none mt-0"
-            rounded="rounded-none"
+            rounded="rounded-none text-sm"
             hover="hover:bg-slate-100/20"
             padding="px-3 py-2"
             name={_as.value}
