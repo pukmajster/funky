@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LibraryFiltersMenu from '../../features/library/filters/LibraryFiltersMenu.svelte'
   import {
     installedAddons,
     libraryActiveSubCategories,
@@ -9,7 +10,6 @@
   import { view } from '../../stores/view'
   import AddonCard from '../addons/AddonCard.svelte'
   import LibraryFilters from './LibraryFilters.svelte'
-  import LibraryFiltersMenu from './LibraryFiltersMenu.svelte'
   import SubCategoryShuffle from './SubCategoryShuffle.svelte'
 
   // $: {
