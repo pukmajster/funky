@@ -13,6 +13,7 @@
   import { activeProfileStore } from '../../stores/active-profile'
   import { Trash, Pencil } from 'lucide-svelte'
   import { deleteProfile } from '../../api/api'
+  import classNames from 'classnames'
   $: activeProfileId = $userStore.activeProfileId
   const profiles = liveQuery(async () => await db.profiles.toArray())
 
@@ -81,21 +82,20 @@
 </script>
 
 <FullscreenMenu id="playlists-manager" label="Playlists">
-  <div class=" space-y-2">
+  <div class="max-w-[600px] mx-auto space-y-2">
     {#if !!$profiles}
-      <div class="grid grid-cols-1 bg-surface-200/10 overflow-hidden rounded-lg">
+      <div class="grid grid-cols-1 bg-surface-600 overflow-hidden rounded-lg">
         {#each $profiles as profile}
           {@const isEnabled = $userStore.activeProfileId === profile.id}
           <div
             data-enabled={isEnabled}
-            class=" flex overflow-hidden [&:not(:last-child)]:border-b border-surface-800 data-[enabled=true]:bg-slate-200 data-[enabled=true]:text-black data-[enabled=false]:hover:bg-surface-300/10"
+            class=" flex overflow-hidden [&:not(:last-child)]:border-b border-surface-800 data-[enabled=true]:bg-primary-600 data-[enabled=true]:text-white data-[enabled=true]:text-black data-[enabled=false]:hover:bg-surface-300/10"
           >
             <button
               on:click={() => ($userStore.activeProfileId = profile.id)}
-              class="flex-1 h-[60px] pl-3 flex justify-between items-center"
+              class="flex-1 h-[40px] pl-3 flex justify-between items-center"
             >
-              <span
-                class="indent-3 text-lg max-w-[200px] text text-ellipsis whitespace-nowrap overflow-hidden"
+              <span class=" max-w-[200px] text text-ellipsis whitespace-nowrap overflow-hidden"
                 >{profile.label}
               </span>
             </button>
@@ -106,7 +106,13 @@
                 class="hover:bg-white/10 data-[enabled=true]:hover:bg-black/20 h-full aspect-square grid place-items-center"
                 on:click={() => promptConfirmDeleteProfile(profile.id)}
               >
-                <Trash color="#d4163c" size={18} />
+                <Trash
+                  class={classNames('text-red-500 ', {
+                    'text-red-500': !isEnabled,
+                    'text-white': isEnabled
+                  })}
+                  size={18}
+                />
               </button>
             {/if}
 

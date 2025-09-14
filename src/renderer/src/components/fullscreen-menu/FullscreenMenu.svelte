@@ -1,6 +1,6 @@
 <script lang="ts">
   import classNames from 'classnames'
-  import { fullscreenMenuStore } from './store'
+  import { fullscreenMenuStore, type FullscreenMenuType } from './store'
   import { X } from 'lucide-svelte'
 
   export let id: FullscreenMenuType
@@ -15,29 +15,33 @@
 
 <div
   class={classNames(
-    'FunkyFullscreenMenu overflow-auto fixed inset-0 w-screen p-6 h-screen bg-surface-900/90 backdrop-blur-lg text-white transition-[opacity,transform] ',
+    'FunkyFullscreenMenu  flex flex-row z-50  fixed left-0 top-0 bottom-0 h-screen w-screen bg-surface-900/60 text-white transition-[opacity,transform]  will-change-transform',
     {
       'opacity-100 scale-100 pointer-events-auto': open,
-      'scale-[95%] opacity-0 pointer-events-none': !open
+      '-translate-x-12 opacity-0 pointer-events-none': !open
     }
   )}
 >
-  <div class="FunkyFullscreenMenu-Nav max-w-[900px] mx-auto grid grid-cols-3 items-center">
-    <div />
+  <div
+    class="overflow-auto z-50 shadow-lg bg-surface-800/90 backdrop-blur-md min-h-screen min-w-[400px] p-3"
+  >
+    <div class="FunkyFullscreenMenu-Nav grid grid-cols-2 items-center">
+      <h3 class="text-xl indent-3 uppercase tracking-wider">{label}</h3>
 
-    <h3 class="text-3xl text-center">{label}</h3>
+      <button
+        on:click={close}
+        class="ml-auto btn-icon min-w-[48px] min-h-[48px] hover:bg-surface-600"
+      >
+        <X />
+      </button>
+    </div>
 
-    <button
-      on:click={close}
-      class="ml-auto btn-icon min-w-[64px] min-h-[64px] hover:bg-surface-600"
-    >
-      <X />
-    </button>
+    <div class="FunkyFullscreenMenu-Panel my-4">
+      <slot />
+    </div>
   </div>
 
-  <div class="FunkyFullscreenMenu-Panel max-w-[900px] mx-auto mt-12">
-    <slot />
-  </div>
+  <button class="appearance-none flex-1 h-screen cursor-default" on:click={close} />
 </div>
 
 <style>
