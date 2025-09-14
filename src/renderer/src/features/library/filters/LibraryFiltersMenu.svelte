@@ -58,7 +58,7 @@
 <FullscreenMenu id="library-filters" label="Filters">
   <div class="grid grid-cols-1 gap-3 flex-1 w-[300px]">
     <div>
-      <h3 class="text-lg font-semibold pl-3 py-2">SORT BY</h3>
+      <h3 class="text-sm font-semibold mb-2 indent-3">SORT BY</h3>
       <ListBox
         spacing=""
         class="bg-surface-600 rounded-lg divide-y divide-surface-800 overflow-hidden"
@@ -69,7 +69,7 @@
             bind:group={$sortingType}
             active="bg-primary-600 font-semibold !rounded-none mt-0"
             rounded="rounded-none text-sm"
-            hover="hover:bg-slate-100/20"
+            hover="hover:bg-slate-100/10"
             padding="px-3 py-2"
             name={_st.value}
             value={_st.value}
@@ -80,7 +80,7 @@
     </div>
 
     <div>
-      <h3 class="text-lg font-semibold pl-3 py-2">FILTER BY</h3>
+      <h3 class="text-sm font-semibold mb-2 indent-3 mt-2">FILTER BY</h3>
       <ListBox
         spacing=""
         class="bg-surface-600 rounded-lg divide-y divide-surface-800 overflow-hidden"
@@ -91,7 +91,7 @@
             bind:group={$typeToShow}
             active="bg-primary-600 font-semibold !rounded-none mt-0"
             rounded="rounded-none text-sm"
-            hover="hover:bg-slate-100/20"
+            hover="hover:bg-slate-100/10"
             padding="px-3 py-2"
             name={_tts.value}
             value={_tts.value}
@@ -102,7 +102,7 @@
     </div>
 
     <div>
-      <h3 class="text-lg font-semibold pl-3 py-2">SOURCE</h3>
+      <h3 class="text-sm font-semibold mb-2 indent-3 mt-2">SOURCE</h3>
       <ListBox
         spacing=""
         class="bg-surface-600 rounded-lg divide-y divide-surface-800 overflow-hidden"
@@ -113,7 +113,7 @@
             bind:group={$addonSource}
             active="bg-primary-600 font-semibold !rounded-none mt-0"
             rounded="rounded-none text-sm"
-            hover="hover:bg-slate-100/20"
+            hover="hover:bg-slate-100/10"
             padding="px-3 py-2"
             name={_as.value}
             value={_as.value}
