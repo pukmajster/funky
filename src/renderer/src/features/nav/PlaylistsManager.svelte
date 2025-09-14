@@ -5,7 +5,7 @@
   import { db } from '../../db/db'
   import { liveQuery } from 'dexie'
   import { activeProfileStore } from '../../stores/active-profile'
-  import { Trash, Pencil } from 'lucide-svelte'
+  import { Trash, Pencil, PlusIcon } from 'lucide-svelte'
   import { deleteProfile } from '../../api/api'
   import classNames from 'classnames'
   import { fullscreenMenuStore } from '../../components/fullscreen-menu/store'
@@ -93,9 +93,15 @@
           >
             <button
               on:click={() => selectPlaylist(profile.id)}
-              class="flex-1 h-[40px] pl-3 flex justify-between items-center"
+              class="flex-1 text-sm h-[38px] pl-3 flex justify-between items-center"
             >
-              <span class=" max-w-[200px] text text-ellipsis whitespace-nowrap overflow-hidden"
+              <span
+                class={classNames(
+                  ' max-w-[200px] text text-ellipsis whitespace-nowrap overflow-hidden',
+                  {
+                    ' font-semibold': isEnabled
+                  }
+                )}
                 >{profile.label}
               </span>
             </button>
@@ -125,17 +131,18 @@
             </button>
           </div>
         {/each}
+
+        <div
+          class="group flex overflow-hidden border-surface-800 text-white hover:bg-surface-300/10"
+        >
+          <button
+            on:click={promptNewProfileModal}
+            class="flex-1 h-[38px] text-sm gap-1 flex justify-center items-center"
+          >
+            <PlusIcon /> New Playlist
+          </button>
+        </div>
       </div>
     {/if}
-
-    <div class="pb-1" />
-
-    <div class="space-y-2">
-      <div class="flex justify-end gap-2">
-        <button class="btn btn-sm variant-filled" on:click={promptNewProfileModal}>
-          New Playlist
-        </button>
-      </div>
-    </div>
   </div>
 </FullscreenMenu>
