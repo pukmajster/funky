@@ -56,7 +56,7 @@
 </script>
 
 <FullscreenMenu id="library-filters" label="Filters">
-  <div class="grid grid-cols-1 gap-3 flex-1 mx-auto">
+  <div class="grid grid-cols-1 gap-3 flex-1 w-[300px]">
     <div>
       <h3 class="text-lg font-semibold pl-3 py-2">SORT BY</h3>
       <ListBox

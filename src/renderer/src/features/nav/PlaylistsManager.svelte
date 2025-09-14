@@ -82,7 +82,7 @@
 </script>
 
 <FullscreenMenu id="playlists-manager" label="Playlists">
-  <div class="max-w-[600px] mx-auto space-y-2">
+  <div class="w-[360px] mx-auto space-y-2">
     {#if !!$profiles}
       <div class="grid grid-cols-1 bg-surface-600 overflow-hidden rounded-lg">
         {#each $profiles as profile}

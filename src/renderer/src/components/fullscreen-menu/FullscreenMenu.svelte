@@ -22,9 +22,7 @@
     }
   )}
 >
-  <div
-    class="overflow-auto z-50 shadow-lg bg-surface-800/90 backdrop-blur-md min-h-screen min-w-[400px] p-3"
-  >
+  <div class="overflow-auto z-50 shadow-lg bg-surface-800/90 backdrop-blur-md min-h-screen p-3">
     <div class="FunkyFullscreenMenu-Nav grid grid-cols-2 items-center">
       <h3 class="text-xl indent-3 uppercase tracking-wider">{label}</h3>
 
