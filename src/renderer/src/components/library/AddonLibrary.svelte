@@ -18,6 +18,7 @@
   // }
 
   $: libraryDisplayMode = $userStore.libraryDisplayMode
+  $: thumbnailsSize = $userStore.thumbnailsSize
 </script>
 
 <div
@@ -49,6 +50,9 @@
       class="relative p-3 pb-[200px]"
       class:library-list={libraryDisplayMode === 'list'}
       class:library-grid={libraryDisplayMode == 'grid'}
+      class:library-grid-sm={thumbnailsSize == 'sm'}
+      class:library-grid-md={thumbnailsSize == 'md'}
+      class:library-grid-lg={thumbnailsSize == 'lg'}
     >
       {#each $libraryAddonPoolSortedPaginated as addon}
         {@const addonData = $currentGameManifest.addons.find((_addon) => _addon.id === addon)}
@@ -70,7 +74,7 @@
   .library-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 6px;
   }
 
   .library-grid {
@@ -80,5 +84,17 @@
     align-items: stretch;
 
     gap: 12px;
+
+    &.library-grid-sm {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    &.library-grid-md {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    &.library-grid-lg {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
   }
 </style>
