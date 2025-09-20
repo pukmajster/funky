@@ -17,4 +17,6 @@ export interface User {
   showWorkshopIds?: boolean
 
   libraryHideThumbnails?: boolean
+
+  experimentalLoadOrderEnable?: boolean
 }

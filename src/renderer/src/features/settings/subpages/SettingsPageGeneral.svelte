@@ -13,24 +13,6 @@
   bind:value={$userStore.refreshManifestOnStartup}
 />
 
-<SettingsHeader label="Library" />
-
-<SettingsDropdown
-  label="Library layout"
-  description="Choose between a grid and list layout"
-  bind:value={$userStore.libraryDisplayMode}
-  options={[
-    {
-      label: 'Grid',
-      value: 'grid'
-    },
-    {
-      label: 'List',
-      value: 'list'
-    }
-  ]}
-/>
-
 <SettingsHeader label="Mods" />
 
 <SettingsSwitch

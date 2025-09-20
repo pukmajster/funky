@@ -5,7 +5,6 @@
     modalStore,
     type ModalComponent,
     type ModalSettings,
-    type PopupSettings,
     ProgressRadial
   } from '@skeletonlabs/skeleton'
   import { HelpCircleIcon, LucideListTodo, Settings } from 'lucide-svelte'
@@ -86,7 +85,6 @@
         class="bg-primary-700/50 hover:bg-primary-700/70 flex items-center px-4 py-1 flex-1 h-full"
       >
         <LucideListTodo size={21} />
-        <!-- <img src={games[L4D2_GAME_ID]?.gameLogo} class="w-5 mr-1" alt="" /> -->
 
         <div class="flex pl-2 gap-[2px] flex-col justify-evenly items-start [&>*]:leading-none">
           <span class="text-[12px]">Selected Playlist</span>
@@ -141,13 +139,9 @@
           >{$totalConflictingAddons} Conflicts</Tab
         >
 
-        <!-- <Tab bind:group={$view} name="load-order" value={'load-order'}>Priority Load</Tab> -->
-
-        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab> -->
-
-        <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab>
-
-        <Tab bind:group={$view} name="tools" value={'tools'}>Tools</Tab> -->
+        {#if $userStore.experimentalLoadOrderEnable}
+          <Tab bind:group={$view} name="load-order" value={'load-order'}>Priority Load</Tab>
+        {/if}
       </TabGroup>
     </div>
 

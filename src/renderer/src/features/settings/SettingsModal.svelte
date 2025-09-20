@@ -7,6 +7,7 @@
   import SettingsPageGamesDirectory from './subpages/SettingsPageGamesDirectory.svelte'
   import SettingsPageGeneral from './subpages/SettingsPageGeneral.svelte'
   import SettingsTab from './SettingsTab.svelte'
+  import SettingsPageExperimental from './subpages/SettingsPageExperimental.svelte'
 
   function close() {
     modalStore.close()
@@ -25,7 +26,6 @@
       id: 'general',
       component: SettingsPageGeneral
     },
-
     {
       label: 'Steam Games Directory',
       id: 'gameDir',

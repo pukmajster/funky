@@ -19,7 +19,9 @@
     priorityLoad: [],
     showWorkshopIds: false,
 
-    libraryHideThumbnails: false
+    libraryHideThumbnails: false,
+
+    experimentalLoadOrderEnable: false
   }
 
   let hasSetupUserProfile = false
