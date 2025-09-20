@@ -32,7 +32,7 @@
 <SettingsDropdown
   label="Preferred thumbnail aspect ratio"
   description="Sadly thumbnails come in a variety of aspect ratios, so you can choose which one you prefer. Wide is 16:9 and square is 1:1."
-  bind:value={$userStore.thumbnailsPreferredAspectRatio}
+  bind:value={$userStore.libraryThumbnailAspectRatio}
   options={[
     {
       label: 'Wide',
@@ -49,7 +49,7 @@
   label="Wasted space"
   description="Choose how to fill the wasted space around thumbnails that don't fit your preferred aspect
       ratio."
-  bind:value={$userStore.thumbnailsWastedSpace}
+  bind:value={$userStore.libraryThumbnailWastedSpace}
   options={[
     {
       label: 'Stretch',

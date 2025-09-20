@@ -164,13 +164,13 @@
     class:unsubscribed={wasUnsubscribed}
     on:click={handleClick}
   >
-    {#if $userStore.thumbnailsWastedSpace !== 'stretch'}
+    {#if $userStore.libraryThumbnailWastedSpace !== 'stretch'}
       <div
-        data-aspect={$userStore.thumbnailsPreferredAspectRatio}
-        data-black={$userStore.thumbnailsWastedSpace == 'fill-black'}
+        data-aspect={$userStore.libraryThumbnailAspectRatio}
+        data-black={$userStore.libraryThumbnailWastedSpace == 'fill-black'}
         class="relative data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] data-[black=true]:bg-black w-full rounded-md overflow-hidden"
       >
-        {#if $userStore.thumbnailsWastedSpace == 'fill-blur'}
+        {#if $userStore.libraryThumbnailWastedSpace == 'fill-blur'}
           <img
             alt=""
             on:error={handleMissingThumbnail}
@@ -180,11 +180,11 @@
         {/if}
 
         <div
-          data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+          data-aspect={$userStore.libraryThumbnailAspectRatio}
           class="absolute inset-0 flex items-center data-[aspect=square]:flex-col justify-center"
         >
           <img
-            data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+            data-aspect={$userStore.libraryThumbnailAspectRatio}
             class="data-[aspect=wide]:max-h-[100%] data-[aspect=wide]:my-auto"
             alt=""
             on:error={handleMissingThumbnail}
@@ -195,7 +195,7 @@
     {:else}
       <img
         alt=""
-        data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+        data-aspect={$userStore.libraryThumbnailAspectRatio}
         on:error={handleMissingThumbnail}
         class=" rounded-md data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] w-full"
         src={thumbnail}

@@ -4,14 +4,11 @@ export interface User {
   enableNetworking?: boolean
   activeProfileId?: number
   steamWebApiKey?: string
-  libraryDisplayMode?: 'grid' | 'list'
   hideDescriptions?: boolean
   enableExperimentalManifestParser?: boolean
   enableWorkshopMetadataFetching?: boolean
   refreshManifestOnStartup?: boolean
 
-  thumbnailsPreferredAspectRatio?: 'wide' | 'square'
-  thumbnailsWastedSpace: 'stretch' | 'fill-black' | 'fill-blur' | 'disabled'
   priorityLoad: string[]
 
   showWorkshopIds?: boolean
@@ -19,4 +16,12 @@ export interface User {
   libraryHideThumbnails?: boolean
 
   experimentalLoadOrderEnable?: boolean
+
+  // Library layouts
+  libraryDisplayMode?: 'grid' | 'list'
+  libraryGridDensity: 'sm' | 'md' | 'lg'
+
+  // General thumbnail settings
+  libraryThumbnailAspectRatio: 'wide' | 'square'
+  libraryThumbnailWastedSpace: 'stretch' | 'fill-black' | 'fill-blur' | 'disabled'
 }
