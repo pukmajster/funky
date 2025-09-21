@@ -42,7 +42,7 @@
       </button>
     </div>
 
-    <div class="FunkyFullscreenMenu-Panel px-3">
+    <div class="FunkyFullscreenMenu-Panel pb-3 px-3">
       <slot />
     </div>
   </div>
