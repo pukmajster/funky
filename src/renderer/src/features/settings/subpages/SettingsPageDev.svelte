@@ -59,23 +59,3 @@
   description="Enables WIP load order feature"
   bind:value={$userStore.experimentalLoadOrderEnable}
 />
-
-<SettingsDropdown
-  label="Thumbnail size"
-  description="Grid density"
-  bind:value={$userStore.thumbnailsSize}
-  options={[
-    {
-      label: 'Small',
-      value: 'sm'
-    },
-    {
-      label: 'Medium',
-      value: 'md'
-    },
-    {
-      label: 'Large',
-      value: 'lg'
-    }
-  ]}
-/>

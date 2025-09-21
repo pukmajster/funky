@@ -19,7 +19,7 @@ export interface User {
 
   // Library layouts
   libraryDisplayMode?: 'grid' | 'list'
-  libraryGridDensity: 'sm' | 'md' | 'lg'
+  libraryGridDensity: 'low' | 'normal' | 'high'
 
   // General thumbnail settings
   libraryThumbnailAspectRatio: 'wide' | 'square'

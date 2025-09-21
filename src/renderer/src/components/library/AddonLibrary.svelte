@@ -18,7 +18,7 @@
   // }
 
   $: libraryDisplayMode = $userStore.libraryDisplayMode
-  $: thumbnailsSize = $userStore.thumbnailsSize
+  $: libraryGridDensity = $userStore.libraryGridDensity
 </script>
 
 <div
@@ -50,9 +50,9 @@
       class="relative p-3 pb-[200px]"
       class:library-list={libraryDisplayMode === 'list'}
       class:library-grid={libraryDisplayMode == 'grid'}
-      class:library-grid-sm={thumbnailsSize == 'sm'}
-      class:library-grid-md={thumbnailsSize == 'md'}
-      class:library-grid-lg={thumbnailsSize == 'lg'}
+      class:library-grid-density-low={libraryGridDensity == 'low'}
+      class:library-grid-density-normal={libraryGridDensity == 'normal'}
+      class:library-grid-density-high={libraryGridDensity == 'high'}
     >
       {#each $libraryAddonPoolSortedPaginated as addon}
         {@const addonData = $currentGameManifest.addons.find((_addon) => _addon.id === addon)}
@@ -85,15 +85,15 @@
 
     gap: 12px;
 
-    &.library-grid-sm {
+    &.library-grid-density-high {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 
-    &.library-grid-md {
+    &.library-grid-density-normal {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
-    &.library-grid-lg {
+    &.library-grid-density-low {
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
   }
