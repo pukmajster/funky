@@ -3,6 +3,7 @@
   import SettingsHeader from '../components/SettingsHeader.svelte'
   import SettingsSwitch from '../components/SettingsSwitch.svelte'
   import SettingsDropdown from '../components/SettingsDropdown.svelte'
+  import SettingsNumber from '../components/SettingsNumber.svelte'
 </script>
 
 <SettingsHeader label="Addons" />
@@ -23,6 +24,20 @@
   label="Show Workshop mod IDs"
   description="Displays the mod's Workshop ID in the mod overview."
   bind:value={$userStore.showWorkshopIds}
+/>
+
+<SettingsHeader label="Max size" />
+
+<SettingsNumber
+  label="Max preferred mod size"
+  description="Displays the mod's Workshop ID in the mod overview."
+  bind:value={$userStore.maxPreferredModSizeInMegaBytes}
+/>
+
+<SettingsNumber
+  label="Max total load"
+  description="Displays the mod's Workshop ID in the mod overview."
+  bind:value={$userStore.maxTotalLoadInMegaBytes}
 />
 
 <SettingsHeader label="Thumbnails" />

@@ -15,4 +15,7 @@ export interface User {
   priorityLoad: string[]
 
   showWorkshopIds?: boolean
+
+  maxPreferredModSizeInMegaBytes?: number
+  maxTotalLoadInMegaBytes?: number
 }

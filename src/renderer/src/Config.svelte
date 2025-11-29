@@ -17,7 +17,9 @@
     thumbnailsWastedSpace: 'stretch',
     refreshManifestOnStartup: false,
     priorityLoad: [],
-    showWorkshopIds: false
+    showWorkshopIds: false,
+    maxPreferredModSizeInMegaBytes: 100,
+    maxTotalLoadInMegaBytes: 5000000
   }
 
   let hasSetupUserProfile = false
