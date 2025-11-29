@@ -13,6 +13,7 @@ import { L4D2_GAME_ID } from '../utils'
 import { activeProfileStore } from '../stores/active-profile'
 import games from 'shared/games'
 import { db } from '../db/db'
+import { createStartup } from '../features/startups/actions'
 
 export async function writeAddonList(): Promise<void> {
   // Collect meta-data
@@ -74,6 +75,11 @@ export async function writeAddonList(): Promise<void> {
     steamGamesDir,
     gameDir: addonListDir,
     data: outputVdfString
+  })
+
+  createStartup({
+    enabledModIds: mergedEnabledMods,
+    playlistId: activeProfile.id
   })
 }
 

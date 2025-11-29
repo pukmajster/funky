@@ -16,6 +16,7 @@
   import { view } from './stores/view'
   import LibraryShuffles from './components/library/LibraryShuffles.svelte'
   import LoadOrderManager from './features/library/load-order/LoadOrderManager.svelte'
+  import StartupsPage from './features/startups/StartupsPage.svelte'
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow })
 
   $: activeProfileId = $userStore?.activeProfileId
@@ -46,6 +47,7 @@
     <AddonLibrary />
 
     <Conflicts />
+    <StartupsPage />
     <!--  <ToolsPage /> -->
 
     <svelte:fragment slot="sidebarRight">

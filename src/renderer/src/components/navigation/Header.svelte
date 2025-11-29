@@ -141,6 +141,8 @@
           >{$totalConflictingAddons} Conflicts</Tab
         >
 
+        <Tab bind:group={$view} name="startups" value={'startups'}>Startups</Tab>
+
         <!-- <Tab bind:group={$view} name="load-order" value={'load-order'}>Priority Load</Tab> -->
 
         <!-- <Tab bind:group={$view} name="vocalizer" value={'vocalizer'}>Vocalizer</Tab> -->
