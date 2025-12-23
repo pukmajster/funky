@@ -17,6 +17,7 @@
   // }
 
   $: libraryDisplayMode = $userStore.libraryDisplayMode
+  $: libraryGridDensity = $userStore.libraryGridDensity
 </script>
 
 <div
@@ -48,6 +49,9 @@
       class="relative p-3 pb-[200px]"
       class:library-list={libraryDisplayMode === 'list'}
       class:library-grid={libraryDisplayMode == 'grid'}
+      class:library-grid-density-low={libraryGridDensity == 'low'}
+      class:library-grid-density-normal={libraryGridDensity == 'normal'}
+      class:library-grid-density-high={libraryGridDensity == 'high'}
     >
       {#each $libraryAddonPoolSortedPaginated as addon}
         {@const addonData = $currentGameManifest.addons.find((_addon) => _addon.id === addon)}
@@ -77,5 +81,17 @@
     align-items: stretch;
 
     gap: 12px;
+
+    &.library-grid-density-high {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    &.library-grid-density-normal {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    &.library-grid-density-low {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
   }
 </style>

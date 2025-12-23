@@ -15,6 +15,7 @@
     enableWorkshopMetadataFetching: true,
     thumbnailsPreferredAspectRatio: 'wide',
     thumbnailsWastedSpace: 'stretch',
+    libraryGridDensity: 'normal',
     refreshManifestOnStartup: false,
     priorityLoad: [],
     showWorkshopIds: false

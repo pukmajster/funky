@@ -25,7 +25,27 @@
   bind:value={$userStore.showWorkshopIds}
 />
 
-<SettingsHeader label="Thumbnails" />
+<SettingsHeader label="Library" />
+
+<SettingsDropdown
+  label="Grid density"
+  description="Choose the density of mods to show within the grid."
+  bind:value={$userStore.libraryGridDensity}
+  options={[
+    {
+      label: 'Low',
+      value: 'low'
+    },
+    {
+      label: 'Normal',
+      value: 'normal'
+    },
+    {
+      label: 'High',
+      value: 'high'
+    }
+  ]}
+/>
 
 <SettingsDropdown
   label="Preferred thumbnail aspect ratio"
