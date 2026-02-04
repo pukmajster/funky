@@ -65,14 +65,37 @@ function createProfileStore() {
     }
   }
 
+  function batchEnableAddons(addonIdsToEnable: string[]) {
+    const _store = get(store)
+
+    db.profiles.update(_store.id, {
+      enabledAddonIds: [..._store.enabledAddonIds, ...addonIdsToEnable]
+    })
+  }
+
+  function batchDisableAddons(addonIdsToDisable: string[]) {
+    const _store = get(store)
+
+    const list = _store.enabledAddonIds
+    const filteredList = list.filter((addonId) => !addonIdsToDisable.includes(addonId))
+
+    db.profiles.update(_store.id, {
+      enabledAddonIds: filteredList
+    })
+  }
+
   return {
     set,
     subscribe,
 
     deleteProfile,
     renameProfile,
+
     toggleAddonEnabled,
     addonListEnabled,
+    batchEnableAddons,
+    batchDisableAddons,
+
     toggleShuffleEnabled
   }
 }
