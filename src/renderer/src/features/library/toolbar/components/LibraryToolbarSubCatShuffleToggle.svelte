@@ -53,17 +53,19 @@
 
 {#if $libraryActiveSubCategories.length == 1}
   {#if activeSubCat?.allowSingleAddonRandomization}
-    <div
-      class="flex flex-col items-center justify-center ml-auto bg-surface-600 rounded-full pl-2 pr-4"
+    <button
+      on:click={handleSubCategoryShuffleToggle}
+      class="btn variant-filled-surface cursor-pointer flex flex-col items-center justify-center ml-auto rounded-full !py-0 pl-2 pr-4"
     >
       <SlideToggle
+        as="div"
+        background="bg-surface-800 cursor-pointer"
         active="bg-primary-500"
         name=""
-        on:click={handleSubCategoryShuffleToggle}
         checked={shuffleEnabled}
       >
-        <span class="text-sm">Shuffle</span>
+        Shuffle
       </SlideToggle>
-    </div>
+    </button>
   {/if}
 {/if}
