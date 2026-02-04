@@ -112,7 +112,7 @@
 
 <div class="InnerLibraryToolbarMenu">
   {#if $librarySelectedAddonIds.length > 0}
-    <div class="px-3 py-3 flex gap-2 items-center border-t border-surface-600/50">
+    <div class="px-3 py-3 flex gap-2 items-center border-t border-surface-600">
       <button class="btn variant-filled-surface" on:click={clearSelection}>
         <X class="w-5 h-5" />
         <span>
