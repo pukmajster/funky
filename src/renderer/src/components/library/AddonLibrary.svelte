@@ -1,4 +1,5 @@
 <script lang="ts">
+  import LibraryToolbar from '../../features/library/toolbar/LibraryToolbar.svelte'
   import {
     installedAddons,
     libraryActiveSubCategories,
@@ -24,7 +25,7 @@
   class:hidden={!['mods', 'shuffles', 'load-order'].includes($view)}
   class="relative h-full flex flex-col"
 >
-  <LibraryFilters />
+  <LibraryToolbar />
 
   <div>
     {#if $installedAddons.length == 0}

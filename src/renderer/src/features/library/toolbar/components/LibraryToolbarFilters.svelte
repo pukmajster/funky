@@ -73,65 +73,75 @@
     target: 'filtersPopup',
     placement: 'top-start'
   }
+
+  let filtersLabel = ''
+
+  $: {
+    filtersLabel = getSortingLabel($sortingType)
+    if ($typeToShow != 'any') {
+      filtersLabel += `, ${getTypeToShowLabel($typeToShow)} only`
+    }
+
+    if ($addonSource != 'all') {
+      filtersLabel += ` (${getAddonSourceLabel($addonSource)} only)`
+    }
+  }
 </script>
 
-<div class="flex flex-row gap-2 items-center">
-  <button use:popup={popupClick} class="btn variant-filled-surface text-left text-sm">
-    <span
-      >{getSortingLabel($sortingType)}, {getTypeToShowLabel($typeToShow)}
-      {$addonSource != 'all' ? ` (${getAddonSourceLabel($addonSource)} only)` : ''}</span
-    >
-  </button>
+<button use:popup={popupClick} class="btn variant-filled-surface text-left text-sm">
+  <span>
+    {filtersLabel}
+  </span>
+</button>
 
-  <div
-    data-popup="filtersPopup"
-    class="rounded-lg overflow-hidden shadow-xl border-2 border-surface-700 z-20"
-  >
-    <div class="flex flex-col lg:flex-row lg:gap-0 flex-1 bg-surface-900">
-      <div>
-        <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">SORT BY</h3>
-        <ListBox class="p-5">
-          {#each sortingTypeMap as _st}
-            <ListBoxItem
-              bind:group={$sortingType}
-              active="bg-blue-600"
-              name={_st.value}
-              value={_st.value}
-              >{_st.label}
-            </ListBoxItem>
-          {/each}
-        </ListBox>
-      </div>
+<div
+  data-popup="filtersPopup"
+  class="rounded-lg overflow-hidden shadow-xl border-2 border-surface-700 z-20"
+>
+  <div class="flex flex-col lg:flex-row lg:gap-0 flex-1 bg-surface-900">
+    <div>
+      <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">SORT BY</h3>
+      <ListBox class="p-5">
+        {#each sortingTypeMap as _st}
+          <ListBoxItem
+            bind:group={$sortingType}
+            active="bg-blue-600"
+            name={_st.value}
+            value={_st.value}
+            >{_st.label}
+          </ListBoxItem>
+        {/each}
+      </ListBox>
+    </div>
 
-      <div>
-        <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">FILTER BY</h3>
-        <ListBox class="p-5">
-          {#each typeToShowMap as _tts}
-            <ListBoxItem
-              bind:group={$typeToShow}
-              active="bg-blue-600"
-              name={_tts.value}
-              value={_tts.value}
-              >{_tts.label}
-            </ListBoxItem>
-          {/each}
-        </ListBox>
-      </div>
+    <div>
+      <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">FILTER BY</h3>
+      <ListBox class="p-5">
+        {#each typeToShowMap as _tts}
+          <ListBoxItem
+            bind:group={$typeToShow}
+            active="bg-blue-600"
+            name={_tts.value}
+            value={_tts.value}
+            >{_tts.label}
+          </ListBoxItem>
+        {/each}
+      </ListBox>
+    </div>
 
-      <div>
-        <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">SOURCE</h3>
-        <ListBox class="p-5">
-          {#each addonSourceMap as _as}
-            <ListBoxItem
-              bind:group={$addonSource}
-              active="bg-blue-600"
-              name={_as.value}
-              value={_as.value}
-              >{_as.label}
-            </ListBoxItem>
-          {/each}
-        </ListBox>
-      </div>
+    <div>
+      <h3 class="text-lg font-semibold pl-9 bg-surface-700 py-2 px-8">SOURCE</h3>
+      <ListBox class="p-5">
+        {#each addonSourceMap as _as}
+          <ListBoxItem
+            bind:group={$addonSource}
+            active="bg-blue-600"
+            name={_as.value}
+            value={_as.value}
+            >{_as.label}
+          </ListBoxItem>
+        {/each}
+      </ListBox>
     </div>
   </div>
 </div>
