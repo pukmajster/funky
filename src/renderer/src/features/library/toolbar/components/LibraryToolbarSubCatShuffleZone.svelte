@@ -77,7 +77,7 @@
       >
         <div class="flex justify-center gap-3 items-center max-xl:my-2 mb-1">
           <div class="flex-1 bg-surface-600 h-[1px]" />
-          <div class=" font-semibold text-xs leading-none">{activeSubCat?.label} Shuffle</div>
+          <div class=" font-semibold text-sm leading-none">{activeSubCat?.label} Shuffle</div>
           <div class="flex-1 bg-surface-600 h-[1px]" />
         </div>
 
