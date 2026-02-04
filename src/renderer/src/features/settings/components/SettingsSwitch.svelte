@@ -23,5 +23,6 @@
     active="bg-primary-500"
     bind:checked={value}
     class="flex items-center gap-2"
+    size="sm"
   />
 </div>
