@@ -1,21 +1,10 @@
 <script lang="ts">
   import LibraryToolbar from '../../features/library/toolbar/LibraryToolbar.svelte'
-  import {
-    installedAddons,
-    libraryActiveSubCategories,
-    libraryAddonPoolSortedPaginated
-  } from '../../stores/library'
+  import { installedAddons, libraryAddonPoolSortedPaginated } from '../../stores/library'
   import { currentGameManifest } from '../../stores/manifest'
   import { userStore } from '../../stores/user'
   import { view } from '../../stores/view'
   import AddonCard from '../addons/AddonCard.svelte'
-  import LibraryFilters from './LibraryFilters.svelte'
-  import SubCategoryShuffle from './SubCategoryShuffle.svelte'
-
-  // $: {
-  //   console.log('userStore', $userStore)
-  //   console.log('libraryAddonPoolSortedPaginated', $libraryAddonPoolSortedPaginated)
-  // }
 
   $: libraryDisplayMode = $userStore.libraryDisplayMode
   $: libraryGridDensity = $userStore.libraryGridDensity
@@ -60,10 +49,6 @@
           <AddonCard addon={addonData} mode={libraryDisplayMode === 'grid' ? 'card' : 'list'} />
         {/if}
       {/each}
-
-      {#if $libraryActiveSubCategories.length == 1}
-        <SubCategoryShuffle />
-      {/if}
     </div>
   </div>
 </div>
