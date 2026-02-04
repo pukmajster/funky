@@ -68,7 +68,7 @@
   {#if activeSubCat?.allowSingleAddonRandomization}
     {#if shuffleEnabled}
       <div
-        id="LibraryToolbarSubCatShuffleZone"
+        class="InnerLibraryToolbarMenu"
         class:inactive={!shuffleEnabled}
         on:dragover={(ev) => {
           ev.preventDefault()
