@@ -62,7 +62,7 @@
         on:click={handleSubCategoryShuffleToggle}
         checked={shuffleEnabled}
       >
-        <span class="text-sm"> Shuffle mode </span>
+        <span class="text-sm">Shuffle</span>
       </SlideToggle>
     </div>
   {/if}
