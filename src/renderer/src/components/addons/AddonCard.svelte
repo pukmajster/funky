@@ -19,6 +19,7 @@
   import { userStore } from '../../stores/user'
   import { L4D2_GAME_ID } from '../../utils'
   import { db } from '../../db/db'
+  import AddonStatusChip from '../../features/addons/AddonStatusChip.svelte'
   const handleMissingThumbnail = (ev) => (ev.target.src = thumbnailFallback)
 
   export let addon: Addon
@@ -126,9 +127,6 @@
     })
   }
 
-  const tagStyle =
-    'absolute items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full backdrop-blur-md w-[60%] py-1 text-[12px] left-[50%] translate-x-[-50%] hidden'
-
   const tagStyleList =
     ' inline items-center justify-center shadow-md font-bold uppercase -bottom-1 rounded-full px-4 py-1 text-[12px] hidden'
 </script>
@@ -212,27 +210,7 @@
       </div>
     {/if}
 
-    {#if !asShuffle}
-      <div class={tagStyle} class:addonEnabled={isEnabled}>
-        <Check class="w-4 mr-2" />
-        Enabled
-      </div>
-
-      <div class={tagStyle} class:addonConflicting={isConflicting}>
-        <AlertTriangle class="w-4 mr-2" />
-        Conflicting
-      </div>
-
-      <div class={tagStyle} class:addonUninstalled={!isInstalled}>
-        <AlertTriangle class="w-4 mr-2" />
-        Uninstalled
-      </div>
-
-      <div class={tagStyle} class:addonShuffled={isShuffled}>
-        <Dices class="w-4 mr-2" />
-        Shuffle
-      </div>
-    {/if}
+    <AddonStatusChip {isConflicting} {isEnabled} isUninstalled={!isInstalled} {isShuffled} />
   </button>
 {:else if mode == 'list'}
   <button
@@ -320,15 +298,15 @@
   }
 
   .addonEnabled {
-    @apply bg-green-700/80 flex;
+    @apply bg-green-700 flex;
   }
 
   .addonShuffled {
-    @apply bg-blue-800/80 flex;
+    @apply bg-blue-800 flex;
   }
 
   .addonConflicting {
-    @apply bg-orange-600/60 flex;
+    @apply bg-orange-700 flex;
   }
 
   .asShuffle {
@@ -336,6 +314,6 @@
   }
 
   .addonUninstalled {
-    @apply bg-red-600/60 flex;
+    @apply bg-gray-600 flex;
   }
 </style>
