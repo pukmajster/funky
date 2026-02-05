@@ -16,17 +16,17 @@
       Uninstalled
     </div>
   {:else if isShuffled}
-    <div class="status-chip bg-blue-800 border-blue-400">
+    <div class="status-chip bg-blue-800 border-blue-500">
       <Dices class={iconStyle} />
       Shuffled
     </div>
   {:else if isConflicting}
-    <div class="status-chip bg-red-700 border-red-500">
+    <div class="status-chip bg-red-800 border-red-500">
       <AlertTriangle class={iconStyle} />
       Conflicting
     </div>
   {:else if isEnabled}
-    <div class="status-chip bg-green-700 border-green-500">
+    <div class="status-chip bg-green-800 border-green-500">
       <Check class={iconStyle} />
       Enabled
     </div>
