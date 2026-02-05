@@ -55,7 +55,7 @@
   {#if activeSubCat?.allowSingleAddonRandomization}
     <button
       on:click={handleSubCategoryShuffleToggle}
-      class="btn variant-filled-surface cursor-pointer flex flex-col items-center justify-center ml-auto rounded-full !py-0 pl-2 pr-4"
+      class="btn gap-3 variant-filled-surface cursor-pointer flex items-center justify-center ml-auto rounded-full !py-0 pl-2 pr-4"
     >
       <SlideToggle
         as="div"
@@ -63,9 +63,9 @@
         active="bg-primary-500"
         name=""
         checked={shuffleEnabled}
-      >
-        Shuffle
-      </SlideToggle>
+      />
+
+      Shuffle
     </button>
   {/if}
 {/if}
