@@ -2,7 +2,7 @@ import type { Addon } from 'shared'
 import { derived, writable } from 'svelte/store'
 import { arraysShareValues } from '../../../utils'
 import { libraryActiveAddons } from '../../../stores/library'
-import { currentGameManifest } from '../../../stores/manifest'
+import { currentGameManifest, manifestStringTable } from '../../../stores/manifest'
 
 export const showingConflictingAddons = writable(false)
 
@@ -16,17 +16,34 @@ const vscriptNonConflictingFiles = [
   'scripts/vscripts/director_base_addon.nut'
 ]
 
-export function filterNotConflictingFiles(files: string[]) {
+export function filterNotConflictingFiles(files: number[]) {
   // This filters out all root level files, which are unrelated to the mod itself
   // Then it filters out non-conflicting vscript files
-  return files.filter((file) => file.includes('/') && !vscriptNonConflictingFiles.includes(file))
+
+  const strs = manifestStringTable.getStrings(files)
+  const filtered = strs.filter(
+    (file) => file.includes('/') && !vscriptNonConflictingFiles.includes(file)
+  )
+  return manifestStringTable.getIds(filtered)
 }
 
 // Group enabled mods that share indentical files
 export const conflictGroups = derived(
   [libraryActiveAddons, currentGameManifest],
   ([$libraryActiveAddons, $currentGameManifest]) => {
+    const perfStart = performance.now()
+
     let tempStorage: Addon[][] = []
+
+    if (typeof $currentGameManifest === 'undefined') {
+      return tempStorage
+    }
+
+    console.log(`Manifest string table size: ${manifestStringTable.size}`)
+
+    if (manifestStringTable.size === 0) {
+      return tempStorage
+    }
 
     $libraryActiveAddons.map((addonId) => {
       const thisMod = $currentGameManifest?.addons.find((addon) => addon.id === addonId) as Addon
@@ -55,6 +72,9 @@ export const conflictGroups = derived(
     })
 
     tempStorage = tempStorage.filter((group) => group.length > 1)
+
+    const perfEnd = performance.now()
+    console.log(`Conflict groups generated in ${perfEnd - perfStart}ms`)
 
     return tempStorage
   }

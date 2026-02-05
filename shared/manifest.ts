@@ -1,3 +1,4 @@
+import type { StringTableStrings } from '../src/shared/stringTable'
 import { type Addon, type AddonId } from './addon'
 
 export interface GameManifest {
@@ -6,6 +7,7 @@ export interface GameManifest {
     createdAt: string
     updatedAt: string
   }
+  stringTable: StringTableStrings
   appId: number
   addons: Addon[]
   installedAddons: AddonId[]

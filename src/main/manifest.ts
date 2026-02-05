@@ -13,6 +13,7 @@ import {
   GameManifest,
   RequestGameManifestParams
 } from 'shared'
+import { CStringTable } from '../shared/stringTable'
 import games from 'shared/games'
 import { vdf2json } from './funky-values'
 
@@ -28,6 +29,8 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
     categories: {}
   }
 
+  const stringTable = new CStringTable()
+
   // Fetch the current cached manifest for the specified game
   let cachedManifest: GameManifest | undefined = undefined
   try {
@@ -35,6 +38,8 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
   } catch (err) {
     console.log("couldn't build on top of cached manifest")
   }
+
+  stringTable.addMany(cachedManifest?.stringTable ?? [])
 
   if (!game) {
     console.log('game not found')
@@ -97,6 +102,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
 
       // Init some VPK variables
       let vpkFiles: AddonFiles = []
+      let actualFilePaths: string[] = []
       const vpkPath = file
       const vpkStats = await fsp.stat(vpkPath)
       const vpkAddonInfo: AddonInfo = {}
@@ -109,7 +115,8 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         vpk.load()
 
         // Save all file directories, including addoninfo.txt and addonimage.jpg
-        vpkFiles = vpk.files
+        actualFilePaths = vpk.files as string[]
+        vpkFiles = stringTable.addMany(actualFilePaths)
 
         // -------------------------------------------------------------
         //
@@ -179,7 +186,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
           }
         }
 
-        addonCategories.categories[addonId] = categorizeVpk(game, vpkFiles)
+        addonCategories.categories[addonId] = categorizeVpk(game, actualFilePaths)
         addons.push(addonData)
       } catch (error) {
         console.error('Failed to read VPK file', error)
@@ -266,6 +273,7 @@ async function buildGameManifest(params: RequestGameManifestParams): Promise<Gam
         createdAt: cachedManifest?.manifestMetadata.createdAt ?? new Date().toString(),
         updatedAt: new Date().toString()
       },
+      stringTable: stringTable.toJSON(),
       appId: params.appId,
       addons: mergedAddons,
       installedAddons,

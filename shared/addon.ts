@@ -1,6 +1,8 @@
+import type { StringTableIds } from './stringTable'
+
 export type AddonId = string
 export type AddonFile = string
-export type AddonFiles = AddonFile[]
+export type AddonFiles = StringTableIds
 
 export interface Addon {
   id: AddonId
