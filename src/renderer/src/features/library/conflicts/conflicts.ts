@@ -36,12 +36,8 @@ export const conflictGroups = derived(
         let files = thisMod?.files ?? []
 
         // Remove common files from the list
-        // Remove common files from the list
         const groupFiles = filterNotConflictingFiles(group[0]?.files ?? [])
         const addonFiles = filterNotConflictingFiles(files)
-
-        //const groupFiles = group[0]?.files.filter((file) => !commonFiles.includes(file)) ?? []
-        //const addonFiles = files.filter((file) => !commonFiles.includes(file))
 
         if (arraysShareValues(groupFiles, addonFiles)) {
           group.push(thisMod)
