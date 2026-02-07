@@ -16,6 +16,7 @@ export interface User {
   // Library layouts
   libraryGridDensity: 'low' | 'normal' | 'high'
   libraryDisplayMode?: 'grid' | 'list'
+  libraryGridShowAddonTitles: boolean
 
   priorityLoad: string[]
 

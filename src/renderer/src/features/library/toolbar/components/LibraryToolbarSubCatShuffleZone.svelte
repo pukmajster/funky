@@ -11,6 +11,7 @@
   import { liveQuery } from 'dexie'
   import { currentGameManifest } from '../../../../stores/manifest'
   import AddonCard from '../../../../components/addons/AddonCard.svelte'
+  import { Dices } from 'lucide-svelte'
 
   $: subCategory = $libraryActiveSubCategories[0] ?? undefined
 
@@ -54,17 +55,19 @@
         }}
         on:drop={(e) => drop(e)}
       >
-        <div class="flex justify-center gap-3 items-center my-2">
-          <div class="w-0 bg-surface-600 h-[1px]" />
-          <div class="font-semibold text-sm leading-none text-surface-400">
+        <div class="flex justify-center items-center my-2 text-surface-400">
+          <Dices class="ml-3 mr-2" />
+
+          <div class="font-semibold text-sm leading-none">
             {activeSubCat?.label} Shuffle
           </div>
-          <div class="flex-1 bg-surface-600 h-[1px]" />
+
+          <div class="ml-4 flex-1 bg-surface-600 h-[1px]" />
         </div>
 
         <div
           class:dropActive={$isDraggingAddon}
-          class="z-10 px-2 flex-1 pt-1 pb-3 flex items-center w-full border-surface-500 rounded-md overflow-x-auto"
+          class="z-10 px-2 flex-1 pt-1 pb-4 flex items-center w-full border-surface-500 rounded-md overflow-x-auto overflow-y-hidden"
         >
           <div
             class:hidden={!activeSubCat?.allowSingleAddonRandomization}
@@ -77,7 +80,7 @@
                     (addon) => addon.id == addonId
                   )}
                   {#if addonData}
-                    <AddonCard mode="card" asShuffle addon={addonData} />
+                    <AddonCard forceDisableTitle mode="card" asShuffle addon={addonData} />
                   {/if}
                 {/each}
               </div>

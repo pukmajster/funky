@@ -25,6 +25,7 @@
   export let addon: Addon
   export let asShuffle: boolean = false
   export let mode: 'in-shuffle-list' | 'card' | 'list'
+  export let forceDisableTitle: boolean = false
 
   // Thumbnail based on the active game id, and if it's from the workshop
   $: activeGameId = L4D2_GAME_ID
@@ -162,43 +163,47 @@
     class:unsubscribed={wasUnsubscribed}
     on:click={handleClick}
   >
-    {#if $userStore.thumbnailsWastedSpace !== 'stretch'}
-      <div
-        data-aspect={$userStore.thumbnailsPreferredAspectRatio}
-        data-black={$userStore.thumbnailsWastedSpace == 'fill-black'}
-        class="relative data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] data-[black=true]:bg-black w-full rounded-md overflow-hidden"
-      >
-        {#if $userStore.thumbnailsWastedSpace == 'fill-blur'}
-          <img
-            alt=""
-            on:error={handleMissingThumbnail}
-            class="h-full w-full absolute inset-0 blur-lg -z-10 opacity-50 scale-110"
-            src={thumbnail}
-          />
-        {/if}
-
+    <div class="relative">
+      {#if $userStore.thumbnailsWastedSpace !== 'stretch'}
         <div
           data-aspect={$userStore.thumbnailsPreferredAspectRatio}
-          class="absolute inset-0 flex items-center data-[aspect=square]:flex-col justify-center"
+          data-black={$userStore.thumbnailsWastedSpace == 'fill-black'}
+          class="relative data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] data-[black=true]:bg-black w-full rounded-md overflow-hidden"
         >
-          <img
+          {#if $userStore.thumbnailsWastedSpace == 'fill-blur'}
+            <img
+              alt=""
+              on:error={handleMissingThumbnail}
+              class="h-full w-full absolute inset-0 blur-lg -z-10 opacity-50 scale-110"
+              src={thumbnail}
+            />
+          {/if}
+
+          <div
             data-aspect={$userStore.thumbnailsPreferredAspectRatio}
-            class="data-[aspect=wide]:max-h-[100%] data-[aspect=wide]:my-auto"
-            alt=""
-            on:error={handleMissingThumbnail}
-            src={thumbnail}
-          />
+            class="absolute inset-0 flex items-center data-[aspect=square]:flex-col justify-center"
+          >
+            <img
+              data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+              class="data-[aspect=wide]:max-h-[100%] data-[aspect=wide]:my-auto"
+              alt=""
+              on:error={handleMissingThumbnail}
+              src={thumbnail}
+            />
+          </div>
         </div>
-      </div>
-    {:else}
-      <img
-        alt=""
-        data-aspect={$userStore.thumbnailsPreferredAspectRatio}
-        on:error={handleMissingThumbnail}
-        class=" rounded-md data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] w-full"
-        src={thumbnail}
-      />
-    {/if}
+      {:else}
+        <img
+          alt=""
+          data-aspect={$userStore.thumbnailsPreferredAspectRatio}
+          on:error={handleMissingThumbnail}
+          class=" rounded-md data-[aspect=square]:aspect-[1/1] data-[aspect=wide]:aspect-[16/9] w-full"
+          src={thumbnail}
+        />
+      {/if}
+
+      <AddonStatusChip {isConflicting} {isEnabled} isUninstalled={!isInstalled} {isShuffled} />
+    </div>
 
     {#if selected}
       <div
@@ -210,7 +215,11 @@
       </div>
     {/if}
 
-    <AddonStatusChip {isConflicting} {isEnabled} isUninstalled={!isInstalled} {isShuffled} />
+    {#if $userStore.libraryGridShowAddonTitles && !forceDisableTitle}
+      <p class="AddonCard-Title max-w-full text-xs text-left truncate p-2">
+        {addon.addonInfo.title}
+      </p>
+    {/if}
   </button>
 {:else if mode == 'list'}
   <button

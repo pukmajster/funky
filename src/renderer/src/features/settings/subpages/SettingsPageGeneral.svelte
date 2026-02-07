@@ -27,6 +27,12 @@
 
 <SettingsHeader label="Library" />
 
+<SettingsSwitch
+  label="Show mod titles"
+  description="Displays mod titles underneath thumbnails."
+  bind:value={$userStore.libraryGridShowAddonTitles}
+/>
+
 <SettingsDropdown
   label="Grid density"
   description="Choose the density of mods to show within the grid."

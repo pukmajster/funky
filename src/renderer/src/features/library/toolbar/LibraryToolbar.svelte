@@ -35,6 +35,6 @@
 
 <style lang="postcss">
   #LibraryToolbar:has(.InnerLibraryToolbarMenu) {
-    @apply bg-gradient-to-b from-surface-900 to-surface-600/80 shadow-2xl;
+    @apply bg-gradient-to-b from-surface-900 to-surface-600/80 shadow-2xl mb-2;
   }
 </style>

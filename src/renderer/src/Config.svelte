@@ -16,6 +16,7 @@
     thumbnailsPreferredAspectRatio: 'wide',
     thumbnailsWastedSpace: 'stretch',
     libraryGridDensity: 'normal',
+    libraryGridShowAddonTitles: true,
     refreshManifestOnStartup: false,
     priorityLoad: [],
     showWorkshopIds: false
