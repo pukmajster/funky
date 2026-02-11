@@ -70,7 +70,7 @@
   $: activeProfile = liveQuery(async () => await db.profiles.get($userStore.activeProfileId))
 </script>
 
-<div class=" bg-surface-800">
+<div class="bg-surface-800">
   <div class="grid grid-cols-3 gap-4 p-2">
     <div class="flex gap-2">
       <button class="btn btn-sm variant-filled-surface" on:click={openSettingsModal}>
@@ -121,7 +121,7 @@
   </div>
 
   <div
-    class="flex justify-between border-t border-solid border-surface-600 bg-surface-800 shadow-xl"
+    class="flex justify-between border-t border-solid border-surface-600 bg-surface-800 shadow-sm"
   >
     <div>
       <TabGroup
