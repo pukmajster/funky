@@ -12,7 +12,7 @@ jobs:
     name: Build Windows binaries
     runs-on: windows-latest
     environment: production
-    timeout-minutes: 3
+    timeout-minutes: 4
 
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
     name: Build Linux binaries
     runs-on: ubuntu-latest
     environment: production
-    timeout-minutes: 3
+    timeout-minutes: 4
 
     steps:
       - uses: actions/checkout@v4
