@@ -5,31 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Funky</title>
-    <meta name="description" content="Mod manager for Left 4 Dead 2" />
+    <meta name="description" content="The modern Left 4 Dead 2 mod manager for Windows and Linux (including SteamOS)." />
 
     <link rel="stylesheet" href="index.css" />
     <script src="index.js" defer></script>
     <meta name="color-scheme" content="dark" />
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon16_dark.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon32_dark.png" />
-    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon48_dark.png" />
-    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicons/favicon64_dark.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicons/favicon512_dark.png" />
+    <!-- Favicons: dark icon for light color schemes, light icon for dark color schemes -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon16_dark.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon32_dark.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon48_dark.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicons/favicon64_dark.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicons/favicon512_dark.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon16_light.png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon32_light.png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon48_light.png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicons/favicon64_light.png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicons/favicon512_light.png" media="(prefers-color-scheme: dark)" />
     <link rel="apple-touch-icon" href="assets/favicons/favicon512_dark.png" />
-    <script>
-      // Dark icon for light color schemes, light icon for dark color schemes
-      const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
-      const updateFavicons = () => {
-        const variant = colorScheme.matches ? "light" : "dark";
-        for (const link of document.querySelectorAll('link[rel="icon"]')) {
-          link.href = link.href.replace(/_(dark|light)\.png$/, `_${variant}.png`);
-        }
-      };
-      updateFavicons();
-      colorScheme.addEventListener("change", updateFavicons);
-    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -74,7 +67,7 @@
 
         <img src="assets/app.png" style="margin-bottom: 0.5rem;" />
 
-        <p style="font-size: 1.3em">Download Funky for Windows or Linux</p>
+        <p style="font-size: 1.3em">Download Funky for Windows or Linux (including SteamOS)</p>
         <div class="Downloads">
           <a href="https://github.com/pukmajster/funky/releases/latest" class="DownloadButton"
             >Downloads</a
@@ -145,7 +138,7 @@
     </main>
 
     <footer>
-      <p>© 2026 Žan Pukmajster</p>
+      <p>© 2026 Žan Pukmajster. Art done by the lovely <a target="_blank" href="https://www.behance.net/maaorel">Orelia</a>.</p>
 
       <p>
         Funky is an open-source project and is not affiliated with Valve, Steam, or Left 4 Dead 2.

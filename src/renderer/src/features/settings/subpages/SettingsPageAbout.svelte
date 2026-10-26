@@ -22,6 +22,14 @@
   </p>
 
   <p>
+    Art done by the lovely <a
+      class="text-primary-400"
+      target="_blank"
+      href="https://www.behance.net/maaorel">Orelia</a
+    >
+  </p>
+
+  <p>
     Visit the project at <a
       class="flex-inline items-center gap-2 text-primary-400"
       href="https://github.com/pukmajster/funky"
