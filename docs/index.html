@@ -11,6 +11,26 @@
     <script src="index.js" defer></script>
     <meta name="color-scheme" content="dark" />
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon16_dark.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon32_dark.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="assets/favicons/favicon48_dark.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="assets/favicons/favicon64_dark.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicons/favicon512_dark.png" />
+    <link rel="apple-touch-icon" href="assets/favicons/favicon512_dark.png" />
+    <script>
+      // Dark icon for light color schemes, light icon for dark color schemes
+      const colorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+      const updateFavicons = () => {
+        const variant = colorScheme.matches ? "light" : "dark";
+        for (const link of document.querySelectorAll('link[rel="icon"]')) {
+          link.href = link.href.replace(/_(dark|light)\.png$/, `_${variant}.png`);
+        }
+      };
+      updateFavicons();
+      colorScheme.addEventListener("change", updateFavicons);
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -44,12 +64,15 @@
 
     <main>
       <section class="Hero">
-        <h1>Funky</h1>
-        <p style="font-size: 1.5rem">
-          The funkiest mod manager for <strong><i>Left 4 Dead 2</i></strong>
+        <div class="HeroImageContainer">
+          <img src="assets/hero_cropped_light.png" class="HeroImage" />
+        </div>
+
+        <p style="font-size: 1.5rem; margin-bottom: 1.5rem; margin-top: 0.5rem;">
+          The modern <strong><i>Left 4 Dead 2</i></strong> mod manager
         </p>
 
-        <img src="assets/app.png" />
+        <img src="assets/app.png" style="margin-bottom: 0.5rem;" />
 
         <p style="font-size: 1.3em">Download Funky for Windows or Linux</p>
         <div class="Downloads">
