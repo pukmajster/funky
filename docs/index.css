@@ -30,7 +30,8 @@ body {
     max-width: 1000px;
   }
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px)
+  {
     justify-content: start;
     align-items: start;
     height: auto;
@@ -47,7 +48,12 @@ body {
   .HeroImage
   {
     max-width: 510px;
-    width: clamp(256px, 50vw, 512px)
+    width: clamp(256px, 50vw, 512px);
+
+    @media screen and (min-width: 768px)
+    {
+      translate: 2.25rem 0;
+    }
   }
 }
 
